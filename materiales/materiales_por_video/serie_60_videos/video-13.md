@@ -10,16 +10,16 @@ Microservicios y organización por dominios
 - **Producto:** una evidencia que se incorpora al repositorio del proyecto
 
 ## 🎯 Propósito de aprendizaje
-Al finalizar esta clase, quiero que puedas comparar estructuras y justificar límites, responsabilidades y dependencias usando el caso de la plataforma logística. No quiero que memorices una definición para repetirla: quiero que aprendas a reconocer el problema, argumentar una decisión y anticipar sus consecuencias.
+Cuando terminemos, quiero que puedas comparar estructuras y justificar límites, responsabilidades y dependencias usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
 ## 🎬 Apertura: pensemos como arquitectos
 Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
 
 Antes de entrar en microservicios y organización por dominios, deténgase en el problema que lo hace necesario. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
 
-Mientras lees, imagina que estamos frente a una pizarra. Yo te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves.
+Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
 
-Antes de continuar, detente un momento y responde: ¿quién usa el sistema?, ¿qué espera que ocurra?, ¿qué no puede fallar?, ¿qué cambio es probable durante la vida del producto? Yo prefiero que lleguemos a estas preguntas antes de mencionar un framework. Si todavía no podemos responderlas, no pasa nada: acabamos de descubrir qué necesitamos investigar antes de diseñar.
+Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
 
 ## 💬 Pregunta central
 ¿Qué problema real resuelve microservicios y organización por dominios y cómo demostraríamos que la solución es adecuada?
@@ -39,12 +39,12 @@ Llegamos al punto que más me interesa. No existe una alternativa gratuita. Una 
 Microservicios y organización por dominios se entiende mejor cuando lo conectamos con esta secuencia: contexto, alternativas, decisión, consecuencias y evidencia. Si falta uno de esos pasos, la propuesta queda incompleta.
 
 ## ❓ Preguntas del profesor durante la explicación
-- ¿Qué parte del problema pertenece realmente a microservicios y organización por dominios?
-- ¿Qué supuesto estamos haciendo y cómo podríamos comprobarlo?
-- ¿Qué costo aceptamos al elegir esta alternativa?
-- ¿Qué ocurriría si el volumen se multiplica o una dependencia deja de responder?
+- **Te pregunto:** ¿qué parte del problema pertenece realmente a microservicios y organización por dominios? **La razón:** así evitamos aplicar el concepto donde no aporta valor.
+- **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
+- **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
+- **Te pregunto:** ¿qué ocurriría si el volumen se multiplica o una dependencia deja de responder? **La razón:** una solución se demuestra cuando conocemos sus límites.
 
-No leas estas preguntas como un examen. Son las preguntas que yo usaría mientras conversamos frente a la pizarra. Si todavía no tienes una respuesta, anótala como una duda de diseño. Una duda bien formulada es más útil que una respuesta rápida y débil.
+Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
 ## 💡 Ideas esenciales
 - Una frontera útil define responsabilidad, contrato y propietario.
@@ -58,7 +58,7 @@ Voy a resolver una situación contigo. En la plataforma logística, pedidos, inv
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
 ## 🧩 Caso guiado: plataforma logística
-Ahora te propongo que caminemos juntos por el flujo. En cada paso voy a pedirte que preguntes qué regla se protege, quién tiene la responsabilidad y qué pasa si falla:
+Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
 
 1. Un cliente crea un pedido.
 2. El sistema valida los datos y reserva inventario.
@@ -66,7 +66,7 @@ Ahora te propongo que caminemos juntos por el flujo. En cada paso voy a pedirte 
 4. La plataforma comunica el estado al cliente y al repartidor.
 5. Un incidente puede exigir reintento, compensación o intervención humana.
 
-Haz una pausa después de cada paso y escribe: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances hasta tener una hipótesis. En arquitectura aprendemos pensando sobre las consecuencias, no pasando rápidamente por los títulos.
+Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
 
 ## ✍️ Taller de clase
 Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
@@ -78,12 +78,12 @@ Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte
 5. Elige una para el MVP y declara qué condición obligaría a revisarla.
 6. Produce un diagrama, tabla, ADR o fragmento de código que haga visible la decisión.
 
-Cuando termines, vuelve a leer tu propuesta como si fueras un compañero que llega hoy al proyecto. ¿Entendería por qué elegiste esa alternativa? ¿Sabría qué riesgo aceptaste? No busques "la respuesta que yo daría". Quiero que construyas una respuesta propia. Puede ser diferente y seguir siendo correcta si presenta evidencia, reconoce sus costos y explica sus límites. Yo revisaré tres cosas: que delimites el problema, que compares alternativas reales y que hagas visibles sus consecuencias.
+Cuando termines, vuelve a leer tu propuesta como si fueras un compañero que llega hoy al proyecto. ¿Entendería por qué elegiste esa alternativa? ¿Sabría qué riesgo aceptaste? No busques adivinar "la respuesta que yo daría". Quiero que construyas una respuesta propia y que me la puedas defender. Puede ser diferente y seguir siendo correcta si presenta evidencia, reconoce sus costos y explica sus límites. Cuando la revisemos juntos, miraré tres cosas: que hayas delimitado el problema, que compares alternativas reales y que hagas visibles sus consecuencias.
 
 ### 🔎 Retroalimentación esperada
 Cuando revise tu trabajo, no buscaré una frase elegante ni un diagrama lleno de cajas. Buscaré una decisión que pueda seguirse. Una evidencia madura no dice "elegimos X porque es mejor". Dice: "elegimos X porque priorizamos A y B; aceptamos C; descartamos Y por el riesgo D; verificaremos mediante E". Esa forma de escribir convierte una conversación técnica en conocimiento reutilizable.
 
-La evidencia mínima debe incluir contexto, decisión, alternativa descartada, dos consecuencias y una forma de verificación. Guárdala en la carpeta correspondiente a Actividad 2: requisitos y decisión estructural.
+Cuando termines, guarda en la carpeta correspondiente a Actividad 2: requisitos y decisión estructural el contexto, la decisión, la alternativa descartada, dos consecuencias y una forma de verificación. No lo guardes como un trámite: este documento será la memoria de por qué decidiste construir así el sistema.
 
 ## Demostración en C#
 ```csharp
@@ -119,7 +119,7 @@ Ahora mira tu propia propuesta y pregúntate: ¿qué parte defendería con confi
 
 ## 🗣️ Respuestas orientadoras
 
-No quiero que memorices estas respuestas como si fueran una clave de examen. Úsalas para comparar tu razonamiento. Si tu respuesta es diferente, debe explicar el contexto, el costo y la evidencia que la sostiene.
+Ahora vamos a responder las preguntas que aparecieron durante la clase. No quiero que memorices una respuesta exacta. Quiero que compares mi razonamiento con el tuyo. Si llegaste a otra conclusión, puede ser válida si puedes explicarme el contexto, el costo y la evidencia que la sostiene.
 
 1. **¿Qué problema resuelve esta clase?**  En este caso, pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. El problema arquitectónico consiste en organizar responsabilidades y decisiones para que ese resultado sea posible sin perder calidad, trazabilidad ni capacidad de cambio.
 2. **¿Qué supuesto debemos comprobar?**  Debemos comprobar los datos que condicionan la decisión: volumen, tiempos de respuesta, disponibilidad de dependencias, reglas del negocio y capacidad real del equipo. No debemos tratar una estimación como un hecho.
@@ -127,7 +127,7 @@ No quiero que memorices estas respuestas como si fueran una clave de examen. Ús
 4. **¿Qué pasa si falla una dependencia?**  El sistema debe tener una respuesta definida: timeout, reintento controlado, degradación, compensación, cola de mensajes o intervención humana. Decir solamente “el sistema falla” no es una estrategia arquitectónica.
 5. **¿Qué evidencia demostraría que la decisión funciona?**  Depende del tema: una métrica, una prueba, un contrato, un diagrama revisado, un registro de ejecución o una demostración del flujo. La evidencia debe corresponder al riesgo que queremos controlar.
 
-En resumen, la respuesta correcta no es el nombre de una tecnología. Es una relación clara entre problema, decisión, consecuencia y evidencia.
+Fíjate en algo importante: ninguna respuesta depende de pronunciar el nombre de una tecnología. Lo que importa es que puedas unir cuatro cosas: el problema que observaste, la decisión que tomaste, la consecuencia que aceptaste y la evidencia que te permitirá comprobarla. Así quiero que pienses durante todo el curso.
 
 ## 🛠️ Solución modelo de la actividad
 
