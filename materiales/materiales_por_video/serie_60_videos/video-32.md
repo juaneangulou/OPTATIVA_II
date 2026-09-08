@@ -9,13 +9,28 @@ Monorepos con Pantsbuild en proyectos reales
 - **Modalidad:** explicación dialogada, ejemplo resuelto, taller y retroalimentación
 - **Producto:** una evidencia que se incorpora al repositorio del proyecto
 
+## 🔗 Continuidad de la ruta
+Vienes de trabajar cómo analizar una licitación real con ia. No vamos a repetirlo: lo usaremos como punto de partida para estudiar monorepos con pantsbuild en proyectos reales y añadir una decisión nueva al expediente.
+
+Lo que construyas aquí será la base para la próxima conversación: trunk based development y reglas de calidad.
+
+## 🎥 Escena de hoy
+Hoy te encuentras ante esta situación: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. El equipo te pide una decisión sobre monorepos con pantsbuild en proyectos reales, pero todavía no existe una respuesta única. Tu primera pista es esta idea de la fuente: La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.
+
+## 🧭 Reto de la clase
+Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, qué dejarías fuera del alcance y cómo demostrarías que funciona.
+
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas construir un flujo ejecutable que conecte entrada, aplicación, dominio e infraestructura usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
 ## 🎬 Apertura: pensemos como arquitectos
 Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
 
-Antes de entrar en monorepos con pantsbuild en proyectos reales, deténgase en el problema que lo hace necesario. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
+Antes de entrar en monorepos con pantsbuild en proyectos reales, quiero que escuchemos primero la idea central de la fuente del curso: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
 
 Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
 
@@ -25,21 +40,26 @@ Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué esper
 ¿Qué problema real resuelve monorepos con pantsbuild en proyectos reales y cómo demostraríamos que la solución es adecuada?
 
 ## 🧠 Desarrollo de la clase
-### 1. Describir el problema antes de diseñar
-Ahora déjame mostrarte el primer movimiento. Cuando un equipo recibe una solicitud, suele saltar a la solución: "usemos microservicios", "hagamos una API" o "guardemos todo en una base de datos". Yo quiero que hoy invirtamos ese orden. Primero vamos a describir el comportamiento que el negocio necesita, las personas afectadas, las restricciones y los riesgos. Una decisión arquitectónica solo tiene sentido dentro de ese contexto.
+### Lo que trae la fuente del curso
+La fuente describe este tema así: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
 
-Mira el caso logístico: asignar una ruta implica inventario, ubicación del repartidor, promesa de entrega, tráfico, costo operativo y comunicación. Si tratamos todo como una sola operación, luego será difícil saber qué probar, qué escalar y qué recuperar cuando ocurra un fallo. Aquí aparece la primera lección: antes de diseñar componentes, necesitamos entender las responsabilidades.
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas.
 
-### 2. Separar hechos, supuestos y decisiones
-Ahora hagamos una pausa. Un hecho es algo observable. Un supuesto es una afirmación que aún necesita validación. Una decisión es una elección entre alternativas. Por ejemplo, "tendremos 10 000 pedidos diarios" puede ser una estimación; "la API de mapas siempre responderá en menos de un segundo" es un supuesto; "aislaremos el proveedor mediante un adaptador" es una decisión. Cada elemento necesita una evidencia distinta. Si mezclamos estas tres cosas, terminaremos defendiendo opiniones como si fueran datos.
+Yo voy a traducir esa idea a una situación de diseño. No quiero que la recibas como una definición cerrada; quiero que observes qué problema intenta resolver, qué decisiones implica y qué evidencia necesitaríamos para confiar en ella.
 
-### 3. Hacer visibles las consecuencias
-Llegamos al punto que más me interesa. No existe una alternativa gratuita. Una solución puede reducir el tiempo inicial y aumentar el costo de operación; otra puede mejorar la mantenibilidad y exigir más diseño; otra puede aumentar la disponibilidad y complicar la consistencia. Cuando yo te pida justificar una arquitectura, no quiero escuchar que una opción es "mejor". Quiero que me expliques qué gana, qué pierde y qué riesgo estamos aceptando.
+### 1. Escuchemos la fuente y llevémosla al sistema
+Quiero que empecemos por la afirmación que trae la fuente: La IA puede apoyar la evaluación de decisiones y la identificación de riesgos. Si la tomamos en serio, monorepos con pantsbuild en proyectos reales deja de ser una etiqueta y se convierte en una decisión que debemos observar en el sistema.
 
-Monorepos con Pantsbuild en proyectos reales se entiende mejor cuando lo conectamos con esta secuencia: contexto, alternativas, decisión, consecuencias y evidencia. Si falta uno de esos pasos, la propuesta queda incompleta.
+Ahora conectemos esa afirmación con la siguiente: La tecnología no reemplaza la visión del arquitecto; la potencia. Pregúntate qué componente, actor o regla del negocio queda afectado. No me interesa que repitas la frase; me interesa que puedas señalar dónde aparece en el caso logístico.
+
+La tercera conversación es sobre las consecuencias: El arquitecto debe conectar tecnología, negocio y operación.. Aquí es donde una propuesta deja de ser teórica. Dime qué ganamos, qué sacrificamos y qué evidencia nos permitiría revisar la elección.
+
+Finalmente, la fuente añade: Un buen diseño depende de la capacidad de comunicar y guiar decisiones. Esta idea nos ayuda a completar el análisis y a evitar una solución parcial. Cuando terminemos, deberás poder relacionar este principio con una decisión concreta del proyecto.
+
+Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
 ## ❓ Preguntas del profesor durante la explicación
-- **Te pregunto:** ¿qué parte del problema pertenece realmente a monorepos con pantsbuild en proyectos reales? **La razón:** así evitamos aplicar el concepto donde no aporta valor.
+- **Te pregunto:** ¿Cómo puedo usar IA para mejorar decisiones arquitectónicas sin perder criterio? **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.
 - **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
 - **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
 - **Te pregunto:** ¿qué ocurriría si el volumen se multiplica o una dependencia deja de responder? **La razón:** una solución se demuestra cuando conocemos sus límites.
@@ -47,13 +67,24 @@ Monorepos con Pantsbuild en proyectos reales se entiende mejor cuando lo conecta
 Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
 ## 💡 Ideas esenciales
+- La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.
+- La tecnología no reemplaza la visión del arquitecto; la potencia.
+- El arquitecto debe conectar tecnología, negocio y operación.
+- Un buen diseño depende de la capacidad de comunicar y guiar decisiones.
+- El papel de liderazgo arquitectónico es clave para alinear equipos y objetivos.
+- La sostenibilidad del sistema también depende de la calidad del proceso de decisión.
 - Un flujo vertical conecta entrada, aplicación, dominio e infraestructura con límites visibles.
-- Los adaptadores aíslan APIs, bases de datos, colas y herramientas de terceros.
-- La automatización y la documentación reducen el costo de repetir y verificar el trabajo.
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
 
+### Mi lectura como profesor
+La arquitectura del futuro combina técnica, análisis, liderazgo y uso responsable de la IA. El arquitecto no es solo un especialista del sistema, sino un guía que transforma complejidad en claridad y ayuda a construir soluciones con sentido, dirección y valor de largo plazo.
+
+Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
+
 ## 🏗️ Ejemplo resuelto
-Voy a resolver una situación contigo. En la plataforma logística, un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Observe qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
+Voy a resolver una situación contigo. La fuente plantea lo siguiente: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. Ahora llévalo a la plataforma logística: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
 
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
@@ -107,28 +138,33 @@ Ahora mira tu propia propuesta y pregúntate: ¿qué parte defendería con confi
 - ¿Puedes mostrarme qué evidencia respaldaría o refutaría tu decisión?
 
 ## 🤔 Preguntas para reflexión
-- ¿Dónde empieza y termina el caso de uso?
-- ¿Qué ocurre si la dependencia externa falla?
-- ¿Cómo se puede ejecutar y verificar el flujo en otro entorno?
+- ¿Cómo puedo usar IA para mejorar decisiones arquitectónicas sin perder criterio?
+- ¿Qué tan claro es mi liderazgo técnico dentro del equipo?
+- ¿Estoy diseñando soluciones solo para hoy o para construir una base sólida para el futuro?
 
 ## 🗣️ Respuestas orientadoras
 
 Ahora vamos a responder las preguntas que aparecieron durante la clase. No quiero que memorices una respuesta exacta. Quiero que compares mi razonamiento con el tuyo. Si llegaste a otra conclusión, puede ser válida si puedes explicarme el contexto, el costo y la evidencia que la sostiene.
 
-1. **¿Qué problema resuelve esta clase?**  En este caso, un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. El problema arquitectónico consiste en organizar responsabilidades y decisiones para que ese resultado sea posible sin perder calidad, trazabilidad ni capacidad de cambio.
-2. **¿Qué supuesto debemos comprobar?**  Debemos comprobar los datos que condicionan la decisión: volumen, tiempos de respuesta, disponibilidad de dependencias, reglas del negocio y capacidad real del equipo. No debemos tratar una estimación como un hecho.
-3. **¿Qué costo aceptamos?**  La alternativa elegida siempre sacrifica algo. Podemos aceptar más trabajo inicial para ganar mantenibilidad, o aceptar una solución más sencilla para reducir el costo del MVP. Lo importante es declarar el intercambio y ponerle una condición de revisión.
-4. **¿Qué pasa si falla una dependencia?**  El sistema debe tener una respuesta definida: timeout, reintento controlado, degradación, compensación, cola de mensajes o intervención humana. Decir solamente “el sistema falla” no es una estrategia arquitectónica.
-5. **¿Qué evidencia demostraría que la decisión funciona?**  Depende del tema: una métrica, una prueba, un contrato, un diagrama revisado, un registro de ejecución o una demostración del flujo. La evidencia debe corresponder al riesgo que queremos controlar.
+La fuente de este video plantea: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas.
 
 Fíjate en algo importante: ninguna respuesta depende de pronunciar el nombre de una tecnología. Lo que importa es que puedas unir cuatro cosas: el problema que observaste, la decisión que tomaste, la consecuencia que aceptaste y la evidencia que te permitirá comprobarla. Así quiero que pienses durante todo el curso.
+
+### Cómo responder este tema concreto
+1. **Cuando te preguntes: ¿Cómo puedo usar IA para mejorar decisiones arquitectónicas sin perder criterio?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que La IA puede apoyar la evaluación de decisiones y la identificación de riesgos. Después busca una evidencia en el caso, no una opinión.
+2. **Cuando te preguntes: ¿Qué tan claro es mi liderazgo técnico dentro del equipo?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que La tecnología no reemplaza la visión del arquitecto; la potencia. Después busca una evidencia en el caso, no una opinión.
+3. **Cuando te preguntes: ¿Estoy diseñando soluciones solo para hoy o para construir una base sólida para el futuro?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que El arquitecto debe conectar tecnología, negocio y operación. Después busca una evidencia en el caso, no una opinión.
 
 ## 🛠️ Solución modelo de la actividad
 
 Esta es una resolución de referencia para que puedas comparar tu trabajo.
 
 ### 🔹 Paso 1. Delimitar el problema
-La plataforma necesita procesar pedidos y asignar entregas de forma trazable. El riesgo principal es que una decisión local, como cambiar el ruteo, rompa inventario, notificaciones o la promesa de entrega. Por eso debemos establecer límites antes de implementar.
+El tema de esta clase se concreta así: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. En el proyecto, el riesgo consiste en aplicar esa idea de forma superficial y terminar con una decisión que no protege el objetivo real. Por eso debemos establecer límites antes de implementar.
 
 ### 👥 Paso 2. Identificar actores y necesidades
 - **Cliente:** espera crear el pedido y recibir estados confiables.
@@ -137,20 +173,20 @@ La plataforma necesita procesar pedidos y asignar entregas de forma trazable. El
 - **Equipo de desarrollo y operación:** necesita modificar, probar y observar el sistema sin afectar todo el flujo.
 
 ### 🔀 Paso 3. Proponer alternativas
-- **Alternativa A:** una aplicación única con módulos internos para pedidos, inventario, ruteo y notificaciones.
-- **Alternativa B:** separar los módulos críticos mediante servicios o eventos con contratos explícitos.
+- **Alternativa A:** resolver el problema dentro de la estructura actual con una regla, módulo, prueba o contrato explícito.
+- **Alternativa B:** introducir una separación o mecanismo especializado que atienda el riesgo señalado por la fuente.
 
 ### ⚖️ Paso 4. Comparar consecuencias
-La alternativa A reduce el costo inicial y simplifica el despliegue, pero exige disciplina para proteger los límites internos. La alternativa B permite aislar y escalar partes por separado, pero agrega latencia, monitoreo, despliegues y problemas de consistencia. No conviene elegir B solo porque suena más moderna.
+La alternativa A reduce el costo inicial y conserva simplicidad, pero puede dejar expuesto el riesgo principal de monorepos con pantsbuild en proyectos reales. La alternativa B ofrece una protección más explícita, pero agrega trabajo, dependencias o complejidad operativa. No conviene elegir B solo porque suena más moderna; debe responder a la evidencia del caso.
 
 ### ✅ Paso 5. Tomar una decisión para el MVP
-La decisión inicial recomendada es comenzar con un monolito modular, mantener puertos claros y preparar adaptadores para las integraciones externas. Esta opción reduce el costo operativo mientras conserva una ruta de evolución. Revisaremos la decisión si el volumen, la disponibilidad o la autonomía de un módulo justifican separarlo.
+Para el MVP, recomiendo elegir la alternativa que proteja primero esta idea de la fuente: La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.. Declara qué complejidad estás aceptando y qué señal te obligaría a cambiar la decisión.
 
 ### 🧪 Paso 6. Definir la verificación
-Verificaremos la solución con una prueba del flujo de creación de pedido, una prueba de fallo del proveedor de mapas, una métrica de tiempo de respuesta y una revisión de dependencias entre módulos. Si el resultado no cumple el escenario acordado, revisaremos la decisión.
+Verificaremos la decisión con una evidencia relacionada directamente con el tema: una prueba, métrica, revisión de contrato, inspección de dependencias o demostración del flujo. El criterio debe responder: ¿cómo sabremos que la idea de la fuente está funcionando en nuestro sistema?
 
 ### 📦 Paso 7. Preparar la entrega
-Guarda en GitHub el problema, los actores, la comparación, la decisión, los trade-offs, el diagrama o código y las pruebas. En el video de sustentación explica qué elegiste, qué descartaste, qué riesgo aceptaste y cómo sabrás si debes cambiarlo.
+Guarda en GitHub el problema específico, las ideas de la fuente que aplicaste, la comparación, la decisión, los trade-offs y la evidencia. En el video de sustentación explícame qué entendiste, cómo lo aplicaste y qué riesgo aceptaste.
 
 
 ## 🚀 Preparación para la siguiente clase

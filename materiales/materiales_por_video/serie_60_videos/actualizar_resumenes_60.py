@@ -1,7 +1,10 @@
 from pathlib import Path
+import re
+import unicodedata
 
 ROOT = Path(r"C:\proj\itm\OPTATIVA_II\materiales\materiales_por_video\serie_60_videos")
 ROOT.mkdir(parents=True, exist_ok=True)
+SOURCE_ROOT = ROOT.parents[1] / "material_cursos_raw_summary" / "cursos"
 
 FUNDAMENTOS = [
     "Decisiones de arquitectura y consecuencias reales",
@@ -71,6 +74,97 @@ APLICADA = [
 
 TITLES = FUNDAMENTOS + APLICADA
 assert len(TITLES) == 60
+
+
+def normalize(value):
+    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().lower()
+    return set(re.findall(r"[a-z0-9]{4,}", value))
+
+
+def source_section(text, name):
+    match = re.search(rf"^##\s+{re.escape(name)}\s*$\n(.*?)(?=^##\s+|\Z)", text, re.M | re.S)
+    return match.group(1).strip() if match else ""
+
+
+def load_source_documents():
+    documents = []
+    for path in sorted(SOURCE_ROOT.glob("**/videos/*.md")):
+        text = path.read_text(encoding="utf-8")
+        heading = re.search(r"^#\s+.*?:?\s*(.*)$", text, re.M)
+        title = heading.group(1).strip() if heading else path.stem
+        summary = source_section(text, "Resumen")
+        ideas = [line[2:].strip() for line in source_section(text, "Ideas principales").splitlines() if line.strip().startswith("- ")]
+        questions = [line[2:].strip() for line in source_section(text, "Preguntas para reflexión").splitlines() if line.strip().startswith("- ")]
+        conclusion = source_section(text, "Conclusión")
+        documents.append({"path": path, "title": title, "text": text, "summary": summary, "ideas": ideas, "questions": questions, "conclusion": conclusion})
+    return documents
+
+
+SOURCE_DOCUMENTS = load_source_documents()
+
+
+USED_SOURCE_PATHS = set()
+
+
+def source_for(number, title):
+    special_source_numbers = {39: 11, 46: 11}
+
+    def source_number(document):
+        match = re.search(r"video-(\d+)", document["path"].name)
+        return int(match.group(1)) if match else 0
+
+    if number in special_source_numbers:
+        candidates = [
+            document for document in SOURCE_DOCUMENTS
+            if "arquitectura-software-aplicada" in str(document["path"])
+            and source_number(document) == special_source_numbers[number]
+        ]
+        if candidates:
+            USED_SOURCE_PATHS.add(candidates[0]["path"])
+            return candidates[0]
+
+    target = normalize(title)
+    preferred = "fundamentos-arquitectura-software" if number <= 29 else "arquitectura-software-aplicada"
+    ranked = []
+    for document in SOURCE_DOCUMENTS:
+        title_tokens = normalize(document["title"])
+        file_tokens = normalize(document["path"].stem)
+        score = len(target & title_tokens) * 8 + len(target & file_tokens) * 3
+        if preferred in str(document["path"]):
+            score += 2
+        if title_tokens and title_tokens.issubset(target):
+            score += 20
+        ranked.append((score, document))
+    ranked.sort(key=lambda item: item[0], reverse=True)
+    unused = [document for _, document in ranked if document["path"] not in USED_SOURCE_PATHS]
+    chosen = unused[0] if unused else ranked[0][1]
+    USED_SOURCE_PATHS.add(chosen["path"])
+    return chosen
+
+
+def topic_lesson(title, source):
+    ideas = source["ideas"][:4]
+    if not ideas:
+        ideas = [source["summary"] or title]
+    paragraphs = [
+        f"Quiero que empecemos por la afirmación que trae la fuente: {ideas[0]} Si la tomamos en serio, {title.lower()} deja de ser una etiqueta y se convierte en una decisión que debemos observar en el sistema.",
+        f"Ahora conectemos esa afirmación con la siguiente: {ideas[1] if len(ideas) > 1 else ideas[0]} Pregúntate qué componente, actor o regla del negocio queda afectado. No me interesa que repitas la frase; me interesa que puedas señalar dónde aparece en el caso logístico.",
+        f"La tercera conversación es sobre las consecuencias: {ideas[2] if len(ideas) > 2 else 'una decisión técnica siempre produce beneficios y costos'}. Aquí es donde una propuesta deja de ser teórica. Dime qué ganamos, qué sacrificamos y qué evidencia nos permitiría revisar la elección.",
+    ]
+    if len(ideas) > 3:
+        paragraphs.append(f"Finalmente, la fuente añade: {ideas[3]} Esta idea nos ayuda a completar el análisis y a evitar una solución parcial. Cuando terminemos, deberás poder relacionar este principio con una decisión concreta del proyecto.")
+    return "\n\n".join(paragraphs)
+
+
+def class_scene(number, title, source):
+    idea = (source["ideas"] or ["la decisión debe poder justificarse con evidencia"])[0]
+    summary = source["summary"] or "el sistema debe responder a una necesidad real del negocio"
+    return (
+        f"Hoy te encuentras ante esta situación: {summary} "
+        f"El equipo te pide una decisión sobre {title.lower()}, pero todavía no existe una respuesta única. "
+        f"Tu primera pista es esta idea de la fuente: {idea}",
+        f"Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, qué dejarías fuera del alcance y cómo demostrarías que funciona."
+    )
 
 PROFILES = {
     "contexto": {
@@ -181,25 +275,30 @@ def code_example(number):
     return examples.get(number, "")
 
 
-def guided_answers(title, profile):
+def guided_answers(title, profile, source):
+    source_ideas = source["ideas"][:4] or profile["ideas"]
+    source_questions = source["questions"][:3] or profile["questions"]
+    specific_answers = "\n".join(
+        f"{index}. **Cuando te preguntes: {question}** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que {source_ideas[index - 1] if index <= len(source_ideas) else source_ideas[0]} Después busca una evidencia en el caso, no una opinión."
+        for index, question in enumerate(source_questions, start=1)
+    )
     return f"""## 🗣️ Respuestas orientadoras
 
 Ahora vamos a responder las preguntas que aparecieron durante la clase. No quiero que memorices una respuesta exacta. Quiero que compares mi razonamiento con el tuyo. Si llegaste a otra conclusión, puede ser válida si puedes explicarme el contexto, el costo y la evidencia que la sostiene.
 
-1. **¿Qué problema resuelve esta clase?**  En este caso, {profile['case']}. El problema arquitectónico consiste en organizar responsabilidades y decisiones para que ese resultado sea posible sin perder calidad, trazabilidad ni capacidad de cambio.
-2. **¿Qué supuesto debemos comprobar?**  Debemos comprobar los datos que condicionan la decisión: volumen, tiempos de respuesta, disponibilidad de dependencias, reglas del negocio y capacidad real del equipo. No debemos tratar una estimación como un hecho.
-3. **¿Qué costo aceptamos?**  La alternativa elegida siempre sacrifica algo. Podemos aceptar más trabajo inicial para ganar mantenibilidad, o aceptar una solución más sencilla para reducir el costo del MVP. Lo importante es declarar el intercambio y ponerle una condición de revisión.
-4. **¿Qué pasa si falla una dependencia?**  El sistema debe tener una respuesta definida: timeout, reintento controlado, degradación, compensación, cola de mensajes o intervención humana. Decir solamente “el sistema falla” no es una estrategia arquitectónica.
-5. **¿Qué evidencia demostraría que la decisión funciona?**  Depende del tema: una métrica, una prueba, un contrato, un diagrama revisado, un registro de ejecución o una demostración del flujo. La evidencia debe corresponder al riesgo que queremos controlar.
+La fuente de este video plantea: {source['summary'] or profile['case']}
 
 Fíjate en algo importante: ninguna respuesta depende de pronunciar el nombre de una tecnología. Lo que importa es que puedas unir cuatro cosas: el problema que observaste, la decisión que tomaste, la consecuencia que aceptaste y la evidencia que te permitirá comprobarla. Así quiero que pienses durante todo el curso.
+
+### Cómo responder este tema concreto
+{specific_answers}
 
 ## 🛠️ Solución modelo de la actividad
 
 Esta es una resolución de referencia para que puedas comparar tu trabajo.
 
 ### 🔹 Paso 1. Delimitar el problema
-La plataforma necesita procesar pedidos y asignar entregas de forma trazable. El riesgo principal es que una decisión local, como cambiar el ruteo, rompa inventario, notificaciones o la promesa de entrega. Por eso debemos establecer límites antes de implementar.
+El tema de esta clase se concreta así: {source['summary'] or profile['case']} En el proyecto, el riesgo consiste en aplicar esa idea de forma superficial y terminar con una decisión que no protege el objetivo real. Por eso debemos establecer límites antes de implementar.
 
 ### 👥 Paso 2. Identificar actores y necesidades
 - **Cliente:** espera crear el pedido y recibir estados confiables.
@@ -208,45 +307,72 @@ La plataforma necesita procesar pedidos y asignar entregas de forma trazable. El
 - **Equipo de desarrollo y operación:** necesita modificar, probar y observar el sistema sin afectar todo el flujo.
 
 ### 🔀 Paso 3. Proponer alternativas
-- **Alternativa A:** una aplicación única con módulos internos para pedidos, inventario, ruteo y notificaciones.
-- **Alternativa B:** separar los módulos críticos mediante servicios o eventos con contratos explícitos.
+- **Alternativa A:** resolver el problema dentro de la estructura actual con una regla, módulo, prueba o contrato explícito.
+- **Alternativa B:** introducir una separación o mecanismo especializado que atienda el riesgo señalado por la fuente.
 
 ### ⚖️ Paso 4. Comparar consecuencias
-La alternativa A reduce el costo inicial y simplifica el despliegue, pero exige disciplina para proteger los límites internos. La alternativa B permite aislar y escalar partes por separado, pero agrega latencia, monitoreo, despliegues y problemas de consistencia. No conviene elegir B solo porque suena más moderna.
+La alternativa A reduce el costo inicial y conserva simplicidad, pero puede dejar expuesto el riesgo principal de {title.lower()}. La alternativa B ofrece una protección más explícita, pero agrega trabajo, dependencias o complejidad operativa. No conviene elegir B solo porque suena más moderna; debe responder a la evidencia del caso.
 
 ### ✅ Paso 5. Tomar una decisión para el MVP
-La decisión inicial recomendada es comenzar con un monolito modular, mantener puertos claros y preparar adaptadores para las integraciones externas. Esta opción reduce el costo operativo mientras conserva una ruta de evolución. Revisaremos la decisión si el volumen, la disponibilidad o la autonomía de un módulo justifican separarlo.
+Para el MVP, recomiendo elegir la alternativa que proteja primero esta idea de la fuente: {source_ideas[0]}. Declara qué complejidad estás aceptando y qué señal te obligaría a cambiar la decisión.
 
 ### 🧪 Paso 6. Definir la verificación
-Verificaremos la solución con una prueba del flujo de creación de pedido, una prueba de fallo del proveedor de mapas, una métrica de tiempo de respuesta y una revisión de dependencias entre módulos. Si el resultado no cumple el escenario acordado, revisaremos la decisión.
+Verificaremos la decisión con una evidencia relacionada directamente con el tema: una prueba, métrica, revisión de contrato, inspección de dependencias o demostración del flujo. El criterio debe responder: ¿cómo sabremos que la idea de la fuente está funcionando en nuestro sistema?
 
 ### 📦 Paso 7. Preparar la entrega
-Guarda en GitHub el problema, los actores, la comparación, la decisión, los trade-offs, el diagrama o código y las pruebas. En el video de sustentación explica qué elegiste, qué descartaste, qué riesgo aceptaste y cómo sabrás si debes cambiarlo.
+Guarda en GitHub el problema específico, las ideas de la fuente que aplicaste, la comparación, la decisión, los trade-offs y la evidencia. En el video de sustentación explícame qué entendiste, cómo lo aplicaste y qué riesgo aceptaste.
 """
+
+
+def continuity(number, title):
+    previous = TITLES[number - 2] if number > 1 else "la situación inicial del proyecto y sus actores"
+    following = TITLES[number] if number < len(TITLES) else "la defensa final de la arquitectura evolutiva"
+    if number == 1:
+        return (
+            "Esta es la primera conversación del recorrido. Vamos a construir el punto de partida: mirar el sistema como una decisión que afecta a personas, negocio y operación.",
+            f"Cuando terminemos, tendrás el contexto necesario para avanzar hacia {following.lower()}."
+        )
+    if number == len(TITLES):
+        return (
+            f"Llegas a esta clase después de trabajar {previous.lower()}. Ahora reuniremos esas decisiones para mirar la arquitectura como una práctica completa.",
+            "Esta clase cierra el recorrido y te prepara para defender tu expediente arquitectónico con criterio propio."
+        )
+    return (
+        f"Vienes de trabajar {previous.lower()}. No vamos a repetirlo: lo usaremos como punto de partida para estudiar {title.lower()} y añadir una decisión nueva al expediente.",
+        f"Lo que construyas aquí será la base para la próxima conversación: {following.lower()}."
+    )
 
 
 def build_class(number, title):
     profile = profile_for(number)
-    ideas = "\n".join(f"- {item}" for item in profile["ideas"])
-    questions = "\n".join(f"- {item}" for item in profile["questions"])
+    source = source_for(number, title)
+    source_summary = source["summary"] or profile["case"]
+    source_ideas = source["ideas"][:6] or profile["ideas"]
+    source_questions = source["questions"][:4] or profile["questions"]
+    source_conclusion = source["conclusion"] or "La decisión debe poder explicarse y verificarse en el contexto real del sistema."
+    ideas = "\n".join(f"- {item}" for item in source_ideas + profile["ideas"][:1])
+    questions = "\n".join(f"- {item}" for item in source_questions)
+    lesson = topic_lesson(title, source)
+    continuity_start, continuity_end = continuity(number, title)
+    scene, challenge = class_scene(number, title, source)
     activity = activity_for(number)
     code = code_example(number)
 
     if number == 1:
-        opening = "Imagina que una plataforma controla un proceso del que dependen personas, dinero o seguridad. Una decisión aparentemente pequeña puede ampliar un riesgo hasta convertirlo en un incidente. El caso del Boeing 737 MAX nos recuerda que no basta preguntar si el software funciona: debemos preguntar qué supuestos incorpora y qué ocurre cuando se equivoca."
+        opening = f"Imagina que una plataforma controla un proceso del que dependen personas, dinero o seguridad. Una decisión aparentemente pequeña puede ampliar un riesgo hasta convertirlo en un incidente. La fuente abre con el caso del Boeing 737 MAX y nos recuerda que no basta preguntar si el software funciona: debemos preguntar qué supuestos incorpora y qué ocurre cuando se equivoca. {source['summary']}"
         central = "¿Qué consecuencias humanas y de negocio puede producir una decisión técnica que nadie examinó con suficiente rigor?"
         worked = "Para la plataforma logística, compare centralizar toda la asignación de rutas en un único componente con separar asignación, validación y gestión de incidentes. La primera opción puede ser rápida; la segunda puede evolucionar mejor, pero exige contratos y monitoreo. La decisión se justifica con volumen, criticidad, capacidad del equipo y consecuencias de una falla."
     elif number == 2:
-        opening = "Que el software funcione hoy no significa que sea una solución sostenible. Un sistema puede responder correctamente a diez pedidos y volverse imposible de cambiar cuando aparecen nuevas reglas, usuarios o integraciones. La arquitectura importa porque determina cuánto costará modificarlo mañana."
+        opening = f"Que el software funcione hoy no significa que sea una solución sostenible. La fuente de este video nos invita a pasar del código funcional a una solución que pueda crecer, proteger datos y responder a nuevas necesidades. Escucha la idea central: {source['summary']}"
         central = "¿Qué diferencia existe entre entregar una funcionalidad y construir una solución que el equipo pueda sostener?"
         worked = "Suponga que la plataforma guarda pedidos, rutas y pagos en una sola clase. La primera versión puede funcionar, pero un cambio en la política de rutas obligaría a tocar pagos y notificaciones. Separar responsabilidades no es crear capas por moda: es proteger partes que cambian por razones diferentes."
     else:
-        opening = f"Antes de entrar en {title.lower()}, deténgase en el problema que lo hace necesario. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible."
+        opening = f"Antes de entrar en {title.lower()}, quiero que escuchemos primero la idea central de la fuente del curso: {source_summary} En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible."
         central = f"¿Qué problema real resuelve {title.lower()} y cómo demostraríamos que la solución es adecuada?"
-        worked = f"En la plataforma logística, {profile['case']}. Observe qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio."
+        worked = f"La fuente plantea lo siguiente: {source_summary} Ahora llévalo a la plataforma logística: {profile['case']}. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio."
 
     prompts = "\n".join([
-        f"- **Te pregunto:** ¿qué parte del problema pertenece realmente a {title.lower()}? **La razón:** así evitamos aplicar el concepto donde no aporta valor.",
+        f"- **Te pregunto:** {source_questions[0] if source_questions else f'¿qué parte del problema pertenece realmente a {title.lower()}?'} **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.",
         "- **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.",
         "- **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.",
         "- **Te pregunto:** ¿qué ocurriría si el volumen se multiplica o una dependencia deja de responder? **La razón:** una solución se demuestra cuando conocemos sus límites.",
@@ -269,6 +395,17 @@ def build_class(number, title):
 - **Modalidad:** explicación dialogada, ejemplo resuelto, taller y retroalimentación
 - **Producto:** una evidencia que se incorpora al repositorio del proyecto
 
+## 🔗 Continuidad de la ruta
+{continuity_start}
+
+{continuity_end}
+
+## 🎥 Escena de hoy
+{scene}
+
+## 🧭 Reto de la clase
+{challenge}
+
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas {profile['purpose']} usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
@@ -285,18 +422,15 @@ Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué esper
 {central}
 
 ## 🧠 Desarrollo de la clase
-### 1. Describir el problema antes de diseñar
-Ahora déjame mostrarte el primer movimiento. Cuando un equipo recibe una solicitud, suele saltar a la solución: "usemos microservicios", "hagamos una API" o "guardemos todo en una base de datos". Yo quiero que hoy invirtamos ese orden. Primero vamos a describir el comportamiento que el negocio necesita, las personas afectadas, las restricciones y los riesgos. Una decisión arquitectónica solo tiene sentido dentro de ese contexto.
+### Lo que trae la fuente del curso
+La fuente describe este tema así: {source_summary}
 
-Mira el caso logístico: asignar una ruta implica inventario, ubicación del repartidor, promesa de entrega, tráfico, costo operativo y comunicación. Si tratamos todo como una sola operación, luego será difícil saber qué probar, qué escalar y qué recuperar cuando ocurra un fallo. Aquí aparece la primera lección: antes de diseñar componentes, necesitamos entender las responsabilidades.
+Yo voy a traducir esa idea a una situación de diseño. No quiero que la recibas como una definición cerrada; quiero que observes qué problema intenta resolver, qué decisiones implica y qué evidencia necesitaríamos para confiar en ella.
 
-### 2. Separar hechos, supuestos y decisiones
-Ahora hagamos una pausa. Un hecho es algo observable. Un supuesto es una afirmación que aún necesita validación. Una decisión es una elección entre alternativas. Por ejemplo, "tendremos 10 000 pedidos diarios" puede ser una estimación; "la API de mapas siempre responderá en menos de un segundo" es un supuesto; "aislaremos el proveedor mediante un adaptador" es una decisión. Cada elemento necesita una evidencia distinta. Si mezclamos estas tres cosas, terminaremos defendiendo opiniones como si fueran datos.
+### 1. Escuchemos la fuente y llevémosla al sistema
+{lesson}
 
-### 3. Hacer visibles las consecuencias
-Llegamos al punto que más me interesa. No existe una alternativa gratuita. Una solución puede reducir el tiempo inicial y aumentar el costo de operación; otra puede mejorar la mantenibilidad y exigir más diseño; otra puede aumentar la disponibilidad y complicar la consistencia. Cuando yo te pida justificar una arquitectura, no quiero escuchar que una opción es "mejor". Quiero que me expliques qué gana, qué pierde y qué riesgo estamos aceptando.
-
-{title} se entiende mejor cuando lo conectamos con esta secuencia: contexto, alternativas, decisión, consecuencias y evidencia. Si falta uno de esos pasos, la propuesta queda incompleta.
+Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
 ## ❓ Preguntas del profesor durante la explicación
 {prompts}
@@ -306,6 +440,11 @@ Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las 
 ## 💡 Ideas esenciales
 {ideas}
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
+
+### Mi lectura como profesor
+{source_conclusion}
+
+Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
 
 ## 🏗️ Ejemplo resuelto
 Voy a resolver una situación contigo. {worked}
@@ -361,7 +500,7 @@ Ahora mira tu propia propuesta y pregúntate: ¿qué parte defendería con confi
 ## 🤔 Preguntas para reflexión
 {questions}
 
-{guided_answers(title, profile)}
+{guided_answers(title, profile, source)}
 
 ## 🚀 Preparación para la siguiente clase
 Revisa la evidencia, registra los supuestos aún no validados y lleva una pregunta abierta sobre costo, calidad, dependencia o evolución. Cada clase debe agregar una pieza al expediente arquitectónico.
