@@ -39,6 +39,10 @@ def parse_video_file(path: Path):
         return clean_text(m.group(1))
 
     resumen = section("Resumen")
+    purpose = section("Propósito de aprendizaje")
+    opening = section("Apertura de la clase")
+    explanation = section("Explicación paso a paso")
+    practice = section("Práctica guiada")
     ideas = section("Ideas principales")
     conclusion = section("Conclusión")
     preguntas = section("Preguntas para reflexión")
@@ -68,6 +72,10 @@ def parse_video_file(path: Path):
         "num": int(path.stem.split("-")[-1]),
         "title": title,
         "summary": summary_text,
+        "purpose": purpose,
+        "opening": opening,
+        "explanation": explanation,
+        "practice": practice,
         "ideas": bullets[:5],
         "conclusion": conclusion,
         "questions": questions[:4],
@@ -278,10 +286,23 @@ def add_content_slide(prs, video):
     add_card(slide, 6.8, 1.55, 5.9, 5.25, "Ejemplo aplicado", ctx, title_color=ACCENT, font_size=15)
 
 
+def add_class_slide(prs, video):
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    add_background(slide)
+    add_header(slide, f"Video {video['num']} — {video['title']}", "Clase en acción", video['num'], "03 / 04")
+
+    purpose = video['purpose'] or "Aplicar el concepto al caso de la plataforma logística."
+    opening = video['opening'] or video['summary']
+    practice = video['practice'] or "Construir una evidencia pequeña y justificar la decisión tomada."
+    add_card(slide, 0.65, 1.45, 12.05, 1.35, "Propósito de aprendizaje", [purpose], title_color=TEAL, font_size=15)
+    add_card(slide, 0.65, 3.0, 5.9, 3.25, "Apertura y explicación", [opening, video['explanation'][:450]], title_color=ACCENT, font_size=14)
+    add_card(slide, 6.8, 3.0, 5.9, 3.25, "Práctica guiada", [practice, "Evidencia: decisión, alternativa, trade-off y verificación."], title_color=TEAL, font_size=14)
+
+
 def add_reflection_slide(prs, video):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_background(slide)
-    add_header(slide, f"Video {video['num']} — {video['title']}", "Conclusión y reflexión", video['num'], "03 / 03")
+    add_header(slide, f"Video {video['num']} — {video['title']}", "Conclusión y reflexión", video['num'], "04 / 04")
 
     conclusion_text = video['conclusion'][:600] if video['conclusion'] else video['summary'][:600]
     conclusion_lines = [part.strip() for part in re.split(r"(?<=[.!?])\s+", conclusion_text) if part.strip()][:4]
@@ -302,6 +323,7 @@ def build_ppt_for_video(video_path: Path):
 
     add_cover_slide(prs, video)
     add_content_slide(prs, video)
+    add_class_slide(prs, video)
     add_reflection_slide(prs, video)
 
     out_file = OUT / f"video-{video['num']:02d}.pptx"
@@ -311,6 +333,13 @@ def build_ppt_for_video(video_path: Path):
 
 def main():
     files = sorted(SRC.glob("video-*.md"))
+    valid_names = {f"video-{int(file.stem.split('-')[-1]):02d}.pptx" for file in files}
+    for old_file in OUT.glob("*.pptx"):
+        if old_file.name not in valid_names:
+            try:
+                old_file.unlink()
+            except PermissionError:
+                pass
     created = []
     for file in files:
         out = build_ppt_for_video(file)

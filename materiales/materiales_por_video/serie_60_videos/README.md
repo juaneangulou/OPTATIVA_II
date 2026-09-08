@@ -1,4 +1,6 @@
-# Ruta de 60 videos de la materia
+# Ruta de 60 clases de la materia
+
+Esta carpeta contiene clases completas para leer, explicar y trabajar con estudiantes. Cada clase se conecta con la siguiente mediante una evidencia del proyecto.
 
 ## Curso 1: Fundamentos de Arquitectura de Software
 
@@ -65,6 +67,3 @@
 - [Video 58: Sabiduría y criterio en arquitectura de software](video-58.md)
 - [Video 59: Riesgos, continuidad y decisiones bajo incertidumbre](video-59.md)
 - [Video 60: Calidad de servicio y experiencia de usuario](video-60.md)
-
-## Nota
-Esta ruta organiza la materia en 60 materiales de estudio, con un nivel más detallado y práctico para clase. La estructura mantiene la lógica de la fuente documental base y mejora la profundidad de cada resumen, explicando además ejemplos, implicaciones y reflexiones con mayor rigor académico.
