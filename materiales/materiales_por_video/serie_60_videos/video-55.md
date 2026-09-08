@@ -25,22 +25,24 @@ Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, 
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas validar la arquitectura frente a fallos, métricas, operación y escenarios de cambio usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
-## 🎬 Apertura: pensemos como arquitectos
-Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
+## 🎬 Apertura: SAST, DAST y pentesting
+Hoy vamos a trabajar una situación concreta: Este video destaca que una gran parte del trabajo del arquitecto no está en el código, sino en la conversación. Cuando se diseña un sistema, se necesita comunicar decisiones, negociar prioridades y hacer que diferentes actores comprendan por qué se elige una solución y no otra. La arquitectura se fortalece cuando hay claridad, diálogo y liderazgo.
+
+El arquitecto debe ser capaz de escuchar, explicar trade-offs, escuchar preocupaciones y alinear decisiones entre negocio, equipo y usuarios. La negociación técnica no es improvisación; es la capacidad de construir consenso con criterio y equilibrio. No quiero que empieces por un diagrama ni por una tecnología. Quiero que me expliques qué problema aparece aquí y por qué merece una decisión arquitectónica propia.
 
 Antes de entrar en sast, dast y pentesting, quiero que escuchemos primero la idea central de la fuente del curso: Este video destaca que una gran parte del trabajo del arquitecto no está en el código, sino en la conversación. Cuando se diseña un sistema, se necesita comunicar decisiones, negociar prioridades y hacer que diferentes actores comprendan por qué se elige una solución y no otra. La arquitectura se fortalece cuando hay claridad, diálogo y liderazgo.
 
 El arquitecto debe ser capaz de escuchar, explicar trade-offs, escuchar preocupaciones y alinear decisiones entre negocio, equipo y usuarios. La negociación técnica no es improvisación; es la capacidad de construir consenso con criterio y equilibrio. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
 
-Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
+Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando en este caso?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves en sast, dast y pentesting. Esa primera respuesta me permite saber si estamos entendiendo el tema o si solo estamos repitiendo soluciones conocidas.
 
 Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
 
-## 💬 Pregunta central
+## 💬 La pregunta que vamos a resolver sobre sast, dast y pentesting
 ¿Qué problema real resuelve sast, dast y pentesting y cómo demostraríamos que la solución es adecuada?
 
-## 🧠 Desarrollo de la clase
-### Lo que trae la fuente del curso
+## 🧠 Entender sast, dast y pentesting desde el caso
+### 📚 Lo que la fuente nos enseña sobre sast, dast y pentesting
 La fuente describe este tema así: Este video destaca que una gran parte del trabajo del arquitecto no está en el código, sino en la conversación. Cuando se diseña un sistema, se necesita comunicar decisiones, negociar prioridades y hacer que diferentes actores comprendan por qué se elige una solución y no otra. La arquitectura se fortalece cuando hay claridad, diálogo y liderazgo.
 
 El arquitecto debe ser capaz de escuchar, explicar trade-offs, escuchar preocupaciones y alinear decisiones entre negocio, equipo y usuarios. La negociación técnica no es improvisación; es la capacidad de construir consenso con criterio y equilibrio.
@@ -58,7 +60,7 @@ Finalmente, la fuente añade: La negociación permite tomar decisiones sin impro
 
 Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
-## ❓ Preguntas del profesor durante la explicación
+## ❓ Preguntas para pensar en sast, dast y pentesting
 - **Te pregunto:** ¿Estoy logrando explicar bien mis decisiones técnicas? **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.
 - **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
 - **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
@@ -66,7 +68,7 @@ Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso l
 
 Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
-## 💡 Ideas esenciales
+## 💡 Lo esencial sobre SAST, DAST y pentesting
 - La comunicación es una habilidad arquitectónica central.
 - Las decisiones de arquitectura implican balancear intereses distintos.
 - El liderazgo técnico ayuda a alinear equipo y visión.
@@ -76,19 +78,19 @@ Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las 
 - Una arquitectura saludable produce señales observables sobre rendimiento y fallos.
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
 
-### Mi lectura como profesor
+### 🔎 Mi lectura de sast, dast y pentesting como profesor
 La arquitectura no solo se diseña; también se comunica y se negocia. Un buen arquitecto no solo toma decisiones, sino que logra que el equipo y la organización las entienda y las apoye.
 
 Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
 
-## 🏗️ Ejemplo resuelto
+## 🏗️ Cómo resolver sast, dast y pentesting en la práctica
 Voy a resolver una situación contigo. La fuente plantea lo siguiente: Este video destaca que una gran parte del trabajo del arquitecto no está en el código, sino en la conversación. Cuando se diseña un sistema, se necesita comunicar decisiones, negociar prioridades y hacer que diferentes actores comprendan por qué se elige una solución y no otra. La arquitectura se fortalece cuando hay claridad, diálogo y liderazgo.
 
 El arquitecto debe ser capaz de escuchar, explicar trade-offs, escuchar preocupaciones y alinear decisiones entre negocio, equipo y usuarios. La negociación técnica no es improvisación; es la capacidad de construir consenso con criterio y equilibrio. Ahora llévalo a la plataforma logística: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
 
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
-## 🧩 Caso guiado: plataforma logística
+## 🧩 SAST, DAST y pentesting: caso de la plataforma logística
 Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
 
 1. Un cliente crea un pedido.
@@ -99,7 +101,7 @@ Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a 
 
 Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
 
-## ✍️ Taller de clase
+## ✍️ Tu reto: aplicar sast, dast y pentesting
 Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
 
 1. Redacta el problema en tres líneas, sin mencionar tecnologías.

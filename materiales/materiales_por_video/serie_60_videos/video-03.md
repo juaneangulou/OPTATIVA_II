@@ -25,22 +25,24 @@ Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, 
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas analizar un problema real antes de elegir una tecnología usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
-## 🎬 Apertura: pensemos como arquitectos
-Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
+## 🎬 Apertura: El arquitecto y la responsabilidad técnica
+Hoy vamos a trabajar una situación concreta: En este video se redefine el rol del arquitecto, dejando atrás la idea de que solo dibuja diagramas. El arquitecto debe diseñar sistemas sólidos y sostenibles, simplificar la complejidad, cuestionar supuestos y negociar con distintos stakeholders. Además, tiene que entender que cada decisión técnica tiene consecuencias reales.
+
+El trabajo del arquitecto no es imponer una solución elegante por gusto; es crear sistemas confiables, duraderos y bien pensados para el futuro. Esto implica abstraer lo esencial, priorizar la claridad, identificar riesgos y tomar decisiones con criterio técnico y de negocio. No quiero que empieces por un diagrama ni por una tecnología. Quiero que me expliques qué problema aparece aquí y por qué merece una decisión arquitectónica propia.
 
 Antes de entrar en el arquitecto y la responsabilidad técnica, quiero que escuchemos primero la idea central de la fuente del curso: En este video se redefine el rol del arquitecto, dejando atrás la idea de que solo dibuja diagramas. El arquitecto debe diseñar sistemas sólidos y sostenibles, simplificar la complejidad, cuestionar supuestos y negociar con distintos stakeholders. Además, tiene que entender que cada decisión técnica tiene consecuencias reales.
 
 El trabajo del arquitecto no es imponer una solución elegante por gusto; es crear sistemas confiables, duraderos y bien pensados para el futuro. Esto implica abstraer lo esencial, priorizar la claridad, identificar riesgos y tomar decisiones con criterio técnico y de negocio. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
 
-Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
+Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando en este caso?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves en el arquitecto y la responsabilidad técnica. Esa primera respuesta me permite saber si estamos entendiendo el tema o si solo estamos repitiendo soluciones conocidas.
 
 Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
 
-## 💬 Pregunta central
+## 💬 La pregunta que vamos a resolver sobre el arquitecto y la responsabilidad técnica
 ¿Qué problema real resuelve el arquitecto y la responsabilidad técnica y cómo demostraríamos que la solución es adecuada?
 
-## 🧠 Desarrollo de la clase
-### Lo que trae la fuente del curso
+## 🧠 Entender el arquitecto y la responsabilidad técnica desde el caso
+### 📚 Lo que la fuente nos enseña sobre el arquitecto y la responsabilidad técnica
 La fuente describe este tema así: En este video se redefine el rol del arquitecto, dejando atrás la idea de que solo dibuja diagramas. El arquitecto debe diseñar sistemas sólidos y sostenibles, simplificar la complejidad, cuestionar supuestos y negociar con distintos stakeholders. Además, tiene que entender que cada decisión técnica tiene consecuencias reales.
 
 El trabajo del arquitecto no es imponer una solución elegante por gusto; es crear sistemas confiables, duraderos y bien pensados para el futuro. Esto implica abstraer lo esencial, priorizar la claridad, identificar riesgos y tomar decisiones con criterio técnico y de negocio.
@@ -58,7 +60,7 @@ Finalmente, la fuente añade: Debe negociar con usuarios, directivos y equipo. E
 
 Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
-## ❓ Preguntas del profesor durante la explicación
+## ❓ Preguntas para pensar en el arquitecto y la responsabilidad técnica
 - **Te pregunto:** ¿Qué tan claro es mi papel como arquitecto o líder técnico en el proyecto? **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.
 - **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
 - **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
@@ -66,7 +68,7 @@ Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso l
 
 Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
-## 💡 Ideas esenciales
+## 💡 Lo esencial sobre El arquitecto y la responsabilidad técnica
 - El arquitecto no es solo un dibujante de diagramas.
 - Debe abstraer la complejidad y simplificar lo esencial.
 - Tiene que cuestionar supuestos, tanto técnicos como de negocio.
@@ -76,19 +78,19 @@ Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las 
 - Una decisión arquitectónica nace de objetivos, actores, restricciones y riesgos concretos.
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
 
-### Mi lectura como profesor
+### 🔎 Mi lectura de el arquitecto y la responsabilidad técnica como profesor
 El papel del arquitecto es más amplio que la solución técnica: es diseñar sistemas con estrategia, criterio y responsabilidad. La arquitectura sirve para transformar complejidad en claridad.
 
 Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
 
-## 🏗️ Ejemplo resuelto
+## 🏗️ Cómo resolver el arquitecto y la responsabilidad técnica en la práctica
 Voy a resolver una situación contigo. La fuente plantea lo siguiente: En este video se redefine el rol del arquitecto, dejando atrás la idea de que solo dibuja diagramas. El arquitecto debe diseñar sistemas sólidos y sostenibles, simplificar la complejidad, cuestionar supuestos y negociar con distintos stakeholders. Además, tiene que entender que cada decisión técnica tiene consecuencias reales.
 
 El trabajo del arquitecto no es imponer una solución elegante por gusto; es crear sistemas confiables, duraderos y bien pensados para el futuro. Esto implica abstraer lo esencial, priorizar la claridad, identificar riesgos y tomar decisiones con criterio técnico y de negocio. Ahora llévalo a la plataforma logística: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
 
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
-## 🧩 Caso guiado: plataforma logística
+## 🧩 El arquitecto y la responsabilidad técnica: caso de la plataforma logística
 Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
 
 1. Un cliente crea un pedido.
@@ -99,7 +101,7 @@ Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a 
 
 Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
 
-## ✍️ Taller de clase
+## ✍️ Tu reto: aplicar el arquitecto y la responsabilidad técnica
 Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
 
 1. Redacta el problema en tres líneas, sin mencionar tecnologías.

@@ -166,6 +166,23 @@ def class_scene(number, title, source):
         f"Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, qué dejarías fuera del alcance y cómo demostrarías que funciona."
     )
 
+
+def section_titles(title, source):
+    topic = title.rstrip(".")
+    first_idea = (source["ideas"] or ["el problema real del sistema"])[0].rstrip(".")
+    return {
+        "opening": f"🎬 Apertura: {topic}",
+        "question": f"💬 La pregunta que vamos a resolver sobre {topic.lower()}",
+        "development": f"🧠 Entender {topic.lower()} desde el caso",
+        "example": f"🏗️ Cómo resolver {topic.lower()} en la práctica",
+        "case": f"🧩 {topic}: caso de la plataforma logística",
+        "workshop": f"✍️ Tu reto: aplicar {topic.lower()}",
+        "ideas": f"💡 Lo esencial sobre {topic}",
+        "source": f"📚 Lo que la fuente nos enseña sobre {topic.lower()}",
+        "teacher_questions": f"❓ Preguntas para pensar en {topic.lower()}",
+        "teacher_reading": f"🔎 Mi lectura de {topic.lower()} como profesor",
+    }
+
 PROFILES = {
     "contexto": {
         "purpose": "analizar un problema real antes de elegir una tecnología",
@@ -355,6 +372,7 @@ def build_class(number, title):
     lesson = topic_lesson(title, source)
     continuity_start, continuity_end = continuity(number, title)
     scene, challenge = class_scene(number, title, source)
+    sections = section_titles(title, source)
     activity = activity_for(number)
     code = code_example(number)
 
@@ -409,20 +427,20 @@ def build_class(number, title):
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas {profile['purpose']} usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
-## 🎬 Apertura: pensemos como arquitectos
-Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
+## {sections['opening']}
+Hoy vamos a trabajar una situación concreta: {source_summary} No quiero que empieces por un diagrama ni por una tecnología. Quiero que me expliques qué problema aparece aquí y por qué merece una decisión arquitectónica propia.
 
 {opening}
 
-Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
+Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando en este caso?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves en {title.lower()}. Esa primera respuesta me permite saber si estamos entendiendo el tema o si solo estamos repitiendo soluciones conocidas.
 
 Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
 
-## 💬 Pregunta central
+## {sections['question']}
 {central}
 
-## 🧠 Desarrollo de la clase
-### Lo que trae la fuente del curso
+## {sections['development']}
+### {sections['source']}
 La fuente describe este tema así: {source_summary}
 
 Yo voy a traducir esa idea a una situación de diseño. No quiero que la recibas como una definición cerrada; quiero que observes qué problema intenta resolver, qué decisiones implica y qué evidencia necesitaríamos para confiar en ella.
@@ -432,26 +450,26 @@ Yo voy a traducir esa idea a una situación de diseño. No quiero que la recibas
 
 Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
-## ❓ Preguntas del profesor durante la explicación
+## {sections['teacher_questions']}
 {prompts}
 
 Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
-## 💡 Ideas esenciales
+## {sections['ideas']}
 {ideas}
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
 
-### Mi lectura como profesor
+### {sections['teacher_reading']}
 {source_conclusion}
 
 Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
 
-## 🏗️ Ejemplo resuelto
+## {sections['example']}
 Voy a resolver una situación contigo. {worked}
 
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
-## 🧩 Caso guiado: plataforma logística
+## {sections['case']}
 Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
 
 1. Un cliente crea un pedido.
@@ -462,7 +480,7 @@ Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a 
 
 Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
 
-## ✍️ Taller de clase
+## {sections['workshop']}
 Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: {profile['case']}. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
 
 1. Redacta el problema en tres líneas, sin mencionar tecnologías.

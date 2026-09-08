@@ -25,22 +25,24 @@ Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, 
 ## 🎯 Propósito de aprendizaje
 Cuando terminemos, quiero que puedas validar la arquitectura frente a fallos, métricas, operación y escenarios de cambio usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
 
-## 🎬 Apertura: pensemos como arquitectos
-Bienvenido a esta clase. Hoy no voy a pedirte que empieces por un diagrama ni por una tecnología. Quiero que empecemos por una situación que podría ocurrir en un sistema real.
+## 🎬 Apertura: Riesgos, continuidad y decisiones bajo incertidumbre
+Hoy vamos a trabajar una situación concreta: Este video habla de los riesgos y costos que subyacen a cada decisión arquitectónica. No siempre se tiene toda la información antes de elegir una solución. En ese contexto, el arquitecto debe evaluar qué tan reversible es la decisión, cuál es su costo real y qué riesgos conlleva. La incertidumbre es normal, pero la mala gestión de la misma puede generar decisiones impulsivas o demasiado rígidas.
+
+La toma de decisiones bajo incertidumbre exige criterio: priorizar opciones que permitan aprender, adaptarse y cambiar sin grandes pérdidas. Así, el sistema se vuelve más resiliente frente a cambios de negocio o de contexto. No quiero que empieces por un diagrama ni por una tecnología. Quiero que me expliques qué problema aparece aquí y por qué merece una decisión arquitectónica propia.
 
 Antes de entrar en riesgos, continuidad y decisiones bajo incertidumbre, quiero que escuchemos primero la idea central de la fuente del curso: Este video habla de los riesgos y costos que subyacen a cada decisión arquitectónica. No siempre se tiene toda la información antes de elegir una solución. En ese contexto, el arquitecto debe evaluar qué tan reversible es la decisión, cuál es su costo real y qué riesgos conlleva. La incertidumbre es normal, pero la mala gestión de la misma puede generar decisiones impulsivas o demasiado rígidas.
 
 La toma de decisiones bajo incertidumbre exige criterio: priorizar opciones que permitan aprender, adaptarse y cambiar sin grandes pérdidas. Así, el sistema se vuelve más resiliente frente a cambios de negocio o de contexto. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
 
-Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves. Esa primera respuesta me permite saber si estamos entendiendo el sistema o si solo estamos repitiendo soluciones conocidas.
+Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando en este caso?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves en riesgos, continuidad y decisiones bajo incertidumbre. Esa primera respuesta me permite saber si estamos entendiendo el tema o si solo estamos repitiendo soluciones conocidas.
 
 Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
 
-## 💬 Pregunta central
+## 💬 La pregunta que vamos a resolver sobre riesgos, continuidad y decisiones bajo incertidumbre
 ¿Qué problema real resuelve riesgos, continuidad y decisiones bajo incertidumbre y cómo demostraríamos que la solución es adecuada?
 
-## 🧠 Desarrollo de la clase
-### Lo que trae la fuente del curso
+## 🧠 Entender riesgos, continuidad y decisiones bajo incertidumbre desde el caso
+### 📚 Lo que la fuente nos enseña sobre riesgos, continuidad y decisiones bajo incertidumbre
 La fuente describe este tema así: Este video habla de los riesgos y costos que subyacen a cada decisión arquitectónica. No siempre se tiene toda la información antes de elegir una solución. En ese contexto, el arquitecto debe evaluar qué tan reversible es la decisión, cuál es su costo real y qué riesgos conlleva. La incertidumbre es normal, pero la mala gestión de la misma puede generar decisiones impulsivas o demasiado rígidas.
 
 La toma de decisiones bajo incertidumbre exige criterio: priorizar opciones que permitan aprender, adaptarse y cambiar sin grandes pérdidas. Así, el sistema se vuelve más resiliente frente a cambios de negocio o de contexto.
@@ -58,7 +60,7 @@ Finalmente, la fuente añade: La arquitectura debe permitir aprender y ajustar. 
 
 Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
 
-## ❓ Preguntas del profesor durante la explicación
+## ❓ Preguntas para pensar en riesgos, continuidad y decisiones bajo incertidumbre
 - **Te pregunto:** ¿Qué decisiones de mi proyecto se están tomando con mucha incertidumbre? **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.
 - **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
 - **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
@@ -66,7 +68,7 @@ Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso l
 
 Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
 
-## 💡 Ideas esenciales
+## 💡 Lo esencial sobre Riesgos, continuidad y decisiones bajo incertidumbre
 - La incertidumbre es parte del trabajo arquitectónico.
 - Cada decisión tiene costos y riesgos que no siempre son visibles de inmediato.
 - La reversibilidad ayuda a decisión bajo cambios.
@@ -76,19 +78,19 @@ Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las 
 - Una arquitectura saludable produce señales observables sobre rendimiento y fallos.
 - El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
 
-### Mi lectura como profesor
+### 🔎 Mi lectura de riesgos, continuidad y decisiones bajo incertidumbre como profesor
 Bajo incertidumbre, la mejor decisión no siempre es la más ambiciosa, sino la que permite aprender, adaptarse y sostener el sistema con menos riesgo.
 
 Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
 
-## 🏗️ Ejemplo resuelto
+## 🏗️ Cómo resolver riesgos, continuidad y decisiones bajo incertidumbre en la práctica
 Voy a resolver una situación contigo. La fuente plantea lo siguiente: Este video habla de los riesgos y costos que subyacen a cada decisión arquitectónica. No siempre se tiene toda la información antes de elegir una solución. En ese contexto, el arquitecto debe evaluar qué tan reversible es la decisión, cuál es su costo real y qué riesgos conlleva. La incertidumbre es normal, pero la mala gestión de la misma puede generar decisiones impulsivas o demasiado rígidas.
 
 La toma de decisiones bajo incertidumbre exige criterio: priorizar opciones que permitan aprender, adaptarse y cambiar sin grandes pérdidas. Así, el sistema se vuelve más resiliente frente a cambios de negocio o de contexto. Ahora llévalo a la plataforma logística: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
 
 Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
 
-## 🧩 Caso guiado: plataforma logística
+## 🧩 Riesgos, continuidad y decisiones bajo incertidumbre: caso de la plataforma logística
 Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
 
 1. Un cliente crea un pedido.
@@ -99,7 +101,7 @@ Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a 
 
 Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
 
-## ✍️ Taller de clase
+## ✍️ Tu reto: aplicar riesgos, continuidad y decisiones bajo incertidumbre
 Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
 
 1. Redacta el problema en tres líneas, sin mencionar tecnologías.
