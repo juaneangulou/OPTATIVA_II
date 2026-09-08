@@ -1,0 +1,1452 @@
+La tragedia de los Boeing 737 MAX en 2018 y 2019 puso en evidencia una realidad crucial: las decisiones en arquitectura de software tienen consecuencias reales e inmediatas. En este caso, un sistema automatizado sin redundancias basado en un único sensor causó cientos de muertes. No fue un bug, sino una elección consciente que priorizó rapidez y costos sobre seguridad y criterios técnicos.
+
+¿Por qué importan tanto las decisiones en arquitectura de software?
+
+Cada elección en arquitectura impacta directamente en la escalabilidad, seguridad, privacidad, accesibilidad e incluso en aspectos éticos del producto o proyecto. No importa el sector—aviación, salud, banca, educación, startups—tus decisiones afectan directamente los resultados y potenciales riesgos.
+
+Como arquitecto de software, más que crear simplemente diagramas, tu misión es diseñar sistemas, abstraer complejidad, cuestionar supuestos y negociar efectivamente con los stakeholders. Las responsabilidades van más allá de la funcionalidad: consisten también en asegurar que el sistema sea robusto, confiable y diseñado con miras al largo plazo.
+
+¿Cómo comunicar efectivamente la arquitectura de software?
+
+Frecuentemente, las decisiones arquitectónicas no se comunican claramente dentro del equipo, dificultando su mantenimiento y evolución posterior. Para mejorar esto, empieza creando un archivo llamado ARCHITECTURE.md en la raíz de tu repositorio. Esta práctica simple pero poderosa recordará visualizar y comprender rápidamente la estructura del proyecto.
+
+En el archivo, incluye:
+
+El propósito general del código.
+Un mapa breve de los módulos.
+Conceptos clave, restricciones relevantes y riesgos conocidos.
+Acompaña este documento preferiblemente con un diagrama sencillo. Mantén el enfoque claro, conciso y accesible, como un brochure. El objetivo es facilitar futuras intervenciones sin necesidad de analizar todo el código nuevamente.
+
+¿Cómo empezar a tomar mejores decisiones de arquitectura?
+
+Este curso proporcionará un marco conceptual sólido para identificar rápidamente los aspectos más importantes a largo plazo para tu proyecto, con énfasis en el impacto inmediato y la comunicación clara de tus decisiones. Las herramientas que aprenderás en este proceso buscan ayudarte a prevenir errores costosos y mejorar sustancialmente la calidad y robustez de tu producto.
+
+¿Estás preparado para tener una perspectiva más amplia del desarrollo de software y diseñar sistemas más seguros, escalables y efectivos? Deja atrás la adicción al código puro y comienza a profundizar tu enfoque arquitectónico.
+
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+IA en arquitectura: herramienta o amenaza
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La inteligencia artificial llegó al desarrollo de software para quedarse, y eso plantea una pregunta directa para quien diseña sistemas: ¿la IA en arquitectura de software es una herramienta, una amenaza o una oportunidad? La respuesta corta es que funciona como herramienta, exige adaptación y abre espacio para que la arquitectura actúe como meta herramienta que da acceso a otras capacidades.
+
+¿Por qué la IA parece inevitable en el desarrollo de software?
+
+La adopción avanza rápido y los números lo confirman. Muchas compañías afirman que más del 90% de su nuevo código se está desarrollando con bots automáticos, y Google reporta que más del 25% de su nuevo código proviene de modelos automáticos. No es solo cosa de startups, también ocurre en grandes industrias.
+
+Para entender por qué esto sucede ahora, sirve mirar el modelo de adopción de innovación de Rogers, que clasifica a las personas en cinco grupos según cómo se relacionan con una tecnología nueva.
+
+¿Cómo se distribuyen los perfiles de adopción tecnológica?
+
+Innovadores: quieren adoptar la tecnología aunque no esté completamente probada.
+Visionarios: entienden la tecnología y la usan para resolver problemas sin solución clara hoy.
+Pragmáticos: usan lo ya probado para problemas habituales, y son la gran masa de la población.
+Conservadores: esperan a que la mayoría adopte algo antes de subirse, típico de compañías con procesos muy estandarizados.
+Escépticos: dudan o rechazan, normalmente por regulación o aversión a lo nuevo.
+Entre los visionarios y los pragmáticos aparece un vacío llamado masa crítica. Si una tecnología no logra cruzar ese vacío, tiende a desaparecer o a ser reemplazada por otra. Y aquí está la pregunta abierta: ¿la IA cruzará ese punto?
+
+¿Qué es la masa crítica en adopción tecnológica? Es el umbral mínimo de usuarios que necesita una tecnología para sostenerse. Si no lo alcanza, desaparece o la reemplaza otra alternativa.
+
+¿Cómo cambia el desarrollo de software con inteligencia artificial?
+
+El mercado nos muestra varios cambios concretos cuando integras IA en el ciclo de trabajo. El primero, y quizá el más visible, es la velocidad.
+
+Los ciclos de desarrollo se están acortando de forma drástica. Pasamos de meses con metodologías en cascada, a semanas con metodologías ágiles, y ahora hablamos de días o menos cuando usamos inteligencia artificial.
+
+¿Qué consecuencias tiene esa aceleración?
+
+Mayor atención al detalle: cada producto generado con IA necesita revisión.
+Nuevos patrones de desarrollo: formas estándar de integrar la IA en el trabajo diario.
+Nuevos centros de costo: la tecnología no es gratis, pagas cada vez que la usas.
+Nuevos estándares de calidad: aún no sabemos si serán más bajos por el volumen de código sin revisar, o más altos porque tendrás más tiempo para revisar a detalle.
+La única salida real ante este escenario es la adaptación. Y adaptarse, en este contexto, significa convertirse en mejores arquitectos.
+
+¿Qué significa ser un gran arquitecto frente a la IA?
+
+Frederick Brooks lo dejó claro en su famoso artículo de 1986, No Silver Bullet: los grandes diseños provienen de grandes diseñadores. La arquitectura es la diferencia entre ser un Salieri o un Mozart, y esa diferencia se nota más cuando la IA produce código a gran escala.
+
+La arquitectura es el estudio de la estructura de un sistema, sus propiedades y sus relaciones. Fíjate que hablamos de sistema, no de software. El software es solo un componente del sistema completo.
+
+¿Cuál es la diferencia entre IA y arquitectura en un proyecto? La IA se enfoca en el código y a veces en el software. Un arquitecto se ocupa de la estructura, las propiedades, las relaciones, las comunicaciones y la estrategia general, y a veces también del código.
+
+¿Cómo identificar tu posición frente a la IA?
+
+Te propongo un ejercicio sencillo. Haz una lista de las tecnologías que has visto emerger durante tu vida y marca tu posición frente a cada una.
+
+¿Eres innovador y quieres lo último siempre?
+¿Eres visionario y ves en ellas respuesta a tus problemas?
+¿Eres pragmático y la usas porque todo el mundo la usa?
+¿Eres conservador y prefieres mantener las reglas como estaban?
+¿Eres escéptico y prefieres no adoptarla?
+Recuerda que muchas tecnologías emergieron pero nunca cruzaron el punto crítico para ser masivamente adoptadas. ¿Qué crees que pasará con la IA? ¿En qué posición te ubicas tú? Déjame tu respuesta en los comentarios.
+
+Curso de Fundamentos de Arquitectura de Software
+Qué hace un arquitecto de software
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+El rol de un arquitecto de software va mucho más allá de priorizar tareas o escribir código. Si quieres entender qué hace un arquitecto de software en una organización, su trabajo se concentra en cuatro responsabilidades clave: entender, diseñar, convencer e intervenir. Cada una conecta decisiones técnicas con valor real para el negocio.
+
+¿Cuáles son las cuatro responsabilidades de un arquitecto de software?
+
+Las tareas de un arquitecto se sostienen entre lo técnico y lo organizacional. No basta con saber programar: hay que leer el contexto, traducirlo en diseño y lograr que ese diseño sea adoptado por toda la compañía [0:05].
+
+Entender la organización, el sistema y las implicaciones de cada decisión.
+Diseñar abstracciones, modelos, flujos y políticas que la organización pueda adoptar.
+Convencer a equipos y stakeholders de que el diseño tiene sentido y valor.
+Intervenir directamente con código fuente cuando es necesario.
+¿Un arquitecto de software debe saber programar? Sí, no se puede ser arquitecto sin saber programar, pero no necesariamente debes ser el mejor programador de la compañía [0:48].
+
+¿Cómo entender el contexto antes de diseñar?
+
+Antes de proponer cualquier solución, el arquitecto necesita leer dos contextos: el organizacional y el técnico. Ese entendimiento es el que permite identificar requerimientos funcionales y no funcionales, alinearse a la estrategia y conocer la capacidad instalada del equipo [1:00].
+
+Entender también significa conocer cómo está compuesto el equipo, cómo se comunica y cómo puede mejorar. Solo con esa base puedes evaluar riesgos y restricciones reales.
+
+¿Qué tipos de organizaciones existen y cómo afectan al diseño?
+
+El tipo de compañía donde trabajas define cuánta innovación es aceptable y cuánto peso tienen los procesos [1:35]:
+
+Startups: buscan el riesgo, aceptan decisiones muy innovadoras porque están en peligro de cerrarse.
+Microempresas: aceptan riesgo moderado, conocen bien su producto y el valor que entregan.
+Compañías en crecimiento o establecidas: tienen roles estables y procesos definidos, con espacio controlado para innovar.
+Entidades públicas: aversas al riesgo, prefieren procesos sobre innovación.
+Un buen arquitecto adapta su estilo a esa realidad. Diseñar como startup dentro de una entidad pública es una receta para el fracaso.
+
+¿Qué significa diseñar en arquitectura de software?
+
+Diseñar es generar productos que le dan valor a la organización. Empieza por escoger un estilo arquitectónico que resuelva tu problema y aterriza en abstracciones, contenedores y componentes [3:00].
+
+Los contenedores son las divisiones físicas del software para ser desplegado en producción. Entre abstracciones y contenedores aparecen los componentes, que debes evaluar por sus dependencias, fronteras, métricas de desempeño, patrones aplicados y pruebas que verifiquen conformidad con los requisitos.
+
+¿Qué es un contenedor en arquitectura de software? Es la división física del software para ser desplegado en producción. Junto con las abstracciones, define dónde viven los componentes del sistema.
+
+¿Qué herramientas usa un arquitecto para diseñar?
+
+El diseño se apoya en estándares y referencias maduras de la industria [3:50]:
+
+TOGAF como marco de arquitectura empresarial.
+Modelo C4 para diagramar sistemas en distintos niveles.
+Architectural Decision Records (ADR) para registrar decisiones.
+Unified Modeling Language (UML) y patrones de software documentados.
+Arquitecturas de referencia y frameworks de decisión de proveedores de cloud.
+Modelos de gestión de riesgo estandarizados.
+AI como apoyo transversal.
+Todas estas herramientas tienen implicaciones profundas en el código fuente, la documentación y los diagramas que usas para explicar y convencer.
+
+¿Por qué convencer es parte del trabajo del arquitecto?
+
+Convencer genera cultura. Y la cultura, en palabras simples, son todas las decisiones que toman las personas sin que nadie les diga que deben hacerlo [4:30]. El arquitecto la moldea con su propia práctica, estableciendo los estándares más altos para que sean adoptados y adaptados por la organización.
+
+El convencimiento empieza por dentro. Para convencer a otros, el arquitecto primero debe convencerse a sí mismo generando productos de calidad, aplicando diseño consistente, adoptando metodologías documentadas, ejecutando pruebas de concepto y registrando las opciones que evaluó antes de decidir.
+
+Hacia afuera, el arquitecto debe alinear a múltiples stakeholders: equipo de dirección, equipo de desarrollo, testers, facilitadores, analistas y operadores de la solución. Todos deben estar en la misma línea en la que la arquitectura se diseñó.
+
+¿Cuándo debe intervenir un arquitecto con código?
+
+Intervenir significa solucionar los problemas que a veces los propios diseños causan. Implica codificar, programar y desarrollar de la mano del equipo [5:50]. También implica conocer cómo se ejecutaron los diseños en la práctica.
+
+Sin esa cercanía con el código, un arquitecto simplemente no tiene control de su arquitectura. La intervención no es un acto de protagonismo, es un mecanismo de validación.
+
+¿Cómo aplicar esto en tu propio aprendizaje?
+
+Piensa en un problema importante pero no urgente que creas que se puede resolver con un sistema. Escríbelo. Ese problema será el punto de partida para diseñar una solución y codificarla a lo largo del curso [6:30].
+
+¿Qué problema vas a elegir? Cuéntalo en los comentarios y empecemos a diseñar juntos.
+
+
+
+Malas prácticas de arquitectura y cómo evitarlas
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La arquitectura de software no vive aislada: se acopla a la metodología de desarrollo que use tu organización y a la forma en que los equipos entregan valor. Si eres arquitecto o aspiras a serlo, entender esta relación te permite diseñar sistemas que evolucionan, evitar bloqueos y comunicarte mejor con personas de otros saberes.
+
+¿Cómo se relacionan las metodologías de desarrollo con la arquitectura?
+
+Un arquitecto rara vez impone su propio método. Lo común es adoptar el estándar de la organización y, desde ahí, generar productos de valor agregado lo más rápido posible, dejando evidencia verificable de la ejecución mediante formas estándar como las fitness functions.
+
+Históricamente, las metodologías en cascada entregaban valor después de muchos meses. El mercado migró hacia metodologías ágiles, que entregan valor en ciclos más cortos y enfatizan el feedback continuo con el cliente final. El arquitecto, entonces, debe evolucionar sus diseños para que sean compatibles con esa cadencia.
+
+Existen también enfoques menos formales, como los spikes de arquitectura o tareas específicas de diseño. Y cuando no hay metodología definida, las compañías simplemente se sientan a codificar.
+
+¿Qué es una fitness function en arquitectura de software? Es un índice compuesto que el arquitecto diseña y evalúa de forma continua para verificar que sus decisiones siguen alineadas con los objetivos de la arquitectura. Funcionan como pruebas unitarias, pero a nivel arquitectónico.
+
+¿Cómo se entrega valor de forma cíclica en arquitectura?
+
+Toda metodología implica entregar valor, y esa entrega es cíclica. No puedes desarrollar un sistema, entregarlo y dar por terminada tu interacción: los sistemas necesitan evolucionar y adaptarse.
+
+Cada entrega tiene criterios de aceptación, una serie de chequeos que confirman si el producto es conforme con la especificación y con las promesas de valor del diseño. El periodo del ciclo es vital y varía según la cultura de la organización:
+
+Algunas compañías esperan un ciclo completo antes de dar retroalimentación.
+Otras buscan retroalimentación continua a lo largo del ciclo.
+Otras logran retroalimentación instantánea, como ocurre con herramientas de inteligencia artificial.
+Los subproductos son los entregables de cada ciclo: tareas, spikes, definiciones, documentos. En metodologías clásicas, cada fase cerraba con un producto específico. En las iterativas, entregas varias versiones de los mismos subproductos cada vez que iteras.
+
+La automatización influye además en la comunicación del equipo, que puede ser síncrona cuando coinciden en oficina, asíncrona, o asíncrona con periodos largos entre actividades.
+
+¿Cuáles son las malas prácticas más comunes en arquitectura de software?
+
+Como arquitecto, parte de tu trabajo es detectar bloqueos en el desarrollo o en la evolución de la arquitectura. Estos bloqueos suelen reconocerse por patrones de comportamiento o por una baja en la calidad de los entregables.
+
+¿Qué es la ilusión de productividad?
+
+Es la entrega continua de productos que no alcanzan el nivel necesario para llevarlos a producción. Genera iteraciones constantes sin avance real. Hoy, con herramientas de AI, esta ilusión es más frecuente: puedes entregar algo que parece completar la tarea, pero queda corto.
+
+Antes de la AI existieron las herramientas de bajo código, y antes las herramientas CASE. El patrón se repetía: los desarrolladores entregaban automatizaciones del 80%, hacían hacks para alcanzar un 10% adicional, y nunca lograban modificar la herramienta para llegar al 100%.
+
+¿Cómo evito caer en la ilusión de productividad con AI? Mantén un diseño cuidadoso, presta atención primaria a los detalles y evalúa cada entrega con métricas de calidad. No te quedes con el resultado superficial del bot.
+
+¿Qué otras malas prácticas debes vigilar?
+
+Más allá de la ilusión de productividad, estas son las trampas más recurrentes:
+
+Dependencias sobre proveedores o vendor lock-in: tu innovación y calidad quedan atadas a lo que te entrega el proveedor.
+Cargas analíticas en sistemas operacionales: calcular reportes agregados o información histórica usando sistemas que no fueron diseñados para eso.
+Resume-driven development: cuando los equipos o arquitectos priorizan lo que el trabajo aporta a su hoja de vida sobre los resultados reales.
+Parálisis por análisis: los equipos de desarrollo no avanzan porque los arquitectos demoran demasiado las decisiones.
+Sistemas infinitamente personalizables: intentar resolver problemas que aún no se presentan.
+Después de identificarlas, necesitas un mecanismo sistemático para mantenerlas a raya.
+
+¿Cómo usar fitness functions para mantener la calidad arquitectónica?
+
+La forma más sólida de evitar malas prácticas es probar continuamente. Las fitness functions funcionan como pruebas unitarias del software, pero aplicadas a la arquitectura. Las construyes combinando varios elementos:
+
+Medidas y métricas de los componentes del sistema.
+Pruebas unitarias y de integración.
+Técnicas de ingeniería del caos, como fallas programadas en producción para validar la resiliencia ante eventos inesperados.
+Escaneos de seguridad.
+Monitoreos y observabilidad continua.
+Con estos índices compuestos puedes verificar, decisión a decisión, que la arquitectura sigue cumpliendo los objetivos que prometiste cuando la diseñaste.
+
+¿Qué ejercicio puedes aplicar hoy en tu organización?
+
+Lista las modificaciones que tu organización hace a la metodología de desarrollo que sigue. Por ejemplo, en algunas no se cumplen todas las ceremonias ágiles; en otras se flexibilizan los criterios de aceptación o los niveles de pruebas.
+
+Conocer estas adaptaciones es clave para entregar productos arquitectónicos con el nivel de calidad que tu organización exige. ¿Qué ajustes detectaste tú? Cuéntalo en los comentarios.
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+Espacio de problema vs solución en arquitectura
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Comunicar bien tu trabajo como arquitecto de software empieza por separar lo que el sistema debe resolver de cómo lo va a resolver. Esa distinción, sumada a una comunicación adaptada a tu organización, define si tu arquitectura se entiende, se aprueba y se construye sin fricción.
+
+¿Qué diferencia el espacio del problema del espacio de solución?
+
+La primera tarea de un arquitecto es guiar la conversación hacia dos territorios distintos. El espacio del problema reúne las ideas, intenciones y requerimientos que el sistema debería atender. El espacio de solución contiene las opciones técnicas disponibles para responder a esos requerimientos.
+
+Mezclarlos es uno de los errores más comunes y casi siempre nace de un sesgo organizacional. Cuando alguien dice necesitamos un microservicio de detección de fraude, ya está empujando una solución antes de definir el problema. Un ingeniero sin experiencia se entusiasma con un modelo asistido por IA. Un arquitecto experimentado pregunta primero qué se considera fraude, porque esa respuesta cambia el nivel de tolerancia al error y, con él, toda la arquitectura.
+
+¿Qué es el espacio del problema en arquitectura de software? Es la serie de retos y requisitos que descubres conversando con tu cliente. No incluye soluciones, solo lo que necesita resolverse y por qué importa.
+
+¿Qué preguntas usar para explorar cada espacio?
+
+Cada espacio se descubre con un tipo de pregunta diferente. En el espacio del problema dominan el por qué, el para qué y el qué. En el espacio de solución, el cómo.
+
+Qué problema queremos resolver, para fijar el alcance.
+Por qué se necesita una solución, para medir urgencia y prioridad.
+Por qué ocurre el problema, para encontrar causas y problemas de contexto que no se dicen explícitamente.
+Por qué con estas restricciones (más rápido, más eficiente, más fácil), para validar si vale la pena el esfuerzo.
+Qué aspectos desconocidos hay, como regulaciones que pueden cambiarlo todo.
+Solo cuando esas respuestas están claras tiene sentido pasar al cómo.
+
+¿Cómo influye la ley de Conway en tu arquitectura?
+
+A mediados del siglo XX, Melvin Conway formuló un principio que sigue vigente: las organizaciones que construyen sistemas de información terminan replicando, en esos sistemas, su propia forma de comunicarse. Si tu equipo se comunica de forma fragmentada, tu sistema saldrá fragmentado.
+
+Esto tiene un costo concreto: la carga cognitiva, que es la cantidad de ideas que una persona debe sostener en su cabeza para hablar de un contexto. Cuanta más carga cognitiva exija tu arquitectura, más difícil será mantenerla y comunicarla.
+
+¿Qué dice la ley de Conway? Que el diseño de un sistema refleja la estructura de comunicación de la organización que lo construye. Si quieres cambiar la arquitectura, observa primero cómo conversa el equipo.
+
+Cada organización se comunica distinto. Las distribuidas tienden a lo asíncrono y estandarizado. Las jerárquicas concentran decisiones. Y muchas combinan ambos modelos. Tu trabajo es detectar esos patrones, adaptarte a ellos y hacerte entender dentro de ellos.
+
+¿Cómo comunicar efectivamente tu arquitectura?
+
+El medio es el mensaje. Si entregas un PDF estático, recibirás silencio. Si entregas un documento vivo, recibirás decisiones. Para eso existen el hipertexto, que enlaza textos con otros recursos, y la hipermedia, que suma video, audio o diagramas interactivos.
+
+Los documentos de arquitectura solo tienen sentido cuando incluyen tres cosas:
+
+Comentarios e interacciones entre lectores.
+Control de cambios para revisar cómo evolucionó la decisión.
+Una plantilla común que reduzca la fricción de lectura.
+Pide feedback directo sobre secciones específicas, no sobre el documento entero. Y no aceptes el por mí está bien: esa respuesta es la versión educada del desinterés y deja decisiones sin validar.
+
+¿Por qué establecer fechas de corte en la documentación?
+
+La documentación sin fecha de cierre cae en parálisis por análisis. Nadie la lee, nadie opina, nadie decide. Establecer una fecha límite obliga a la conversación y convierte el documento en un instrumento de decisión, no en un archivo muerto.
+
+¿Qué diagramas debe dominar un arquitecto de software?
+
+Después de los documentos, los diagramas son el segundo medio más importante. Puedes crear estándares propios para tu organización o apoyarte en estándares ampliamente adoptados.
+
+C4 model, para comunicar abstracciones que se vuelven cada vez más concretas a medida que avanzas en el espacio del problema.
+Diagramas de secuencia, para visualizar la dinámica de mensajes entre los actores de un sistema.
+Estándares de proceso, para formalizar actividades, tareas y paralelizaciones de un proceso de negocio.
+UML, que cubre estructuras, estados, secuencias e incluso despliegues.
+¿Qué es el C4 model? Es un estándar de diagramación que organiza la arquitectura en cuatro niveles de abstracción, de lo más general a lo más concreto, para que cada audiencia vea lo que necesita.
+
+¿Cómo aplicar esto a tu propio problema?
+
+Vuelve al problema que trabajaste en clases anteriores y reescríbelo separando con claridad el espacio del problema del espacio de solución. Dos técnicas te ayudan a profundizar:
+
+Los cinco why, para preguntar iterativamente por qué hasta llegar a la causa raíz.
+Los seis sombreros, para examinar el problema desde puntos de vista distintos: emocional, crítico, creativo, optimista, analítico y organizativo.
+¿Cuál de estas técnicas crees que te dará más claridad en tu próximo proyecto? Cuéntalo en los comentarios.
+
+
+
+Requisitos funcionales y no funcionales en arquitectura de software
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+¿Sabes cómo determinar si un sistema informático posee la calidad adecuada? Dominar los requisitos funcionales y no funcionales es clave en arquitectura de software para garantizar un sistema robusto, íntegro y adaptable en el tiempo.
+
+¿Qué son los requisitos funcionales y por qué son importantes?
+
+Los requisitos funcionales definen específicamente qué problemas resuelve un sistema. Se centran principalmente en:
+
+Quién tiene la necesidad.
+Qué se espera como resultado.
+Cómo evaluar si la solución propuesta cumple con las condiciones mínimas.
+Los límites operativos y posibles fallos aceptables dentro del sistema.
+Estos requisitos se clasifican en:
+
+Capacidades visibles directamente por el usuario.
+Procesos que ocurren en background ofreciendo resultados al usuario.
+Control de acceso, regulaciones y manejo de excepciones conocidas.
+Un método reciente y útil, conocido como método Amazon, plantea soluciones antes de enumerar requisitos, permitiendo recibir retroalimentación de usuarios para definir especificaciones más precisas.
+
+¿Cuál es la importancia de los requisitos no funcionales?
+
+Los requisitos no funcionales se relacionan directamente con los atributos de calidad del software, conformando el núcleo de la atención arquitectónica. Son imprescindibles para que un sistema pueda evolucionar adecuadamente con el tiempo.
+
+Tipos de requisitos no funcionales:
+
+Atributos sobre calidad de software: seguridad, usabilidad, mantenibilidad, extensibilidad, entre otros.
+Costo: factor clave para conducir y valorar decisiones en proyectos.
+Impacto: mide los resultados que acarrea cada decisión tomada, comprendiendo pérdidas económicas, regulatorias o reputacionales. Se evalúa con una función específica que ayuda a cuantificar el costo potencial de distintos errores.
+¿Cómo se gestionan los riesgos y las restricciones en proyectos?
+
+Identificar requisitos y analizar impactos lleva a estructurar tablas de riesgos, priorizando según severidad y frecuencia. Esto facilita decidir cuáles resolver previamente, cuáles aceptar posteriormente o cuáles requieren planes específicos de mitigación o control al materializarse.
+
+Las restricciones aparecen como límites dinámicos al diseñar soluciones tecnológicas. Muchas surgen durante el propio proyecto, dependiendo de decisiones técnicas específicas:
+
+Bases de datos relacionales: seguridad de esquemas predefinidos limitando flexibilidad.
+Bases de datos orientadas a documentos: conceden flexibilidad estructural, reduciendo capacidades analíticas comunes como SQL.
+Para consolidar esta información, un ejercicio práctico recomendado es listar riesgos conocidos y analizar restricciones existentes en el contexto specific del problema abordado. ¿Cuáles podrías identificar en tus proyectos actuales?
+
+
+Costo total de operación en arquitecturas modernas
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+¿Cuánto cuesta realmente diseñar y mantener un sistema de software? La respuesta define si tu arquitectura es sostenible o si se convierte en un dolor financiero a mediano plazo. Aquí desglosamos cómo un arquitecto de software calcula, etiqueta y optimiza el costo total de operación (TCO) de un sistema moderno, especialmente en escenarios distribuidos, con big data, streaming o machine learning.
+
+Entender este costo importa porque las arquitecturas actuales ya no se comportan como los antiguos monolitos, donde el gasto era casi constante. Hoy, el costo se distribuye en el tiempo y, si no lo controlas, crece de forma inesperada.
+
+Qué es el costo total de operación de un sistema
+
+El costo total de operación es la suma del dinero, recursos y tiempo humano que inviertes para construir un sistema y mantenerlo vivo en producción. No es un número único: es una curva que cambia según la fase del proyecto.
+
+Se divide en dos grandes bloques. Por un lado está el CAPEX, o costo de capital, que es lo que gastas para construir el sistema y llevarlo a producción. Por otro lado está el OPEX, o costo operacional, que es lo que pagas mientras el sistema está corriendo y atendiendo usuarios. A esto se suma un costo que muchas veces se ignora: el costo humano de capacitar a las personas que lo van a operar.
+
+¿Qué diferencia hay entre CAPEX y OPEX en software? El CAPEX es la inversión inicial para construir y desplegar el sistema. El OPEX es el gasto recurrente para mantenerlo funcionando en producción.
+
+Cómo se comportan CAPEX y OPEX en el tiempo
+
+El modelo esperado es bastante claro si lo piensas como dos curvas sobre un eje temporal.
+
+El CAPEX empieza alto y disminuye con el tiempo, pero nunca llega a cero porque siempre hay costos de mantenibilidad, configuración y adaptación.
+El OPEX arranca bajo, cuando solo tienes entornos de desarrollo y prueba.
+El OPEX crece a medida que entras en producción y más usuarios usan el sistema.
+Con el tiempo, el OPEX tiende a estabilizarse gracias a optimizaciones y eficiencias.
+Esa estabilización no ocurre sola. Ocurre porque alguien, tú como arquitecto, toma decisiones para que ocurra.
+
+Cómo decidir qué optimizar en una arquitectura
+
+No todo en un sistema puede ser crítico, ni todo puede ser accesorio. Tu trabajo es etiquetar las cargas de trabajo según su nivel de criticidad. Esto te permite saber dónde no puedes fallar y dónde sí puedes recortar.
+
+Piensa en el software de un hospital o de un banco: la capacidad de mover dinero o de atender una emergencia tiene que mantenerse funcionando pase lo que pase. Esa es una carga crítica. Pero alrededor hay cargas importantes y accesorias que sí puedes optimizar con eficiencias técnicas, cambios de herramientas o incluso rediseños completos.
+
+Cuándo conviene comprar y cuándo construir software
+
+Una de las primeras decisiones de optimización es la clásica buy vs build. Y no se resuelve con intuición, se resuelve con datos.
+
+Debes tener en cuenta varios factores antes de decidir:
+
+El tipo de problema que estás solucionando, sobre todo si toca el core de tu negocio.
+El costo de licenciamiento y puesta a punto de la solución externa.
+El costo de capacitación de las personas que la van a usar.
+La integración con los demás sistemas de la organización.
+La curva de aprendizaje y la curva de mantenimiento en el tiempo.
+A veces compras el software que resuelve el core y lo adaptas. A veces construyes desde cero porque ningún proveedor cubre tu caso. La respuesta correcta depende del TCO completo, no solo del precio inicial.
+
+Qué optimizaciones técnicas puedes aplicar
+
+Más allá del buy vs build, hay optimizaciones que puedes aplicar directamente sobre el sistema.
+
+Usar mejores algoritmos para mejorar la eficiencia.
+Elegir estructuras de datos que representen mejor el modelo de dominio.
+Apoyarte en servicios de proveedores cloud que te quitan trabajo operativo.
+Aceptar soluciones menos precisas en problemas de agregación o analítica.
+Paralelizar cargas o ejecutar trabajo por lotes.
+Cada una tiene un trade-off. Aceptar precisión más baja, por ejemplo, puede tener costos ocultos que debes reconocer antes de aprobarlos.
+
+Cómo controlar el costo de forma continua
+
+La optimización no es un evento, es una práctica. Y necesita estructura para sostenerse.
+
+Lo primero es establecer un presupuesto y unas proyecciones. El presupuesto es el conjunto de decisiones que tomas para limitar el costo de construcción. Las proyecciones son las estimaciones a futuro basadas en los datos reales de operación y mantenimiento.
+
+Para que esto funcione, necesitas un framework de gobernanza: criterios estándar que te permitan medir de forma consistente a lo largo del tiempo. Sin gobernanza, los datos se vuelven anécdotas.
+
+Qué es la observabilidad y por qué cuesta dinero
+
+Aquí es donde entra una herramienta poderosa, pero ambigua en su costo: la observabilidad. Y conviene separarla de conceptos parecidos.
+
+¿Qué diferencia hay entre telemetría, monitoreo y observabilidad? La telemetría toma medidas de un sistema remoto. El monitoreo detecta errores. La observabilidad mide internamente el estado del sistema en ejecución y responde qué falló y por qué falló.
+
+La observabilidad se apoya en tres pilares:
+
+Métricas: medidas directas, indirectas o compuestas sobre el sistema.
+Logs: registros de eventos pequeños que ocurrieron en el tiempo.
+Trazas: medidas que muestran cómo fluye el control entre los componentes del sistema.
+El punto incómodo es que la observabilidad no es gratis. Es casi un subsistema completo: consume cómputo, requiere almacenamiento y te cobran por la retención de los datos. Si multiplicas la cantidad de eventos, componentes y frecuencia, el número se dispara rápido.
+
+¿Por qué la observabilidad puede inflar el OPEX? Porque cada métrica, log y traza se almacena, se procesa y se retiene. A escala, ese volumen de datos se convierte en una factura grande y constante.
+
+Como ejercicio, piensa en el problema que planteaste en clases anteriores y arma un presupuesto. ¿Lo medirías en horas de trabajo humano, en horas de uso de IA, en costo de infraestructura? ¿Puedes estimar el OPEX al primer mes, a los tres y a los seis meses? Cuéntame en los comentarios cómo lo calcularías.
+
+
+
+Alineación de arquitectura de software con estrategia empresarial
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La arquitectura de software juega un papel central en el éxito de una compañía, y para ello, debe estar alineada estrictamente con la estrategia empresarial. La clave está en identificar claramente cuáles cargas de trabajo son esenciales y cuáles pueden sacrificarse. Esto se logra comprendiendo a profundidad las dimensiones de ingresos y desarrollando un lenguaje común que cierre la brecha entre profesionales técnicos y de negocio.
+
+¿Por qué es crucial entender la estrategia del negocio?
+
+Comprender la estrategia del negocio permite tomar decisiones informadas y estratégicas sobre la priorización y selección de funcionalidades. Este conocimiento facilita al arquitecto de software identificar claramente qué aspectos del proyecto aportan valor y cuáles pueden postergarse. Las estrategias del negocio generalmente se clasifican en tres tipos principales:
+
+Exploración: Orientada a descubrir nuevos mercados y aceptar mayores riesgos en diseños innovadores.
+Expansión: Enfocada en desarrollar productos estables que generen valor agregado en mercados ya identificados.
+Ahorro: Dirigida a cortar gastos, donde el principal criterio es optimizar costos y no necesariamente agregar nuevas funcionalidades.
+¿Cuáles son las dimensiones de ingresos que debes considerar?
+
+Identificar las dimensiones de ingresos ayuda a reconocer por qué exactamente los usuarios o clientes pagan por el sistema. Esto es vital para:
+
+Reconocer casos prioritarios y requisitos no funcionales clave.
+Establecer rangos aceptables para la calidad del servicio.
+Definir claramente los acuerdos de nivel de servicio (Service Level Agreements, SLA).
+Las principales dimensiones de ingresos consideradas pueden ser:
+
+Ventaja competitiva: Ofreciendo funcionalidades únicas en el mercado.
+Cumplimiento de regulaciones: Servicios o productos adquiridos obligatoriamente debido a regulaciones.
+Disponibilidad: Asegurando que el sistema esté siempre operativo y disponible.
+Cumplimiento: Funcionalidades esenciales que, aunque no generen ingresos directamente, son necesarias para cumplir con requisitos operativos del cliente.
+¿Cómo desarrollar un lenguaje común entre negocio y tecnología?
+
+Desarrollar una comunicación efectiva entre las áreas técnicas y de negocio implica crear un lenguaje compartido, llamado lenguaje ubicuo. Este facilita la colaboración efectiva y evita errores o desviaciones causados por la falta de entendimiento común.
+
+Algunas técnicas recomendadas para lograr este lenguaje común son:
+
+Analizar conversaciones grupales con apoyo de herramientas de inteligencia artificial.
+Crear glosarios detallados incluyendo sinónimos, antónimos y abreviaturas relevantes.
+Utilizar documentos y glosarios para abordar y resolver las ambigüedades específicas del contexto.
+Te invito a poner en práctica este consejo mediante la creación de tu glosario, identificando conceptos frecuentes, términos especializados, así como sus sinónimos y antónimos más relevantes para garantizar una comunicación efectiva en tus proyectos.
+
+
+
+Alineación de arquitectura de software con estrategia empresarial
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La arquitectura de software juega un papel central en el éxito de una compañía, y para ello, debe estar alineada estrictamente con la estrategia empresarial. La clave está en identificar claramente cuáles cargas de trabajo son esenciales y cuáles pueden sacrificarse. Esto se logra comprendiendo a profundidad las dimensiones de ingresos y desarrollando un lenguaje común que cierre la brecha entre profesionales técnicos y de negocio.
+
+¿Por qué es crucial entender la estrategia del negocio?
+
+Comprender la estrategia del negocio permite tomar decisiones informadas y estratégicas sobre la priorización y selección de funcionalidades. Este conocimiento facilita al arquitecto de software identificar claramente qué aspectos del proyecto aportan valor y cuáles pueden postergarse. Las estrategias del negocio generalmente se clasifican en tres tipos principales:
+
+Exploración: Orientada a descubrir nuevos mercados y aceptar mayores riesgos en diseños innovadores.
+Expansión: Enfocada en desarrollar productos estables que generen valor agregado en mercados ya identificados.
+Ahorro: Dirigida a cortar gastos, donde el principal criterio es optimizar costos y no necesariamente agregar nuevas funcionalidades.
+¿Cuáles son las dimensiones de ingresos que debes considerar?
+
+Identificar las dimensiones de ingresos ayuda a reconocer por qué exactamente los usuarios o clientes pagan por el sistema. Esto es vital para:
+
+Reconocer casos prioritarios y requisitos no funcionales clave.
+Establecer rangos aceptables para la calidad del servicio.
+Definir claramente los acuerdos de nivel de servicio (Service Level Agreements, SLA).
+Las principales dimensiones de ingresos consideradas pueden ser:
+
+Ventaja competitiva: Ofreciendo funcionalidades únicas en el mercado.
+Cumplimiento de regulaciones: Servicios o productos adquiridos obligatoriamente debido a regulaciones.
+Disponibilidad: Asegurando que el sistema esté siempre operativo y disponible.
+Cumplimiento: Funcionalidades esenciales que, aunque no generen ingresos directamente, son necesarias para cumplir con requisitos operativos del cliente.
+¿Cómo desarrollar un lenguaje común entre negocio y tecnología?
+
+Desarrollar una comunicación efectiva entre las áreas técnicas y de negocio implica crear un lenguaje compartido, llamado lenguaje ubicuo. Este facilita la colaboración efectiva y evita errores o desviaciones causados por la falta de entendimiento común.
+
+Algunas técnicas recomendadas para lograr este lenguaje común son:
+
+Analizar conversaciones grupales con apoyo de herramientas de inteligencia artificial.
+Crear glosarios detallados incluyendo sinónimos, antónimos y abreviaturas relevantes.
+Utilizar documentos y glosarios para abordar y resolver las ambigüedades específicas del contexto.
+Te invito a poner en práctica este consejo mediante la creación de tu glosario, identificando conceptos frecuentes, términos especializados, así como sus sinónimos y antónimos más relevantes para garantizar una comunicación efectiva en tus proyectos.
+
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+Mindset del arquitecto que abraza el cambio
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+El mindset del arquitecto de software moderno exige retar el éxito, abrazar el cambio constante y construir un sistema personal para adoptar innovaciones. Si diseñas software y quieres evitar quedarte atrás, esta lectura te muestra cómo pensar distinto y apoyarte en la AI para crecer.
+
+¿Por qué los arquitectos deben retar el éxito?
+
+La autocomplacencia es uno de los riesgos más silenciosos en el rol. Cuando un diseño se estabiliza y los patrones conocidos parecen resolverlo todo, aparece la trampa de aplicar las mismas soluciones a problemas distintos.
+
+Ahí es donde la innovación se detiene del lado tuyo, aunque afuera nunca se detenga. Siempre habrá nuevos métodos, técnicas y herramientas, y siempre habrá alguien aprovechándolos para ganar ventaja competitiva. Una de esas personas deberías ser tú.
+
+Parafraseando a la pionera del software Grace Hopper, las palabras más peligrosas para un arquitecto son: "siempre lo hemos hecho así". Puedes tener éxitos consistentes con tus herramientas actuales, pero quedarte ahí es el principio del rezago.
+
+¿Qué significa retar el éxito en arquitectura de software? Es cuestionar los diseños que ya funcionan y los patrones que aplicas por costumbre, para evitar la autocomplacencia y abrirte a herramientas o métodos nuevos que resuelvan mejor problemas distintos.
+
+¿Cómo encontrar serendipia en el diseño de software?
+
+La serendipia es la serie de hallazgos exitosos que encuentras a pesar de no haberlos buscado. No es suerte ciega: aparece cuando trabajas con un framework de pensamiento abierto y observas lo que sucede fuera de las paredes de tu diseño actual.
+
+La historia está llena de ejemplos: medicinas, inventos, descubrimientos y hasta métodos completos que surgieron sin estar en el plan inicial. En arquitectura pasa lo mismo cuando estás dispuesto a mirar más allá del problema inmediato.
+
+Para que la serendipia ocurra de forma sistemática, conviene que adoptes tres hábitos:
+
+Explorar de manera deliberada herramientas y técnicas fuera de tu stack habitual.
+Documentar problemas y soluciones para detectar patrones inesperados.
+Aceptar que la innovación ocurre dentro y fuera de tu equipo, y crear un sistema para capturarla.
+¿Qué es la serendipia aplicada al software? Son hallazgos útiles que surgen cuando exploras temas fuera de tu problema inmediato. No estaban en el plan, pero terminan mejorando tu diseño, tu estrategia o tu producto final.
+
+¿Cómo usar AI para hacer innovación sistemática?
+
+Una manera concreta de sistematizar la innovación es apoyarte en la AI como copiloto de pensamiento. Como arquitecto produces documentos, diagramas y especificaciones, y todo eso puede entrar en una conversación con un modelo para profundizarse o mejorarse.
+
+¿Qué prompts puedo usar como arquitecto de software?
+
+Algunas preguntas que vale la pena llevar al modelo:
+
+¿Hay una forma mejor de hacer esto?
+¿Existe alguna herramienta que complemente las que estoy usando?
+¿Qué detalles no se tienen en cuenta en esta especificación?
+La AI hoy mantiene conversaciones de larga data, lo que significa que puede iterar varias veces sobre un mismo tema sin perder consistencia en sus respuestas. Eso te permite refinar una idea hasta que quede sólida.
+
+Los modelos basados en Deep Seek y en razonamiento lógico aportan algo extra: te ayudan a plantear problemas complejos y a secuenciar los pasos necesarios para resolverlos. Es como tener un sparring que ordena el caos contigo.
+
+¿La AI reemplaza a los expertos de negocio o al equipo?
+
+No. Estas conversaciones no sustituyen la interacción con los expertos de negocio, tus pares arquitectos ni los equipos de desarrollo. Lo que hacen es ampliar el espectro y ayudarte a adoptar nuevas técnicas e innovaciones de forma sistemática.
+
+¿Cómo aprovecho la AI siendo arquitecto de software? Lleva tus documentos, diagramas y especificaciones a una conversación con un modelo y pídele que cuestione, complemente o detecte vacíos. Itera varias veces hasta enriquecer el producto.
+
+Ejercicio para enriquecer tus productos como arquitecto
+
+Toma todo lo que generaste en ejercicios anteriores y llévalo a una conversación con un modelo de AI. La idea es que el modelo trabaje sobre material real tuyo, no sobre ejemplos genéricos.
+
+Incluye en esa conversación:
+
+La descripción del problema.
+El espacio de solución y las alternativas.
+Los riesgos y las restricciones.
+La estrategia, el presupuesto y los costos asociados que quizá aún no has descubierto.
+Esa iteración va a enriquecer tus productos y te acercará a un diseño de mayor calidad. ¿Qué hallazgo inesperado encontraste la última vez que retaste tu propio diseño? Cuéntalo en los comentarios.
+
+
+
+
+
+
+
+
+
+
+Cómo elegir un estilo arquitectónico sin fallar
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Elegir un estilo arquitectónico es la decisión que define cómo vas a resolver tu problema de software. No se trata de escoger el más popular ni el que se ve mejor en un diagrama, sino el que se ajusta al contexto, las restricciones y las expectativas que ya comunicaste. Esta guía te ayuda a entender cómo tomar esa decisión sin caer en castillos de arena.
+
+¿Qué es un estilo arquitectónico en software?
+
+Un estilo arquitectónico es una decisión del arquitecto que genera restricciones. Funciona como un trade-off: ganas ciertas capacidades, pero asumes consecuencias.
+
+¿Qué es un estilo arquitectónico? Es una forma de estructurar la solución a un problema de software. Cada estilo aporta beneficios específicos y, al mismo tiempo, impone limitaciones que debes aceptar.
+
+Lo fundamental es no perder de vista el espacio del problema. Antes de escribir una línea de código, tu trabajo es probar alternativas entre estilos y validar cuál encaja con la organización, el problema real y los recursos disponibles.
+
+¿Cómo escoger un estilo coherente con el contexto?
+
+La coherencia es la regla número uno. Para problemas sencillos o con recursos limitados, las arquitecturas simples son tu mejor aliado.
+
+Cliente-servidor: ideal cuando necesitas separar consumo y procesamiento sin complicarte.
+Monolito: útil cuando tienes restricciones fuertes de seguridad o requisitos no funcionales que exigen mantener la información concentrada.
+Monolito modular: construyes el mismo sistema, pero conectas módulos manteniendo cierto nivel de independencia.
+Piénsalo así: puedes construir una casa de playa resistente al oleaje, al viento y a los cambios de temperatura, pero siempre dentro de las restricciones del problema que tienes enfrente. No necesitas un rascacielos para vivir junto al mar.
+
+¿Cuándo usar microservicios o arquitecturas orientadas a eventos?
+
+Cuando tu problema involucra servicios múltiples y distribuidos, los estilos cambian. Aquí entran los microservices y las arquitecturas orientadas a eventos.
+
+¿Cuándo conviene usar microservicios? Cuando tienes servicios distribuidos, equipos independientes y la necesidad de escalar partes del sistema por separado. Si no cumples eso, probablemente un monolito te sirve mejor.
+
+La decisión, otra vez, depende de las restricciones, las capacidades del equipo y el contexto. Un microservicio mal aplicado puede ser más costoso que un monolito bien diseñado.
+
+¿Se pueden mezclar estilos arquitectónicos?
+
+Sí, puedes mezclarlos libremente. De hecho, es lo más común en sistemas reales. Pero corres un riesgo claro: construir castillos de arena, es decir, arquitecturas que se ven impecables pero se derrumban ante el primer riesgo que se materializa.
+
+Los estilos también son subjetivos. Algunos ejemplos de esa frontera difusa:
+
+Crees tener una arquitectura de microservicios, pero si aíslas demasiado cada servicio, termina pareciéndose a un monolito.
+Diseñas todo orientado a eventos y descubres que necesitas guardar el estado, lo que te empuja fuera del paradigma puro.
+Combinas patrones porque uno solo no resuelve toda la complejidad del dominio.
+Esto es normal. No tienes que ser canónico ni purista al plantear tus soluciones.
+
+¿Qué riesgos tiene escoger mal un estilo arquitectónico?
+
+El riesgo principal es construir algo que no aplica al contexto. Por más esfuerzo que pongas y por más elegante que se vea la solución, si no responde al problema real, va a fallar cuando aparezca la primera presión seria.
+
+¿Cuál es la mejor arquitectura? La que funciona en tu contexto. No la que se ve mejor en un diagrama ni la que está de moda en conferencias.
+
+Algunas señales de que estás en territorio peligroso:
+
+Escogiste el estilo antes de entender el problema.
+Estás copiando la arquitectura de otra empresa sin validar tu contexto.
+Ignoras restricciones de recursos, seguridad o equipo.
+La recomendación práctica es iterar: prueba, valida contra el problema, ajusta. Y mantén siempre presente que un monolito que funciona vale más que un sistema de microservicios que se cae cada semana.
+
+¿Qué estilo arquitectónico estás usando hoy y por qué lo elegiste? Cuéntamelo en los comentarios.
+
+
+
+
+
+
+Arquitectura cliente servidor: fundamentos y comunicación por capas
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La arquitectura cliente servidor es un estilo arquitectónico tradicional y muy utilizado basado en dinámicas de llamado y respuesta entre sistemas. Este enfoque permite que un sistema (cliente) solicite datos o acciones específicas a otro sistema (servidor), recibiendo respuestas adecuadas según el contexto planteado. Su herencia proviene de la programación estructurada, donde las funciones secundarias colaboran con el programa principal para resolver tareas específicas.
+
+¿En qué consiste la arquitectura cliente servidor?
+
+En esencia, esta arquitectura se centra en la interacción de dos entidades principales:
+
+Cliente: Administra generalmente la lógica y los datos involucrados en el planteamiento y resolución del problema.
+Servidor: Brinda respuestas puntuales a los distintos requerimientos enviados por los clientes.
+Un aspecto relevante es que tanto clientes como servidores no se definen únicamente por tamaño o potencia. Pueden variar desde grandes bases de datos hasta pequeños programas o scripts que utilizan funciones específicas provistas por sistemas operativos.
+
+¿Cómo funciona exactamente la comunicación entre cliente y servidor?
+
+En esta dinámica, el cliente mantiene la lógica de control y hace solicitudes al servidor basándose en sus necesidades particulares. Al ejecutarse estas solicitudes, se intercambian datos, cuyo tipo y cantidad responden a las necesidades puntuales del problema a resolver.
+
+Dos mecanismos esenciales en este tipo de arquitectura son:
+
+Estado: puede ser manejado por completo en el cliente o depender significativamente del servidor.
+Comportamiento: define cómo, cuándo y qué se solicita al servidor para obtener respuestas que solucionen problemas específicos.
+¿Qué tipos de clientes existen dentro de esta arquitectura?
+
+Dentro del estilo cliente servidor existen diversos tipos de clientes, categorizados principalmente según el volumen de lógica y las capacidades que mantengan localmente:
+
+Cliente rico: Dispone de una interfaz avanzada con una lógica local robusta (por ejemplo, interfaces gráficas avanzadas de sistemas operativos).
+Cliente ligero: Posee una interfaz y lógica limitada, considerando antiguos teléfonos móviles como ejemplo claro.
+Cliente mixto: Incorpora elementos tanto de cliente rico como ligero, dependiendo en parte del servidor para suministrar interfaz o lógica.
+¿Qué es la arquitectura por capas y cómo se relaciona con cliente servidor?
+
+Una variante o enfoque adicional de este estilo arquitectónico es la arquitectura por capas, donde un cliente puede convertirse en servidor de un cliente de una capa superior. Esta estructura escalonada permite:
+
+Ordenar servicios e interacciones desde componentes más cercanos al usuario hasta aquellos que ofrecen servicios automáticos a servidores o sistemas adicionales.
+Una comunicación en cascada, donde la acción de un cliente puede implicar sucesivas solicitudes a diferentes servidores en capas inferiores.
+Un ejemplo práctico es una aplicación web:
+
+El usuario accede mediante una interfaz cliente (en navegador).
+La capa lógica del servidor consulta datos alojados en servidores específicos de bases de datos, ubicados en una capa inferior.
+Este esquema en capas revela cómo puede estructurarse una aplicación para solucionar requerimientos específicos de manera efectiva.
+
+¿En qué tipo de aplicaciones es útil esta arquitectura?
+
+El esquema arquitectónico cliente servidor puede emplearse en múltiples contextos de uso práctico, destacando especialmente casos como:
+
+Aplicaciones móviles que capturan datos localmente y después los sincronizan con servidores remotos.
+Sistemas de información corporativos, donde diversos clientes internos interactúan con bases de datos centralizadas.
+Plataformas web estructuradas en varias capas que segmentan claramente presentación, lógica de negocio y almacenamiento de datos.
+Familiarizarse con esta arquitectura permite entender tanto sus ventajas como las situaciones donde mejor aplica, así como prepararse para conocer otros estilos, como el monolítico, que exploraremos próximamente.
+
+¿Cuál ha sido tu experiencia con arquitecturas cliente servidor? Comparte tus comentarios y reflexiones con nosotros.
+
+
+
+
+
+Qué son las arquitecturas monolíticas y sus ventajas y desventajas
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Las arquitecturas monolíticas son una solución tradicional en el desarrollo de software, consistiendo en un solo contenedor o programa que cubre todos los requisitos funcionales. Aunque han sido ampliamente utilizadas, recientemente han recibido críticas por presentar limitantes en términos de escalabilidad y gestión del código fuente.
+
+¿Qué significa una arquitectura monolítica?
+
+El término "monolítico" se compone de "mono", que significa uno, y "lito", que significa piedra. En la práctica, implica crear una sola aplicación o sistema que aborda todas las funcionalidades necesarias para resolver problemas específicos. Ejemplos históricos incluyen programas antiguos de contabilidad y juegos que se instalaban localmente en una sola computadora.
+
+En una arquitectura monolítica, los módulos permiten establecer diferenciaciones lógicas internas, que ayudan a dividir de manera conceptual el sistema en partes más pequeñas y manejables:
+
+Un módulo dedicado a la persistencia de datos.
+Otro módulo especializado en la generación de reportes.
+Una capa orientada al cliente, enfocada en presentar o capturar información.
+¿Cuáles son los beneficios de las arquitecturas monolíticas?
+
+Aunque las arquitecturas monolíticas parecen algo anticuadas, presentan ciertos beneficios prácticos, especialmente en contextos específicos:
+
+Fáciles de adoptar y aprender.
+Sencillas de implementar entre equipos pequeños.
+Alto nivel de soporte y documentación disponible en la comunidad y la industria, con herramientas, plugins y papers que facilitan su manejo.
+¿Qué inconvenientes tienen las arquitecturas monolíticas?
+
+A pesar de las ventajas anteriores, estos sistemas plantean ciertas limitaciones:
+
+Complejidad en la escalabilidad y comunicación:
+
+Al crecer el alcance y la complejidad del sistema, resulta complicado mantener seguimiento de las decisiones internas tomadas.
+La comunicación entre diferentes equipos puede verse afectada negativamente, generando duplicación de trabajo o interferencias.
+Problemas de disponibilidad y rendimiento:
+
+Respuestas lentas o saturación debido a que toda la carga de usuarios impacta sobre un solo sistema.
+Dificultad en distribuir dinámicamente la carga según requerimientos específicos o casos de uso diferenciados.
+Alternativas frente a estos retos:
+
+Para resolver estas limitaciones han surgido otras opciones arquitectónicas. Una alternativa popular y adoptada es la arquitectura orientada a servicios, tema que abordaremos en próximas clases.
+
+¿Has tenido experiencias con arquitecturas monolíticas?, ¿cuál consideras tú que es su mayor fortaleza o desafío? ¡Comparte tus comentarios y sigamos aprendiendo juntos!
+
+
+
+
+Arquitecturas orientadas a servicios: contratos y especificaciones
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Las arquitecturas orientadas a servicios son una manera efectiva de abordar problemas complejos al dividirlos en unidades funcionales casi independientes. Esta metodología está cimentada en contratos específicos que los proveedores y usuarios de servicios deben cumplir, asegurando claridad y eficiencia en la comunicación empresarial y tecnológica.
+
+¿Qué es exactamente un contrato en arquitectura orientada a servicios?
+
+Un contrato es una especificación puntual que detalla claramente las obligaciones y expectativas tanto del servicio cliente como del servidor proveedor. Estas especificaciones permiten una interacción efectiva y estandarizada, facilitando el uso de múltiples proveedores sin cambios significativos en las aplicaciones cliente.
+
+Algunos formatos relevantes para estos contratos incluyen:
+
+Open APIs.
+Swagger.
+Especificaciones basadas en XML, tales como SOAP.
+¿Cómo se utilizaba XML en las arquitecturas de servicios?
+
+Anteriormente, XML era ampliamente utilizado para definir y validar contratos a través del uso de estándares específicos. Algunos documentos clave incluían:
+
+XSD: para validar que los contratos estuvieran estructurados correctamente según reglas específicas.
+XSLT: facilitar la transformación de estos documentos en formatos como PDF o hojas de cálculo.
+Además, la especificación WSDL (Web Services Description Language) resultaba vital para definir claramente las operaciones que un servidor podía ofrecer a los clientes, los tipos de datos utilizados y los mensajes intercambiados. También existían registros universales que permitían descubrir de manera rápida y sencilla los servidores que cumplían con ciertos contratos.
+
+¿Dónde están presentes hoy día estos estándares?
+
+Actualmente, un ejemplo cotidiano y práctico se encuentra en los sistemas gubernamentales para facturación electrónica. Estos sistemas requieren seguir cuidadosamente contratos específicos desgastados en WSDL, permitiendo interoperabilidad entre servicios del sector privado y entidades públicas de regulaciones fiscales.
+
+¿Por qué surgieron nuevas alternativas arquitectónicas?
+
+A pesar de su utilidad, la complejidad y rigidez de estos contratos hizo aparecer una carga cognitiva y técnica considerable, impulsando la búsqueda de otras opciones más flexibles y simples. Por ello, surgieron nuevas arquitecturas más ligeras, tales como las orientadas a eventos. Este tipo de soluciones se abordan cuando se enfrentan situaciones como:
+
+Integración de sistemas heterogéneos.
+Reacción dinámica ante estímulos externos.
+Inclusión de otros sistemas distintos en soluciones específicas.
+Abordar estos escenarios será fundamental para avanzar en los distintos enfoques arquitectónicos disponibles, especialmente el orientado a eventos.
+
+Este tipo de soluciones se abordan cuando se enfrentan situaciones como:
+
+Integración de sistemas heterogéneos.
+Reacción dinámica ante estímulos externos.
+Inclusión de otros sistemas distintos en soluciones específicas.
+Abordar estos escenarios será fundamental para avanzar en los distintos enfoques arquitectónicos disponibles, especialmente el orientado a eventos.
+
+
+
+
+
+Cómo funcionan los eventos en sistemas distribuidos
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Las arquitecturas orientadas a eventos son una de las formas más potentes de modelar sistemas complejos en software moderno. Aprenderás cómo funcionan los productores, consumidores y buses de eventos, por qué importan en sistemas distribuidos y para qué tipo de problemas son la mejor herramienta si trabajas como arquitecto o desarrollador.
+
+¿Qué es una arquitectura orientada a eventos?
+
+Una arquitectura orientada a eventos se basa en transmitir mensajes que representan cosas que ya sucedieron en el sistema. No son órdenes ni peticiones: son hechos consumados. Y aquí viene lo interesante: ese cambio de mentalidad lo cambia todo.
+
+En este modelo conviven dos roles clave. Los productores ejecutan comandos o acciones que modifican el estado general del sistema. Los consumidores son componentes que necesitan enterarse de lo que ya ocurrió para reaccionar.
+
+¿Qué es un evento en software? Es la representación de algo que ya sucedió en el sistema, como una factura emitida o una venta cerrada. Lleva solo la carga necesaria para que otros componentes reaccionen, no toda la información del proceso original.
+
+¿Cómo se conectan productores y consumidores?
+
+La conexión rara vez es directa. Lo recomendable es una capa intermedia conocida como bus de eventos o buffer, que guarda los eventos emitidos y los notifica a uno o varios consumidores. Esta capa también mantiene los mensajes cuando no hay clientes activos escuchando, lo que aporta resiliencia.
+
+Imagina un sistema que debe notificar cada vez que se emite una factura. El evento factura emitida no necesita cargar con todos los anexos ni con el peso completo del sistema de facturación. Basta con saber que la factura X fue emitida correctamente en el momento T1. A partir de ahí, cada consumidor decide qué hacer.
+
+¿Por qué usar diseño basado en dominios en eventos?
+
+El diseño basado en dominios, conocido como Domain Driven Design o DDD, es una técnica establecida desde principios del siglo XXI. Su valor está en construir un lenguaje ubicuo que permita comunicación fluida entre el equipo técnico y el negocio.
+
+Con DDD puedes identificar con claridad qué dominio emite eventos, qué dominio debe escucharlos y cómo se relacionan en una línea de tiempo. Sin esa claridad, una arquitectura de eventos se convierte rápido en un caos de mensajes sin contexto.
+
+¿Cómo manejas conceptos compartidos entre contextos?
+
+Los problemas complejos suelen dividirse en varios contextos, y ahí aparecen las colisiones. Un mismo concepto puede vivir en más de un contexto con significados distintos.
+
+Piensa en un sistema con dos contextos:
+
+Ventas: el cliente y el producto se relacionan con el cierre de una venta.
+Soporte: el cliente y el producto se relacionan con la apertura de un ticket.
+Eventos diferentes: cada contexto emite y consume notificaciones distintas aunque comparta nombres.
+Por eso necesitas un lenguaje ubicuo y comunicación abierta con todo el equipo. Solo así diferencias cuándo el concepto cliente significa una cosa y cuándo significa otra.
+
+¿Qué retos tiene una arquitectura de eventos?
+
+Este estilo arquitectónico soluciona problemas complicados, pero también añade complejidad. Los retos más comunes giran alrededor del tiempo, el orden y la consistencia.
+
+Vuelve al ejemplo de la factura. Uno de los consumidores puede ser una entidad pública que recibe millones de notificaciones de muchos sistemas a la vez. Otro consumidor puede ser un sistema de notificación por correo electrónico. La entidad pública puede ver caer su nivel de servicio por la carga, mientras que el correo se envía casi al instante. Resultado: el cliente recibe el email antes de que la entidad estatal procese el evento.
+
+¿Qué son las colisiones en arquitecturas de eventos? Son situaciones donde varios consumidores procesan el mismo evento en líneas de tiempo distintas, generando inconsistencias en el orden de las reacciones del sistema.
+
+¿Cómo diseñas líneas de tiempo consistentes?
+
+Como arquitecto debes definir líneas de tiempo coherentes con el contexto del problema y con el nivel de servicio de cada componente. No todos los consumidores procesan al mismo ritmo, y eso debe estar previsto desde el diseño.
+
+Esto también te obliga a pensar en transacciones. La transaccionalidad garantiza operaciones atómicas, pero en eventos llegas a manejar transacciones distribuidas, donde varios componentes que no son el mismo sistema participan en una sola operación lógica.
+
+¿Cuándo conviene usar arquitectura orientada a eventos?
+
+Este enfoque resuelve problemas complicados y complejos, sobre todo cuando hay múltiples sistemas que deben reaccionar de forma desacoplada a lo que ocurre. Suele apoyarse en microservicios como sus componentes naturales, aunque puedes tener microservicios sin eventos perfectamente.
+
+Algunas señales de que tu problema encaja:
+
+Tienes múltiples consumidores que reaccionan al mismo hecho.
+Necesitas desacoplar productores de consumidores.
+Los componentes tienen niveles de servicio muy distintos entre sí.
+¿Has trabajado ya con buses de eventos o estás evaluando moverte hacia este modelo? Cuéntame en los comentarios qué retos has encontrado en tus propios sistemas.
+
+
+
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+Costos ocultos de los microservicios
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Las arquitecturas orientadas a microservicios se han convertido en una de las decisiones más populares para resolver problemas de rendimiento y complejidad en software. Aquí entenderás cómo funcionan, qué costos ocultos traen y por qué un arquitecto debe pensar dos veces antes de adoptarlas.
+
+¿Qué son las arquitecturas de microservicios y cómo funcionan?
+
+La idea se resume en una frase: uno para todos y todos para uno. Cada microservicio resuelve un único problema, y otros servicios se apoyan en él para construir un contexto global.
+
+Este estilo divide la solución en piezas pequeñas y especializadas. Cada pieza tiene su propio dominio, su propio equipo y, muchas veces, su propio ciclo de despliegue. Eso suena perfecto sobre el papel, pero trae consecuencias reales.
+
+¿Qué es un microservicio? Es un servicio independiente que resuelve un único problema dentro de un sistema más grande, y que se comunica con otros servicios a través de contratos definidos.
+
+La primera consecuencia es la carga cognitiva distribuida: necesitas saber qué hace cada servicio y qué microproblema resuelve. La segunda es la comunicación distribuida, porque varios equipos trabajan simultáneamente en distintos problemas, muchas veces de forma asíncrona, con ventanas de efectividad diferentes.
+
+¿Por qué la independencia entre equipos es una ventaja clave?
+
+Trabajar de forma independiente tiene virtudes claras. Puedes avanzar sin depender de otros servicios o equipos, siempre que los contratos entre servicios se mantengan estables.
+
+Imagina un cliente que consume varios microservicios desplegados por equipos distintos. Mientras el contrato no cambie, cada equipo puede iterar a su ritmo, lanzar versiones nuevas y reemplazar comportamientos sin romper al resto.
+
+¿Cuáles son los costos ocultos de los microservicios?
+
+Uno de los principales problemas es que existen costos que solo aparecen en producción. No hay tal cosa como un almuerzo gratis: cada decisión arquitectónica se paga.
+
+Estos son los costos más frecuentes que enfrentan los equipos:
+
+Costo de red: la transferencia de datos entre servicios no es marginal y muchos proveedores de cloud la cobran, sobre todo cuando los servicios viven en regiones distintas del globo.
+Carga cognitiva: cada persona del equipo debe entender un mapa mental de servicios, dependencias y contratos.
+Trazas largas y difíciles de seguir: una sola petición puede atravesar muchos servicios con niveles de calidad y tecnologías distintas.
+Complejidad indirecta: dividir el problema no siempre lo simplifica, a veces lo amplifica.
+¿Cuál es el costo más subestimado en microservicios? El intercambio de datos entre servicios. La transferencia se cobra por proveedor y crece rápido cuando hay alta demanda o despliegues multirregión.
+
+En 2015, Netflix mostró una gráfica con las dependencias entre sus microservicios. Eran tantas decenas de conexiones que el diagrama resultaba casi indescifrable, y seguir un solo caso de uso a través de esa red era extremadamente difícil. Es un buen recordatorio de hasta dónde puede crecer la complejidad.
+
+¿Qué ventajas técnicas justifican adoptar microservicios?
+
+Más allá de la independencia, hay beneficios concretos que muchos equipos buscan:
+
+Versionado paralelo: puedes mantener varias versiones de un microservicio mientras cumplan el contrato.
+Despliegues independientes: lanzas nuevas versiones públicas que reemplazan el comportamiento sin afectar el caso completo.
+Innovación tecnológica: no todos los microservicios deben implementarse igual, lo que te deja espacio para probar soluciones alternativas en lenguajes o frameworks distintos.
+Esta capacidad de innovar es valiosa, pero también obliga a un arquitecto a equilibrar libertad tecnológica con consistencia operativa.
+
+¿Cómo aproximarte a tu primera arquitectura de microservicios?
+
+Una buena forma de empezar es usar el modelo C4 para trabajar en dos niveles de abstracción.
+
+El primer nivel describe el sistema completo: qué hace, quién lo usa y con qué se comunica. El segundo describe los contenedores desplegables: las unidades concretas que ejecutan tu solución, como aplicaciones, bases de datos o servicios.
+
+Al dibujar tu propuesta, hazte una pregunta clave: ¿a qué estilo arquitectónico se parece tu primera aproximación? ¿Es realmente microservicios o se acerca más a un monolito distribuido? Cuéntame tu respuesta en los comentarios y comparte tu diagrama con la comunidad.
+
+
+
+
+Paradigmas y principios SOLID explicados
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+La parte más difícil del trabajo de un arquitecto de software no es diseñar soluciones, sino saber cuándo intervenir para ayudar al equipo con problemas reales en el código. Aquí entran los principios SOLID y los paradigmas de programación, herramientas que te dan criterio para tomar decisiones de diseño sin sobreingeniería.
+
+Si estás aprendiendo arquitectura de software, conviene que entiendas algo desde el inicio: un arquitecto tiene que saber codificar. Los principios son guías, no reglas rígidas, y se aplican tanto en diseños de alto nivel como cuando escribes código línea por línea.
+
+¿Cuáles son los paradigmas base que sostienen SOLID?
+
+Antes de SOLID, necesitas dominar tres paradigmas que funcionan como ladrillos fundamentales de cualquier programa imperativo.
+
+¿Qué es la programación estructurada y por qué importa?
+
+La programación estructurada nace de la necesidad de partir un programa en piezas más pequeñas y especializadas, llamadas funciones [01:45]. Antes existía una sola pila de ejecución donde todo el código se mezclaba. Hoy un programa principal cede el control a funciones específicas y luego lo recupera. Es la base del divide y vencerás.
+
+¿Qué aporta la programación orientada a objetos?
+
+La programación orientada a objetos sube el nivel: permite que el control se pase a alternativas que cumplen un mismo contrato. Eso es polimorfismo, varias formas de resolver un mismo problema bajo una interfaz común [02:20].
+
+¿Y la programación funcional?
+
+La programación funcional restringe los cambios sobre las variables durante la ejecución. La disciplina es de asignación única: las cosas son como se definen, no mutan. El resultado es código más limpio, más fácil de testear y, eso sí, una forma distinta de pensar tus algoritmos [03:00].
+
+¿Qué significa SOLID en programación? Es un acrónimo que reúne cinco principios de diseño: responsabilidad única, abierto/cerrado, sustitución de Liskov, segregación de interfaces e inversión de dependencias.
+
+¿Cómo se aplica el principio de responsabilidad única?
+
+Este principio suele malinterpretarse. No dice que un componente haga una sola cosa, sino que debe tener una sola razón para cambiar [04:10].
+
+Piensa en una clase Empleado de la que dependen tres actores distintos: reglas de negocio, interfaz de usuario y persistencia. Cada actor tiene un ritmo de cambio diferente, y mantener todo en una sola clase obliga a modificarla constantemente. La solución es dividirla en tres, atacando cada necesidad por separado.
+
+Reglas de negocio cambian cuando cambia el espacio del problema.
+La interfaz de usuario cambia por necesidades de comunicación con usuarios.
+La persistencia cambia por motivos técnicos de almacenamiento.
+¿Cómo entender el principio de apertura y cierre con un ejemplo?
+
+Un sistema debe estar abierto para extensión, pero cerrado para modificación. Imagina una CalculadoraGeometrica que depende de figuras concretas para calcular área y perímetro. Cada vez que añades una figura nueva, tienes que modificar la calculadora. Eso es un error de diseño.
+
+La alternativa es delegar el cálculo a cada figura. La calculadora sigue dependiendo del contrato (calcular área, calcular perímetro), pero cada figura, como el círculo, define su propia implementación. Así puedes agregar figuras nuevas sin tocar la calculadora.
+
+Para aplicarlo bien, te conviene:
+
+Entender las dependencias entre clases, paquetes y módulos.
+Hacer test de integración que validen que cambiar tipos derivados no rompe el comportamiento.
+Detectar dónde dependes del valor de un tipo en lugar de su estructura.
+¿Qué resuelve el principio de sustitución de Liskov?
+
+Formulado en 1987 por Barbara Liskov, este principio reduce la ambigüedad en la programación orientada a objetos [07:30]. La idea: un subtipo debe poder reemplazar a su tipo base sin romper el contrato.
+
+El ejemplo clásico son las aves. Si defines que toda ave vuela y nada, te topas con problemas: el pingüino no vuela, el loro no nada. Sin Liskov, terminas usando trucos como excepciones o retornos nulos para tapar esos huecos.
+
+La solución es redefinir el contrato en tipos más específicos: aves voladoras, aves nadadoras, y aves que cumplen ambos contratos como el pato. Cada tipo cambia el contrato sin redefinirlo de forma inconsistente.
+
+¿Cuándo se rompe el principio de Liskov? Cuando una subclase tira excepciones, devuelve null o ignora métodos heredados porque no puede cumplirlos.
+
+¿Cómo funcionan la segregación de interfaces y la inversión de dependencias?
+
+Estos dos principios trabajan juntos para que tu código no quede atado a implementaciones concretas que no necesitas.
+
+¿Qué es la segregación de interfaces?
+
+La segregación por interfaces dice que debes depender de contratos abstractos, no de implementaciones concretas que arrastran código que no usas [09:45]. Si tu app usa un ORM solo en su versión asíncrona, no deberías arrastrar la implementación síncrona, porque un bug ahí también te afecta.
+
+A nivel de diseño, este principio aparece cuando decides depender de estándares o protocolos en lugar de productos:
+
+Depender de SQL 2019 en lugar de PostgreSQL.
+Depender de AMQP en lugar de RabbitMQ.
+Extraer contratos como interfaces y que las clases concretas las implementen.
+Esto es clave cuando despliegas en entornos heterogéneos o necesitas intercambiar herramientas sin cambiar comportamiento.
+
+¿Por qué invertir la dirección de las dependencias?
+
+La inversión de dependencias parece contraintuitiva, pero tiene una razón potente: el cliente siempre tiene la razón. Los contratos se definen en el módulo que los usa, no en el que los implementa [11:20].
+
+Eso te permite que un módulo de alto nivel no dependa de un módulo concreto de bajo nivel. Los clientes definen el contrato y pueden buscar múltiples contratistas, aplicando polimorfismo para resolver el mismo problema con distintas implementaciones.
+
+Todos estos principios actúan a nivel micro. Cuando los aplicas a escala macro, llegas al concepto de arquitectura limpia. ¿Cuál de estos principios sientes que más te cuesta aplicar en tu código actual? Cuéntalo en los comentarios.
+
+
+
+
+
+Qué hace limpia a una arquitectura de software
+Curso de Fundamentos de Arquitectura de Software
+
+Video Player is loading.
+Resumen
+La arquitectura limpia es un enfoque de diseño de software que aplica de forma consistente paradigmas, principios, modularización y separación entre contratos e implementaciones. Si trabajas como desarrollador o arquitecto de software, entender este concepto te ayuda a construir sistemas más mantenibles, testeables y desacoplados de detalles externos.
+
+Ahora bien, no existe una arquitectura perfecta. El grado de limpieza siempre es relativo y depende de las decisiones de diseño, las restricciones del proyecto y los trade-offs que aceptes en el camino.
+
+¿Cómo saber si tu arquitectura es realmente limpia?
+
+Hay criterios bastante simples para evaluar qué tan limpia es tu arquitectura. No se trata de una calificación absoluta, sino de revisar señales concretas en tu código.
+
+Independencia del framework: tus contratos e implementaciones deberían funcionar sin depender de los productos de un framework específico.
+Reglas de negocio testeables: puedes probar la lógica de negocio sin necesitar nada más.
+Independencia de la interfaz de usuario: las reglas de negocio no deben necesitar la UI para ser verificadas.
+Independencia de la persistencia: la base de datos es solo un detalle, no el centro del sistema.
+Independencia de sistemas externos: dependes de protocolos y estándares, no de SDKs o productos puntuales.
+¿Qué tan limpia debe ser una arquitectura? Lo suficiente para que puedas testear tus reglas de negocio sin frameworks, sin base de datos y sin interfaz de usuario. Más allá de eso, todo es trade-off.
+
+¿Por qué la base de datos es solo un detalle?
+
+Solemos pensar en las bases de datos como un componente vital de cada sistema. Y lo son operativamente. Pero desde el punto de vista arquitectónico, la base de datos es un detalle de implementación.
+
+Deberías poder probar tus casos de uso y tus reglas de negocio sin depender de un motor específico. Si tus tests de reglas de negocio usan directamente resultados de la base de datos, ahí tienes una señal de que la arquitectura no está tan limpia como podría estarlo.
+
+¿Cuáles son las capas de una arquitectura limpia?
+
+En su forma canónica, la arquitectura limpia se representa como cuatro círculos concéntricos, donde cada capa tiene una responsabilidad clara.
+
+Entidades del modelo de dominio: el núcleo, representado en amarillo en el centro.
+Casos de uso: procesos de negocio o workflows que usan únicamente las entidades.
+Adaptadores y transformadores de datos: reciben información externa y la vuelven utilizable para los casos de uso.
+Detalles de implementación: el círculo más externo, en azul, donde viven la base de datos y la interfaz de usuario.
+La regla de oro está en cómo se leen las dependencias del código: de afuera hacia adentro. Las capas externas dependen de las internas, pero nunca al revés. Esa direccionalidad es lo que mantiene tu núcleo de negocio protegido.
+
+¿Qué son los DTO y por qué deben ser anémicos?
+
+Para mover información entre capas usas Data Transfer Objects, conocidos como DTO. Estos objetos deben ser anémicos, es decir, contener solo estado y ningún comportamiento.
+
+¿Qué es una clase anémica? Es una clase que solo transporta datos, sin validaciones ni lógica de negocio. Si empiezas a meterle reglas, estás cayendo en un anti patrón.
+
+Cuando un DTO empieza a validar datos o ejecutar lógica de negocio, deja de ser un transportador y se convierte en un punto de acoplamiento difícil de mantener.
+
+¿Cuáles son los anti patrones más comunes?
+
+Reconocer los anti patrones es tan importante como aplicar buenas prácticas. Aquí es donde muchas arquitecturas pierden limpieza sin que el equipo lo note.
+
+Capa de presentación con lógica de negocio: la UI termina ejecutando reglas que deberían vivir en los casos de uso.
+Uso directo de modelos de datos desde capas externas para modificar reglas internas.
+Tests de reglas de negocio que dependen de resultados reales de la base de datos.
+DTOs que validan o ejecutan lógica en lugar de solo transportar datos.
+Estos síntomas indican fugas de responsabilidades entre capas. Y cuando las responsabilidades se mezclan, el sistema se vuelve frágil.
+
+¿Puedes mezclar estilos arquitectónicos?
+
+Sí, y es perfectamente válido. A veces necesitas agregar nuevos círculos conceptuales o combinar estilos según el dominio del problema. Lo importante es mantener las dependencias entre capas claramente distinguibles y verificables.
+
+Usa transferencia de datos explícita, con contratos que dejen claro que entre capas solo viajan datos, nunca lógica implícita. Esa disciplina es la que sostiene la limpieza a lo largo del tiempo.
+
+La arquitectura limpia no es una receta. Los patrones de software sí lo son, y son la herramienta concreta que te permite materializar estos principios en código. ¿Qué anti patrón has encontrado más seguido en tus proyectos? Cuéntalo en los comentarios.
+
+
+
+
+
+Patrones de software para arquitectos
+Curso de Fundamentos de Arquitectura de Software
+
+Recursos
+
+A pattern language for microservices
+Resumen
+Cuando diseñas una solución como arquitecto de software, no tienes que cargar con todo el peso cognitivo de inventar respuestas desde cero. Los patrones de software son recetas probadas que resuelven problemas recurrentes de forma elegante, siempre que entiendas su contexto y los principios que los sustentan.
+
+Y aquí viene lo interesante: no todos los problemas son únicos. Muchas personas ya resolvieron lo que tú enfrentas hoy, y dejaron esas soluciones documentadas para que las uses con criterio.
+
+¿Qué son los patrones de software y por qué importan en arquitectura?
+
+Un patrón de software es una receta de alcance específico. Eso significa que debes tener muy claro el contexto del problema y los resultados que esperas antes de aplicarlo. Cada patrón implementa paradigmas y principios concretos, así que necesitas verificar que sean compatibles con los que ya usas en tu arquitectura.
+
+¿Qué es un patrón de software? Es una solución estandarizada y reutilizable para un problema recurrente de diseño, atada a un contexto y a unos principios específicos.
+
+Los patrones suelen estar ligados al estilo arquitectónico o al tipo de solución que diseñas. No existe una lista universal: existen catálogos según el dominio.
+
+¿Cómo elegir el patrón correcto según el contexto?
+
+El primer criterio al usar un patrón es entender el contexto en el que fue definido. Un ejemplo claro: un equipo de investigación documentó patrones aplicados a interfaces de usuario en sistemas de entretenimiento de autos. Un lector desprevenido podría intentar forzar esos patrones en otro tipo de dispositivos, y eso rompe por completo la validez de la receta.
+
+Aplicar un patrón fuera de su contexto original es una de las formas más comunes de introducir complejidad innecesaria.
+
+¿Los patrones pueden volverse tan complejos como el dominio?
+
+Sí, y esto es algo que muchos arquitectos subestiman. En algunos casos los patrones llegan a necesitar un lenguaje de dominio específico para poder discutirlos con claridad.
+
+Piensa en el estilo arquitectónico orientado a microservicios. Existe una red compleja de patrones que se aplican en distintas capas:
+
+Patrones aplicados a los microservicios como aplicación.
+Patrones que definen cómo estructuras el código interno de cada microservicio.
+Patrones que rigen la infraestructura de despliegue.
+Patrones para interfaz, pruebas y observabilidad.
+Esa misma fuente lista otros estilos como el monolítico, con sus propios catálogos. La conclusión práctica: cuando un patrón se vuelve tan rico, necesitas vocabulario propio para hablar de él con tu equipo.
+
+¿Importa qué tan antiguo sea un patrón de software?
+
+No. Un patrón sigue siendo válido sin importar cuándo fue descrito, siempre que el problema que resuelve siga existiendo. En el libro clásico de Martin Fowler encuentras patrones con más de 20 años de uso generalizado. El patrón MVC, por ejemplo, tiene más de 50 años desde su descripción original y sigue vigente.
+
+¿Sirven los patrones antiguos en arquitecturas modernas? Sí. Patrones como MVC tienen más de 50 años y siguen siendo útiles porque resuelven problemas que no han desaparecido.
+
+También existen patrones que no se aplican a una aplicación específica, sino a la forma en que varios sistemas interactúan entre sí: los patrones de integración.
+
+¿Siempre necesitas aplicar patrones en tu arquitectura?
+
+No necesariamente. Hay estilos arquitectónicos que ya son complejos por naturaleza, como los totalmente distribuidos u orientados a eventos. En esos casos surgen muchos patrones posibles, pero puede que no requieras nada más que la división canónica del estilo:
+
+Un productor.
+Muchos consumidores.
+Un bus de eventos.
+Forzar patrones adicionales sobre una arquitectura que ya funciona con su estructura básica solo añade fricción.
+
+¿Qué buenas prácticas seguir al implementar un patrón?
+
+Antes de adoptar cualquier patrón en tu diseño, vale la pena pasar por una checklist breve y honesta.
+
+Estudia bien el problema al que el patrón da solución.
+Revisa la implementación canónica de cada patrón que vayas a utilizar.
+Duda de las implementaciones que dependen de una herramienta específica, porque suelen mezclar el patrón con detalles de producto.
+Una implementación atada a una herramienta concreta deja de ser un patrón y se convierte en un manual de uso. Esa diferencia es clave para mantener tu arquitectura portable y comprensible.
+
+Como ejercicio práctico, identifica un patrón que puedas aplicar al diseño de tu solución actual y pregúntate qué paradigma o principio se está aplicando ahí. Deja tus respuestas en los comentarios para discutirlas con otros estudiantes.
+
+
+
+
+
+
+Arquitectura MVP: de Telegram a Remarkable
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Diseñar una solución partiendo de un problema personal es una de las mejores formas de practicar arquitectura de software. Aquí verás cómo Nicolás Bohórquez analiza un flujo de información entre Telegram y un dispositivo de tinta electrónica usando técnicas como los seis sombreros, priorización y el modelo C4 para llegar a un MVP viable.
+
+¿Cuál es el problema real que se quiere resolver con arquitectura?
+
+El punto de partida es concreto: Nicolás colecciona enlaces, documentos e imágenes en un canal privado de Telegram y luego los transfiere manualmente a un Remarkable, una tableta de tinta electrónica que usa para leer sin forzar la vista por su alta miopía [01:00].
+
+El flujo actual es tedioso. Hay que conectar el Remarkable a la misma red, exportar el contenido como PDF y copiarlo a mano. Y hay una restricción dura: el cliente no quiere cambiar de herramientas, ni Telegram para coleccionar ni Remarkable para leer.
+
+¿Qué es un canal privado de Telegram? Es un canal de mensajería instantánea donde varias personas pueden suscribirse, pero en este caso el dueño es el único productor y consumidor de la información.
+
+¿Qué es Remarkable y por qué condiciona la solución?
+
+Remarkable es una tableta de e-ink pensada para enfocarse en la lectura sin el daño visual de pantallas tradicionales. Esto fija un requisito técnico: el contenido debe llegar al dispositivo en formato compatible, idealmente PDF.
+
+¿Cómo analizar el problema con la técnica de los seis sombreros?
+
+Antes de saltar a soluciones, Nicolás aplica los seis sombreros para pensar y revisa el problema desde distintos ángulos [03:00].
+
+Sombrero azul, el del proceso: el flujo va desde que se encuentra la información hasta que se consume.
+Sombrero blanco, el de los hechos: no se cambian las herramientas, hay información histórica acumulada y se desea enriquecer datos con etiquetas automáticas.
+Sombrero rojo, el de los sentimientos: hay frustración por coleccionar mucho y consumir poco, y satisfacción potencial si un sistema lo resuelve.
+Sombrero negro, el de las dificultades: dos retos de integración, con Telegram y con Remarkable, más preguntas abiertas sobre descubrimiento y enriquecimiento.
+Sombrero amarillo, el de los beneficios: aprovechar el insomnio para leer y reemplazar el scrolling infinito por lectura con valor.
+Sombrero verde, el de la creatividad: reemplazar todo con Pocket, etiquetar artículos automáticamente o generar un resumen semanal.
+Esta exploración deja insumos suficientes para tener una conversación de calidad con un par o con un modelo de IA.
+
+¿Cómo priorizar funcionalidades antes de diseñar el MVP?
+
+Con el análisis listo, llega el momento de priorizar usando la matriz de urgente e importante [06:30]. Nicolás define cuatro niveles claros para su primer ciclo de desarrollo.
+
+Importante y urgente: reemplazar la transferencia manual de datos entre Telegram y Remarkable.
+Importante pero no urgente: mejorar el mecanismo de búsqueda, ya que Telegram y Remarkable cubren lo básico.
+Urgente pero no importante: desplegar algo rápido, que pesa menos que aprender a mejorar el flujo.
+Ni urgente ni importante: agregar notas o comentarios al contenido encontrado.
+Esta priorización funciona como filtro para descartar lo que distrae y proteger el alcance del MVP.
+
+¿Qué es un MVP en arquitectura de software? Es un producto mínimo viable, la versión más pequeña que entrega valor real al usuario y permite validar decisiones técnicas antes de escalar.
+
+¿Qué propone la IA como MVP y cómo se modela con C4?
+
+Apoyado en un modelo de IA, Nicolás obtiene un caso de uso y cuatro historias de usuario centradas en enviar información, buscar lo encontrado antes y convertir contenido no textual a formatos compatibles con su lector [07:30].
+
+¿Qué contenedores propone la IA en el primer MVP?
+
+La primera versión sugerida tiene cuatro piezas que se diagraman con el modelo C4, útil para visualizar sistemas, contenedores y componentes.
+
+Un bot o API de integración con Telegram.
+Una base de datos para guardar y administrar los enlaces.
+Una interfaz web sencilla para gestionar el contenido.
+Un componente que convierte archivos no textuales a PDF y los envía a Remarkable.
+En el diagrama hay un solo actor, Nicolás en su rol de lector, y dos subsistemas: la integración con Telegram y la integración con el conversor más Remarkable.
+
+¿Cómo se simplifica el MVP usando integraciones nativas?
+
+Nicolás reduce el alcance aprovechando que Remarkable se integra de forma nativa y bidireccional con sistemas como Google Drive o Dropbox [10:00]. Así, el bot de Telegram solo necesita enviar a esos servicios estandarizados, no directamente al dispositivo.
+
+El diagrama queda con un solo subsistema y una dependencia externa estandarizada. Esto da flexibilidad y simplifica decisiones futuras.
+
+¿Cómo comparar alternativas de arquitectura para elegir bien?
+
+La evaluación final pone tres opciones sobre la mesa [11:00]:
+
+Sistema externo tipo Pocket: descartado por restricción del cliente.
+MVP propuesto por la IA: cuatro contenedores, cuatro integraciones, varios puntos de seguridad y costo de construcción y operación más alto.
+MVP simplificado con Drive o Dropbox: menos contenedores, menos puntos de falla y menor costo operativo.
+Cada alternativa implica decisiones distintas sobre autenticación, transmisión de información y costos de operación. ¿Cuál defenderías como MVP? ¿Qué requisitos no funcionales tendrías en cuenta? ¿Cuál es más fácil de extender cuando el problema crezca?
+
+Deja en los comentarios qué arquitectura elegirías y por qué.
+
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+Evolucionar un MVP sin rearquitectar desde cero
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Cuando un MVP empieza a crecer, surgen preguntas incómodas: ¿rearquitecto desde cero o evoluciono lo que ya tengo? Aquí verás cómo evolucionar la arquitectura de software de un MVP cuando aparecen nuevas funcionalidades, dependencias y requisitos no funcionales, usando como caso un sistema de lectura conectado a Telegram.
+
+¿Por qué un MVP simple termina mostrando nuevos problemas?
+
+El primer diseño suele apuntar a una sola cosa: maximizar la simplicidad. Mantienes el MVP lo más pequeño posible, pero con una base escalable para no pintarte en una esquina.
+
+Y aquí viene lo interesante. Cuando empiezas a usarlo en serio, te vuelves más ambicioso. Lees más, lees mejor, y aparecen necesidades que antes ni considerabas. En el caso del sistema de lectura, surgieron tres deseos concretos:
+
+Etiquetar automáticamente los artículos para no hacerlo a mano.
+Navegar entre artículos agrupados por un tema común.
+Generar un mind map visual con estadísticas de qué leo más, cuándo cambiaron mis intereses y dónde tengo zonas por descubrir.
+Eso ya no es el MVP original. Es otra cosa.
+
+¿Cómo cambia el diseño cuando agregas autoetiquetado y visualización?
+
+El contenedor se mantiene, pero ahora viven dentro tres componentes en lugar de dos. Uno integra con Telegram, otro con el sistema de gestión de archivos, y se suma un tercero: un modelo para etiquetar de forma automática los documentos.
+
+Un detalle clave del rediseño: el dispositivo ya no aparece como dependencia externa. Se abstrajo desde el diseño original, así que ese cambio no duele.
+
+¿Qué es un MVP en arquitectura de software? Es la versión mínima funcional de tu sistema, diseñada para validar la idea con la menor complejidad posible, pero dejando espacio para crecer.
+
+El modelo de autoetiquetado se desarrolla in house usando librerías open source. Es una decisión deliberada: no depender todavía de un sistema externo de IA, aunque la puerta queda abierta para el futuro.
+
+¿Rearquitectar o evolucionar la arquitectura existente?
+
+Esta es la pregunta que más cuesta responder. Cuando el alcance crece, tienes que decidir si vale la pena romper lo que ya funciona o estirar el diseño actual un poco más. Hay cuatro preguntas que conviene hacerte antes de mover una sola línea:
+
+¿Vale la pena rearquitectar el sistema o puedo evolucionar la arquitectura que ya escogí?
+¿Conviene incorporar más herramientas externas para resolver nuevos casos de uso, como el autoetiquetado?
+¿Necesito cambiar las prioridades entre lo importante y lo urgente?
+¿Aparecieron requisitos no funcionales nuevos que antes no estaban en el radar?
+Esa última pregunta suele ser la más reveladora. Cosas como rendimiento, observabilidad o costos de cómputo pueden volverse protagonistas cuando antes no figuraban.
+
+¿Qué son los requisitos no funcionales y por qué aparecen tarde?
+
+Son las características del sistema que no describen una funcionalidad concreta, sino cómo se comporta: velocidad, escalabilidad, mantenibilidad, costo. Cuando agregas un modelo de etiquetado o un mind map, aparecen exigencias nuevas de procesamiento y almacenamiento que el MVP original no necesitaba contemplar.
+
+¿Cuándo conviene rearquitectar en lugar de evolucionar? Cuando los nuevos casos de uso introducen requisitos no funcionales que el diseño actual no puede sostener sin parches frágiles.
+
+¿Cómo proyectar el costo de un sistema cuando agregas nuevos casos de uso?
+
+Cada componente nuevo mueve la aguja del costo. Un modelo de autoetiquetado in house implica cómputo continuo, almacenamiento de embeddings o índices, y mantenimiento del propio modelo. Un mind map con estadísticas implica procesar histórico, no solo lo nuevo.
+
+Por eso vale la pena proyectar a tres horizontes:
+
+A 1 mes: costos de desarrollo y validación inicial del autoetiquetado.
+A 3 meses: costos de operación estable, con volumen real de lectura.
+A 6 meses: costos de mantenimiento, reentrenamiento del modelo y posible migración a un servicio externo si la operación in house deja de tener sentido.
+Esa proyección te ayuda a decidir si la decisión de no depender de un sistema externo de IA sigue siendo la correcta o si llegó el momento de pivotar.
+
+¿Hacia dónde evoluciona tu arquitectura?
+
+Hay dos preguntas que te dejo abiertas para pensar tu propio caso. La primera: ¿hacia dónde está evolucionando tu arquitectura? ¿Hacia un estilo completamente distinto, o simplemente sumando funcionalidades al que ya tenías? La segunda: ¿cómo afectan los nuevos casos de uso a tu proyección de costos a 1, 3 o 6 meses?
+
+Responderlas honestamente cambia mucho las decisiones técnicas que vienen después. Cuéntame en los comentarios qué decidiste tú: ¿rearquitectaste o evolucionaste?
+
+
+
+
+
+
+
+
+Evolución del software personal hacia el modelo empresarial
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+¿Te has preguntado cómo cambiaría tu rol al pasar de crear un software para uso personal a comercializarlo a gran escala? Tomar esta decisión no solo modifica tu posición dentro del proyecto, sino que abre nuevas oportunidades de negocio, roles operativos e incluso arquitecturas técnicas.
+
+¿Qué cambia al comercializar un software personal?
+
+Dar el paso a comercializar una herramienta implica un enfoque empresarial. Una solución tecnológica creada inicialmente para resolver tus necesidades personales ahora puede convertirse en una fuente de ingresos para ti y otras personas. Este cambio no se limita únicamente al propósito, pues incluye ajustes técnicos, de contenidos e incluso organizacionales.
+
+Cuando decides impulsar tu software hacia un mercado más amplio, aparecen varios componentes clave:
+
+Conversión de contenido personal en newsletters o multimedia mediante inteligencia artificial multimodal.
+Permitir que otros usuarios generen contenido utilizando tu plataforma.
+Gestionar múltiples roles de usuario simultáneamente (internos como administradores y externos como clientes).
+¿Qué factores considerar al ampliar tu software al ámbito comercial?
+
+Antes de saltar al mercado empresarial, es importante considerar aspectos cruciales que afectan la evolución del desarrollo del software:
+
+El conjunto de nuevos roles: quienes administran el sistema y quienes lo utilizan externamente.
+Sistemas adicionales necesarios, como gestión, distribución y transformación del contenido.
+Integración con dependencias externas para maximizar capacidades tecnológicas como IA.
+Estas consideraciones definen claramente el propósito, potencializando tu software para audiencias mayores.
+
+¿Cómo identificar el presupuesto necesario y la audiencia potencial?
+
+Para avanzar al siguiente nivel empresarial, necesitas reflexionar sobre dos aspectos principales:
+
+Determinar el presupuesto operativo requerido.
+Identificar la audiencia dispuesta a pagar por tu producto y su respectiva valoración del sistema.
+Al comprender estos puntos, puedes establecer los parámetros económicos y comerciales fundamentales.
+
+¿Cuáles serían tus indicadores de éxito?
+
+Definir claramente las métricas de éxito facilitará evaluar tu progreso:
+
+Número de suscriptores o usuarios.
+Volumen económico generado por cada usuario o por suscripción.
+Contar con estas métricas claras será clave para mejorar e iterar sobre el desarrollo del software.
+
+¿Vale la pena evolucionar o cambiar la arquitectura actual?
+
+Al comercializar, podrías enfrentarte a la decisión crítica sobre la evolución técnica del proyecto actual:
+
+Evaluar nuevas arquitecturas como el estilo orientado a eventos.
+Identificar complejidad adicional necesaria para soportar usuarios empresariales.
+Cuestionarte si lo que ya tienes construido requiere simplemente ajustes o una completa reestructuración.
+Además, considera si el sistema en uso actual satisface adecuadamente los requisitos no funcionales empresariales:
+
+Disponibilidad del sistema.
+Escalabilidad para dar soporte a múltiples usuarios.
+Capacidad de despliegue y soporte multiinstancia.
+La evolución técnica debe sustentarse en necesidades reales, evitando complicaciones innecesarias.
+
+¿Tienes más dudas sobre cómo abordar estos cambios empresariales y arquitectónicos en tu software? ¡Comparte tus inquietudes y sigamos el diálogo!
+
+
+
+Preguntas clave que todo arquitecto de software usa
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Hacer buenas preguntas es una de las habilidades más subestimadas de un arquitecto de software. Aprender a preguntar te ayuda a mapear el contexto, alinear lenguaje técnico con negocio y diseñar mejores soluciones sin que tu interlocutor se sienta atacado. Si lideras decisiones técnicas o quieres formarte en arquitectura, este es un terreno que necesitas dominar.
+
+¿Por qué hacer preguntas es clave en arquitectura de software?
+
+Preguntar bien implica entender tu propio contexto y, al mismo tiempo, leer el de la persona que te responde. No siempre tiene toda la información, y a veces puede sentirse evaluada cuando indagas sobre una decisión que ya tomó.
+
+Aun así, preguntar te entrega algo que ningún diagrama te da: un mapa compartido y un lenguaje común para diseñar. Y cuando una respuesta se queda corta, repreguntar desde otro ángulo casi siempre destapa información que no estaba en la primera versión.
+
+No hay preguntas malas, salvo contadas excepciones. Lo que sí hay es curiosidad mal calibrada.
+
+¿Cuál es la mejor forma de preguntar sin que la otra persona se ponga a la defensiva? Cambia las preguntas que inician con "por qué" por preguntas que inician con "para qué". Así, el foco se mueve hacia la decisión y no hacia la persona.
+
+¿Qué patrones de preguntas puede usar un arquitecto de software?
+
+A los arquitectos nos gustan los patrones, y para preguntar también existen. Estos cinco funcionan en casi cualquier proyecto:
+
+¿Qué entendemos exactamente por…? Útil cuando aparece un concepto nuevo o ambiguo.
+¿Cómo se soluciona actualmente este problema? Te permite comparar tus alternativas con lo que ya existe.
+¿Quién es responsable de resolver, ejecutar o aprobar esta tarea? Le pone nombre a los roles y a las personas que debes seguir entrevistando.
+¿Para qué hacemos esta tarea específica? Revela los resultados esperados y las fallas del sistema actual.
+¿Cómo llegaste a decidir X o cómo evalúas Y? Invita a extenderse y deja a la vista lo que aún no se sabe.
+El truco está en sustituir el por qué acusatorio por para qué o cómo. Cuando preguntas "¿para qué usamos esta herramienta?", la respuesta suele venir cargada de matices: "la usamos para A, B y C, pero no para D, porque ahí usamos otra".
+
+¿Cómo reformular un por qué sin sonar agresivo?
+
+Mueve el objeto de la pregunta. En lugar de cuestionar a la persona, cuestiona la decisión o el proceso. Para qué y cómo son tus mejores aliados para que la conversación fluya y la otra persona se sienta cómoda compartiendo lo que sabe.
+
+¿Qué preguntas le hacen al arquitecto de software y cómo responderlas?
+
+Del otro lado del mostrador, las organizaciones también te van a preguntar. Y esperan respuestas con más profundidad y amplitud que el problema inmediato.
+
+¿Cuál es la política para una tarea específica?
+
+Aquí asumen que tienes una respuesta lista para cada caso posible. Lo recomendable es evaluar el problema puntual, contrastarlo con los diseños que ya tienes y, si no encaja, mejorar el diseño o sumar políticas que cubran ese requisito.
+
+¿Por qué está tan lento el sistema, la pantalla o la base de datos?
+
+Apóyate en los requisitos no funcionales y en los acuerdos de nivel de servicio (SLA). Con observabilidad bien implementada puedes ubicar el cuello de botella y dar una respuesta cuantitativa, no una intuición.
+
+¿Qué son los requisitos no funcionales? Son las características de calidad del sistema, como rendimiento, disponibilidad o seguridad, que definen cómo debe comportarse, no qué debe hacer.
+
+¿Quién debería hacer esta tarea?
+
+Las áreas de negocio suelen ver al equipo de desarrollo como unidimensional, asumiendo que cualquier persona puede hacer cualquier tarea. Tú sabes que existen especializaciones. Toma en cuenta las capacidades reales de tu equipo y propón asignaciones más equitativas y acordes a sus habilidades.
+
+¿Por qué el resultado X es distinto al resultado Y?
+
+Muchas personas miran solo los números finales, no el contexto en que se generan. Los sistemas que agregan datos para analítica suelen normalizar o aplicar técnicas estadísticas que dejan diferencias ligeras o notorias respecto a lo esperado. Sé estricto al identificar qué argumentos estadísticos o agrupaciones están detrás de cada respuesta que reciben tus usuarios.
+
+¿Cuánto debería demorar esta tarea, proyecto o mejora?
+
+La pregunta más común y la más traicionera. Tus estimaciones se suelen tomar como verdad absoluta. Para responder con criterio considera:
+
+La estructura y diseño actual del sistema.
+Las dependencias evidentes y las ocultas.
+Las capacidades del equipo.
+Las restricciones y riesgos conocidos.
+Todas estas preguntas comparten un mismo trasfondo: la organización espera que el arquitecto de software vea más allá del problema inmediato. Esa visión amplia y profunda es justo lo que diferencia a quien diseña sistemas de quien solo los implementa.
+
+¿Qué pregunta sueles hacer (o te hacen) que te haya destrabado un proyecto? Cuéntalo en los comentarios.
+
+
+
+
+
+Curso de Fundamentos de Arquitectura de Software
+Consejos para desarrollar carrera como arquitecto de software
+Curso de Fundamentos de Arquitectura de Software
+
+Resumen
+Convertirse en arquitecto de software requiere esfuerzo, innovación y adaptación constante. Este rol ofrece múltiples oportunidades para conectar con otros profesionales y desarrollar ideas creativas en tecnología. Incorporar inteligencia artificial en los procesos de trabajo es favorable, pero manteniendo siempre activo el pensamiento crítico y creativo.
+
+¿Qué habilidades evalúan en un arquitecto de software?
+
+Al buscar empleo en arquitectura de software, hay ciertas competencias fundamentales que serán evaluadas:
+
+Capacidad de respuesta ante la ambigüedad.
+Flexibilidad en la toma de decisiones.
+Disposición para colaborar y otorgar feedback.
+Adaptabilidad ante cambios en los requerimientos técnicos.
+Capacidad para gestionar requisitos no funcionales y negociar trade offs.
+La formación y perfeccionamiento en estas áreas permiten afrontar con éxito los desafíos tecnológicos actuales.
+
+¿Qué certificaciones existen para arquitectos de software?
+
+Existen dos organismos principales que otorgan certificaciones reconocidas globalmente:
+
+International Software Architecture Qualification Board.
+Open Group Architecture Framework.
+Además, las grandes empresas proveedoras de servicios en la nube también cuentan con certificaciones relacionadas, tales como:
+
+Arquitecto de soluciones.
+Arquitecto de datos.
+Hay que considerar que estas últimas certificaciones suelen estar muy vinculadas a los productos y servicios específicos que ofrece cada proveedor.
+
+¿Cuáles son las especializaciones en arquitectura de software?
+
+El campo de la arquitectura de software alberga diversas especializaciones que permiten enfocarse en áreas particulares, como las siguientes:
+
+Arquitectura empresarial.
+Arquitectura de datos.
+Arquitectura de infraestructura.
+Arquitectura de aplicaciones.
+Arquitectura orientada a Machine Learning e inteligencia artificial.
+Explorar cada especialidad puede ayudar a decidir hacia dónde orientar el desarrollo profesional y enriquecer las oportunidades laborales disponibles.
+
+Practicar de manera continua mediante lectura, redacción, negociación y conversación con pares es fundamental. El hábito regular de aprendizaje a través de recursos educativos confiables fortalece las habilidades necesarias para destacar en el campo de la arquitectura de software.
+
+
+
+
+
+
+
+
+
+

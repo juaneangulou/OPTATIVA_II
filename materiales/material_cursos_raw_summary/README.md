@@ -72,7 +72,3 @@
 ## Descripción
 
 Este proyecto organiza cada curso en su propia carpeta, con un README y una colección de archivos Markdown por video. La estructura ya no mezcla contenido y queda ordenada por curso y por clase.
-
-## Material complementario de 60 videos
-
-La ruta ampliada de 60 videos, sus materiales Markdown y las presentaciones PowerPoint se encuentran en [materiales/materiales_por_video/serie_60_videos](materiales/materiales_por_video/serie_60_videos/README.md).
