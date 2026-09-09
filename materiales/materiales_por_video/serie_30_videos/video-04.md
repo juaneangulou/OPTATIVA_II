@@ -1,99 +1,76 @@
 # Video 04: Responsabilidad, escalabilidad, seguridad y ética
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: responsabilidad y seguridad
 - [Arquitectura como responsabilidad humana](https://platzi.com/cursos/fundamentos-arquitectura-software/espacio-de-problema-vs-solucion-en-arqui/)
 - [Escalabilidad, seguridad y ética](https://platzi.com/cursos/fundamentos-arquitectura-software/requisitos-funcionales-y-no-funcionales/)
 
-## 🔗 Navegación
+## 🔗 Continúa el recorrido
 [⬅️ Video anterior](video-03.md) | [➡️ Video siguiente](video-05.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: responsabilidad, escalabilidad, seguridad y ética. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 La decisión de esta clase
+En esta clase vas a tomar una decisión incómoda: cómo usar datos de ubicación para mejorar una entrega sin convertir al repartidor ni al cliente en una fuente de vigilancia permanente. La arquitectura no se evalúa solo por velocidad; también se evalúa por las personas que quedan expuestas cuando el sistema toma una decisión.
 
-## Resumen integrado
-**Fuente 1: Arquitectura como responsabilidad humana**
-Este video conecta la arquitectura con la responsabilidad y el impacto humano. Un gran poder en tecnología trae grandes consecuencias. Cuando se crea software crítico o de alto impacto, cada decisión tiene un peso mucho mayor. La arquitectura ya no es solo un problema técnico; es una responsabilidad con personas, usuarios y contextos reales.
+## Las ideas que unimos
+La primera fuente recuerda que el software puede afectar confianza, seguridad y bienestar. La segunda agrega que escalar no basta: un sistema que responde rápido pero expone datos, excluye usuarios o toma decisiones injustas sigue siendo una mala solución.
 
-La idea es que un sistema puede cambiar vidas, facilitar decisiones o poner en riesgo seguridad, salud o confianza. Por eso, el arquitecto debe ser consciente de que el software no es neutral ni inofensivo: tiene un impacto concreto en la sociedad.
+Juntas nos obligan a diseñar con cuatro preguntas: ¿qué valor entregamos?, ¿a quién protegemos?, ¿qué datos son necesarios?, ¿qué costo aceptamos para mantener el sistema confiable cuando crezca?
 
-**Fuente 2: Escalabilidad, seguridad y ética**
-Este video reúne varios ejes esenciales de la arquitectura: escalabilidad, seguridad y ética. La idea es que un sistema no puede considerarse bueno solo porque escala bien o porque funciona bajo carga. Si no protege datos, no piensa en accesibilidad ni considera el impacto humano, termina generando problemas más allá de lo técnico.
+## Escena: la reasignación urgente
+Es viernes a las 7:00 p. m. y una tormenta bloquea varias vías. La plataforma necesita reasignar 400 entregas. El área de operaciones pide ubicación GPS en tiempo real de todos los repartidores, historial completo de trayectos y acceso a esos datos para cualquier supervisor. El objetivo es reducir retrasos, pero la propuesta expone más información de la necesaria y puede afectar la seguridad personal de los repartidores.
 
-La arquitectura debe equilibrar rendimiento con responsabilidad. Un diseño escalable y seguro es valioso, pero si ignora principios éticos o de inclusión, su impacto puede ser negativo. La arquitectura debe pensarse como un conjunto de decisiones integradas, no como políticas aisladas.
+Aquí aparecen dos actores centrales:
 
-## Ideas que debes conservar
-- El poder técnico conlleva responsabilidad.
-- Los sistemas críticos requieren más rigor y criterio.
-- La arquitectura afecta más que el rendimiento técnico.
-- La responsabilidad humana es central en la toma de decisiones.
-- Escalabilidad sin seguridad es una solución incompleta.
-- La seguridad debe pensarse desde el diseño, no como parche final.
-- La ética no es un tema ajeno; forma parte del valor del sistema.
-- Un sistema debe ser útil y responsable al mismo tiempo.
+- **El cliente** necesita saber si su pedido llegará y recibir una explicación confiable si cambia la promesa.
+- **El repartidor** necesita una ruta y una asignación justa, sin que su ubicación histórica se convierta en información disponible para personas que no la necesitan.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: responsabilidad, escalabilidad, seguridad y ética. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+La regla que vamos a proteger es esta: **la plataforma solo puede usar y conservar la ubicación necesaria para coordinar una entrega activa, con acceso limitado y trazable**.
 
-## Aplicación al caso logístico
-Para estudiar **responsabilidad, escalabilidad, seguridad y ética**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: El poder técnico conlleva responsabilidad.
+## Dos opciones reales
+### Opción A: recopilar y compartir toda la ubicación disponible
+Operaciones obtiene más datos de inmediato y puede reaccionar rápido. El costo oculto es alto: exceso de datos personales, mayor superficie de ataque, posibilidad de uso indebido y dificultad para explicar quién consultó la ubicación. Esta opción optimiza la urgencia, pero no protege al repartidor.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos responsabilidad, escalabilidad, seguridad y ética al flujo.
-    2. **Actor prioritario de responsabilidad, escalabilidad, seguridad y ética:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en responsabilidad, escalabilidad, seguridad y ética:** escribe la condición que debe permanecer verdadera y relaciónala con el poder técnico conlleva responsabilidad..
-    4. **Punto de decisión para responsabilidad, escalabilidad, seguridad y ética:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de responsabilidad, escalabilidad, seguridad y ética:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+### Opción B: ubicación mínima, temporal y con acceso por rol
+El sistema guarda la ubicación solo durante una entrega activa, redondea la precisión cuando no es necesaria, elimina o anonimiza el historial según la política definida y registra cada consulta. Operaciones conserva la información que necesita para reasignar; soporte puede auditar accesos; el repartidor no queda expuesto innecesariamente.
 
-Para resolver el caso de **responsabilidad, escalabilidad, seguridad y ética**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Para este caso elijo la opción B. Aceptamos más trabajo: control de roles, expiración de datos, auditoría y pruebas de autorización. Lo aceptamos porque el sistema no puede sacrificar privacidad y seguridad para ganar algunos segundos de coordinación.
 
+## Cómo se diseña la solución
+1. El módulo de asignación solicita la ubicación actual solo de repartidores candidatos a una entrega activa.
+2. Un servicio de privacidad verifica que quien consulta tenga el rol correcto y una razón operacional válida.
+3. La API devuelve la precisión mínima necesaria para decidir, no el historial completo.
+4. Cada consulta genera una auditoría: quién consultó, para qué pedido, a qué hora y con qué resultado.
+5. Un proceso de retención elimina la ubicación detallada cuando termina la ventana operativa acordada.
+6. El cliente recibe una actualización de entrega sin conocer datos personales del repartidor.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa responsabilidad, escalabilidad, seguridad y ética y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: el poder técnico conlleva responsabilidad.
-3. Identifica el actor que recibe el impacto de responsabilidad, escalabilidad, seguridad y ética y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para responsabilidad, escalabilidad, seguridad y ética; compara sus costos y riesgos.
-5. Elige una opción para responsabilidad, escalabilidad, seguridad y ética, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: responsabilidad, escalabilidad, seguridad y ética debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 💬 Preguntas que debemos resolver sobre datos y confianza
+### ¿Qué impacto tiene el software que estoy diseñando?
 
-## Respuestas a las preguntas
-### ❓ ¿Qué tipo de impacto tiene el software que estoy diseñando?
+El impacto es directo: una decisión sobre GPS puede mejorar la puntualidad del cliente, pero también puede poner en riesgo la privacidad y seguridad del repartidor. Por eso la arquitectura debe limitar datos, roles y tiempo de retención. La evidencia será una auditoría que muestre que ningún usuario sin autorización consultó ubicaciones.
 
-**Respuesta concreta:** La decisión sobre responsabilidad, escalabilidad, seguridad y ética afecta directamente a el cliente: necesita recibir un estado de entrega confiable. Por eso protegería esta regla: no mostrar una entrega como completada sin evidencia válida. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el cliente es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+### ¿Estoy asumiendo una responsabilidad real con las personas que usan el sistema?
 
-### ❓ ¿Estoy asumiendo una responsabilidad real con las personas que lo usan?
+Sí, cuando el diseño reconoce que el repartidor no es solo una coordenada en un mapa. La responsabilidad se traduce en reglas: propósito definido, acceso mínimo, consentimiento cuando corresponda y capacidad de revisar quién vio los datos. El costo es implementar controles; el beneficio es proteger confianza y reducir abuso.
 
-**Respuesta concreta:** La decisión sobre responsabilidad, escalabilidad, seguridad y ética afecta directamente a el operador logístico: necesita reasignar una ruta sin perder el historial del pedido. Por eso protegería esta regla: conservar trazabilidad de cada cambio. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el operador logístico es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+### ¿Mi sistema considera seguridad y ética desde el inicio?
 
-### ❓ ¿Mi sistema considera cuestiones de seguridad y ética desde el inicio?
+Lo hace si la seguridad aparece antes de desplegar: roles, cifrado, retención, auditoría y pruebas de acceso denegado son parte del diseño. No sirve agregar una política de privacidad después de almacenar todo el historial de rutas.
 
-**Respuesta concreta:** La prioridad de responsabilidad, escalabilidad, seguridad y ética es proteger a el repartidor, porque recibir una instrucción vigente y consistente. Aplicaría un control que impida violar la regla 'evitar dos asignaciones activas para la misma entrega', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
+### ¿Qué pasa si el volumen se multiplica durante una emergencia?
 
-### ❓ ¿Qué tan preparado está para crecer sin perder responsabilidad?
+No habilitamos acceso ilimitado a los datos. Escalamos el cálculo de candidatos, usamos colas para las reasignaciones y mantenemos el mismo control de autorización. El sistema debe crecer sin degradar las protecciones que justifican la confianza de quienes lo usan.
 
-**Respuesta concreta:** La decisión sobre responsabilidad, escalabilidad, seguridad y ética afecta directamente a el equipo de soporte: necesita reconstruir qué ocurrió durante un incidente. Por eso protegería esta regla: tener eventos, errores y estados observables. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el equipo de soporte es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+## Actividad: diseño responsable de reasignación
 
-## 🛠️ Cómo resolver la actividad
+1. Dibuja el flujo de reasignación de una entrega retrasada.
+2. Marca qué dato personal entra, quién lo usa y cuánto tiempo se conserva.
+3. Escribe dos reglas de acceso y una regla de retención.
+4. Compara la opción de datos completos con la de datos mínimos.
+5. Elige una alternativa y redacta un ADR con el riesgo aceptado.
+6. Define dos pruebas: una de acceso permitido para operaciones y otra de acceso denegado para un usuario sin rol.
+7. Añade una métrica: porcentaje de consultas de ubicación auditadas y porcentaje de datos eliminados al finalizar la retención.
 
-1. **Comprende el tema:** explica con tus palabras qué significa responsabilidad, escalabilidad, seguridad y ética y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de responsabilidad, escalabilidad, seguridad y ética:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para responsabilidad, escalabilidad, seguridad y ética:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de responsabilidad, escalabilidad, seguridad y ética:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: El poder técnico conlleva responsabilidad. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a responsabilidad, escalabilidad, seguridad y ética: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de responsabilidad, escalabilidad, seguridad y ética, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+## Cómo comprobar que la actividad está resuelta
+Tu propuesta está completa si puedes demostrar tres cosas: el cliente recibe una actualización útil, el operador puede reasignar una entrega y un usuario no autorizado no puede consultar ni reconstruir el historial de ubicación del repartidor.
 
-**Respuesta modelo para Responsabilidad, escalabilidad, seguridad y ética:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
-
-
-## Conclusiones de las fuentes
-La arquitectura de software tiene un lado humano muy claro. Un buen diseño no solo resuelve un problema; también protege a quienes lo usan y respeta la responsabilidad del creador.
-
-La arquitectura sólida combina crecimiento, protección y responsabilidad. Un sistema digno de confianza debe pensar en la gente que lo usa, no solo en la eficiencia técnica.
-
-## Preguntas para preparar la grabación
-- ¿Qué tipo de impacto tiene el software que estoy diseñando?
-- ¿Estoy asumiendo una responsabilidad real con las personas que lo usan?
-- ¿Mi sistema considera cuestiones de seguridad y ética desde el inicio?
-- ¿Qué tan preparado está para crecer sin perder responsabilidad?
-
-## Evidencia para el repositorio
-Guarda la explicación de responsabilidad, escalabilidad, seguridad y ética, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## ✅ Cierre: velocidad sin daño innecesario
+La escalabilidad tiene valor cuando mantiene el servicio bajo presión. La seguridad tiene valor cuando protege a las personas. La ética tiene valor cuando impide que una solución rápida normalice un daño innecesario. En el siguiente video vamos a bajar de estas decisiones al código: principios de diseño, acoplamiento y cohesión.

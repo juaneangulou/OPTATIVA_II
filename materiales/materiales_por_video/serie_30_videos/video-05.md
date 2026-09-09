@@ -1,99 +1,123 @@
 # Video 05: Principios de diseño, acoplamiento y cohesión
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: diseño y calidad estructural
 - [Fundamentos de diseño y principios de arquitectura](https://platzi.com/cursos/fundamentos-arquitectura-software/costo-total-de-operacion-en-arquitectura/)
 - [Acoplamiento, cohesión y calidad estructural](https://platzi.com/cursos/fundamentos-arquitectura-software/alineacion-de-arquitectura-de-software-c/)
 
-## 🔗 Navegación
+## 🔗 Del caso de privacidad al código
 [⬅️ Video anterior](video-04.md) | [➡️ Video siguiente](video-06.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: principios de diseño, acoplamiento y cohesión. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 El objetivo del refactor
+En esta clase vamos a dejar de hablar de “código limpio” como una frase bonita. Vas a ver una clase que intenta hacer demasiado, identificarás por qué es frágil y la convertirás en componentes que cambian por razones distintas. El objetivo no es tener más archivos: es lograr que una regla de rutas no obligue a modificar pagos, notificaciones y acceso a datos al mismo tiempo.
 
-## Resumen integrado
-**Fuente 1: Fundamentos de diseño y principios de arquitectura**
-Este video presenta los fundamentos del diseño arquitectónico: cómo una solución técnica debe estructurarse para ser clara, sostenible y adaptable. La arquitectura no se basa solo en elegir herramientas, sino en aplicar principios que guíen la organización del sistema. Entre esos principios están la modularidad, la separación de responsabilidades, la reutilización con sentido y la reducción del acoplamiento.
+## El problema: una clase que conoce todo
+En la plataforma logística, alguien creó `OrderService`. Con el tiempo le agregaron validación de pedidos, cálculo de rutas, descuento de inventario, guardado en base de datos y envío de correos. La clase funciona hoy, pero cada cambio se vuelve riesgoso: una modificación en la ruta puede romper una notificación; una falla de correo puede impedir que se guarde el pedido.
 
-La idea central es que un sistema bien diseñado no solo funciona, sino que es más fácil de entender, mantener y evolucionar. Los principios de arquitectura sirven como brújula para tomar decisiones con criterio, especialmente cuando el proyecto crece en complejidad.
+Esto es baja cohesión: una clase contiene responsabilidades que no pertenecen juntas. También es alto acoplamiento: la lógica de negocio conoce detalles de mapas, base de datos y correo. Las fuentes nos dan dos criterios para corregirlo: separar responsabilidades y reducir dependencias innecesarias.
 
-**Fuente 2: Acoplamiento, cohesión y calidad estructural**
-Este video explica dos conceptos centrales en arquitectura: acoplamiento y cohesión. El acoplamiento mide cuán dependientes son componentes entre sí; la cohesión mide qué tan relacionadas están las responsabilidades dentro de un mismo módulo o servicio. La mejor arquitectura busca baja dependencia entre partes y alta claridad dentro de cada parte.
+## Antes del refactor
+```csharp
+public class OrderService
+{
+    public void Create(string customerEmail, decimal total, string address)
+    {
+        if (total <= 0) throw new ArgumentException("Total inválido");
 
-Cuando el acoplamiento es alto, hacer cambios implica romper varias piezas del sistema. Cuando la cohesión es baja, una entidad se vuelve confusa y difícil de mantener. La calidad estructural del software se mejora cuando se reducen dependencias innecesarias y se ordenan bien las responsabilidades.
+        var route = new MapsClient().Calculate(address);
+        new SqlOrderRepository().Save(customerEmail, total, route.Distance);
+        new EmailSender().Send(customerEmail, "Pedido creado");
+    }
+}
+```
 
-## Ideas que debes conservar
-- El diseño arquitectónico no es un detalle opcional.
-- Los principios ayudan a sostener decisiones de largo plazo.
-- La modularidad mejora la claridad y la evolución del sistema.
-- La separación de responsabilidades reduce complejidad.
-- El acoplamiento alto genera fragilidad.
-- La cohesión alta mejora claridad y mantenibilidad.
-- La arquitectura debe disminuir dependencias innecesarias.
-- Un sistema con responsabilidades bien definidas es más fácil de evolucionar.
+Te pregunto: ¿cuántas razones tiene esta clase para cambiar? Si cambia la regla de total, el proveedor de mapas, la base de datos o el correo, debemos modificarla. Ese es el síntoma; no necesitamos medirlo con una fórmula para reconocer el peligro.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: principios de diseño, acoplamiento y cohesión. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+## Dos formas de resolverlo
+### Opción A: mantener `OrderService` y agregar más condiciones
+Es la solución rápida. Podemos agregar `if`, `try/catch` y más métodos privados. El costo es que la clase seguirá teniendo muchas responsabilidades y cada prueba necesitará infraestructura real o mocks complejos.
 
-## Aplicación al caso logístico
-Para estudiar **principios de diseño, acoplamiento y cohesión**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: El diseño arquitectónico no es un detalle opcional.
+### Opción B: separar el caso de uso de sus dependencias
+El caso de uso conserva la regla de crear un pedido. Un puerto calcula rutas, otro guarda pedidos y otro notifica. Cada componente tiene una razón clara para cambiar.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos principios de diseño, acoplamiento y cohesión al flujo.
-    2. **Actor prioritario de principios de diseño, acoplamiento y cohesión:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en principios de diseño, acoplamiento y cohesión:** escribe la condición que debe permanecer verdadera y relaciónala con el diseño arquitectónico no es un detalle opcional..
-    4. **Punto de decisión para principios de diseño, acoplamiento y cohesión:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de principios de diseño, acoplamiento y cohesión:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+```csharp
+public interface IRouteEstimator
+{
+    Task<RouteEstimate> EstimateAsync(string address);
+}
 
-Para resolver el caso de **principios de diseño, acoplamiento y cohesión**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+public interface IOrderRepository
+{
+    Task SaveAsync(Order order);
+}
 
+public interface IOrderNotifier
+{
+    Task NotifyCreatedAsync(Order order);
+}
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa principios de diseño, acoplamiento y cohesión y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: el diseño arquitectónico no es un detalle opcional.
-3. Identifica el actor que recibe el impacto de principios de diseño, acoplamiento y cohesión y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para principios de diseño, acoplamiento y cohesión; compara sus costos y riesgos.
-5. Elige una opción para principios de diseño, acoplamiento y cohesión, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: principios de diseño, acoplamiento y cohesión debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+public sealed class CreateOrderUseCase
+{
+    private readonly IRouteEstimator _routes;
+    private readonly IOrderRepository _orders;
+    private readonly IOrderNotifier _notifier;
 
-## Respuestas a las preguntas
-### ❓ ¿Qué parte de mi sistema tiene responsabilidades mezcladas?
+    public CreateOrderUseCase(
+        IRouteEstimator routes,
+        IOrderRepository orders,
+        IOrderNotifier notifier)
+    {
+        _routes = routes;
+        _orders = orders;
+        _notifier = notifier;
+    }
 
-**Respuesta concreta:** La decisión sobre principios de diseño, acoplamiento y cohesión afecta directamente a el cliente: necesita recibir un estado de entrega confiable. Por eso protegería esta regla: no mostrar una entrega como completada sin evidencia válida. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el cliente es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+    public async Task ExecuteAsync(string email, decimal total, string address)
+    {
+        var order = Order.Create(email, total);
+        order.AssignRoute(await _routes.EstimateAsync(address));
+        await _orders.SaveAsync(order);
+        await _notifier.NotifyCreatedAsync(order);
+    }
+}
+```
 
-### ❓ ¿Qué principio arquitectónico me está faltando aplicar?
+## Qué mejoró y qué costo aceptamos
+- **Cohesión:** `CreateOrderUseCase` solo coordina la creación del pedido.
+- **Acoplamiento:** los detalles de mapas, SQL y correo quedan detrás de interfaces.
+- **Pruebas:** podemos probar la regla del pedido con adaptadores falsos.
+- **Costo:** hay más contratos y debemos mantener la composición de dependencias.
 
-**Respuesta concreta:** Para principios de diseño, acoplamiento y cohesión, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Elijo la opción B porque el flujo de pedidos cambiará por varias razones durante el proyecto. No separo para impresionar con patrones; separo porque los cambios ya tienen causas distintas.
 
-### ❓ ¿Qué tan acoplado está mi sistema en este momento?
+## 💬 Respuestas sobre cohesión y dependencias
+### ¿Qué parte de mi sistema tiene responsabilidades mezcladas?
 
-**Respuesta concreta:** Para principios de diseño, acoplamiento y cohesión, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+`OrderService` mezcla una regla de negocio, una consulta a mapas, persistencia y notificación. La corrección es mover cada detalle a un puerto y dejar en el caso de uso solo la coordinación del flujo. Lo verifico cambiando el proveedor de mapas: si `CreateOrderUseCase` no cambia, reduje el acoplamiento.
 
-### ❓ ¿Qué modulos tienen demasiadas responsabilidades mezcladas?
+### ¿Qué principio arquitectónico me está faltando aplicar?
 
-**Respuesta concreta:** La decisión sobre principios de diseño, acoplamiento y cohesión afecta directamente a el equipo de soporte: necesita reconstruir qué ocurrió durante un incidente. Por eso protegería esta regla: tener eventos, errores y estados observables. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el equipo de soporte es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+Falta separación de responsabilidades e inversión de dependencias. El caso de uso debe depender de `IRouteEstimator`, no de `MapsClient`; así la regla de crear pedido no queda atada a un proveedor concreto.
 
-## 🛠️ Cómo resolver la actividad
+### ¿Qué tan acoplado está mi sistema?
 
-1. **Comprende el tema:** explica con tus palabras qué significa principios de diseño, acoplamiento y cohesión y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de principios de diseño, acoplamiento y cohesión:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para principios de diseño, acoplamiento y cohesión:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de principios de diseño, acoplamiento y cohesión:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: El diseño arquitectónico no es un detalle opcional. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a principios de diseño, acoplamiento y cohesión: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de principios de diseño, acoplamiento y cohesión, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+Está demasiado acoplado si una prueba de creación de pedido necesita una base de datos, una API de mapas y un servidor de correo. Después del refactor, una prueba puede usar implementaciones falsas y concentrarse en la regla: un pedido con total positivo se guarda y se notifica.
 
-**Respuesta modelo para Principios de diseño, acoplamiento y cohesión:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+### ¿Qué módulos tienen demasiadas responsabilidades mezcladas?
 
+Busca módulos que mezclen dominio, infraestructura y presentación. En este caso, `OrderService` era el problema. También revisaría controladores que validan reglas de negocio o repositorios que calculan rutas; ambos indican que la cohesión se está perdiendo.
 
-## Conclusiones de las fuentes
-Los principios de diseño son la base para crear sistemas más claros, más sostenibles y más fáciles de hacer crecer con seguridad.
+## Actividad: refactor guiado
 
-La calidad estructural de un sistema está marcada por la forma en que se separan sus responsabilidades y cómo se gestionan sus dependencias.
+1. Crea una versión inicial de `OrderService` con al menos tres responsabilidades mezcladas.
+2. Marca con colores o comentarios qué parte es dominio, infraestructura y notificación.
+3. Extrae tres interfaces: `IRouteEstimator`, `IOrderRepository` e `IOrderNotifier`.
+4. Crea `CreateOrderUseCase` y mueve allí solo la coordinación.
+5. Escribe una prueba que use implementaciones falsas y compruebe que un pedido válido se guarda.
+6. Cambia la implementación del estimador de rutas sin modificar el caso de uso.
+7. Documenta en un ADR por qué aceptaste el costo de las interfaces.
 
-## Preguntas para preparar la grabación
-- ¿Qué parte de mi sistema tiene responsabilidades mezcladas?
-- ¿Qué principio arquitectónico me está faltando aplicar?
-- ¿Qué tan acoplado está mi sistema en este momento?
-- ¿Qué modulos tienen demasiadas responsabilidades mezcladas?
+## Cómo comprobar que terminaste
+El refactor está bien si puedes responder sí a estas preguntas: ¿puedo cambiar el proveedor de mapas sin cambiar el caso de uso?, ¿puedo probar la creación de pedido sin abrir una base de datos?, ¿cada clase tiene una razón principal para cambiar? Si alguna respuesta es no, todavía hay acoplamiento que revisar.
 
-## Evidencia para el repositorio
-Guarda la explicación de principios de diseño, acoplamiento y cohesión, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## ✅ Cierre: cada cambio debe tener su lugar
+La cohesión no significa que todas las clases sean pequeñas. Significa que cada una tiene un propósito claro. El bajo acoplamiento no significa que los módulos no se hablen; significa que se relacionan mediante contratos que permiten cambiar sin romper todo. En el siguiente video llevaremos esta separación a un nivel mayor: dominios y límites de contexto.
