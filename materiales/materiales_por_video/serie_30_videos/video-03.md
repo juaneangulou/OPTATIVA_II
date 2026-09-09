@@ -8,92 +8,77 @@
 [⬅️ Video anterior](video-02.md) | [➡️ Video siguiente](video-04.md)
 
 ## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: documentación y decisiones explícitas. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+En esta clase vas a aprender a convertir una decisión que hoy está en la cabeza de una persona en un registro que el equipo pueda leer, discutir y revisar dentro de seis meses. No vamos a hablar de documentación como burocracia: vamos a usarla para evitar que el proyecto dependa de la memoria de quien escribió el código.
 
-## Resumen integrado
-**Fuente 1: Documentar decisiones y mantener claridad**
-Este video profundiza en la importancia de dejar explícitas las decisiones de arquitectura. Muchas veces el problema no es solo que el sistema funcione, sino que se vuelva difícil de entender por quien lo revisa después. Cuando las decisiones no se documentan, cada persona asume una interpretación distinta y eso termina generando inconsistencias.
+## Qué explican las fuentes
+La primera fuente plantea que una decisión arquitectónica debe dejar claro el contexto, la intención, las restricciones, los riesgos y las alternativas descartadas. La segunda amplía la idea: documentar no es llenar páginas, sino registrar lo que permite a otra persona entender por qué el sistema se construyó de esa manera.
 
-La idea es documentar el contexto, la intención, los riesgos, las restricciones y las alternativas descartadas. Esa práctica no solo ayuda al mantenimiento, sino también a que el equipo pueda evaluar si una solución sigue siendo apropiada con el tiempo. La documentación debe ser clara, viva y útil.
+Las dos fuentes convergen en una regla: una decisión no está realmente tomada hasta que el equipo puede responder qué problema resolvía, qué opción eligió, qué costo aceptó y cuándo debería revisarla.
 
-**Fuente 2: Documentación y decisiones explícitas**
-La documentación de arquitectura no es un lujo ni una actividad burocrática superficial; es una herramienta clave para que el sistema pueda entenderse, evolucionar y sostenerse en el tiempo. Cuando las decisiones se documentan de forma clara, el equipo puede reducir ambigüedad, evitar errores de interpretación y mantener continuidad incluso con cambios de personal. El video hace hincapié en que la arquitectura debe dejarse escrita, no solo en la cabeza de unos pocos.
+## Escena de la plataforma logística
+El lunes, la arquitecta que definió la integración con el proveedor de mapas sale de vacaciones. El miércoles, el proveedor empieza a responder lento. El operador logístico informa que las rutas llegan tarde; soporte ve errores, pero nadie sabe por qué existe un timeout de dos segundos ni qué alternativa se descartó.
 
-Esto incluye explicar trade-offs, restricciones, decisiones tomadas y alternativas descartadas. Cuando un proyecto se basa en decisiones implícitas, cada integrante empieza a hacer su propia “lectura” del sistema. La documentación ayuda a que el diseño sea compartido, revisado y mejorado con base en evidencia.
+Aquí el actor principal no es el repartidor: es **el equipo de soporte y el nuevo desarrollador**. Ambos necesitan reconstruir una decisión sin depender de la memoria de la arquitecta. La regla que debemos proteger es: **toda integración crítica debe tener un registro visible de propósito, límite, timeout, alternativa y responsable**.
 
-## Ideas que debes conservar
-- Las decisiones de arquitectura deben dejarse escritas.
-- La documentación ayuda a preservar conocimiento y continuidad.
-- Debe aclarar intención, restricciones, riesgos y alternativas.
-- La arquitectura viva reduce la ambigüedad y mejora la evolución.
-- La documentación reduce ambigüedad y ayuda a la continuidad del proyecto.
-- Las decisiones arquitectónicas deben ser explícitas, no solo inferidas.
-- Documentar no significa escribir mucho por escrito; significa registrar lo relevante.
-- Se deben reflejar restricciones, decisiones, alternativas y razones.
+## La decisión que vamos a documentar
+La plataforma debe consultar un proveedor externo de mapas para estimar rutas. Tenemos dos opciones:
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: documentación y decisiones explícitas. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+### Opción A: llamar al proveedor desde el módulo de pedidos
+Es rápida de implementar y parece suficiente para el MVP. El riesgo es que pedidos conozca detalles del proveedor, que el timeout esté repartido en varios lugares y que una caída del servicio bloquee la creación de pedidos.
 
-## Aplicación al caso logístico
-Para estudiar **documentación y decisiones explícitas**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: Las decisiones de arquitectura deben dejarse escritas.
+### Opción B: crear un adaptador de rutas con un contrato explícito
+El módulo de pedidos solicita una estimación mediante una interfaz. El adaptador contiene la URL, credenciales, timeout, reintentos y transformación de errores. El costo es crear una capa adicional, pero el proveedor puede cambiar sin contaminar la regla de negocio.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos documentación y decisiones explícitas al flujo.
-    2. **Actor prioritario de documentación y decisiones explícitas:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en documentación y decisiones explícitas:** escribe la condición que debe permanecer verdadera y relaciónala con las decisiones de arquitectura deben dejarse escritas..
-    4. **Punto de decisión para documentación y decisiones explícitas:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de documentación y decisiones explícitas:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Para este caso elegiría la opción B. No porque “las capas sean mejores”, sino porque el proveedor es externo, puede fallar y soporte necesita saber dónde observar y cambiar el comportamiento.
 
-Para resolver el caso de **documentación y decisiones explícitas**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## El ADR que construiríamos juntos
+Un ADR puede ser breve. Para esta decisión, escribe lo siguiente:
 
+```markdown
+# ADR-001: Aislar la estimación de rutas detrás de un adaptador
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa documentación y decisiones explícitas y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: las decisiones de arquitectura deben dejarse escritas.
-3. Identifica el actor que recibe el impacto de documentación y decisiones explícitas y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para documentación y decisiones explícitas; compara sus costos y riesgos.
-5. Elige una opción para documentación y decisiones explícitas, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: documentación y decisiones explícitas debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## Contexto
+El proveedor de mapas puede responder lento o no estar disponible.
 
-## Respuestas a las preguntas
-### ❓ ¿Estoy escribiendo solo el resultado o también el razonamiento detrás de la solución?
+## Decisión
+El caso de uso de crear pedido dependerá de IRouteEstimator.
+La infraestructura implementará ese contrato con el proveedor externo.
 
-**Respuesta concreta:** Para documentación y decisiones explícitas, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Alternativas descartadas
+Llamar la API de mapas directamente desde el módulo de pedidos.
 
-### ❓ ¿Qué decisiones clave del proyecto podrían perderse si se cambia de equipo?
+## Consecuencias
+Ganamos aislamiento y pruebas más simples. Aceptamos mantener un adaptador.
 
-**Respuesta concreta:** Para documentación y decisiones explícitas, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Revisión
+Revisar si el timeout supera 2 segundos en más del 5% de solicitudes.
+```
 
-### ❓ ¿Qué decisiones importantes de mi proyecto están aún en la cabeza de una sola persona?
+## Preguntas y respuestas
+### ¿Estoy escribiendo solo el resultado o también el razonamiento detrás de la solución?
 
-**Respuesta concreta:** Para documentación y decisiones explícitas, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+No basta escribir “usamos un adaptador”. Debes registrar que el proveedor externo puede fallar, que pedidos no debe conocer su protocolo y que se descartó la llamada directa. Así, el nuevo desarrollador entiende el porqué y no elimina la capa pensando que es innecesaria.
 
-### ❓ ¿Estoy documentando solo la solución final o también el porqué?
+### ¿Qué decisiones clave podrían perderse si se cambia de equipo?
 
-**Respuesta concreta:** Para documentación y decisiones explícitas, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Se pueden perder el timeout elegido, el motivo de los reintentos, qué error se muestra al operador y por qué la estimación de ruta no bloquea todo el pedido. El ADR conserva esas decisiones y asigna un responsable para revisarlas.
 
-## 🛠️ Cómo resolver la actividad
+### ¿Estoy documentando solo la solución final o también el porqué?
 
-1. **Comprende el tema:** explica con tus palabras qué significa documentación y decisiones explícitas y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de documentación y decisiones explícitas:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para documentación y decisiones explícitas:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de documentación y decisiones explícitas:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: Las decisiones de arquitectura deben dejarse escritas. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a documentación y decisiones explícitas: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de documentación y decisiones explícitas, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+Debes documentar ambos. La solución final es “usar IRouteEstimator”; el porqué es que una dependencia externa no debe controlar la creación de pedidos. Sin el porqué, nadie sabrá cuándo mantener, cambiar o eliminar la decisión.
 
-**Respuesta modelo para Documentación y decisiones explícitas:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+## Actividad: documenta una decisión real
 
+1. Elige una decisión de la plataforma: rutas, inventario, notificaciones o pagos.
+2. Describe el contexto y el problema en máximo cinco líneas.
+3. Escribe dos alternativas posibles.
+4. Elige una y declara al menos un costo que aceptas.
+5. Define una condición medible para revisar la decisión.
+6. Crea un ADR en `docs/adr/ADR-00X.md`.
+7. Pide a otra persona que lea el ADR y responda: “¿entiendo el porqué, la alternativa descartada y cuándo revisar la decisión?”. Si no puede responder, mejora el documento.
 
-## Conclusiones de las fuentes
-La documentación no es burocracia: es una forma de mantener la claridad del sistema y evitar que el conocimiento se pierda. La arquitectura se vuelve más sólida cuando está documentada y compartida.
+## Cómo comprobar que lo resolviste
+Tu actividad está bien resuelta cuando un compañero que no participó en la decisión puede explicar: qué problema existía, qué alternativa se descartó, qué costo se aceptó y qué evento obligaría a revisar el ADR.
 
-La documentación arquitectónica es una forma de preservar el conocimiento y de evitar que el sistema se vuelva incomprensible con el tiempo. Un buen diseño debe ser enseñable, comprensible y defendible.
-
-## Preguntas para preparar la grabación
-- ¿Estoy escribiendo solo el resultado o también el razonamiento detrás de la solución?
-- ¿Qué decisiones clave del proyecto podrían perderse si se cambia de equipo?
-- ¿Qué decisiones importantes de mi proyecto están aún en la cabeza de una sola persona?
-- ¿Estoy documentando solo la solución final o también el porqué?
-
-## Evidencia para el repositorio
-Guarda la explicación de documentación y decisiones explícitas, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Documentar no significa escribir más; significa dejar menos espacio para que el equipo adivine. En el siguiente video vas a usar esta claridad para conectar responsabilidad técnica, escalabilidad, seguridad y ética.
