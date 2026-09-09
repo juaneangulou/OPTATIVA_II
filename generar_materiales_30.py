@@ -152,26 +152,50 @@ def source_url(source):
 
 def logistics_application(title, ideas, number):
     focus = ideas[0] if ideas else title
-    return f"""La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **{title.lower()}**.
+    return f"""Para estudiar **{title.lower()}**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: {focus}
 
-1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: {focus}
-2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
-3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
-4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
-5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos {title.lower()} al flujo.
+    2. **Actor prioritario de {title.lower()}:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
+    3. **Regla o calidad protegida en {title.lower()}:** escribe la condición que debe permanecer verdadera y relaciónala con {focus.lower()}.
+    4. **Punto de decisión para {title.lower()}:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
+    5. **Evidencia de {title.lower()}:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
 
-Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Para resolver el caso de **{title.lower()}**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
 """
 
 
-def answered_questions(source_items, ideas):
+def answer_for_question(question, idea, title, actor, need, rule):
+    q = question.lower()
+    if any(word in q for word in ("impacto", "consecuencia", "afectar", "responsabilidad")):
+        return f"La decisión sobre {title.lower()} afecta directamente a {actor}: necesita {need}. Por eso protegería esta regla: {rule}. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a {actor} es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor."
+    if any(word in q for word in ("fragil", "frágil", "diseño", "debil", "débil")):
+        return f"La parte frágil de {title.lower()} es la que permite que {actor} reciba un resultado incorrecto: {need}. La corregiría colocando la regla '{rule}' en un límite explícito, en lugar de dejarla repartida entre la interfaz y la infraestructura. El costo será reorganizar el flujo y agregar pruebas; la evidencia será un cambio aislado que no rompa los demás módulos."
+    if any(word in q for word in ("crecimiento", "crecer", "futuro", "escalabilidad", "mañana")):
+        return f"Si el sistema crece en el tema de {title.lower()}, {actor} seguirá necesitando {need}. No elegiría una solución distribuida automáticamente; primero mediría carga, latencia y errores. Mantendría la regla '{rule}' en un módulo claro y escalaría solo el punto que demuestre saturación. La decisión se verifica con una prueba de carga y una métrica acordada."
+    if any(word in q for word in ("seguridad", "privacidad", "datos", "ética", "ético")):
+        return f"La prioridad de {title.lower()} es proteger a {actor}, porque {need}. Aplicaría un control que impida violar la regla '{rule}', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado."
+    if any(word in q for word in ("costo", "opción", "alternativa", "decisión")):
+        return f"Para {title.lower()}, elegiría la alternativa que garantice que {actor} pueda {need}. La opción sencilla reduce el costo inicial, pero puede dejar débil la regla '{rule}'; la opción más estructurada cuesta más, pero facilita probarla y cambiarla. Para el MVP escogería la segunda solo si el riesgo es crítico y documentaría la condición de revisión."
+    return f"Para {title.lower()}, {actor} necesita {need}. La respuesta concreta es proteger la regla '{rule}' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos."
+
+
+def answered_questions(source_items, ideas, title):
+    actors = [
+        ("el cliente", "recibir un estado de entrega confiable", "no mostrar una entrega como completada sin evidencia válida"),
+        ("el operador logístico", "reasignar una ruta sin perder el historial del pedido", "conservar trazabilidad de cada cambio"),
+        ("el repartidor", "recibir una instrucción vigente y consistente", "evitar dos asignaciones activas para la misma entrega"),
+        ("el equipo de soporte", "reconstruir qué ocurrió durante un incidente", "tener eventos, errores y estados observables"),
+        ("el equipo técnico", "modificar una parte sin romper las demás", "mantener contratos y pruebas del flujo crítico"),
+    ]
     pairs = []
     idea_index = 0
     for item in source_items:
         for question in item["questions"][:2]:
             idea = ideas[idea_index % len(ideas)] if ideas else "la decisión arquitectónica del tema"
             clean_idea = idea.rstrip(".!? ").lower()
-            pairs.append(f"### ❓ {question}\n\n**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con {clean_idea}. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.")
+            actor, need, rule = actors[idea_index % len(actors)]
+            answer = answer_for_question(question, clean_idea, title, actor, need, rule)
+            pairs.append(f"### ❓ {question}\n\n**Respuesta concreta:** {answer}")
             idea_index += 1
     return "\n\n".join(pairs)
 
@@ -181,14 +205,14 @@ def activity_solution(title, ideas):
     return f"""## 🛠️ Cómo resolver la actividad
 
 1. **Comprende el tema:** explica con tus palabras qué significa {title.lower()} y qué idea principal de las fuentes lo justifica.
-2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+    2. **Delimita el caso de {title.lower()}:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+    3. **Formula dos opciones para {title.lower()}:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+    4. **Compara las opciones de {title.lower()}:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
 5. **Decide:** elige la opción que proteja primero esta idea: {main_idea}. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+6. **Construye la evidencia:** produce el artefacto que mejor responda a {title.lower()}: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión de {title.lower()}, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
 
-**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+**Respuesta modelo para {title}:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
 """
 
 
@@ -205,8 +229,18 @@ def make_material(number, title, source_items):
         questions.extend(item["questions"][:2])
     question_text = "\n".join(f"- {question}" for question in list(dict.fromkeys(questions)))
     application = logistics_application(title, ideas, number)
-    answers = answered_questions(source_items, ideas)
+    answers = answered_questions(source_items, ideas, title)
     solution = activity_solution(title, ideas)
+    focus = (ideas[0] if ideas else title).rstrip(".!? ")
+    activity_steps = "\n".join([
+        f"1. Explica con tus palabras qué significa {title.lower()} y qué fuente respalda esa interpretación.",
+        f"2. Describe una situación de la plataforma logística donde aparezca: {focus.lower()}.",
+        f"3. Identifica el actor que recibe el impacto de {title.lower()} y la regla que no puede romperse.",
+        f"4. Propón una solución mínima y otra más robusta para {title.lower()}; compara sus costos y riesgos.",
+        f"5. Elige una opción para {title.lower()}, declara qué sacrificas y define la condición que obligaría a revisarla.",
+        f"6. Produce la evidencia propia de este tema: {title.lower()} debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.",
+    ])
+    evidence_text = f"Guarda la explicación de {title.lower()}, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística."
     source_links = "\n".join(f"- [{item['title']}]({source_url(item)})" for item in source_items)
     previous = f"video-{number - 1:02d}.md" if number > 1 else None
     following = f"video-{number + 1:02d}.md" if number < 30 else None
@@ -224,7 +258,7 @@ def make_material(number, title, source_items):
 {' | '.join(navigation)}
 
 ## Propósito
-Esta clase combina las fuentes anteriores en una sola explicación para el proyecto de la plataforma logística. El objetivo es comprender qué ideas comparten, qué diferencias tienen y qué decisión arquitectónica permiten tomar.
+Esta clase combina las fuentes anteriores para resolver un problema específico: {title.lower()}. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
 
 ## Resumen integrado
 {summaries}
@@ -233,18 +267,13 @@ Esta clase combina las fuentes anteriores en una sola explicación para el proye
 {idea_text}
 
 ## Cómo se conectan las fuentes
-Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
+La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: {title.lower()}. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
 
 ## Aplicación al caso logístico
 {application}
 
 ## Actividad de construcción
-1. Resume en tus palabras la idea central de cada fuente.
-2. Combina esas ideas en un problema arquitectónico único.
-3. Propón dos alternativas de solución.
-4. Compara costo inicial, calidad, riesgo, operación y facilidad de cambio.
-5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
-6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
+{activity_steps}
 
 ## Respuestas a las preguntas
 {answers}
@@ -258,7 +287,7 @@ Lee las fuentes como partes de una misma conversación. Identifica qué problema
 {question_text}
 
 ## Evidencia para el repositorio
-Guarda la explicación integrada, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. El video que grabes debe explicar qué tomaste de cada fuente y cómo lo convertiste en una decisión propia para el proyecto.
+{evidence_text}
 """
 
 

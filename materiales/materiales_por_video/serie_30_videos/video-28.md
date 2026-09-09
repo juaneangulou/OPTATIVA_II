@@ -8,7 +8,7 @@
 [⬅️ Video anterior](video-27.md) | [➡️ Video siguiente](video-29.md)
 
 ## Propósito
-Esta clase combina las fuentes anteriores en una sola explicación para el proyecto de la plataforma logística. El objetivo es comprender qué ideas comparten, qué diferencias tienen y qué decisión arquitectónica permiten tomar.
+Esta clase combina las fuentes anteriores para resolver un problema específico: fitness functions, opentelemetry y caos. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
 
 ## Resumen integrado
 **Fuente 1: Decisiones bajo incertidumbre**
@@ -32,56 +32,56 @@ Esto invita a pensar que el arquitecto no actúa solo como técnico, sino tambi�
 - Un sistema puede tener éxito técnico y aun así fallar socialmente.
 
 ## Cómo se conectan las fuentes
-Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
+La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: fitness functions, opentelemetry y caos. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
 
 ## Aplicación al caso logístico
-La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **fitness functions, opentelemetry y caos**.
+Para estudiar **fitness functions, opentelemetry y caos**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La incertidumbre es parte normal de la arquitectura.
 
-1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: La incertidumbre es parte normal de la arquitectura.
-2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
-3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
-4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
-5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos fitness functions, opentelemetry y caos al flujo.
+    2. **Actor prioritario de fitness functions, opentelemetry y caos:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
+    3. **Regla o calidad protegida en fitness functions, opentelemetry y caos:** escribe la condición que debe permanecer verdadera y relaciónala con la incertidumbre es parte normal de la arquitectura..
+    4. **Punto de decisión para fitness functions, opentelemetry y caos:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
+    5. **Evidencia de fitness functions, opentelemetry y caos:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
 
-Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Para resolver el caso de **fitness functions, opentelemetry y caos**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
 
 
 ## Actividad de construcción
-1. Resume en tus palabras la idea central de cada fuente.
-2. Combina esas ideas en un problema arquitectónico único.
-3. Propón dos alternativas de solución.
-4. Compara costo inicial, calidad, riesgo, operación y facilidad de cambio.
-5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
-6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
+1. Explica con tus palabras qué significa fitness functions, opentelemetry y caos y qué fuente respalda esa interpretación.
+2. Describe una situación de la plataforma logística donde aparezca: la incertidumbre es parte normal de la arquitectura.
+3. Identifica el actor que recibe el impacto de fitness functions, opentelemetry y caos y la regla que no puede romperse.
+4. Propón una solución mínima y otra más robusta para fitness functions, opentelemetry y caos; compara sus costos y riesgos.
+5. Elige una opción para fitness functions, opentelemetry y caos, declara qué sacrificas y define la condición que obligaría a revisarla.
+6. Produce la evidencia propia de este tema: fitness functions, opentelemetry y caos debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
 
 ## Respuestas a las preguntas
 ### ❓ ¿Estoy tomando decisiones con datos suficientes o con suposiciones no verificadas?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la incertidumbre es parte normal de la arquitectura. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** La prioridad de fitness functions, opentelemetry y caos es proteger a el cliente, porque recibir un estado de entrega confiable. Aplicaría un control que impida violar la regla 'no mostrar una entrega como completada sin evidencia válida', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
 
 ### ❓ ¿Qué tan reversible es esta decisión si cambian los requerimientos?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con no siempre se dispone de toda la información antes de diseñar. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para fitness functions, opentelemetry y caos, elegiría la alternativa que garantice que el operador logístico pueda reasignar una ruta sin perder el historial del pedido. La opción sencilla reduce el costo inicial, pero puede dejar débil la regla 'conservar trazabilidad de cada cambio'; la opción más estructurada cuesta más, pero facilita probarla y cambiarla. Para el MVP escogería la segunda solo si el riesgo es crítico y documentaría la condición de revisión.
 
 ### ❓ ¿Qué impacto social tiene mi sistema?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con las decisiones deben evaluarse por riesgo y reversibilidad. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** La decisión sobre fitness functions, opentelemetry y caos afecta directamente a el repartidor: necesita recibir una instrucción vigente y consistente. Por eso protegería esta regla: evitar dos asignaciones activas para la misma entrega. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el repartidor es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
 
 ### ❓ ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con diseñar para cambiar reduce el impacto de la incertidumbre. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** La decisión sobre fitness functions, opentelemetry y caos afecta directamente a el equipo de soporte: necesita reconstruir qué ocurrió durante un incidente. Por eso protegería esta regla: tener eventos, errores y estados observables. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el equipo de soporte es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
 
 ## 🛠️ Cómo resolver la actividad
 
 1. **Comprende el tema:** explica con tus palabras qué significa fitness functions, opentelemetry y caos y qué idea principal de las fuentes lo justifica.
-2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+    2. **Delimita el caso de fitness functions, opentelemetry y caos:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+    3. **Formula dos opciones para fitness functions, opentelemetry y caos:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+    4. **Compara las opciones de fitness functions, opentelemetry y caos:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
 5. **Decide:** elige la opción que proteja primero esta idea: La incertidumbre es parte normal de la arquitectura. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+6. **Construye la evidencia:** produce el artefacto que mejor responda a fitness functions, opentelemetry y caos: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión de fitness functions, opentelemetry y caos, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
 
-**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+**Respuesta modelo para Fitness Functions, OpenTelemetry y caos:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
 
 
 ## Conclusiones de las fuentes
@@ -96,4 +96,4 @@ La arquitectura no es neutral. Sus decisiones tienen impacto social y ético. Un
 - ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
 
 ## Evidencia para el repositorio
-Guarda la explicación integrada, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. El video que grabes debe explicar qué tomaste de cada fuente y cómo lo convertiste en una decisión propia para el proyecto.
+Guarda la explicación de fitness functions, opentelemetry y caos, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.

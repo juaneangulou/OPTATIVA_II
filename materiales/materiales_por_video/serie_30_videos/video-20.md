@@ -8,7 +8,7 @@
 [⬅️ Video anterior](video-19.md) | [➡️ Video siguiente](video-21.md)
 
 ## Propósito
-Esta clase combina las fuentes anteriores en una sola explicación para el proyecto de la plataforma logística. El objetivo es comprender qué ideas comparten, qué diferencias tienen y qué decisión arquitectónica permiten tomar.
+Esta clase combina las fuentes anteriores para resolver un problema específico: premortem y pruebas de arquitectura. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
 
 ## Resumen integrado
 **Fuente 1: Microservicios y dominios**
@@ -32,56 +32,56 @@ Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una o
 - Rendimiento, consistencia y costos son variables que se deben balancear.
 
 ## Cómo se conectan las fuentes
-Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
+La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: premortem y pruebas de arquitectura. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
 
 ## Aplicación al caso logístico
-La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **premortem y pruebas de arquitectura**.
+Para estudiar **premortem y pruebas de arquitectura**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: Los microservicios son una opción, no una obligación.
 
-1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: Los microservicios son una opción, no una obligación.
-2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
-3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
-4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
-5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos premortem y pruebas de arquitectura al flujo.
+    2. **Actor prioritario de premortem y pruebas de arquitectura:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
+    3. **Regla o calidad protegida en premortem y pruebas de arquitectura:** escribe la condición que debe permanecer verdadera y relaciónala con los microservicios son una opción, no una obligación..
+    4. **Punto de decisión para premortem y pruebas de arquitectura:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
+    5. **Evidencia de premortem y pruebas de arquitectura:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
 
-Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Para resolver el caso de **premortem y pruebas de arquitectura**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
 
 
 ## Actividad de construcción
-1. Resume en tus palabras la idea central de cada fuente.
-2. Combina esas ideas en un problema arquitectónico único.
-3. Propón dos alternativas de solución.
-4. Compara costo inicial, calidad, riesgo, operación y facilidad de cambio.
-5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
-6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
+1. Explica con tus palabras qué significa premortem y pruebas de arquitectura y qué fuente respalda esa interpretación.
+2. Describe una situación de la plataforma logística donde aparezca: los microservicios son una opción, no una obligación.
+3. Identifica el actor que recibe el impacto de premortem y pruebas de arquitectura y la regla que no puede romperse.
+4. Propón una solución mínima y otra más robusta para premortem y pruebas de arquitectura; compara sus costos y riesgos.
+5. Elige una opción para premortem y pruebas de arquitectura, declara qué sacrificas y define la condición que obligaría a revisarla.
+6. Produce la evidencia propia de este tema: premortem y pruebas de arquitectura debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
 
 ## Respuestas a las preguntas
 ### ❓ ¿Mi sistema necesita separación por dominio o la complejidad no justifica eso?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con los microservicios son una opción, no una obligación. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para premortem y pruebas de arquitectura, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ### ❓ ¿Estoy dividiendo el sistema por negocio o por comodidad técnica?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la arquitectura debe reflejar el dominio del negocio y no solo la tecnología. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para premortem y pruebas de arquitectura, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ### ❓ ¿Qué tipo de consultas y volumen real tiene mi sistema?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la división por componentes debe hacerse con criterios claros de responsabilidad. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para premortem y pruebas de arquitectura, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ### ❓ ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la complejidad operativa aumenta al adoptar múltiples servicios. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** La prioridad de premortem y pruebas de arquitectura es proteger a el equipo de soporte, porque reconstruir qué ocurrió durante un incidente. Aplicaría un control que impida violar la regla 'tener eventos, errores y estados observables', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
 
 ## 🛠️ Cómo resolver la actividad
 
 1. **Comprende el tema:** explica con tus palabras qué significa premortem y pruebas de arquitectura y qué idea principal de las fuentes lo justifica.
-2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+    2. **Delimita el caso de premortem y pruebas de arquitectura:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+    3. **Formula dos opciones para premortem y pruebas de arquitectura:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+    4. **Compara las opciones de premortem y pruebas de arquitectura:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
 5. **Decide:** elige la opción que proteja primero esta idea: Los microservicios son una opción, no una obligación. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+6. **Construye la evidencia:** produce el artefacto que mejor responda a premortem y pruebas de arquitectura: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión de premortem y pruebas de arquitectura, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
 
-**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+**Respuesta modelo para Premortem y pruebas de arquitectura:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
 
 
 ## Conclusiones de las fuentes
@@ -96,4 +96,4 @@ La información es el corazón del sistema. Un diseño arquitectónico sólido t
 - ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
 
 ## Evidencia para el repositorio
-Guarda la explicación integrada, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. El video que grabes debe explicar qué tomaste de cada fuente y cómo lo convertiste en una decisión propia para el proyecto.
+Guarda la explicación de premortem y pruebas de arquitectura, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.

@@ -8,7 +8,7 @@
 [⬅️ Video anterior](video-08.md) | [➡️ Video siguiente](video-10.md)
 
 ## Propósito
-Esta clase combina las fuentes anteriores en una sola explicación para el proyecto de la plataforma logística. El objetivo es comprender qué ideas comparten, qué diferencias tienen y qué decisión arquitectónica permiten tomar.
+Esta clase combina las fuentes anteriores para resolver un problema específico: observabilidad, seguridad y privacidad. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
 
 ## Resumen integrado
 **Fuente 1: Observabilidad y monitoreo de sistemas**
@@ -32,56 +32,56 @@ La arquitectura debe prestar atención a qué información guarda, cómo la prot
 - Un sistema debe minimizar exposición de información innecesaria.
 
 ## Cómo se conectan las fuentes
-Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
+La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: observabilidad, seguridad y privacidad. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
 
 ## Aplicación al caso logístico
-La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **observabilidad, seguridad y privacidad**.
+Para estudiar **observabilidad, seguridad y privacidad**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La observabilidad permite entender el comportamiento real del sistema.
 
-1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: La observabilidad permite entender el comportamiento real del sistema.
-2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
-3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
-4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
-5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos observabilidad, seguridad y privacidad al flujo.
+    2. **Actor prioritario de observabilidad, seguridad y privacidad:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
+    3. **Regla o calidad protegida en observabilidad, seguridad y privacidad:** escribe la condición que debe permanecer verdadera y relaciónala con la observabilidad permite entender el comportamiento real del sistema..
+    4. **Punto de decisión para observabilidad, seguridad y privacidad:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
+    5. **Evidencia de observabilidad, seguridad y privacidad:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
 
-Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Para resolver el caso de **observabilidad, seguridad y privacidad**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
 
 
 ## Actividad de construcción
-1. Resume en tus palabras la idea central de cada fuente.
-2. Combina esas ideas en un problema arquitectónico único.
-3. Propón dos alternativas de solución.
-4. Compara costo inicial, calidad, riesgo, operación y facilidad de cambio.
-5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
-6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
+1. Explica con tus palabras qué significa observabilidad, seguridad y privacidad y qué fuente respalda esa interpretación.
+2. Describe una situación de la plataforma logística donde aparezca: la observabilidad permite entender el comportamiento real del sistema.
+3. Identifica el actor que recibe el impacto de observabilidad, seguridad y privacidad y la regla que no puede romperse.
+4. Propón una solución mínima y otra más robusta para observabilidad, seguridad y privacidad; compara sus costos y riesgos.
+5. Elige una opción para observabilidad, seguridad y privacidad, declara qué sacrificas y define la condición que obligaría a revisarla.
+6. Produce la evidencia propia de este tema: observabilidad, seguridad y privacidad debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
 
 ## Respuestas a las preguntas
 ### ❓ ¿Qué tan claro es el estado actual de mi sistema en producción?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la observabilidad permite entender el comportamiento real del sistema. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ### ❓ ¿Estoy monitoreando lo que realmente importa?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con los logs, métricas y trazas son herramientas esenciales de diagnósticos. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ### ❓ ¿Qué datos sensibles maneja mi sistema?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con un sistema difícil de monitorear es más riesgoso en producción. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** La prioridad de observabilidad, seguridad y privacidad es proteger a el repartidor, porque recibir una instrucción vigente y consistente. Aplicaría un control que impida violar la regla 'evitar dos asignaciones activas para la misma entrega', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
 
 ### ❓ ¿Estoy reduciendo la exposición innecesaria de información?
 
-**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la observabilidad es una decisión arquitectónica, no un detalle final. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
 
 ## 🛠️ Cómo resolver la actividad
 
 1. **Comprende el tema:** explica con tus palabras qué significa observabilidad, seguridad y privacidad y qué idea principal de las fuentes lo justifica.
-2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+    2. **Delimita el caso de observabilidad, seguridad y privacidad:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+    3. **Formula dos opciones para observabilidad, seguridad y privacidad:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+    4. **Compara las opciones de observabilidad, seguridad y privacidad:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
 5. **Decide:** elige la opción que proteja primero esta idea: La observabilidad permite entender el comportamiento real del sistema. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+6. **Construye la evidencia:** produce el artefacto que mejor responda a observabilidad, seguridad y privacidad: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión de observabilidad, seguridad y privacidad, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
 
-**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+**Respuesta modelo para Observabilidad, seguridad y privacidad:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
 
 
 ## Conclusiones de las fuentes
@@ -96,4 +96,4 @@ La seguridad y la privacidad no son requisitos secundarios: son elementos fundam
 - ¿Estoy reduciendo la exposición innecesaria de información?
 
 ## Evidencia para el repositorio
-Guarda la explicación integrada, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. El video que grabes debe explicar qué tomaste de cada fuente y cómo lo convertiste en una decisión propia para el proyecto.
+Guarda la explicación de observabilidad, seguridad y privacidad, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
