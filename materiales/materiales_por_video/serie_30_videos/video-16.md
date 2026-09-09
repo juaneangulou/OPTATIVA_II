@@ -1,8 +1,8 @@
 # Video 16: Monorepos, trunk-based development y calidad
 
 ## Fuentes oficiales
-- [Platzi: Contexto, negocio y decisiones arquitectónicas](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
-- [Platzi: Principios, calidad y trade-offs](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
+- [Contexto, negocio y decisiones arquitectónicas](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
+- [Principios, calidad y trade-offs](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-15.md) | [➡️ Video siguiente](video-17.md)
@@ -35,7 +35,16 @@ La idea principal es que la calidad del diseño no se mide solo por cuán elegan
 Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
 
 ## Aplicación al caso logístico
-Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificaciones, incidentes y operación. Elige un flujo concreto y explica qué responsabilidad, dependencia o atributo de calidad queda protegido.
+La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **monorepos, trunk-based development y calidad**.
+
+1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
+2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
+3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
+4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
+5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+
+Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+
 
 ## Actividad de construcción
 1. Resume en tus palabras la idea central de cada fuente.
@@ -45,8 +54,35 @@ Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificacio
 5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
 6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
 
-## Respuesta orientadora
-Una respuesta sólida conecta las fuentes con el caso. No basta decir que una tecnología es mejor: debes explicar qué problema resuelve, qué costo introduce, qué alternativa descartas y cómo comprobarás la decisión.
+## Respuestas a las preguntas
+### ❓ ¿Qué restricciones del negocio están impactando mi diseño actual?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con los requisitos técnicos no son suficientes; el negocio da la forma de la solución. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Estoy resolviendo el problema real o solo la versión técnica de ese problema?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con el contexto define qué es una buena decisión y qué no lo es. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué trade-off estoy asumiendo sin darme cuenta en mi proyecto?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con un gran diseño debe equilibrar funcionalidad, costos, tiempo y complejidad. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Estoy priorizando la solución más elegante o la más adecuada?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con el arquitecto actúa como traductor entre negocio y tecnología. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+## 🛠️ Cómo resolver la actividad
+
+1. **Comprende el tema:** explica con tus palabras qué significa monorepos, trunk-based development y calidad y qué idea principal de las fuentes lo justifica.
+2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+5. **Decide:** elige la opción que proteja primero esta idea: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
+6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+
+**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+
 
 ## Conclusiones de las fuentes
 Una buena arquitectura no se mide solo por su elegancia técnica, sino por su capacidad de responder a un problema auténtico con sentido de negocio. El mejor diseño es aquel que sirve al contexto y no el que solo parece bonito desde el punto de vista teórico.

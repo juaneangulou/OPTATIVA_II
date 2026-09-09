@@ -1,8 +1,8 @@
 # Video 28: Fitness Functions, OpenTelemetry y caos
 
 ## Fuentes oficiales
-- [Platzi: Decisiones bajo incertidumbre](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
-- [Platzi: Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
+- [Decisiones bajo incertidumbre](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
+- [Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-27.md) | [➡️ Video siguiente](video-29.md)
@@ -35,7 +35,16 @@ Esto invita a pensar que el arquitecto no actúa solo como técnico, sino tambi�
 Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
 
 ## Aplicación al caso logístico
-Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificaciones, incidentes y operación. Elige un flujo concreto y explica qué responsabilidad, dependencia o atributo de calidad queda protegido.
+La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **fitness functions, opentelemetry y caos**.
+
+1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: La incertidumbre es parte normal de la arquitectura.
+2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
+3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
+4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
+5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+
+Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+
 
 ## Actividad de construcción
 1. Resume en tus palabras la idea central de cada fuente.
@@ -45,8 +54,35 @@ Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificacio
 5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
 6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
 
-## Respuesta orientadora
-Una respuesta sólida conecta las fuentes con el caso. No basta decir que una tecnología es mejor: debes explicar qué problema resuelve, qué costo introduce, qué alternativa descartas y cómo comprobarás la decisión.
+## Respuestas a las preguntas
+### ❓ ¿Estoy tomando decisiones con datos suficientes o con suposiciones no verificadas?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la incertidumbre es parte normal de la arquitectura. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué tan reversible es esta decisión si cambian los requerimientos?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con no siempre se dispone de toda la información antes de diseñar. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué impacto social tiene mi sistema?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con las decisiones deben evaluarse por riesgo y reversibilidad. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con diseñar para cambiar reduce el impacto de la incertidumbre. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+## 🛠️ Cómo resolver la actividad
+
+1. **Comprende el tema:** explica con tus palabras qué significa fitness functions, opentelemetry y caos y qué idea principal de las fuentes lo justifica.
+2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+5. **Decide:** elige la opción que proteja primero esta idea: La incertidumbre es parte normal de la arquitectura. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
+6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+
+**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+
 
 ## Conclusiones de las fuentes
 No hace falta conocer todo para tomar una buena decisión arquitectónica. Lo esencial es saber evaluar riesgos, mantener opciones abiertas y decidir con criterio en medio de la incertidumbre.

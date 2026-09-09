@@ -1,8 +1,8 @@
 # Video 18: Documentación viva y revisión con IA
 
 ## Fuentes oficiales
-- [Platzi: Escalabilidad y rendimiento](https://platzi.com/cursos/software-avanzado/quarto-como-sitio-de-documentacion-viva/)
-- [Platzi: Resiliencia y tolerancia a fallos](https://platzi.com/cursos/software-avanzado/agentes-de-ia-que-revisan-tu-codigo-en-g/)
+- [Escalabilidad y rendimiento](https://platzi.com/cursos/software-avanzado/quarto-como-sitio-de-documentacion-viva/)
+- [Resiliencia y tolerancia a fallos](https://platzi.com/cursos/software-avanzado/agentes-de-ia-que-revisan-tu-codigo-en-g/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-17.md) | [➡️ Video siguiente](video-19.md)
@@ -35,7 +35,16 @@ La resiliencia consiste en diseñar sistemas que puedan degradar con elegancia, 
 Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
 
 ## Aplicación al caso logístico
-Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificaciones, incidentes y operación. Elige un flujo concreto y explica qué responsabilidad, dependencia o atributo de calidad queda protegido.
+La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **documentación viva y revisión con ia**.
+
+1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: Escalabilidad significa crecer sin romper el sistema.
+2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
+3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
+4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
+5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+
+Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+
 
 ## Actividad de construcción
 1. Resume en tus palabras la idea central de cada fuente.
@@ -45,8 +54,35 @@ Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificacio
 5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
 6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
 
-## Respuesta orientadora
-Una respuesta sólida conecta las fuentes con el caso. No basta decir que una tecnología es mejor: debes explicar qué problema resuelve, qué costo introduce, qué alternativa descartas y cómo comprobarás la decisión.
+## Respuestas a las preguntas
+### ❓ ¿Mi sistema está preparado para crecer en usuarios, tráfico o complejidad?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con escalabilidad significa crecer sin romper el sistema. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué cuellos de botella reales existen hoy?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con el rendimiento es un problema de diseño, no solo de infraestructura. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué pasa si uno de mis servicios falla hoy?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con un sistema puede ser lento por mala arquitectura, no solo por falta de recursos. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Mi sistema degrada de forma controlada o colapsa por completo?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con aumentar capacidad no siempre es la mejor solución; a veces hay que mejorar diseño. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+## 🛠️ Cómo resolver la actividad
+
+1. **Comprende el tema:** explica con tus palabras qué significa documentación viva y revisión con ia y qué idea principal de las fuentes lo justifica.
+2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+5. **Decide:** elige la opción que proteja primero esta idea: Escalabilidad significa crecer sin romper el sistema. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
+6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+
+**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+
 
 ## Conclusiones de las fuentes
 La escalabilidad y el rendimiento son indicadores de madurez arquitectónica. Un sistema que puede crecer sin perder calidad no solo sirve mejor, sino que también reduce riesgos operativos y costos de corrección a largo plazo.

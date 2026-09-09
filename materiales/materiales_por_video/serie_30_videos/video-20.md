@@ -1,8 +1,8 @@
 # Video 20: Premortem y pruebas de arquitectura
 
 ## Fuentes oficiales
-- [Platzi: Microservicios y dominios](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
-- [Platzi: Datos y almacenamiento](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
+- [Microservicios y dominios](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
+- [Datos y almacenamiento](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-19.md) | [➡️ Video siguiente](video-21.md)
@@ -35,7 +35,16 @@ Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una o
 Lee las fuentes como partes de una misma conversación. Identifica qué problema presenta cada una, qué concepto agrega y qué consecuencia aparece cuando se aplica al sistema. No copies las conclusiones por separado: construye una explicación que muestre la relación entre ellas.
 
 ## Aplicación al caso logístico
-Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificaciones, incidentes y operación. Elige un flujo concreto y explica qué responsabilidad, dependencia o atributo de calidad queda protegido.
+La plataforma logística recibe un pedido, reserva inventario, calcula una ruta, asigna un repartidor y comunica el estado. En esta clase no vamos a mencionar esos pasos como una lista: vamos a observar dónde aparece **premortem y pruebas de arquitectura**.
+
+1. **Situación:** el sistema debe resolver un pedido sin perder la calidad relacionada con este tema: Los microservicios son una opción, no una obligación.
+2. **Actores afectados:** cliente, operador logístico, repartidor, equipo de soporte y equipo técnico. Cada uno necesita información y garantías diferentes.
+3. **Punto de decisión:** el equipo debe decidir qué responsabilidad queda en el módulo de pedidos, qué cruza hacia ruteo o inventario y qué se delega a una dependencia externa.
+4. **Riesgo:** si la decisión es débil, puede haber entregas tardías, datos expuestos, cambios costosos, mensajes perdidos o una operación imposible de diagnosticar.
+5. **Evidencia:** la decisión se demuestra con el artefacto adecuado: diagrama, ADR, contrato, código, prueba, métrica, registro de despliegue o experimento controlado.
+
+Para resolver el caso, empieza por el flujo “crear pedido”. Señala el componente que recibe la solicitud, la regla que debe protegerse, la dependencia que puede fallar y el resultado que espera cada actor. Después compara dos formas de construirlo: una solución sencilla para el MVP y otra con mayor separación. La elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+
 
 ## Actividad de construcción
 1. Resume en tus palabras la idea central de cada fuente.
@@ -45,8 +54,35 @@ Analiza cómo este tema afecta pedidos, inventario, ruteo, entregas, notificacio
 5. Elige una alternativa para el MVP y declara qué condición obligaría a revisarla.
 6. Produce una evidencia: ADR, diagrama, contrato, código C#, prueba, métrica o plan de evolución.
 
-## Respuesta orientadora
-Una respuesta sólida conecta las fuentes con el caso. No basta decir que una tecnología es mejor: debes explicar qué problema resuelve, qué costo introduce, qué alternativa descartas y cómo comprobarás la decisión.
+## Respuestas a las preguntas
+### ❓ ¿Mi sistema necesita separación por dominio o la complejidad no justifica eso?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con los microservicios son una opción, no una obligación. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Estoy dividiendo el sistema por negocio o por comodidad técnica?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la arquitectura debe reflejar el dominio del negocio y no solo la tecnología. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Qué tipo de consultas y volumen real tiene mi sistema?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la división por componentes debe hacerse con criterios claros de responsabilidad. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+### ❓ ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
+
+**Respuesta orientadora:** En la plataforma logística, esta pregunta se responde relacionándola con la complejidad operativa aumenta al adoptar múltiples servicios. Primero identifica el actor afectado y la regla que quieres proteger; después elige una evidencia que permita comprobarlo. Una respuesta completa debe decir qué cambiarías, qué costo aceptarías y cómo sabrías si la decisión funcionó.
+
+## 🛠️ Cómo resolver la actividad
+
+1. **Comprende el tema:** explica con tus palabras qué significa premortem y pruebas de arquitectura y qué idea principal de las fuentes lo justifica.
+2. **Delimita el caso:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
+3. **Formula dos opciones:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
+4. **Compara las opciones:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
+5. **Decide:** elige la opción que proteja primero esta idea: Los microservicios son una opción, no una obligación. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
+6. **Construye la evidencia:** produce el artefacto que mejor responda al tema: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
+7. **Comprueba y sustenta:** ejecuta la prueba o revisión definida, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+
+**Respuesta modelo:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+
 
 ## Conclusiones de las fuentes
 Microservicios no son la respuesta universal. Su valor aparece cuando ayudan a organizar un sistema complejo en dominios manejables y equipos con responsabilidades claras. El verdadero criterio es la capacidad de crear un sistema entendible y evolutivo, no solo distribuirlo en muchos servicios.
