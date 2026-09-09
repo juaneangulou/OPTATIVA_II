@@ -1,5 +1,7 @@
 # Plan de construcción: 30 videos de arquitectura de software
 
+> **Fuentes oficiales de Platzi:** consulta la versión con los enlaces directos a cada clase en [plan_30_videos_platzi.md](plan_30_videos_platzi.md). Esa es la versión correcta para estudiar los videos originales.
+
 Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada clase debe estudiarse a partir de sus fuentes, resumirse con criterio propio y conectarse con el proyecto de la plataforma logística.
 
 > **Nota sobre las fuentes:** en la carpeta actual hay 24 videos de Fundamentos y 29 de Arquitectura Aplicada: 53 videos fuente registrados. El plan usa esos 53 archivos disponibles. Si existen otros 16 videos de Platzi fuera de esta carpeta, deberán incorporarse después.
@@ -21,8 +23,10 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 01: Decisiones de arquitectura y consecuencias reales](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-01-decisiones-de-arquitectura-y-consecuencias-reales.md)
-- [Fundamentos 02: Por qué importa la arquitectura](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-02-por-que-importa-la-arquitectura.md)
+> Las fuentes oficiales de este bloque son las clases de Platzi. El enlace local se conserva como apoyo de lectura.
+
+- [Platzi 01: Decisiones de arquitectura y sus consecuencias reales](https://platzi.com/cursos/fundamentos-arquitectura-software/decisiones-de-arquitectura-de-software-y/)
+- [Platzi 02: IA en arquitectura: herramienta o amenaza](https://platzi.com/cursos/fundamentos-arquitectura-software/ia-en-arquitectura-herramienta-o-amenaza/)
 
 **Producto:** explicación del problema arquitectónico y mapa inicial de consecuencias.
 
@@ -30,8 +34,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 03: Rol del arquitecto de software](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-03-rol-del-arquitecto-de-software.md)
-- [Fundamentos 04: Comunicar la arquitectura](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-04-comunicar-la-arquitectura.md)
+- [Platzi 03: Qué hace un arquitecto de software](https://platzi.com/cursos/fundamentos-arquitectura-software/78360-que-hace-un-arquitecto-de-software/)
+- [Platzi 04: Problemas esenciales vs incidentales](https://platzi.com/cursos/fundamentos-arquitectura-software/problemas-esenciales-vs-accidentales-en/)
 
 **Producto:** mapa de actores y guion de comunicación de una decisión.
 
@@ -39,7 +43,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 05: Documentar decisiones y mantener claridad](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-05-documentar-decisiones-y-mantener-claridad.md)
+- [Platzi 05: Malas prácticas de arquitectura](https://platzi.com/cursos/fundamentos-arquitectura-software/malas-practicas-de-arquitectura-y-como-e/)
 
 **Producto:** primer ADR del proyecto.
 
@@ -47,8 +51,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 06: Arquitectura como responsabilidad humana](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-06-arquitectura-como-responsabilidad-humana.md)
-- [Fundamentos 07: Escalabilidad, seguridad y ética](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-07-escalabilidad-seguridad-y-etica.md)
+- [Platzi 06: Espacio de problema vs solución](https://platzi.com/cursos/fundamentos-arquitectura-software/espacio-de-problema-vs-solucion-en-arqui/)
+- [Platzi 07: Requisitos funcionales y no funcionales](https://platzi.com/cursos/fundamentos-arquitectura-software/requisitos-funcionales-y-no-funcionales/)
 
 **Producto:** matriz de impactos técnicos, humanos y éticos.
 
@@ -56,8 +60,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 08: Fundamentos de diseño y principios de arquitectura](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-08-fundamentos-de-diseno-y-principios-de-arquitectura.md)
-- [Fundamentos 09: Acoplamiento, cohesión y calidad estructural](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-09-acoplamiento-cohesion-y-calidad-estructural.md)
+- [Platzi 08: Costo total de operación](https://platzi.com/cursos/fundamentos-arquitectura-software/costo-total-de-operacion-en-arquitectura/)
+- [Platzi 09: Alineación con la estrategia empresarial](https://platzi.com/cursos/fundamentos-arquitectura-software/alineacion-de-arquitectura-de-software-c/)
 
 **Producto:** diagnóstico de acoplamiento y cohesión.
 
@@ -65,7 +69,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 10: Modelado de dominios y límites de contexto](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-10-modelado-de-dominios-y-limites-de-contexto.md)
+- [Platzi 10: Mindset del arquitecto que abraza el cambio](https://platzi.com/cursos/fundamentos-arquitectura-software/mindset-del-arquitecto-que-abraza-el-cam/)
 
 **Producto:** mapa de dominios de la plataforma logística.
 
@@ -73,8 +77,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 11: Monolito vs arquitectura distribuida](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-11-monolito-vs-arquitectura-distribuida.md)
-- [Fundamentos 12: Microservicios y organización por dominios](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-12-microservicios-y-organizacion-por-dominios.md)
+- [Platzi 11: Elegir un estilo arquitectónico](https://platzi.com/cursos/fundamentos-arquitectura-software/como-elegir-un-estilo-arquitectonico-sin/)
+- [Platzi 12: Arquitectura cliente-servidor](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitectura-cliente-servidor-fundamento/)
 
 **Producto:** comparación de alternativas estructurales.
 
@@ -82,8 +86,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 13: APIs y contratos de integración](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-13-apis-y-contratos-de-integracion.md)
-- [Fundamentos 14: Infraestructura, despliegue y entorno de ejecución](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-14-infraestructura-despliegue-y-entorno-de-ejecucion.md)
+- [Platzi 13: Arquitecturas monolíticas](https://platzi.com/cursos/fundamentos-arquitectura-software/que-son-las-arquitecturas-monoliticas-y/)
+- [Platzi 14: Arquitecturas orientadas a servicios](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitecturas-orientadas-a-servicios-con/)
 
 **Producto:** contrato de API y diagrama de despliegue inicial.
 
@@ -91,8 +95,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 15: Observabilidad y monitoreo de sistemas](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-15-observabilidad-y-monitoreo-de-sistemas.md)
-- [Fundamentos 16: Seguridad, datos sensibles y privacidad](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-16-seguridad-datos-sensibles-y-privacidad.md)
+- [Platzi 15: Eventos en sistemas distribuidos](https://platzi.com/cursos/fundamentos-arquitectura-software/como-funcionan-los-eventos-en-sistemas-d/)
+- [Platzi 16: Costos ocultos de los microservicios](https://platzi.com/cursos/fundamentos-arquitectura-software/costos-ocultos-de-los-microservicios/)
 
 **Producto:** matriz de señales, datos sensibles y controles.
 
@@ -100,8 +104,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 17: Testing y validación de arquitectura](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-17-testing-y-validacion-de-arquitectura.md)
-- [Fundamentos 18: DevOps y automatización de entrega](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-18-devops-y-automatizacion-de-entrega.md)
+- [Platzi 17: Principios SOLID](https://platzi.com/cursos/fundamentos-arquitectura-software/paradigmas-y-principios-solid-explicados/)
+- [Platzi 18: Arquitectura limpia](https://platzi.com/cursos/fundamentos-arquitectura-software/que-hace-limpia-a-una-arquitectura-de-so/)
 
 **Producto:** estrategia inicial de pruebas y entrega.
 
@@ -109,8 +113,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Fundamentos 19: Estructura de software y evolución del sistema](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-19-estructura-de-software-y-evolucion-del-sistema.md)
-- [Fundamentos 20: Riesgos, costos y decisiones bajo incertidumbre](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-20-riesgos-costos-y-decisiones-bajo-incertidumbre.md)
+- [Platzi 19: Patrones de software para arquitectos](https://platzi.com/cursos/fundamentos-arquitectura-software/patrones-de-software-para-arquitectos/)
+- [Platzi 20: Arquitectura MVP](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitectura-mvp-de-telegram-a-remarkabl/)
 
 **Producto:** registro de riesgos y modelo de costo de cambio.
 
@@ -118,7 +122,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 21: Estrategia tecnológica y roadmap](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-21-estrategia-tecnologica-y-roadmap.md)
+- [Platzi 21: Evolucionar un MVP](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
 
 **Producto:** roadmap arquitectónico del MVP.
 
@@ -126,7 +130,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 22: Comunicación, liderazgo y negociación técnica](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-22-comunicacion-liderazgo-y-negociacion-tecnica.md)
+- [Platzi 22: Evolución del software personal al empresarial](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucion-del-software-personal-hacia-el/)
 
 **Producto:** guion para defender una decisión ante distintos actores.
 
@@ -134,7 +138,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 23: Arquitectura con impacto social y valor real](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-23-arquitectura-con-impacto-social-y-valor-real.md)
+- [Platzi 23: Preguntas clave del arquitecto](https://platzi.com/cursos/fundamentos-arquitectura-software/preguntas-clave-que-todo-arquitecto-de-s/)
 
 **Producto:** análisis de impactos y criterios de valor.
 
@@ -142,7 +146,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Fundamentos 24: Cierre del curso](materiales/material_cursos_raw_summary/cursos/fundamentos-arquitectura-software/videos/video-24-cierre-del-curso.md)
+- [Platzi 24: Carrera del arquitecto de software](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/)
 
 **Producto:** expediente de fundamentos listo para pasar a arquitectura aplicada.
 
@@ -154,8 +158,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 01: Intuición vs método](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-01-intuicion-vs-metodo.md)
-- [Aplicada 02: Analizar una licitación real con IA](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-02.md)
+- [Platzi Aplicada 01: Intuición vs método](https://platzi.com/cursos/software-avanzado/intuicion-vs-metodo-en-arquitectura-de-s/)
+- [Platzi Aplicada 02: Analizar una licitación real con IA](https://platzi.com/cursos/software-avanzado/como-analizar-una-licitacion-real-con-ia/)
 
 **Producto:** método de análisis y matriz de decisiones asistida.
 
@@ -163,8 +167,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 03: Monorepos con Pantsbuild](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-03.md)
-- [Aplicada 04: Trunk Based Development](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-04-principios-calidad-y-tradeoffs.md)
+- [Platzi Aplicada 03: Monorepos con Pantsbuild](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
+- [Platzi Aplicada 04: Trunk Based Development](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
 
 **Producto:** estrategia de repositorio y reglas de integración.
 
@@ -172,8 +176,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 05: Behavior Driven Development](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-05-ia-vision-y-liderazgo.md)
-- [Aplicada 06: Modelo C4](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-06-arquitectura-y-decisiones-de-diseno.md)
+- [Platzi Aplicada 05: Behavior Driven Development](https://platzi.com/cursos/software-avanzado/behavior-driven-development-para-alinear/)
+- [Platzi Aplicada 06: Modelo C4](https://platzi.com/cursos/software-avanzado/modelo-c4-para-diagramar-arquitecturas/)
 
 **Producto:** escenarios BDD y diagramas C4.
 
@@ -181,8 +185,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 07: Quarto como documentación viva](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-07-escalabilidad-y-rendimiento.md)
-- [Aplicada 08: Agentes de IA revisando código](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-08-resiliencia-y-tolerancia-a-fallos.md)
+- [Platzi Aplicada 07: Quarto como documentación viva](https://platzi.com/cursos/software-avanzado/quarto-como-sitio-de-documentacion-viva/)
+- [Platzi Aplicada 08: Agentes de IA revisando código](https://platzi.com/cursos/software-avanzado/agentes-de-ia-que-revisan-tu-codigo-en-g/)
 
 **Producto:** documentación ejecutable y checklist de revisión.
 
@@ -190,8 +194,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 09: Architecture.md](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-09-seguridad-y-privacidad.md)
-- [Aplicada 10: Domain Driven Design](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-10-integracion-y-contratos-de-api.md)
+- [Platzi Aplicada 09: Architecture.md](https://platzi.com/cursos/software-avanzado/estructura-del-archivo-architecture-md-p/)
+- [Platzi Aplicada 10: Domain Driven Design](https://platzi.com/cursos/software-avanzado/domain-driven-design-para-arquitectura-l/)
 
 **Producto:** Architecture.md y primer modelo de dominio.
 
@@ -199,8 +203,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 11: Técnicas pre-mortem](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-11-microservicios-y-dominios.md)
-- [Aplicada 12: Premortem como guía de pruebas](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-12-datos-y-almacenamiento.md)
+- [Platzi Aplicada 11: Técnicas pre-mortem](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
+- [Platzi Aplicada 12: Premortem como guía de pruebas](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
 
 **Producto:** tabla de fallos anticipados y pruebas asociadas.
 
@@ -208,8 +212,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 13: Métricas cuantitativas](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-13-observabilidad-y-operabilidad.md)
-- [Aplicada 14: Strangler Fig](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-14-devops-despliegue-y-automatizacion.md)
+- [Platzi Aplicada 13: Métricas cuantitativas](https://platzi.com/cursos/software-avanzado/metricas-cuantitativas-para-evaluar-arqu/)
+- [Platzi Aplicada 14: Strangler Fig](https://platzi.com/cursos/software-avanzado/strangler-fig-para-migrar-arquitecturas/)
 
 **Producto:** scorecard arquitectónico y plan de migración.
 
@@ -217,8 +221,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 15: Migraciones con Flyway](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-15-arquitectura-moderna-y-liderazgo.md)
-- [Aplicada 16: API Gateway](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-16-documentacion-y-decisiones-explicitas.md)
+- [Platzi Aplicada 15: Migraciones con Flyway](https://platzi.com/cursos/software-avanzado/migraciones-de-base-de-datos-con-flyway/)
+- [Platzi Aplicada 16: API Gateway](https://platzi.com/cursos/software-avanzado/api-gateway-como-capa-de-abstraccion-en/)
 
 **Producto:** estrategia de migración y contrato del Gateway.
 
@@ -226,8 +230,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 17: Bounded Context y Context Maps](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-17-cultura-de-arquitectura.md)
-- [Aplicada 18: Infraestructura como código](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-18-comunicacion-y-negociacion-tecnica.md)
+- [Platzi Aplicada 17: Bounded Context y Context Maps](https://platzi.com/cursos/software-avanzado/bounded-context-y-context-maps-en-micros/)
+- [Platzi Aplicada 18: Infraestructura como código](https://platzi.com/cursos/software-avanzado/infraestructura-como-codigo-en-monorepos/)
 
 **Producto:** Context Map y configuración reproducible.
 
@@ -235,8 +239,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 19: Mensajes vs eventos](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-19-madurez-arquitectonica.md)
-- [Aplicada 20: Productor-consumidor](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-20-cierre-del-curso.md)
+- [Platzi Aplicada 19: Mensajes vs eventos](https://platzi.com/cursos/software-avanzado/mensajes-vs-eventos-en-microservicios/)
+- [Platzi Aplicada 20: Productor-consumidor](https://platzi.com/cursos/software-avanzado/patron-productor-consumidor-vs-fan-in-y/)
 
 **Producto:** diagrama de comunicación asíncrona.
 
@@ -244,8 +248,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 21: Dead Letter Queue](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-21-diseno-para-cambio-y-evolucion.md)
-- [Aplicada 22: Comparing consumers](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-22-calidad-de-servicio-y-experiencia-de-usuario.md)
+- [Platzi Aplicada 21: Dead Letter Queue](https://platzi.com/cursos/software-avanzado/dead-letter-queue-en-productor-consumido/)
+- [Platzi Aplicada 22: Comparing consumers](https://platzi.com/cursos/software-avanzado/patron-comparing-consumers-para-procesam/)
 
 **Producto:** política de reintentos y comparación de consumidores.
 
@@ -253,8 +257,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 23: Process Manager](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-23-estrategia-tecnologica-y-roadmap.md)
-- [Aplicada 24: Durable State vs Event Sourcing](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-24-evaluacion-de-tecnologias-y-stack.md)
+- [Platzi Aplicada 23: Process Manager](https://platzi.com/cursos/software-avanzado/que-es-el-patron-process-manager/)
+- [Platzi Aplicada 24: Durable State vs Event Sourcing](https://platzi.com/cursos/software-avanzado/durable-state-vs-event-sourcing-en-siste/)
 
 **Producto:** diseño de un flujo coordinado y decisión de persistencia.
 
@@ -262,8 +266,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 25: Máquinas de estado finito](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-25-riesgos-costos-y-sostenibilidad-financiera.md)
-- [Aplicada 26: SAST, DAST y pentesting](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-26-arquitectura-para-equipos-distribuidos.md)
+- [Platzi Aplicada 25: Máquinas de estado finito](https://platzi.com/cursos/software-avanzado/maquinas-de-estado-finito-en-el-front-en/)
+- [Platzi Aplicada 26: SAST, DAST y pentesting](https://platzi.com/cursos/software-avanzado/tecnicas-sast-dast-y-pen-testing-para-se/)
 
 **Producto:** máquina de estados y matriz de controles de seguridad.
 
@@ -271,8 +275,8 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuentes:**
 
-- [Aplicada 27: Fitness Functions](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-27-decisiones-bajo-incertidumbre.md)
-- [Aplicada 28: OpenTelemetry e ingeniería del caos](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-28-arquitectura-con-impacto-social-y-etico.md)
+- [Platzi Aplicada 27: Fitness Functions](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
+- [Platzi Aplicada 28: OpenTelemetry e ingeniería del caos](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
 **Producto:** fitness functions, trazas y experimento de fallo controlado.
 
@@ -280,7 +284,7 @@ Este documento organiza los videos fuente disponibles en 30 clases nuevas. Cada 
 
 **Fuente:**
 
-- [Aplicada 29: Sabiduría y criterio en arquitectura](materiales/material_cursos_raw_summary/cursos/arquitectura-software-aplicada/videos/video-29-cierre-profesional-y-legado-arquitectonico.md)
+- [Platzi Aplicada 29: Sabiduría y criterio en arquitectura](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
 
 **Producto:** expediente final y defensa de la arquitectura.
 
