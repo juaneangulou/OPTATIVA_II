@@ -22,40 +22,40 @@ La idea es documentar el contexto, la intención, los riesgos, las restricciones
 Cuando terminemos, quiero que puedas explicar requisitos funcionales y no funcionales con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video profundiza en la importancia de dejar explícitas las decisiones de arquitectura. Muchas veces el problema no es solo que el sistema funcione, sino que se vuelva difícil de entender por quien lo revisa después. Cuando las decisiones no se documentan, cada persona asume una interpretación distinta y eso termina generando inconsistencias.
+Te planteo el problema directamente: Este video profundiza en la importancia de dejar explícitas las decisiones de arquitectura.
 
-La idea es documentar el contexto, la intención, los riesgos, las restricciones y las alternativas descartadas. Esa práctica no solo ayuda al mantenimiento, sino también a que el equipo pueda evaluar si una solución sigue siendo apropiada con el tiempo. La documentación debe ser clara, viva y útil.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta requisitos funcionales y no funcionales como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. Las decisiones de arquitectura deben dejarse escritas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Las decisiones de arquitectura deben dejarse escritas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. La documentación ayuda a preservar conocimiento y continuidad.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La documentación ayuda a preservar conocimiento y continuidad. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Debe aclarar intención, restricciones, riesgos y alternativas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Debe aclarar intención, restricciones, riesgos y alternativas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. La arquitectura viva reduce la ambigüedad y mejora la evolución.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura viva reduce la ambigüedad y mejora la evolución. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. El código por sí solo no siempre explica el porqué del diseño.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El código por sí solo no siempre explica el porqué del diseño. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. Documentar ayuda a la comprensión del presente y del futuro.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Documentar ayuda a la comprensión del presente y del futuro. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

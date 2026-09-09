@@ -22,40 +22,40 @@ Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una o
 Cuando terminemos, quiero que puedas explicar strangler fig para migraciones con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: El video presenta la importancia decisiva de la estrategia de datos dentro de la arquitectura. Una aplicación no es solo lógica de negocio; también es un sistema de lectura, escritura, consulta y persistencia. La forma en que se almacenan los datos afecta directamente rendimiento, consistencia, recuperación, costos, y capacidad de evolución. Elegir una base de datos o un patrón de almacenamiento equivale a definir parte del comportamiento del sistema.
+Te planteo el problema directamente: El video presenta la importancia decisiva de la estrategia de datos dentro de la arquitectura.
 
-Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una opción más adecuada para cada problema. La arquitectura debe evaluar volumen, tipos de consulta, consistencia requerida, latencia, integridad y costo operativo. A partir de ahí, se pueden elegir modelos relacionales, NoSQL, colas, caché o arquitecturas híbridas.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta strangler fig para migraciones como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La estrategia de datos influye directamente en la arquitectura.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La estrategia de datos influye directamente en la arquitectura. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. No todas las bases de datos resuelven el mismo tipo de problema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: No todas las bases de datos resuelven el mismo tipo de problema. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. El almacenamiento debe obedecer al comportamiento real del negocio.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El almacenamiento debe obedecer al comportamiento real del negocio. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. Rendimiento, consistencia y costos son variables que se deben balancear.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Ahora llévala a un escenario de crecimiento. Rendimiento, consistencia y costos son variables que se deben balancear. Imagina que aumenta el tráfico: identifica el primer cuello de botella y decide qué medirías antes de añadir infraestructura.
 
 ### 5. Los datos son un activo crítico, no un detalle técnico.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los datos son un activo crítico, no un detalle técnico. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. El diseño de persistencia define la evolución futura del sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El diseño de persistencia define la evolución futura del sistema. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

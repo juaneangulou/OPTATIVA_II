@@ -22,40 +22,40 @@ La diferencia entre un código funcional y una solución sostenible radica en la
 Cuando terminemos, quiero que puedas explicar cómo analizar una licitación real con ia con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video enfatiza el cambio de mentalidad que ocurre cuando un desarrollador deja de pensar solo en entregar una funcionalidad rápida y empieza a pensar en la calidad del sistema completo. El objetivo ya no es solo que el código compile o que la funcionalidad funcione, sino que el sistema pueda evolucionar, soportar cambios y ser mantenido por más personas.
+Te planteo el problema directamente: Este video enfatiza el cambio de mentalidad que ocurre cuando un desarrollador deja de pensar solo en entregar una funcionalidad rápida y empieza a pensar en la calidad del sistema completo.
 
-La diferencia entre un código funcional y una solución sostenible radica en la capacidad de estructurar el problema. Cuando se ignora la arquitectura, el sistema suele volverse difícil de entender, frágil ante cambios y costoso de mantener. El video presenta esta transición como un paso importante en la carrera profesional: de ser alguien que resuelve tareas puntuales a alguien que diseña soluciones con visión de producto y negocio.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta cómo analizar una licitación real con ia como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. Un sistema que funciona puede seguir siendo una mala solución si no está bien diseñado.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un sistema que funciona puede seguir siendo una mala solución si no está bien diseñado. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. La mantenibilidad es una dimensión clave del valor de una arquitectura.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La mantenibilidad es una dimensión clave del valor de una arquitectura. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. El diseño debe facilitar cambios futuros y no solo la entrega inicial.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El diseño debe facilitar cambios futuros y no solo la entrega inicial. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. Los problemas reales aparecen cuando el software crece en complejidad, usuarios, reglas de negocio y dependencias.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí vamos a buscar la regla del negocio. Los problemas reales aparecen cuando el software crece en complejidad, usuarios, reglas de negocio y dependencias. Escribe qué objeto o módulo debería protegerla y qué error queremos impedir aunque cambie la base de datos o la interfaz.
 
 ### 5. El arquitecto debe pensar en el sistema como un conjunto de decisiones sostenibles, no solo como una colección de features.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El arquitecto debe pensar en el sistema como un conjunto de decisiones sostenibles, no solo como una colección de features. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. El código limpio no es un fin en sí mismo; es una herramienta para soportar la evolución del negocio.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El código limpio no es un fin en sí mismo; es una herramienta para soportar la evolución del negocio. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

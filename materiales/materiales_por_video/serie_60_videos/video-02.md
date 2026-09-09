@@ -24,38 +24,38 @@ Cuando terminemos, quiero que puedas explicar problema esencial y decisiones té
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: Este video responde una pregunta central: ¿por qué la arquitectura de software es importante si al final un sistema solo necesita funcionar? La respuesta es que un sistema no se mide solo por su funcionamiento inmediato, sino por su capacidad de crecer, proteger datos, ser usable y responder a nuevas necesidades sin romperse.
 
-La arquitectura influye en varios aspectos del software: escalabilidad, seguridad, accesibilidad, privacidad y ética. Si un sistema está mal diseñado, puede funcionar al inicio y luego volverse difícil de mantener, poco seguro y muy costoso de evolucionar. La arquitectura es la diferencia entre un producto resistente y uno frágil.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta problema esencial y decisiones técnicas como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La arquitectura determina el futuro del sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura determina el futuro del sistema. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. Un sistema puede trabajar hoy y fallar mañana si no está bien diseñado.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un sistema puede trabajar hoy y fallar mañana si no está bien diseñado. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. La escalabilidad implica crecer sin perder rendimiento ni estabilidad.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Ahora llévala a un escenario de crecimiento. La escalabilidad implica crecer sin perder rendimiento ni estabilidad. Imagina que aumenta el tráfico: identifica el primer cuello de botella y decide qué medirías antes de añadir infraestructura.
 
 ### 4. La seguridad y la privacidad son decisiones de diseño, no de última hora.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La seguridad y la privacidad son decisiones de diseño, no de última hora. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 5. La accesibilidad y la ética forman parte del valor del software.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La accesibilidad y la ética forman parte del valor del software. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 6. Lo que se decide al diseñar un sistema afecta su éxito y su impacto social.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. Lo que se decide al diseñar un sistema afecta su éxito y su impacto social. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

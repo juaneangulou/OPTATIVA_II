@@ -22,40 +22,40 @@ El video subraya que en muchas decisiones arquitectónicas hay conflictos entre 
 Cuando terminemos, quiero que puedas explicar mensajes vs eventos en microservicios con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Una gran parte del trabajo de un arquitecto no ocurre en un editor de código, sino en conversaciones. El arquitecto debe comunicar decisiones, explicar trade-offs, escuchar necesidades del negocio y convencer a diferentes actores sobre la dirección correcta de la solución. La comunicación técnica es una competencia esencial porque la arquitectura no se implementa solo con conocimiento; se ejecuta con consenso.
+Te planteo el problema directamente: Una gran parte del trabajo de un arquitecto no ocurre en un editor de código, sino en conversaciones.
 
-El video subraya que en muchas decisiones arquitectónicas hay conflictos entre necesidades de tiempo, costo, calidad, riesgo y visión. En esos momentos, la capacidad de negociar, sintetizar y explicar la elección correcta es tan importante como el conocimiento técnico. La arquitectura también se trata de ser claro, persuasivo y empático con quienes toman decisiones o se ven afectados por ellas.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta mensajes vs eventos en microservicios como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La arquitectura se comunica tanto como se diseña.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura se comunica tanto como se diseña. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. Los stakeholders no siempre hablan el mismo lenguaje técnico.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los stakeholders no siempre hablan el mismo lenguaje técnico. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Los trade-offs deben explicarse de forma clara y útil.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los trade-offs deben explicarse de forma clara y útil. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. Un arquitecto debe escuchar, explicar y alinear.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un arquitecto debe escuchar, explicar y alinear. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. La negociación técnica ayuda a evitar decisiones impulsivas o incomprensibles.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La negociación técnica ayuda a evitar decisiones impulsivas o incomprensibles. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. La capacidad de comunicación convierte una buena idea en una decisión implementada.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+En esta idea nos interesa el límite entre componentes. La capacidad de comunicación convierte una buena idea en una decisión implementada. Dibuja quién consume la información, qué contrato necesita y qué cambio podría romper al consumidor.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

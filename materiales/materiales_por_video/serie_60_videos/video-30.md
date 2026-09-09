@@ -22,40 +22,40 @@ La discusión central compara dos enfoques: por un lado, la intuición, que perm
 Cuando terminemos, quiero que puedas explicar intuición vs método en arquitectura de software con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: El video parte de una idea clave: muchas personas logran construir software funcional usando solo intuición, experiencia y prueba y error. Eso puede funcionar a corto plazo, pero cuando el sistema crece, aparecen problemas de mantenimiento, complejidad, escalabilidad y entendimiento del negocio. La arquitectura de software deja de ser solo “programar bien” y pasa a ser tomar decisiones con criterio, fundamento y visión de largo plazo.
+Te planteo el problema directamente: El video parte de una idea clave: muchas personas logran construir software funcional usando solo intuición, experiencia y prueba y error.
 
-La discusión central compara dos enfoques: por un lado, la intuición, que permite improvisar y avanzar rápido; por otro, el método, que ayuda a pensar en el sistema como un conjunto de decisiones estratégicas, no solo soluciones técnicas. El video deja claro que el arquitecto no debe depender de la suerte ni de la improvisación constante: debe analizar contexto, restricciones, objetivos de negocio y riesgos.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta intuición vs método en arquitectura de software como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. Un software puede “servir” sin ser realmente bueno si no está construido para sostener cambios.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un software puede “servir” sin ser realmente bueno si no está construido para sostener cambios. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. La arquitectura de software implica decisiones sobre estructura, acoplamiento, escalabilidad, evolución y costos.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Ahora llévala a un escenario de crecimiento. La arquitectura de software implica decisiones sobre estructura, acoplamiento, escalabilidad, evolución y costos. Imagina que aumenta el tráfico: identifica el primer cuello de botella y decide qué medirías antes de añadir infraestructura.
 
 ### 4. El método permite reducir la incertidumbre y tomar decisiones con más base técnica y de negocio.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El método permite reducir la incertidumbre y tomar decisiones con más base técnica y de negocio. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. Un buen arquitecto combina experiencia, análisis y criterio, no solo creatividad.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un buen arquitecto combina experiencia, análisis y criterio, no solo creatividad. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. El problema no es solo que el sistema funcione, sino que funcione bien en el tiempo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El problema no es solo que el sistema funcione, sino que funcione bien en el tiempo. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

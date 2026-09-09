@@ -22,40 +22,40 @@ La infraestructura debe ser fácil de reproducir, detectar fallos y trasladar en
 Cuando terminemos, quiero que puedas explicar infraestructura, despliegue y entorno de ejecución con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video muestra que la arquitectura incluye también la infraestructura que ejecuta el sistema. Un diseño puede ser excelente en código, pero si el entorno de ejecución es caótico, manual o poco reproducible, la aplicación no será sostenible. La arquitectura debe considerar tanto la capa lógica como la capa operativa que la pone en marcha.
+Te planteo el problema directamente: Este video muestra que la arquitectura incluye también la infraestructura que ejecuta el sistema.
 
-La infraestructura debe ser fácil de reproducir, detectar fallos y trasladar entre entornos. Los despliegues automatizados y los procesos de entorno ayudan a reducir errores humanos y mejorar la confianza del sistema en producción.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta infraestructura, despliegue y entorno de ejecución como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La infraestructura es parte del diseño arquitectónico.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La infraestructura es parte del diseño arquitectónico. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. El entorno debe ser reproducible y consistente.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El entorno debe ser reproducible y consistente. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Un despliegue manual aumenta riesgos y errores.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un despliegue manual aumenta riesgos y errores. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. La infraestructura debe soportar diferentes contextos: desarrollo, prueba y producción.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Esta idea solo queda completa cuando podemos comprobarla. La infraestructura debe soportar diferentes contextos: desarrollo, prueba y producción. Elige una prueba o métrica y explica qué resultado confirmaría o cuestionaría nuestra decisión sobre infraestructura, despliegue y entorno de ejecución.
 
 ### 5. La operación y la arquitectura están conectadas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La operación y la arquitectura están conectadas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. La calidad del sistema depende también de cómo se entrega.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La calidad del sistema depende también de cómo se entrega. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

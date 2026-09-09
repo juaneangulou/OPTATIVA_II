@@ -22,40 +22,40 @@ También se introduce la relación entre arquitectura y dominio. Un buen diseño
 Cuando terminemos, quiero que puedas explicar bounded context y context maps con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video analiza una de las decisiones arquitectónicas más debatidas del desarrollo actual: la adopción de microservicios. La idea central no es que los microservicios sean automáticamente mejores que una arquitectura monolítica, sino que pueden encajar muy bien cuando el sistema necesita evolución separada por dominios, equipos y responsabilidades. El problema es que muchos equipos los adoptan por moda sin analizar si el problema real los justifica.
+Te planteo el problema directamente: Este video analiza una de las decisiones arquitectónicas más debatidas del desarrollo actual: la adopción de microservicios.
 
-También se introduce la relación entre arquitectura y dominio. Un buen diseño de software debe reflejar el dominio del negocio. Cuando los servicios corresponden a límites de negocio claros, la solución se vuelve más entendible, escalable y mantenible. La clave está en separar responsabilidades con sentido, no en dividir por tecnología por el solo hecho de hacerlo.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta bounded context y context maps como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. Los microservicios son una opción, no una obligación.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+En esta idea nos interesa el límite entre componentes. Los microservicios son una opción, no una obligación. Dibuja quién consume la información, qué contrato necesita y qué cambio podría romper al consumidor.
 
 ### 2. La arquitectura debe reflejar el dominio del negocio y no solo la tecnología.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí vamos a buscar la regla del negocio. La arquitectura debe reflejar el dominio del negocio y no solo la tecnología. Escribe qué objeto o módulo debería protegerla y qué error queremos impedir aunque cambie la base de datos o la interfaz.
 
 ### 3. La división por componentes debe hacerse con criterios claros de responsabilidad.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La división por componentes debe hacerse con criterios claros de responsabilidad. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 4. La complejidad operativa aumenta al adoptar múltiples servicios.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+En esta idea nos interesa el límite entre componentes. La complejidad operativa aumenta al adoptar múltiples servicios. Dibuja quién consume la información, qué contrato necesita y qué cambio podría romper al consumidor.
 
 ### 5. Un diseño basado en dominios mejora la claridad y la evolución del sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí vamos a buscar la regla del negocio. Un diseño basado en dominios mejora la claridad y la evolución del sistema. Escribe qué objeto o módulo debería protegerla y qué error queremos impedir aunque cambie la base de datos o la interfaz.
 
 ### 6. El objetivo es reducir acoplamientos innecesarios y mejorar la capacidad de cambio.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El objetivo es reducir acoplamientos innecesarios y mejorar la capacidad de cambio. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

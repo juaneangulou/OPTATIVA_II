@@ -22,40 +22,40 @@ La arquitectura debe prestar atención a qué información guarda, cómo la prot
 Cuando terminemos, quiero que puedas explicar seguridad, datos sensibles y privacidad con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video refuerza la idea de que la seguridad debe integrarse desde el inicio del diseño. No se trata solo de proteger la aplicación frente a intrusos, sino también de gestionar adecuadamente datos sensibles, permisos de acceso y riesgos derivados del tratamiento de información. Cualquier sistema que maneje datos valiosos debe diseñarse con principios de privacidad, control y minimización.
+Te planteo el problema directamente: Este video refuerza la idea de que la seguridad debe integrarse desde el inicio del diseño.
 
-La arquitectura debe prestar atención a qué información guarda, cómo la protege y quién puede acceder a ella. Cuando se ignora esto, se generan riesgos reales tanto para la empresa como para las personas que usan el sistema.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta seguridad, datos sensibles y privacidad como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La seguridad debe estar integrada al diseño, no añadida al final.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La seguridad debe estar integrada al diseño, no añadida al final. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 2. Los datos sensibles requieren más criterios de control y protección.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los datos sensibles requieren más criterios de control y protección. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. La privacidad es parte del valor del sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La privacidad es parte del valor del sistema. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 4. Un sistema debe minimizar exposición de información innecesaria.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un sistema debe minimizar exposición de información innecesaria. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. El diseño debe recordar quién tiene acceso y bajo qué condiciones.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El diseño debe recordar quién tiene acceso y bajo qué condiciones. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. La confianza del usuario depende del manejo responsable de datos.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La confianza del usuario depende del manejo responsable de datos. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

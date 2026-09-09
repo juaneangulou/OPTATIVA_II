@@ -22,40 +22,40 @@ La sostenibilidad financiera no es solo una preocupación del negocio; también 
 Cuando terminemos, quiero que puedas explicar máquinas de estado finito en el front-end con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: La arquitectura de software también tiene implicaciones económicas. Un sistema no solo debe funcionar desde el punto de vista técnico; también debe ser viable desde el punto de vista financiero, operativo y de mantenimiento. Este video muestra que las decisiones de arquitectura implican costos directos e indirectos: infraestructura, equipos, tiempo, soporte, seguridad, correcciones y capacidad de adaptación.
+Te planteo el problema directamente: La arquitectura de software también tiene implicaciones económicas.
 
-La sostenibilidad financiera no es solo una preocupación del negocio; también afecta la arquitectura. Si el sistema es demasiado costoso de operar o difícil de mantener, su valor real disminuye. Por ello, el arquitecto debe ser capaz de medir el costo total de una solución y no solo el costo inicial de desarrollo.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta máquinas de estado finito en el front-end como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La arquitectura tiene un costo real en infraestructura, operación y mantenimiento.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura tiene un costo real en infraestructura, operación y mantenimiento. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. Los riesgos técnicos y financieros deben evaluarse en conjunto.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los riesgos técnicos y financieros deben evaluarse en conjunto. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Un diseño barato al principio puede volverse muy costoso después.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un diseño barato al principio puede volverse muy costoso después. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. La sostenibilidad financiera depende del equilibrio entre valor y costo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La sostenibilidad financiera depende del equilibrio entre valor y costo. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. El arquitecto debe considerar el costo total de propiedad del sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El arquitecto debe considerar el costo total de propiedad del sistema. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. Las decisiones de diseño deben pesar impacto, riesgo y beneficios a largo plazo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. Las decisiones de diseño deben pesar impacto, riesgo y beneficios a largo plazo. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

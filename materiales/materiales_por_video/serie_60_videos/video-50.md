@@ -22,40 +22,40 @@ El cierre invita a la reflexión sobre el camino profesional: el arquitecto no n
 Cuando terminemos, quiero que puedas explicar dead letter queue en sistemas distribuidos con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: El curso culmina con una visión integradora: la arquitectura de software es una disciplina de pensamiento, decisión y responsabilidad. No se trata de seguir patrones por moda ni de aplicar herramientas por entusiasmo, sino de construir sistemas que resuelvan problemas reales, respeten el contexto y puedan evolucionar con el tiempo. La arquitectura exige equilibrio entre rigor técnico, sensibilidad de negocio y capacidad de liderazgo.
+Te planteo el problema directamente: El curso culmina con una visión integradora: la arquitectura de software es una disciplina de pensamiento, decisión y responsabilidad.
 
-El cierre invita a la reflexión sobre el camino profesional: el arquitecto no nace solo con conocimiento, sino con la habilidad de combinar criterio, experiencia, observación y mejora constante. La invitación final es continuar aprendiendo, enfrentando problemas reales, cuestionando decisiones y construyendo software con propósito. La diferencia entre un buen desarrollador y un buen arquitecto no está en la cantidad de herramientas que conoce, sino en cómo piensa y decide ante la complejidad.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta dead letter queue en sistemas distribuidos como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La arquitectura es una disciplina de decisión y pensamiento, no solo de herramientas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura es una disciplina de decisión y pensamiento, no solo de herramientas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. La práctica real es donde se desarrollan las habilidades arquitectónicas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La práctica real es donde se desarrollan las habilidades arquitectónicas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Los mejores arquitectos combinan técnica, estrategia y criterio humano.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Los mejores arquitectos combinan técnica, estrategia y criterio humano. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. La evolución profesional se construye con experiencia, análisis y reflexión.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La evolución profesional se construye con experiencia, análisis y reflexión. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. El verdadero valor de la arquitectura está en la sostenibilidad de la solución.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El verdadero valor de la arquitectura está en la sostenibilidad de la solución. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. El aprendizaje continuo es parte esencial del trabajo del arquitecto.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El aprendizaje continuo es parte esencial del trabajo del arquitecto. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

@@ -204,6 +204,22 @@ def source_case_questions(source, profile):
     )
 
 
+def explain_source_idea(index, idea, title, profile):
+    lower = idea.lower()
+    short_case = "la plataforma logística"
+    if any(word in lower for word in ("seguridad", "privacidad", "ética", "impacto", "responsabilidad")):
+        return f"Aquí quiero que mires el riesgo humano de esta idea. {idea} Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en {short_case}."
+    if any(word in lower for word in ("escalabilidad", "rendimiento", "carga", "crecer", "estabilidad")):
+        return f"Ahora llévala a un escenario de crecimiento. {idea} Imagina que aumenta el tráfico: identifica el primer cuello de botella y decide qué medirías antes de añadir infraestructura."
+    if any(word in lower for word in ("api", "contrato", "integración", "comunicación", "servicio")):
+        return f"En esta idea nos interesa el límite entre componentes. {idea} Dibuja quién consume la información, qué contrato necesita y qué cambio podría romper al consumidor."
+    if any(word in lower for word in ("dominio", "entidad", "regla", "responsabilidad", "módulo")):
+        return f"Aquí vamos a buscar la regla del negocio. {idea} Escribe qué objeto o módulo debería protegerla y qué error queremos impedir aunque cambie la base de datos o la interfaz."
+    if any(word in lower for word in ("prueba", "testing", "validar", "métrica", "observable")):
+        return f"Esta idea solo queda completa cuando podemos comprobarla. {idea} Elige una prueba o métrica y explica qué resultado confirmaría o cuestionaría nuestra decisión sobre {title.lower()}."
+    return f"Detente en la consecuencia de esta idea: {idea} Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué."
+
+
 def section_titles(title, source):
     topic = title.rstrip(".")
     first_idea = (source["ideas"] or ["el problema real del sistema"])[0].rstrip(".")
@@ -585,7 +601,7 @@ def build_class(number, title):
     topic = title.lower()
 
     idea_walkthrough = "\n\n".join(
-        f"### {index}. {idea}\n\nTe propongo que no la leas como una frase para memorizar. Llévala al caso: {profile['case']}. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando."
+        f"### {index}. {idea}\n\n{explain_source_idea(index, idea, title, profile)}"
         for index, idea in enumerate(ideas, start=1)
     )
     source_questions = "\n".join(
@@ -626,11 +642,13 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con {nex
 Cuando terminemos, quiero que puedas explicar {topic} con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: {summary}
+Te planteo el problema directamente: {summary.split('.')[0]}.
+
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: {profile['case']}. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: {profile['case']}. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta {topic} como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.

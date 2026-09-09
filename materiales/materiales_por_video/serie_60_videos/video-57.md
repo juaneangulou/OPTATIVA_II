@@ -22,40 +22,40 @@ Este cierre reúne todos los temas del curso: paciencia, criterio, responsabilid
 Cuando terminemos, quiero que puedas explicar opentelemetry e ingeniería del caos con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: El curso finaliza con una reflexión sobre el legado que deja un arquitecto. No se trata solo de construir sistemas que funcionen durante un proyecto, sino de dejar una base sólida, una cultura de calidad y una forma de pensar que perdure en el tiempo. El verdadero legado de la arquitectura no son los diagramas o las herramientas elegidas, sino la capacidad de crear sistemas que sigan aportando valor y que puedan ser entendidos, mejorados y heredados por otras personas.
+Te planteo el problema directamente: El curso finaliza con una reflexión sobre el legado que deja un arquitecto.
 
-Este cierre reúne todos los temas del curso: paciencia, criterio, responsabilidad, visión, estrategia, empatía y mejora continua. El arquitecto no crea solo software; crea una infraestructura de conocimiento, decisiones y confianza que acompaña la evolución del negocio y del equipo.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta opentelemetry e ingeniería del caos como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. El verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: El verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. La arquitectura deja huella en el equipo, en la organización y en la forma de pensar.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura deja huella en el equipo, en la organización y en la forma de pensar. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Un buen diseño puede ser heredado y mejorado por otras personas.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un buen diseño puede ser heredado y mejorado por otras personas. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 4. La calidad del trabajo arquitectónico se refleja en la sostenibilidad y el valor a largo plazo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La calidad del trabajo arquitectónico se refleja en la sostenibilidad y el valor a largo plazo. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. La profesión del arquitecto es una responsabilidad intelectual y humana.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Aquí quiero que mires el riesgo humano de esta idea. La profesión del arquitecto es una responsabilidad intelectual y humana. Pregúntate quién podría quedar expuesto si la ignoramos y qué control de diseño reduciría ese riesgo en la plataforma logística.
 
 ### 6. La mejor arquitectura es la que transforma complejidad en claridad y genera valor en el tiempo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La mejor arquitectura es la que transforma complejidad en claridad y genera valor en el tiempo. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 

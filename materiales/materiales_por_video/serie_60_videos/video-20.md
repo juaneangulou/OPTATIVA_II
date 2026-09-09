@@ -22,40 +22,40 @@ La entrega automatizada permite reducir errores humanos, aumentar velocidad, mej
 Cuando terminemos, quiero que puedas explicar devops y automatización de entrega con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
 ## 🎬 Entramos en la conversación
-Te planteo el problema directamente: Este video conecta arquitectura con entrega continua. La forma en que se construye, prueba, despliega y opera una aplicación influye directamente en su calidad. Si el proceso de entrega es manual y poco repetible, el sistema será más frágil incluso si su diseño inicial es bueno. Por eso DevOps y automatización son parte interesante de la arquitectura moderna.
+Te planteo el problema directamente: Este video conecta arquitectura con entrega continua.
 
-La entrega automatizada permite reducir errores humanos, aumentar velocidad, mejorar reusabilidad y hacer más segura la evolución del sistema. El objetivo no es solo desplegar más rápido, sino hacerlo de manera controlada y confiable.
+La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Ahora relaciona esa situación con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
+Ahora relaciónala con el proyecto: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Aquí aparece el verdadero trabajo arquitectónico. No basta con nombrar un patrón o una tecnología; necesitas explicar qué problema resuelve, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
 ## 🧠 Desarrollo: sigamos las ideas de la fuente
 La fuente no presenta devops y automatización de entrega como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
 ### 1. La entrega continua es parte de la arquitectura.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La entrega continua es parte de la arquitectura. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 2. La automatización reduce errores y acelera cambios seguros.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La automatización reduce errores y acelera cambios seguros. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 3. Las pruebas y despliegues deben ser repetibles y controlados.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Esta idea solo queda completa cuando podemos comprobarla. Las pruebas y despliegues deben ser repetibles y controlados. Elige una prueba o métrica y explica qué resultado confirmaría o cuestionaría nuestra decisión sobre devops y automatización de entrega.
 
 ### 4. La operación y el desarrollo deben alinearse en un mismo flujo.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La operación y el desarrollo deben alinearse en un mismo flujo. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 5. Un flujo de entrega sólido aumenta la confianza en el sistema.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: Un flujo de entrega sólido aumenta la confianza en el sistema. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 ### 6. La arquitectura moderna integra proceso y tecnología.
 
-Te propongo que no la leas como una frase para memorizar. Llévala al caso: una orden no puede marcarse como entregada si no existe una asignación válida y una evidencia de entrega. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
+Detente en la consecuencia de esta idea: La arquitectura moderna integra proceso y tecnología. Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué.
 
 Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 
