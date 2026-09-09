@@ -220,6 +220,48 @@ def explain_source_idea(index, idea, title, profile):
     return f"Detente en la consecuencia de esta idea: {idea} Relaciónala con una decisión concreta del proyecto, señala qué alternativa descartarías y explícame por qué."
 
 
+def decision_options(number, title, profile, source):
+    if number == 2:
+        return """## 🔀 Las dos opciones que vamos a comparar
+
+### Opción A: resolver solo la necesidad inmediata
+Construimos una solución que funcione para el volumen actual, concentramos varias responsabilidades y priorizamos entregar rápido. Tiene una ventaja clara: menor costo inicial y menos decisiones que coordinar. Su riesgo es que el sistema quede frágil cuando aumenten usuarios, reglas o integraciones.
+
+### Opción B: construir una base preparada para evolucionar
+Separamos las responsabilidades que probablemente cambien, protegemos los datos sensibles y dejamos contratos claros entre módulos. Tiene un costo inicial mayor, pero reduce el costo de cambiar y facilita comprobar seguridad, rendimiento y mantenibilidad.
+
+### Cómo decidir entre A y B
+No elijas B solo porque suena más profesional. Compara volumen esperado, criticidad, crecimiento, equipo disponible y costo de operación. Para este caso, recomiendo un monolito modular: entregar rápido, pero con límites internos claros, pruebas de las reglas críticas y adaptadores para las dependencias externas. Así no confundimos sencillez con desorden ni evolución con sobreingeniería."""
+    return f"""## 🔀 Opciones para resolver {title.lower()}
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas."""
+
+
+def specific_solution_steps(number, title, profile, source):
+    if number == 2:
+        return """## 🛠️ Resolución paso a paso del video 2
+
+1. **Define el problema esencial.** La plataforma debe seguir funcionando cuando aumenten pedidos, usuarios e integraciones; no basta con que responda correctamente hoy.
+2. **Separa el problema de la tecnología.** El problema es sostenibilidad, no “elegir microservicios” ni “usar una base de datos específica”.
+3. **Compara las opciones.** La opción A entrega rápido, pero mezcla responsabilidades y encarece los cambios. La opción B protege la evolución, pero requiere más diseño y disciplina.
+4. **Elige una solución proporcional.** Para el MVP, usa un monolito modular con módulos de pedidos, inventario, ruteo y notificaciones, contratos internos y reglas de negocio protegidas.
+5. **Define qué no harás todavía.** No separarás servicios ni introducirás infraestructura distribuida hasta contar con evidencia de volumen, autonomía de equipos o necesidad de escalar por separado.
+6. **Comprueba la decisión.** Ejecuta una prueba de cambio: modifica una regla de ruteo y verifica que no tengas que modificar pagos ni notificaciones. Mide también tiempo de respuesta y facilidad de despliegue.
+7. **Documenta el resultado.** Escribe un ADR con contexto, opciones, decisión, trade-offs y condición de revisión. Esa es la evidencia que demuestra que entendiste la fuente y no solo repetiste su definición."""
+    return f"""## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub."""
+
+
 def section_titles(title, source):
     topic = title.rstrip(".")
     first_idea = (source["ideas"] or ["el problema real del sistema"])[0].rstrip(".")
@@ -599,6 +641,8 @@ def build_class(number, title):
     video_navigation = navigation(number)
     source_title = source["title"]
     topic = title.lower()
+    options = decision_options(number, title, profile, source)
+    solution_steps = specific_solution_steps(number, title, profile, source)
 
     idea_walkthrough = "\n\n".join(
         f"### {index}. {idea}\n\n{explain_source_idea(index, idea, title, profile)}"
@@ -620,7 +664,7 @@ def build_class(number, title):
         "5. Define una prueba, métrica, contrato, diagrama o registro que permita verificar la decisión.",
         "6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.",
     ])
-    scene = f"La fuente de esta clase es '{source_title}'. {summary} En la plataforma logística, esto aparece cuando {profile['case']}. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación."
+    scene = f"La fuente consultada para esta clase es '{source_title}'. En nuestro recorrido la conectamos con el tema '{title}' porque queremos estudiar {topic} desde un problema real. La fuente plantea: {summary} En la plataforma logística, esto aparece cuando {profile['case']}. Primero entenderemos la fuente y después construiremos la decisión."
 
     return f"""# Video {number}: {title}
 
@@ -644,7 +688,7 @@ Cuando terminemos, quiero que puedas explicar {topic} con tus propias palabras, 
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: {summary.split('.')[0]}.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -662,6 +706,8 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+{options}
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: {profile['case']}. La fuente afirma que {ideas[0]}. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -675,6 +721,8 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 {evidence_steps}
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+{solution_steps}
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con el a
 [➡️ Video siguiente: El arquitecto y la responsabilidad técnica](video-03.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 2: ¿Por qué importa la arquitectura?'. Este video responde una pregunta central: ¿por qué la arquitectura de software es importante si al final un sistema solo necesita funcionar? La respuesta es que un sistema no se mide solo por su funcionamiento inmediato, sino por su capacidad de crecer, proteger datos, ser usable y responder a nuevas necesidades sin romperse.
+La fuente consultada para esta clase es 'Video 2: ¿Por qué importa la arquitectura?'. En nuestro recorrido la conectamos con el tema 'Problema esencial y decisiones técnicas' porque queremos estudiar problema esencial y decisiones técnicas desde un problema real. La fuente plantea: Este video responde una pregunta central: ¿por qué la arquitectura de software es importante si al final un sistema solo necesita funcionar? La respuesta es que un sistema no se mide solo por su funcionamiento inmediato, sino por su capacidad de crecer, proteger datos, ser usable y responder a nuevas necesidades sin romperse.
 
-La arquitectura influye en varios aspectos del software: escalabilidad, seguridad, accesibilidad, privacidad y ética. Si un sistema está mal diseñado, puede funcionar al inicio y luego volverse difícil de mantener, poco seguro y muy costoso de evolucionar. La arquitectura es la diferencia entre un producto resistente y uno frágil. En la plataforma logística, esto aparece cuando la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+La arquitectura influye en varios aspectos del software: escalabilidad, seguridad, accesibilidad, privacidad y ética. Si un sistema está mal diseñado, puede funcionar al inicio y luego volverse difícil de mantener, poco seguro y muy costoso de evolucionar. La arquitectura es la diferencia entre un producto resistente y uno frágil. En la plataforma logística, esto aparece cuando la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar problema esencial y decisiones técnicas con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar problema esencial y decisiones té
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: Este video responde una pregunta central: ¿por qué la arquitectura de software es importante si al final un sistema solo necesita funcionar? La respuesta es que un sistema no se mide solo por su funcionamiento inmediato, sino por su capacidad de crecer, proteger datos, ser usable y responder a nuevas necesidades sin romperse.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,17 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Las dos opciones que vamos a comparar
+
+### Opción A: resolver solo la necesidad inmediata
+Construimos una solución que funcione para el volumen actual, concentramos varias responsabilidades y priorizamos entregar rápido. Tiene una ventaja clara: menor costo inicial y menos decisiones que coordinar. Su riesgo es que el sistema quede frágil cuando aumenten usuarios, reglas o integraciones.
+
+### Opción B: construir una base preparada para evolucionar
+Separamos las responsabilidades que probablemente cambien, protegemos los datos sensibles y dejamos contratos claros entre módulos. Tiene un costo inicial mayor, pero reduce el costo de cambiar y facilita comprobar seguridad, rendimiento y mantenibilidad.
+
+### Cómo decidir entre A y B
+No elijas B solo porque suena más profesional. Compara volumen esperado, criticidad, crecimiento, equipo disponible y costo de operación. Para este caso, recomiendo un monolito modular: entregar rápido, pero con límites internos claros, pruebas de las reglas críticas y adaptadores para las dependencias externas. Así no confundimos sencillez con desorden ni evolución con sobreingeniería.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. La fuente afirma que La arquitectura determina el futuro del sistema.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +95,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso del video 2
+
+1. **Define el problema esencial.** La plataforma debe seguir funcionando cuando aumenten pedidos, usuarios e integraciones; no basta con que responda correctamente hoy.
+2. **Separa el problema de la tecnología.** El problema es sostenibilidad, no “elegir microservicios” ni “usar una base de datos específica”.
+3. **Compara las opciones.** La opción A entrega rápido, pero mezcla responsabilidades y encarece los cambios. La opción B protege la evolución, pero requiere más diseño y disciplina.
+4. **Elige una solución proporcional.** Para el MVP, usa un monolito modular con módulos de pedidos, inventario, ruteo y notificaciones, contratos internos y reglas de negocio protegidas.
+5. **Define qué no harás todavía.** No separarás servicios ni introducirás infraestructura distribuida hasta contar con evidencia de volumen, autonomía de equipos o necesidad de escalar por separado.
+6. **Comprueba la decisión.** Ejecuta una prueba de cambio: modifica una regla de ruteo y verifica que no tengas que modificar pagos ni notificaciones. Mide también tiempo de respuesta y facilidad de despliegue.
+7. **Documenta el resultado.** Escribe un ADR con contexto, opciones, decisión, trade-offs y condición de revisión. Esa es la evidencia que demuestra que entendiste la fuente y no solo repetiste su definición.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con quar
 [➡️ Video siguiente: Quarto como documentación viva](video-36.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 5: IA, visión y liderazgo arquitectónico'. El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+La fuente consultada para esta clase es 'Video 5: IA, visión y liderazgo arquitectónico'. En nuestro recorrido la conectamos con el tema 'Modelo C4 para diagramar arquitecturas' porque queremos estudiar modelo c4 para diagramar arquitecturas desde un problema real. La fuente plantea: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
 
-La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar modelo c4 para diagramar arquitecturas con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar modelo c4 para diagramar arquitect
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver modelo c4 para diagramar arquitecturas
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. La fuente afirma que La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

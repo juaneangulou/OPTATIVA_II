@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con acop
 [➡️ Video siguiente: Acoplamiento, cohesión y calidad estructural](video-27.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 8: Fundamentos de diseño y principios de arquitectura'. Este video presenta los fundamentos del diseño arquitectónico: cómo una solución técnica debe estructurarse para ser clara, sostenible y adaptable. La arquitectura no se basa solo en elegir herramientas, sino en aplicar principios que guíen la organización del sistema. Entre esos principios están la modularidad, la separación de responsabilidades, la reutilización con sentido y la reducción del acoplamiento.
+La fuente consultada para esta clase es 'Video 8: Fundamentos de diseño y principios de arquitectura'. En nuestro recorrido la conectamos con el tema 'Principios de diseño y fundamentos de estructura' porque queremos estudiar principios de diseño y fundamentos de estructura desde un problema real. La fuente plantea: Este video presenta los fundamentos del diseño arquitectónico: cómo una solución técnica debe estructurarse para ser clara, sostenible y adaptable. La arquitectura no se basa solo en elegir herramientas, sino en aplicar principios que guíen la organización del sistema. Entre esos principios están la modularidad, la separación de responsabilidades, la reutilización con sentido y la reducción del acoplamiento.
 
-La idea central es que un sistema bien diseñado no solo funciona, sino que es más fácil de entender, mantener y evolucionar. Los principios de arquitectura sirven como brújula para tomar decisiones con criterio, especialmente cuando el proyecto crece en complejidad. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+La idea central es que un sistema bien diseñado no solo funciona, sino que es más fácil de entender, mantener y evolucionar. Los principios de arquitectura sirven como brújula para tomar decisiones con criterio, especialmente cuando el proyecto crece en complejidad. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar principios de diseño y fundamentos de estructura con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar principios de diseño y fundamento
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: Este video presenta los fundamentos del diseño arquitectónico: cómo una solución técnica debe estructurarse para ser clara, sostenible y adaptable.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver principios de diseño y fundamentos de estructura
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. La fuente afirma que El diseño arquitectónico no es un detalle opcional.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con apis
 [➡️ Video siguiente: APIs y contratos de integración](video-14.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 12: Microservicios y organización por dominios'. La arquitectura basada en microservicios suele asociarse con escalabilidad y flexibilidad, pero también con mayor complejidad distribuidas. Este video explica que los microservicios no son una solución mágica: tienen sentido cuando la organización y el dominio del negocio lo justifican. Una buena división por servicios debe surgir del dominio, de las responsabilidades y de la capacidad de evolución del negocio.
+La fuente consultada para esta clase es 'Video 12: Microservicios y organización por dominios'. En nuestro recorrido la conectamos con el tema 'Microservicios y organización por dominios' porque queremos estudiar microservicios y organización por dominios desde un problema real. La fuente plantea: La arquitectura basada en microservicios suele asociarse con escalabilidad y flexibilidad, pero también con mayor complejidad distribuidas. Este video explica que los microservicios no son una solución mágica: tienen sentido cuando la organización y el dominio del negocio lo justifican. Una buena división por servicios debe surgir del dominio, de las responsabilidades y de la capacidad de evolución del negocio.
 
-La organización por dominios ayuda a definir límites claros y a separar áreas con objetivos diferentes. Cuando esto se hace bien, el sistema gana claridad. Cuando se hace mal, se vuelve difícil de operar, depurar y mantener. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+La organización por dominios ayuda a definir límites claros y a separar áreas con objetivos diferentes. Cuando esto se hace bien, el sistema gana claridad. Cuando se hace mal, se vuelve difícil de operar, depurar y mantener. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar microservicios y organización por dominios con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar microservicios y organización por
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: La arquitectura basada en microservicios suele asociarse con escalabilidad y flexibilidad, pero también con mayor complejidad distribuidas.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver microservicios y organización por dominios
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. La fuente afirma que Los microservicios solo tienen valor si se justifican por el problema real.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

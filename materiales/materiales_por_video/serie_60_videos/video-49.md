@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con dead
 [➡️ Video siguiente: Dead Letter Queue en sistemas distribuidos](video-50.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 19: Madurez arquitectónica y evolución continua'. Este video reflexiona sobre la madurez de una arquitectura: no se trata de llegar a una solución “perfecta” de una vez, sino de ir desarrollando capacidades para manejar complejidad, cambios y crecimiento sin perder control. La madurez arquitectónica se observa cuando un equipo es capaz de aprender del sistema, ajustar decisiones, evolucionar sus procesos y mantener calidad aunque el negocio cambie.
+La fuente consultada para esta clase es 'Video 19: Madurez arquitectónica y evolución continua'. En nuestro recorrido la conectamos con el tema 'Productor consumidor y fan-in/fan-out' porque queremos estudiar productor consumidor y fan-in/fan-out desde un problema real. La fuente plantea: Este video reflexiona sobre la madurez de una arquitectura: no se trata de llegar a una solución “perfecta” de una vez, sino de ir desarrollando capacidades para manejar complejidad, cambios y crecimiento sin perder control. La madurez arquitectónica se observa cuando un equipo es capaz de aprender del sistema, ajustar decisiones, evolucionar sus procesos y mantener calidad aunque el negocio cambie.
 
-La evolución continua es parte esencial de la arquitectura moderna. Un sistema no debe quedar congelado en una decisión inicial; debe poder adaptarse a nuevos requerimientos, nuevas tecnologías y nuevos riesgos. Esa capacidad de evolución depende tanto del diseño como del hábito de revisión, observación y mejora constante. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+La evolución continua es parte esencial de la arquitectura moderna. Un sistema no debe quedar congelado en una decisión inicial; debe poder adaptarse a nuevos requerimientos, nuevas tecnologías y nuevos riesgos. Esa capacidad de evolución depende tanto del diseño como del hábito de revisión, observación y mejora constante. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar productor consumidor y fan-in/fan-out con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar productor consumidor y fan-in/fan-
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: Este video reflexiona sobre la madurez de una arquitectura: no se trata de llegar a una solución “perfecta” de una vez, sino de ir desarrollando capacidades para manejar complejidad, cambios y crecimiento sin perder control.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver productor consumidor y fan-in/fan-out
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. La fuente afirma que La madurez arquitectónica se construye con el tiempo.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

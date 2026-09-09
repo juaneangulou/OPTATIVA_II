@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con infr
 [➡️ Video siguiente: Infraestructura, despliegue y entorno de ejecución](video-16.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 9: Acoplamiento, cohesión y calidad estructural'. Este video explica dos conceptos centrales en arquitectura: acoplamiento y cohesión. El acoplamiento mide cuán dependientes son componentes entre sí; la cohesión mide qué tan relacionadas están las responsabilidades dentro de un mismo módulo o servicio. La mejor arquitectura busca baja dependencia entre partes y alta claridad dentro de cada parte.
+La fuente consultada para esta clase es 'Video 9: Acoplamiento, cohesión y calidad estructural'. En nuestro recorrido la conectamos con el tema 'Acoplamiento entre servicios y sistemas' porque queremos estudiar acoplamiento entre servicios y sistemas desde un problema real. La fuente plantea: Este video explica dos conceptos centrales en arquitectura: acoplamiento y cohesión. El acoplamiento mide cuán dependientes son componentes entre sí; la cohesión mide qué tan relacionadas están las responsabilidades dentro de un mismo módulo o servicio. La mejor arquitectura busca baja dependencia entre partes y alta claridad dentro de cada parte.
 
-Cuando el acoplamiento es alto, hacer cambios implica romper varias piezas del sistema. Cuando la cohesión es baja, una entidad se vuelve confusa y difícil de mantener. La calidad estructural del software se mejora cuando se reducen dependencias innecesarias y se ordenan bien las responsabilidades. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+Cuando el acoplamiento es alto, hacer cambios implica romper varias piezas del sistema. Cuando la cohesión es baja, una entidad se vuelve confusa y difícil de mantener. La calidad estructural del software se mejora cuando se reducen dependencias innecesarias y se ordenan bien las responsabilidades. En la plataforma logística, esto aparece cuando pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar acoplamiento entre servicios y sistemas con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar acoplamiento entre servicios y sis
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: Este video explica dos conceptos centrales en arquitectura: acoplamiento y cohesión.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver acoplamiento entre servicios y sistemas
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: pedidos, inventario, rutas y notificaciones deben colaborar sin compartir toda su lógica interna. La fuente afirma que El acoplamiento alto genera fragilidad.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

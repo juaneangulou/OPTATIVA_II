@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con open
 [➡️ Video siguiente: OpenTelemetry e ingeniería del caos](video-57.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 28: Arquitectura con impacto social y ético'. El video introduce un enfoque humanista y ético en la arquitectura de software. Un sistema no solo afecta procesos técnicos y económicos, sino también personas, comunidades y valores. Por eso, la arquitectura debe considerar implicaciones sociales, de privacidad, accesibilidad, inclusión y responsabilidad. Un sistema que funciona técnicamente puede causar daño si no se diseña con criterio ético.
+La fuente consultada para esta clase es 'Video 28: Arquitectura con impacto social y ético'. En nuestro recorrido la conectamos con el tema 'Fitness functions para medir arquitectura' porque queremos estudiar fitness functions para medir arquitectura desde un problema real. La fuente plantea: El video introduce un enfoque humanista y ético en la arquitectura de software. Un sistema no solo afecta procesos técnicos y económicos, sino también personas, comunidades y valores. Por eso, la arquitectura debe considerar implicaciones sociales, de privacidad, accesibilidad, inclusión y responsabilidad. Un sistema que funciona técnicamente puede causar daño si no se diseña con criterio ético.
 
-Esto invita a pensar que el arquitecto no actúa solo como técnico, sino también como responsable del impacto de sus decisiones. Cuando se diseña software para personas, su contexto social y sus necesidades humanas deben integrarse en la solución. Este enfoque aporta más valor y reduce consecuencias negativas en el largo plazo. En la plataforma logística, esto aparece cuando durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+Esto invita a pensar que el arquitecto no actúa solo como técnico, sino también como responsable del impacto de sus decisiones. Cuando se diseña software para personas, su contexto social y sus necesidades humanas deben integrarse en la solución. Este enfoque aporta más valor y reduce consecuencias negativas en el largo plazo. En la plataforma logística, esto aparece cuando durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar fitness functions para medir arquitectura con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar fitness functions para medir arqui
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: El video introduce un enfoque humanista y ético en la arquitectura de software.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver fitness functions para medir arquitectura
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: durante una alta demanda, el sistema debe detectar latencia, recuperar mensajes fallidos y mantener una experiencia aceptable. La fuente afirma que La tecnología tiene impacto real sobre personas, comunidades y decisiones humanas.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:

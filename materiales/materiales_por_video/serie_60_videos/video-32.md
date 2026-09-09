@@ -14,9 +14,9 @@ Al terminar esta conversación, tendrás una decisión nueva que enlaza con trun
 [➡️ Video siguiente: Trunk Based Development y reglas de calidad](video-33.md)
 
 ## 🎥 La situación que vamos a resolver
-La fuente de esta clase es 'Video 3: Contexto, negocio y decisiones arquitectónicas'. El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+La fuente consultada para esta clase es 'Video 3: Contexto, negocio y decisiones arquitectónicas'. En nuestro recorrido la conectamos con el tema 'Monorepos con Pantsbuild en proyectos reales' porque queremos estudiar monorepos con pantsbuild en proyectos reales desde un problema real. La fuente plantea: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
+Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. En la plataforma logística, esto aparece cuando un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. Primero entenderemos la fuente y después construiremos la decisión.
 
 ## 🎯 Lo que quiero que puedas hacer
 Cuando terminemos, quiero que puedas explicar monorepos con pantsbuild en proyectos reales con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
@@ -24,7 +24,7 @@ Cuando terminemos, quiero que puedas explicar monorepos con pantsbuild en proyec
 ## 🎬 Entramos en la conversación
 Te planteo el problema directamente: El video muestra que la arquitectura de software no se construye en un vacío técnico.
 
-La fuente desarrolla esta situación con más detalle en el bloque anterior. Ahora quiero que hagamos algo distinto: separar el problema esencial de los detalles técnicos que podríamos elegir después.
+Ahora voy a separar contigo tres niveles: lo que la fuente afirma, el problema esencial que debemos resolver y las decisiones técnicas que podríamos tomar después. Si confundimos esos niveles, terminaremos usando una tecnología como respuesta a un problema que todavía no hemos definido.
 
 Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
@@ -66,6 +66,13 @@ Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dón
 
 No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
+## 🔀 Opciones para resolver monorepos con pantsbuild en proyectos reales
+
+- **Opción A:** aplicar una solución sencilla dentro de la estructura actual, documentando sus límites.
+- **Opción B:** introducir una separación o mecanismo especializado para proteger el riesgo principal de la fuente.
+
+Compara ambas por costo inicial, calidad, operación, facilidad de cambio y evidencia disponible. Elige una solo después de explicar qué problema resuelve y qué costo aceptas.
+
 ## 🏗️ Un ejemplo trabajado contigo
 Voy a tomar una situación del proyecto: un pedido entra por una API, ejecuta un caso de uso, persiste su estado y comunica el resultado. La fuente afirma que Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
@@ -84,6 +91,16 @@ Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el co
 6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
 Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
+
+## 🛠️ Resolución paso a paso
+
+1. Define el problema que la fuente ayuda a resolver.
+2. Identifica a los actores y el riesgo principal.
+3. Compara dos opciones concretas.
+4. Elige una solución proporcional al MVP.
+5. Declara qué queda fuera y cuándo revisarás la decisión.
+6. Define una prueba, métrica o evidencia.
+7. Documenta la decisión y sus trade-offs en GitHub.
 
 ## 🗣️ Comprobemos juntos tus respuestas
 Estas son respuestas orientadoras, no una clave para copiar:
