@@ -1,99 +1,81 @@
 # Video 07: Monolitos, sistemas distribuidos y microservicios
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: elegir la estructura correcta
 - [Monolito vs arquitectura distribuida](https://platzi.com/cursos/fundamentos-arquitectura-software/como-elegir-un-estilo-arquitectonico-sin/)
 - [Microservicios y organización por dominios](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitectura-cliente-servidor-fundamento/)
 
-## 🔗 Navegación
+## 🔗 De límites de contexto a decisiones de despliegue
 [⬅️ Video anterior](video-06.md) | [➡️ Video siguiente](video-08.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: monolitos, sistemas distribuidos y microservicios. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 El problema que vamos a decidir
+Ya definimos Pedidos, Inventario, Ruteo y Entregas como contextos distintos. Ahora viene una pregunta que muchos equipos contestan demasiado pronto: ¿debemos convertir cada contexto en un microservicio? La respuesta no es automática. Un límite de dominio no obliga a tener un despliegue independiente.
 
-## Resumen integrado
-**Fuente 1: Monolito vs arquitectura distribuida**
-Este video compara dos enfoques arquitectónicos muy comunes: el monolito y la arquitectura distribuida. El monolito puede ser una buena opción cuando el sistema es relativamente pequeño o cuando se desea velocidad de desarrollo y menor complejidad operativa. Sin embargo, cuando el proyecto crece y la organización requiere mayor desacople y evolución independiente, la arquitectura distribuida puede ser más apropiada.
+## Escena: la campaña de viernes negro
+La plataforma anuncia entregas en menos de dos horas. Durante la campaña, el tráfico de consultas de rutas se multiplica por veinte, pero la creación de pedidos y la reserva de inventario siguen dentro de su volumen normal. El equipo observa que el cálculo de rutas consume CPU y demora las confirmaciones de pedido.
 
-La clave no es elegir una opción “mejor” en abstracto, sino seleccionar la que mejor se adapte a la complejidad real del sistema, el tamaño del equipo, la carga de trabajo y los objetivos de negocio. El problema aparece cuando se adopta una solución distribuida solo por moda, sin analizar su costo operativo.
+El director de tecnología propone: “separemos todo en microservicios este fin de semana”. El equipo debe frenar y preguntar: ¿qué problema queremos resolver exactamente?, ¿qué módulo necesita escalar?, ¿tenemos monitoreo, despliegue automático y contratos estables para operar servicios separados?
 
-**Fuente 2: Microservicios y organización por dominios**
-La arquitectura basada en microservicios suele asociarse con escalabilidad y flexibilidad, pero también con mayor complejidad distribuidas. Este video explica que los microservicios no son una solución mágica: tienen sentido cuando la organización y el dominio del negocio lo justifican. Una buena división por servicios debe surgir del dominio, de las responsabilidades y de la capacidad de evolución del negocio.
+## Opción A: monolito modular bien protegido
+Pedidos, Inventario, Ruteo y Entregas siguen desplegándose juntos, pero cada módulo conserva sus contratos internos y dependencias controladas. Para la campaña, se optimiza el cálculo de rutas con caché y una cola de solicitudes. Esta opción mantiene un solo despliegue, una base operativa más simple y menos fallos de red.
 
-La organización por dominios ayuda a definir límites claros y a separar áreas con objetivos diferentes. Cuando esto se hace bien, el sistema gana claridad. Cuando se hace mal, se vuelve difícil de operar, depurar y mantener.
+**Cuándo es suficiente:** cuando el equipo es pequeño, los módulos cambian juntos, el volumen todavía cabe en una aplicación escalada horizontalmente y no hay evidencia de que otro módulo necesite autonomía real.
 
-## Ideas que debes conservar
-- El monolito y la arquitectura distribuida tienen ventajas y costos distintos.
-- La elección depende del problema real, no de la tendencia.
-- El monolito reduce complejidad de operación, pero puede limitar evolución.
-- La arquitectura distribuida mejora desacople y escalabilidad, pero aumenta complejidad.
-- Los microservicios solo tienen valor si se justifican por el problema real.
-- La división debe ser por dominio y responsabilidad, no por moda.
-- El diseño por dominios ayuda a clarificar la estructura del sistema.
-- Una arquitectura distribuida exige más coordinación y observabilidad.
+## Opción B: extraer Ruteo como servicio independiente
+Ruteo se convierte en un servicio porque tiene un perfil de carga distinto, puede escalar por separado y usa un proveedor externo de mapas. Pedidos conserva un contrato `IRouteEstimator`; la comunicación se protege con timeout, reintentos y observabilidad. Esta opción evita que una campaña de rutas degrade la confirmación de pedidos, pero agrega despliegues, fallos de red, monitoreo distribuido y gobierno de contratos.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: monolitos, sistemas distribuidos y microservicios. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+**Cuándo vale la pena:** cuando la métrica confirma que Ruteo es el cuello de botella, un equipo puede mantenerlo, existe automatización de entrega y la separación reduce un riesgo mayor que el costo operativo que introduce.
 
-## Aplicación al caso logístico
-Para estudiar **monolitos, sistemas distribuidos y microservicios**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: El monolito y la arquitectura distribuida tienen ventajas y costos distintos.
+## La decisión para este caso
+No separaría los cuatro contextos. Extraería solamente Ruteo de forma gradual si se cumplen tres señales durante dos campañas:
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos monolitos, sistemas distribuidos y microservicios al flujo.
-    2. **Actor prioritario de monolitos, sistemas distribuidos y microservicios:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en monolitos, sistemas distribuidos y microservicios:** escribe la condición que debe permanecer verdadera y relaciónala con el monolito y la arquitectura distribuida tienen ventajas y costos distintos..
-    4. **Punto de decisión para monolitos, sistemas distribuidos y microservicios:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de monolitos, sistemas distribuidos y microservicios:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+1. El percentil 95 de cálculo de rutas supera el objetivo acordado y bloquea la confirmación de pedidos.
+2. Ruteo necesita desplegar cambios con una frecuencia distinta a Pedidos e Inventario.
+3. El equipo ya puede observar trazas, errores, reintentos y despliegues de un servicio sin depender de intervención manual.
 
-Para resolver el caso de **monolitos, sistemas distribuidos y microservicios**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Hasta que esas señales existan, elegiría monolito modular, caché para rutas y una cola de trabajo. Esta no es una decisión conservadora por miedo: es una decisión proporcional al problema actual.
 
+## Un contrato que permite extraer Ruteo después
+```csharp
+public interface IRouteEstimator
+{
+    Task<RouteEstimate> EstimateAsync(RouteRequest request, CancellationToken cancellationToken);
+}
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa monolitos, sistemas distribuidos y microservicios y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: el monolito y la arquitectura distribuida tienen ventajas y costos distintos.
-3. Identifica el actor que recibe el impacto de monolitos, sistemas distribuidos y microservicios y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para monolitos, sistemas distribuidos y microservicios; compara sus costos y riesgos.
-5. Elige una opción para monolitos, sistemas distribuidos y microservicios, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: monolitos, sistemas distribuidos y microservicios debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+public sealed record RouteRequest(string Origin, string Destination);
+public sealed record RouteEstimate(decimal DistanceKm, TimeSpan Eta, bool IsViable);
+```
 
-## Respuestas a las preguntas
-### ❓ ¿Mi sistema necesita más desacople o más simplicidad?
+Mientras la interfaz se mantenga estable, hoy puede implementarla un módulo interno y mañana un cliente HTTP hacia un servicio de Ruteo. El caso de uso de Pedidos no necesita saber cuándo ocurre esa extracción.
 
-**Respuesta concreta:** Para monolitos, sistemas distribuidos y microservicios, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Preguntas y respuestas
+### ¿Mi sistema necesita más desacople o más simplicidad?
 
-### ❓ ¿Estoy adoptando una arquitectura por moda o por necesidad real?
+Hoy necesita simplicidad con límites claros. Pedidos e Inventario cambian juntos y no presentan saturación; separarlos agregaría llamadas remotas y coordinación sin resolver un cuello de botella. Ruteo, en cambio, es candidato a aislamiento porque su carga y dependencia externa son distintas.
 
-**Respuesta concreta:** Para monolitos, sistemas distribuidos y microservicios, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿Estoy adoptando microservicios por moda o por necesidad real?
 
-### ❓ ¿La separación de servicios refleja bien el dominio del negocio?
+Es necesidad real solo cuando puedes señalar una métrica, un equipo responsable y un ciclo de despliegue que mejoran con la separación. Decir “Netflix usa microservicios” no responde a la campaña de nuestra plataforma ni cubre el costo de operar fallos distribuidos.
 
-**Respuesta concreta:** Para monolitos, sistemas distribuidos y microservicios, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿La separación refleja el dominio del negocio?
 
-### ❓ ¿Estoy aumentando complejidad operativa por una decisión no justificada?
+Sí, si Ruteo conserva su lenguaje, reglas y responsabilidad: estimar viabilidad, distancia y tiempo. No sería una buena separación crear un servicio “utilidades” o dividir por tablas de base de datos; eso transfiere el acoplamiento de código a la red.
 
-**Respuesta concreta:** Para monolitos, sistemas distribuidos y microservicios, elegiría la alternativa que garantice que el equipo de soporte pueda reconstruir qué ocurrió durante un incidente. La opción sencilla reduce el costo inicial, pero puede dejar débil la regla 'tener eventos, errores y estados observables'; la opción más estructurada cuesta más, pero facilita probarla y cambiarla. Para el MVP escogería la segunda solo si el riesgo es crítico y documentaría la condición de revisión.
+### ¿Qué costo operativo aceptamos al extraer Ruteo?
 
-## 🛠️ Cómo resolver la actividad
+Aceptamos monitorear latencia entre servicios, versionar contratos, tratar timeouts, reintentos y fallos parciales. Lo aceptamos solo si la degradación actual de pedidos durante la campaña cuesta más que operar esas capacidades.
 
-1. **Comprende el tema:** explica con tus palabras qué significa monolitos, sistemas distribuidos y microservicios y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de monolitos, sistemas distribuidos y microservicios:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para monolitos, sistemas distribuidos y microservicios:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de monolitos, sistemas distribuidos y microservicios:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: El monolito y la arquitectura distribuida tienen ventajas y costos distintos. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a monolitos, sistemas distribuidos y microservicios: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de monolitos, sistemas distribuidos y microservicios, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+## Actividad: decide si extraerías Ruteo
 
-**Respuesta modelo para Monolitos, sistemas distribuidos y microservicios:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+1. Dibuja el monolito modular actual con Pedidos, Inventario, Ruteo y Entregas.
+2. Registra tres métricas hipotéticas de campaña: solicitudes por minuto, percentil 95 de Ruteo y errores de confirmación de pedido.
+3. Define un objetivo: por ejemplo, confirmar el 95% de pedidos en menos de dos segundos.
+4. Explica qué dato demostraría que Ruteo debe escalar de forma independiente.
+5. Diseña el contrato `IRouteEstimator` y define timeout, reintento y respuesta cuando Ruteo no esté disponible.
+6. Escribe un ADR: mantener monolito modular ahora o extraer Ruteo; incluye la condición de revisión.
+7. Presenta el costo operativo de ambas opciones: despliegue, observabilidad, incidentes y coordinación de equipos.
 
+## Cómo comprobar que la actividad está resuelta
+Tu decisión es defendible si otra persona puede identificar el cuello de botella, leer la métrica que justifica la separación, entender el contrato y saber qué ocurrirá cuando Ruteo falle. Si la única razón para separar es “queremos microservicios”, la actividad aún no está resuelta.
 
-## Conclusiones de las fuentes
-No existe una arquitectura universalmente superior; la mejor opción es la que responde mejor al problema real, a la organización y a la capacidad de evolución del sistema.
-
-Microservicios pueden ser útiles, pero solo cuando resuelven un problema real de organización, evolución y complejidad. La arquitectura debe simplificar, no complicar inútilmente.
-
-## Preguntas para preparar la grabación
-- ¿Mi sistema necesita más desacople o más simplicidad?
-- ¿Estoy adoptando una arquitectura por moda o por necesidad real?
-- ¿La separación de servicios refleja bien el dominio del negocio?
-- ¿Estoy aumentando complejidad operativa por una decisión no justificada?
-
-## Evidencia para el repositorio
-Guarda la explicación de monolitos, sistemas distribuidos y microservicios, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Los microservicios no son el siguiente nivel natural de un monolito. Son una herramienta costosa para problemas concretos de autonomía, escala y organización. En el siguiente video trabajaremos contratos e infraestructura para que, cuando una separación sea necesaria, no rompa a quienes dependen del sistema.

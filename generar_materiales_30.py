@@ -509,6 +509,205 @@ La cohesión no significa que todas las clases sean pequeñas. Significa que cad
 """
 
 
+def video_six_material(source_items, source_links, navigation):
+    return f"""# Video 06: Dominios y límites de contexto
+
+## 📚 Lecturas de referencia: dominio y evolución
+{source_links}
+
+## 🔗 Del refactor a los límites del negocio
+{navigation}
+
+## 🎯 La pregunta de esta clase
+Después de separar una clase demasiado grande, aparece una pregunta más profunda: ¿cómo sabemos dónde termina una responsabilidad de negocio y dónde comienza otra? Hoy no vamos a dividir por carpetas ni por tecnologías. Vamos a separar el lenguaje y las reglas de la plataforma logística.
+
+## Escena: la palabra “disponible” significa cosas distintas
+El equipo recibe una solicitud: “muestren si un pedido está disponible para entrega”. Parece una frase sencilla, pero cuatro personas la entienden de manera diferente:
+
+- Para **Inventario**, disponible significa que existe stock reservable en una bodega.
+- Para **Ruteo**, disponible significa que existe capacidad y una ruta viable.
+- Para **Entregas**, disponible significa que un repartidor puede recibir una asignación.
+- Para **Pedidos**, disponible significa que el cliente puede confirmar la compra.
+
+Si guardamos esos cuatro significados en una sola propiedad llamada `IsAvailable`, vamos a crear reglas contradictorias. El cliente podría confirmar un pedido porque hay stock, aunque no exista ruta ni capacidad de entrega. Ese es el problema que resuelve un límite de contexto: una palabra puede existir en varios lugares, pero no significa lo mismo en todos.
+
+## Los cuatro contextos que vamos a separar
+
+| Contexto | Pregunta que responde | Regla que protege | Responsable |
+|---|---|---|---|
+| Pedidos | ¿El cliente puede confirmar la compra? | Un pedido confirmado tiene datos de cliente y artículos válidos. | Equipo de pedidos |
+| Inventario | ¿Hay unidades reservables? | No se reserva más cantidad de la disponible. | Equipo de inventario |
+| Ruteo | ¿La dirección tiene una ruta viable? | Una estimación debe indicar origen, destino y vigencia. | Equipo de ruteo |
+| Entregas | ¿Quién ejecuta el traslado? | Una entrega activa tiene un solo repartidor asignado. | Operación logística |
+
+Fíjate en que todos participan en la misma experiencia del cliente, pero ninguno debe conocer las reglas internas de los demás. Pedidos no calcula distancias; Inventario no decide qué repartidor acepta una ruta; Entregas no modifica el precio del pedido.
+
+## Dos opciones de diseño
+### Opción A: un modelo único para todo
+Crear una entidad `Order` con stock, rutas, ubicación del repartidor, precio y estados de entrega. Al principio parece cómodo: todo está disponible en un solo lugar. El costo es que una regla de inventario puede romper entregas y que cualquier equipo necesite entender un modelo que no le pertenece.
+
+### Opción B: contextos separados con contratos explícitos
+Cada contexto tiene su modelo y su vocabulario. Cuando Pedidos necesita saber si puede confirmar, consulta un contrato de Inventario y solicita una estimación a Ruteo. Cuando se confirma, Entregas recibe un evento o comando con la información que necesita, no la entidad completa de Pedidos.
+
+Para el MVP elegiría la opción B dentro de un monolito modular. No necesitamos cuatro microservicios todavía; necesitamos cuatro límites claros. Aceptamos mantener contratos internos porque reducen el costo de cambiar cada área después.
+
+## Ejemplo en C#: el mismo concepto no viaja como el mismo objeto
+```csharp
+public sealed record ReservationRequest(Guid ProductId, int Quantity);
+public sealed record RouteRequest(string DeliveryAddress);
+
+public interface IInventoryAvailability
+{{
+    Task<bool> CanReserveAsync(ReservationRequest request);
+}}
+
+public interface IRoutePlanning
+{{
+    Task<RouteEstimate> EstimateAsync(RouteRequest request);
+}}
+
+public sealed class ConfirmOrderUseCase
+{{
+    private readonly IInventoryAvailability _inventory;
+    private readonly IRoutePlanning _routes;
+
+    public ConfirmOrderUseCase(IInventoryAvailability inventory, IRoutePlanning routes)
+    {{
+        _inventory = inventory;
+        _routes = routes;
+    }}
+
+    public async Task ConfirmAsync(Order order)
+    {{
+        var hasStock = await _inventory.CanReserveAsync(
+            new ReservationRequest(order.ProductId, order.Quantity));
+        var route = await _routes.EstimateAsync(new RouteRequest(order.DeliveryAddress));
+
+        if (!hasStock || !route.IsViable)
+            throw new InvalidOperationException("El pedido no puede confirmarse todavía.");
+
+        order.Confirm();
+    }}
+}}
+```
+
+El caso de uso de Pedidos no recibe una entidad `Inventory` ni modifica una entidad `Route`. Solo conoce los contratos que necesita para aplicar su propia regla: confirmar únicamente cuando hay stock y ruta viable.
+
+## Preguntas y respuestas
+### ¿Mi sistema mezcla conceptos de diferentes dominios?
+
+Sí, si una misma propiedad intenta decidir stock, capacidad de ruta y disponibilidad del repartidor. La corrección es crear modelos separados y nombrarlos según el contexto. `StockAvailable` pertenece a Inventario; `IsViable` pertenece a Ruteo; `AssignedCourierId` pertenece a Entregas.
+
+### ¿Dónde está el límite claro entre áreas funcionales?
+
+El límite aparece donde cambia la pregunta del negocio y el responsable de la regla. Inventario responde por unidades; Ruteo responde por viabilidad de la ruta; Entregas responde por la asignación; Pedidos responde por la confirmación del cliente. Si una regla cambia sin que el otro equipo deba cambiar su modelo, el límite está funcionando.
+
+### ¿Qué partes son difíciles de cambiar?
+
+Las partes difíciles son las que comparten tablas, entidades o reglas sin contrato. Si un cambio de inventario obliga a modificar la pantalla de entregas, existe acoplamiento entre contextos. Lo comprobaría cambiando la política de reserva y verificando que el módulo de ruteo no se modifica ni vuelve a desplegarse.
+
+## Actividad: dibuja y prueba los límites
+
+1. Dibuja cuatro cajas: Pedidos, Inventario, Ruteo y Entregas.
+2. Escribe dentro de cada caja una pregunta de negocio, una regla y un responsable.
+3. Marca con flechas los contratos que cruzan los límites; no dibujes acceso directo a tablas ajenas.
+4. Elige el flujo “confirmar pedido” y escribe qué datos viajan de un contexto a otro.
+5. Crea interfaces C# similares a `IInventoryAvailability` e `IRoutePlanning`.
+6. Cambia una regla de Inventario, por ejemplo la cantidad máxima reservable, y demuestra que `ConfirmOrderUseCase` conserva su responsabilidad.
+7. Documenta la decisión en un ADR: monolito modular con contextos separados antes de considerar microservicios.
+
+## Cómo comprobar que la actividad está bien resuelta
+Pide a un compañero que responda estas tres preguntas mirando tu diagrama y tu código: ¿qué significa “disponible” en cada contexto?, ¿qué regla protege cada módulo?, ¿qué contrato usa Pedidos para confirmar? Si puede responder sin abrir una tabla compartida ni leer una clase gigante, tus límites son claros.
+
+## Cierre
+Un límite de contexto no es una pared que impide colaborar. Es una forma de permitir colaboración sin confusión. En el siguiente video compararemos qué ocurre cuando esos módulos permanecen en un monolito y qué cambia cuando intentamos distribuirlos.
+"""
+
+
+def video_seven_material(source_items, source_links, navigation):
+    return f"""# Video 07: Monolitos, sistemas distribuidos y microservicios
+
+## 📚 Lecturas de referencia: elegir la estructura correcta
+{source_links}
+
+## 🔗 De límites de contexto a decisiones de despliegue
+{navigation}
+
+## 🎯 El problema que vamos a decidir
+Ya definimos Pedidos, Inventario, Ruteo y Entregas como contextos distintos. Ahora viene una pregunta que muchos equipos contestan demasiado pronto: ¿debemos convertir cada contexto en un microservicio? La respuesta no es automática. Un límite de dominio no obliga a tener un despliegue independiente.
+
+## Escena: la campaña de viernes negro
+La plataforma anuncia entregas en menos de dos horas. Durante la campaña, el tráfico de consultas de rutas se multiplica por veinte, pero la creación de pedidos y la reserva de inventario siguen dentro de su volumen normal. El equipo observa que el cálculo de rutas consume CPU y demora las confirmaciones de pedido.
+
+El director de tecnología propone: “separemos todo en microservicios este fin de semana”. El equipo debe frenar y preguntar: ¿qué problema queremos resolver exactamente?, ¿qué módulo necesita escalar?, ¿tenemos monitoreo, despliegue automático y contratos estables para operar servicios separados?
+
+## Opción A: monolito modular bien protegido
+Pedidos, Inventario, Ruteo y Entregas siguen desplegándose juntos, pero cada módulo conserva sus contratos internos y dependencias controladas. Para la campaña, se optimiza el cálculo de rutas con caché y una cola de solicitudes. Esta opción mantiene un solo despliegue, una base operativa más simple y menos fallos de red.
+
+**Cuándo es suficiente:** cuando el equipo es pequeño, los módulos cambian juntos, el volumen todavía cabe en una aplicación escalada horizontalmente y no hay evidencia de que otro módulo necesite autonomía real.
+
+## Opción B: extraer Ruteo como servicio independiente
+Ruteo se convierte en un servicio porque tiene un perfil de carga distinto, puede escalar por separado y usa un proveedor externo de mapas. Pedidos conserva un contrato `IRouteEstimator`; la comunicación se protege con timeout, reintentos y observabilidad. Esta opción evita que una campaña de rutas degrade la confirmación de pedidos, pero agrega despliegues, fallos de red, monitoreo distribuido y gobierno de contratos.
+
+**Cuándo vale la pena:** cuando la métrica confirma que Ruteo es el cuello de botella, un equipo puede mantenerlo, existe automatización de entrega y la separación reduce un riesgo mayor que el costo operativo que introduce.
+
+## La decisión para este caso
+No separaría los cuatro contextos. Extraería solamente Ruteo de forma gradual si se cumplen tres señales durante dos campañas:
+
+1. El percentil 95 de cálculo de rutas supera el objetivo acordado y bloquea la confirmación de pedidos.
+2. Ruteo necesita desplegar cambios con una frecuencia distinta a Pedidos e Inventario.
+3. El equipo ya puede observar trazas, errores, reintentos y despliegues de un servicio sin depender de intervención manual.
+
+Hasta que esas señales existan, elegiría monolito modular, caché para rutas y una cola de trabajo. Esta no es una decisión conservadora por miedo: es una decisión proporcional al problema actual.
+
+## Un contrato que permite extraer Ruteo después
+```csharp
+public interface IRouteEstimator
+{{
+    Task<RouteEstimate> EstimateAsync(RouteRequest request, CancellationToken cancellationToken);
+}}
+
+public sealed record RouteRequest(string Origin, string Destination);
+public sealed record RouteEstimate(decimal DistanceKm, TimeSpan Eta, bool IsViable);
+```
+
+Mientras la interfaz se mantenga estable, hoy puede implementarla un módulo interno y mañana un cliente HTTP hacia un servicio de Ruteo. El caso de uso de Pedidos no necesita saber cuándo ocurre esa extracción.
+
+## Preguntas y respuestas
+### ¿Mi sistema necesita más desacople o más simplicidad?
+
+Hoy necesita simplicidad con límites claros. Pedidos e Inventario cambian juntos y no presentan saturación; separarlos agregaría llamadas remotas y coordinación sin resolver un cuello de botella. Ruteo, en cambio, es candidato a aislamiento porque su carga y dependencia externa son distintas.
+
+### ¿Estoy adoptando microservicios por moda o por necesidad real?
+
+Es necesidad real solo cuando puedes señalar una métrica, un equipo responsable y un ciclo de despliegue que mejoran con la separación. Decir “Netflix usa microservicios” no responde a la campaña de nuestra plataforma ni cubre el costo de operar fallos distribuidos.
+
+### ¿La separación refleja el dominio del negocio?
+
+Sí, si Ruteo conserva su lenguaje, reglas y responsabilidad: estimar viabilidad, distancia y tiempo. No sería una buena separación crear un servicio “utilidades” o dividir por tablas de base de datos; eso transfiere el acoplamiento de código a la red.
+
+### ¿Qué costo operativo aceptamos al extraer Ruteo?
+
+Aceptamos monitorear latencia entre servicios, versionar contratos, tratar timeouts, reintentos y fallos parciales. Lo aceptamos solo si la degradación actual de pedidos durante la campaña cuesta más que operar esas capacidades.
+
+## Actividad: decide si extraerías Ruteo
+
+1. Dibuja el monolito modular actual con Pedidos, Inventario, Ruteo y Entregas.
+2. Registra tres métricas hipotéticas de campaña: solicitudes por minuto, percentil 95 de Ruteo y errores de confirmación de pedido.
+3. Define un objetivo: por ejemplo, confirmar el 95% de pedidos en menos de dos segundos.
+4. Explica qué dato demostraría que Ruteo debe escalar de forma independiente.
+5. Diseña el contrato `IRouteEstimator` y define timeout, reintento y respuesta cuando Ruteo no esté disponible.
+6. Escribe un ADR: mantener monolito modular ahora o extraer Ruteo; incluye la condición de revisión.
+7. Presenta el costo operativo de ambas opciones: despliegue, observabilidad, incidentes y coordinación de equipos.
+
+## Cómo comprobar que la actividad está resuelta
+Tu decisión es defendible si otra persona puede identificar el cuello de botella, leer la métrica que justifica la separación, entender el contrato y saber qué ocurrirá cuando Ruteo falle. Si la única razón para separar es “queremos microservicios”, la actividad aún no está resuelta.
+
+## Cierre
+Los microservicios no son el siguiente nivel natural de un monolito. Son una herramienta costosa para problemas concretos de autonomía, escala y organización. En el siguiente video trabajaremos contratos e infraestructura para que, cuando una separación sea necesaria, no rompa a quienes dependen del sistema.
+"""
+
+
 def make_material(number, title, source_items):
     summaries = "\n\n".join(f"**Fuente {i}: {item['title']}**\n{item['summary']}" for i, item in enumerate(source_items, 1))
     ideas = []
@@ -548,6 +747,10 @@ def make_material(number, title, source_items):
         return video_four_material(source_items, source_links, " | ".join(navigation))
     if number == 5:
         return video_five_material(source_items, source_links, " | ".join(navigation))
+    if number == 6:
+        return video_six_material(source_items, source_links, " | ".join(navigation))
+    if number == 7:
+        return video_seven_material(source_items, source_links, " | ".join(navigation))
     return f"""# Video {number:02d}: {title}
 
 ## Fuentes oficiales
