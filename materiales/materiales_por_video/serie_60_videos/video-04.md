@@ -3,193 +3,113 @@
 ## Título
 Negocio, usuarios y contexto
 
-## 🧭 Ficha de la clase
-- **Actividad relacionada:** Actividad 1: diagnóstico y contexto arquitectónico
-- **Duración sugerida:** 45 a 60 minutos
-- **Modalidad:** explicación dialogada, ejemplo resuelto, taller y retroalimentación
-- **Producto:** una evidencia que se incorpora al repositorio del proyecto
-
-## 🔗 Continuidad de la ruta
+## 🧭 Punto de partida
 Vienes de trabajar el arquitecto y la responsabilidad técnica. No vamos a repetirlo: lo usaremos como punto de partida para estudiar negocio, usuarios y contexto y añadir una decisión nueva al expediente.
 
-Lo que construyas aquí será la base para la próxima conversación: requisitos funcionales y no funcionales.
+Al terminar esta conversación, tendrás una decisión nueva que enlaza con requisitos funcionales y no funcionales.
 
-## 🎥 Escena de hoy
-Hoy te encuentras ante esta situación: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+## 🧭 Navegar por la ruta
+[⬅️ Video anterior: El arquitecto y la responsabilidad técnica](video-03.md)
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. El equipo te pide una decisión sobre negocio, usuarios y contexto, pero todavía no existe una respuesta única. Tu primera pista es esta idea de la fuente: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
+[➡️ Video siguiente: Requisitos funcionales y no funcionales](video-05.md)
 
-## 🧭 Reto de la clase
-Tu reto consiste en convertir esa idea en una decisión concreta: qué harías, qué dejarías fuera del alcance y cómo demostrarías que funciona.
+## 🎥 La situación que vamos a resolver
+La fuente de esta clase es 'Video 4: Comunicar la arquitectura'. El video resalta un problema muy común: la falta de claridad a la hora de documentar decisiones. Cuando la arquitectura no se comunica bien, el mantenimiento, la evolución y la comprensión del sistema se vuelven mucho más difíciles. El resultado es un proyecto más frágil y más costoso de sostener.
 
-## 🎯 Propósito de aprendizaje
-Cuando terminemos, quiero que puedas analizar un problema real antes de elegir una tecnología usando el caso de la plataforma logística. No te voy a pedir que repitas una definición. Te voy a pedir que mires una situación, me expliques qué está en juego, tomes una decisión y me digas qué consecuencias esperas.
+La solución propuesta es crear un archivo ARCHITECTURE.md en la raíz del repositorio. Ese documento debe explicar el propósito del software, sus módulos, sus restricciones y los riesgos más importantes. La idea es que la arquitectura sea comprensible y que cualquiera pueda entenderla sin tener que leer todo el sistema desde cero. En la plataforma logística, esto aparece cuando la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. No voy a darte una respuesta prefabricada: vamos a descubrir qué decisión exige esta situación.
 
-## 🎬 Apertura: Negocio, usuarios y contexto
-Hoy vamos a trabajar una situación concreta: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+## 🎯 Lo que quiero que puedas hacer
+Cuando terminemos, quiero que puedas explicar negocio, usuarios y contexto con tus propias palabras, reconocer cuándo es relevante, tomar una decisión razonada y mostrarme cómo comprobarías que funciona. Si solo puedes repetir una definición, todavía no hemos terminado la clase.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. No quiero que empieces por un diagrama ni por una tecnología. Quiero que me expliques qué problema aparece aquí y por qué merece una decisión arquitectónica propia.
+## 🎬 Entramos en la conversación
+Te planteo el problema directamente: El video resalta un problema muy común: la falta de claridad a la hora de documentar decisiones. Cuando la arquitectura no se comunica bien, el mantenimiento, la evolución y la comprensión del sistema se vuelven mucho más difíciles. El resultado es un proyecto más frágil y más costoso de sostener.
 
-Antes de entrar en negocio, usuarios y contexto, quiero que escuchemos primero la idea central de la fuente del curso: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+La solución propuesta es crear un archivo ARCHITECTURE.md en la raíz del repositorio. Ese documento debe explicar el propósito del software, sus módulos, sus restricciones y los riesgos más importantes. La idea es que la arquitectura sea comprensible y que cualquiera pueda entenderla sin tener que leer todo el sistema desde cero.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. En arquitectura no aprendemos una palabra para repetirla en un diagrama; aprendemos a reconocer una situación, analizar alternativas y tomar una decisión defendible.
+Antes de mencionar herramientas, dime qué ves. ¿Cuál es la tensión principal? ¿Qué parte es un hecho y qué parte es una suposición? ¿Quién tendría problemas si esta decisión se toma mal? Tómate un momento. No estoy buscando una respuesta rápida; estoy buscando que aprendas a mirar el sistema antes de intervenirlo.
 
-Imagina que estamos frente a una pizarra. Yo te miro y te pregunto: ¿qué está pasando en este caso?, ¿quién depende de que esto funcione?, ¿qué información nos falta? No me respondas todavía con nombres de herramientas. Primero cuéntame qué problema ves en negocio, usuarios y contexto. Esa primera respuesta me permite saber si estamos entendiendo el tema o si solo estamos repitiendo soluciones conocidas.
+Ahora relaciona esa situación con el proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Aquí aparece el verdadero trabajo arquitectónico. No basta con saber que existe un patrón, una tecnología o una práctica. Necesitamos saber qué problema resuelve en este contexto, qué costo introduce y qué señal nos dirá si debemos cambiar de rumbo.
 
-Antes de continuar, haz una pausa conmigo. ¿Quién usa el sistema? ¿Qué espera que ocurra? ¿Qué no puede fallar? ¿Qué cambio es probable durante la vida del producto? Te hago estas preguntas porque una arquitectura no se diseña en el vacío. Si todavía no puedes responderlas, no es un problema: acabamos de encontrar la información que necesitamos investigar antes de diseñar.
+## 🧠 Desarrollo: sigamos las ideas de la fuente
+La fuente no presenta negocio, usuarios y contexto como una receta universal. Presenta un conjunto de ideas que debemos convertir en decisiones. Vamos a recorrerlas una por una.
 
-## 💬 La pregunta que vamos a resolver sobre negocio, usuarios y contexto
-¿Qué problema real resuelve negocio, usuarios y contexto y cómo demostraríamos que la solución es adecuada?
+### 1. La falta de documentación dificulta mantenimiento y evolución.
 
-## 🧠 Entender negocio, usuarios y contexto desde el caso
-### 📚 Lo que la fuente nos enseña sobre negocio, usuarios y contexto
-La fuente describe este tema así: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real.
+### 2. La arquitectura debe ser comunicada, no solo construida.
 
-Yo voy a traducir esa idea a una situación de diseño. No quiero que la recibas como una definición cerrada; quiero que observes qué problema intenta resolver, qué decisiones implica y qué evidencia necesitaríamos para confiar en ella.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-### 1. Escuchemos la fuente y llevémosla al sistema
-Quiero que empecemos por la afirmación que trae la fuente: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución. Si la tomamos en serio, negocio, usuarios y contexto deja de ser una etiqueta y se convierte en una decisión que debemos observar en el sistema.
+### 3. Un ARCHITECTURE.md ayuda a dejar claridad documental del sistema.
 
-Ahora conectemos esa afirmación con la siguiente: El contexto define qué es una buena decisión y qué no lo es. Pregúntate qué componente, actor o regla del negocio queda afectado. No me interesa que repitas la frase; me interesa que puedas señalar dónde aparece en el caso logístico.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-La tercera conversación es sobre las consecuencias: Un gran diseño debe equilibrar funcionalidad, costos, tiempo y complejidad.. Aquí es donde una propuesta deja de ser teórica. Dime qué ganamos, qué sacrificamos y qué evidencia nos permitiría revisar la elección.
+### 4. Debe incluir propósito general, módulos principales y restricciones.
 
-Finalmente, la fuente añade: El arquitecto actúa como traductor entre negocio y tecnología. Esta idea nos ayuda a completar el análisis y a evitar una solución parcial. Cuando terminemos, deberás poder relacionar este principio con una decisión concreta del proyecto.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-Mientras avanzamos, separa tres cosas: lo que la fuente afirma, lo que el caso logístico necesita y lo que tú decides hacer. Esa separación evita que una explicación general se convierta en una receta automática.
+### 5. Los diagramas y la documentación visual ayudan a simplificar la complejidad.
 
-## ❓ Preguntas para pensar en negocio, usuarios y contexto
-- **Te pregunto:** ¿Qué restricciones del negocio están impactando mi diseño actual? **La razón:** así conectamos el tema con el problema real en lugar de aplicarlo por moda.
-- **Te pregunto:** ¿qué supuesto estamos haciendo y cómo podríamos comprobarlo? **La razón:** una decisión basada en una suposición no validada puede fallar en producción.
-- **Te pregunto:** ¿qué costo aceptamos al elegir esta alternativa? **La razón:** toda arquitectura gana algo y renuncia a otra cosa.
-- **Te pregunto:** ¿qué ocurriría si el volumen se multiplica o una dependencia deja de responder? **La razón:** una solución se demuestra cuando conocemos sus límites.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-Estas no son preguntas para atraparte ni para calificarte de inmediato. Son las preguntas que te haría mientras conversamos frente a la pizarra. Si no tienes una respuesta todavía, dime qué dato te falta. En arquitectura, reconocer una duda y saber cómo investigarla demuestra más criterio que responder con seguridad algo que no podemos justificar.
+### 6. La documentación debe ser clara y útil para el equipo y para futuras personas.
 
-## 💡 Lo esencial sobre Negocio, usuarios y contexto
-- Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
-- El contexto define qué es una buena decisión y qué no lo es.
-- Un gran diseño debe equilibrar funcionalidad, costos, tiempo y complejidad.
-- El arquitecto actúa como traductor entre negocio y tecnología.
-- Las decisiones de arquitectura tienen impacto en la operación, el equipo y la estrategia.
-- La incertidumbre es parte del trabajo, y por eso se necesita análisis y criterio.
-- Una decisión arquitectónica nace de objetivos, actores, restricciones y riesgos concretos.
-- El ejemplo debe documentarse con sus supuestos, trade-offs y evidencia de validación.
+Te propongo que no la leas como una frase para memorizar. Llévala al caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema se ve afectada, quién debe tomar la decisión y qué evidencia necesitaríamos para saber si esta idea está funcionando.
 
-### 🔎 Mi lectura de negocio, usuarios y contexto como profesor
-Una buena arquitectura no se mide solo por su elegancia técnica, sino por su capacidad de responder a un problema auténtico con sentido de negocio. El mejor diseño es aquel que sirve al contexto y no el que solo parece bonito desde el punto de vista teórico.
+Mientras avanzamos, yo te voy a interrumpir con una pregunta sencilla: “¿dónde se ve esto en el sistema?”. Si no puedes señalar un actor, una regla, un límite, un flujo, una dependencia o una evidencia, probablemente todavía estás hablando del concepto en abstracto.
 
-Cuando conectamos esta conclusión con el proyecto, la pregunta deja de ser "¿conozco el concepto?" y pasa a ser "¿puedo usarlo para tomar una decisión concreta y explicar sus consecuencias?".
+## ❓ Preguntas que te haría durante la clase
+- **Te pregunto:** ¿Mi proyecto está documentado lo suficiente para entender su propósito? **Lo que busco:** que relaciones la respuesta con una decisión observable del sistema.
+- **Te pregunto:** ¿Qué tan fácil es para otra persona entender la arquitectura actual? **Lo que busco:** que relaciones la respuesta con una decisión observable del sistema.
+- **Te pregunto:** ¿Estoy dejando la información más en la memoria del equipo que en el proyecto? **Lo que busco:** que relaciones la respuesta con una decisión observable del sistema.
 
-## 🏗️ Cómo resolver negocio, usuarios y contexto en la práctica
-Voy a resolver una situación contigo. La fuente plantea lo siguiente: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+No quiero que respondas estas preguntas con una frase bonita. Para cada una, dime qué cambiarías en el diseño, qué riesgo estás aceptando y cómo podrías comprobar que tu respuesta es adecuada. Esa explicación es la parte que convierte una opinión en criterio arquitectónico.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. Ahora llévalo a la plataforma logística: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. Pregúntate qué parte del sistema conoce esa regla, qué información necesita y qué ocurriría si aumenta la carga, falla una dependencia o cambia la política del negocio.
+## 🏗️ Un ejemplo trabajado contigo
+Voy a tomar una situación del proyecto: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. La fuente afirma que La falta de documentación dificulta mantenimiento y evolución.. Entonces la primera decisión no es comprar una herramienta; es decidir qué responsabilidad debe quedar explícita y qué información necesitamos observar.
 
-Fíjate en el razonamiento: el problema no es elegir una arquitectura moderna. El problema es mantener la promesa de entrega, proteger la información del cliente y responder ante cambios sin detener la operación. Desde ahí comparamos alternativas y explicamos por qué una es adecuada para este momento. Si cambian los datos del contexto, también puede cambiar nuestra decisión; eso no es una contradicción, es buena arquitectura.
+Si eliges una solución sencilla, debes decir qué límite estás protegiendo y qué crecimiento podría dejarla corta. Si eliges una solución más compleja, debes justificar quién la operará, qué problema adicional resuelve y qué evidencia evita que se convierta en complejidad innecesaria. En ambos casos, yo esperaría que documentaras la alternativa descartada y la condición que te haría revisar la decisión.
 
-## 🧩 Negocio, usuarios y contexto: caso de la plataforma logística
-Ahora caminemos juntos por el flujo. Yo voy a detenerme en cada paso y te voy a pedir que mires tres cosas: qué regla estamos protegiendo, quién tiene la responsabilidad y qué ocurre si algo falla:
+La conclusión de la fuente es clara: El sistema no solo debe funcionar; también debe entenderse. Comunicar la arquitectura es una práctica que mejora la sostenibilidad del proyecto y reduce la deuda técnica. Mi pregunta para ti es: ¿qué parte de esa conclusión cambia la forma en que estás diseñando la plataforma?
 
-1. Un cliente crea un pedido.
-2. El sistema valida los datos y reserva inventario.
-3. El módulo de ruteo propone una asignación.
-4. La plataforma comunica el estado al cliente y al repartidor.
-5. Un incidente puede exigir reintento, compensación o intervención humana.
+## ✍️ Tu trabajo durante la clase
+Ahora construye tu propia respuesta. No copies el ejemplo anterior; cambia el contexto, el actor afectado o la restricción y comprueba si tu decisión sigue siendo válida.
 
-Después de cada paso, respóndeme: ¿qué puede salir mal?, ¿qué componente debe enterarse?, ¿qué información cruza el límite?, ¿qué decisión evita que el error se propague? No avances deprisa. Quiero que construyas una hipótesis y me expliques por qué la sostienes. Así pasamos de leer arquitectura a practicarla.
+1. Escribe qué significa negocio, usuarios y contexto en tus propias palabras y relaciónalo con esta fuente: El video resalta un problema muy común: la falta de claridad a la hora de documentar decisiones.
+2. Describe la situación del proyecto que puede verse afectada y quién recibe el impacto.
+3. Elige una decisión concreta; no escribas todavía una solución completa.
+4. Explica qué alternativa descartas y qué costo aceptas al elegir.
+5. Define una prueba, métrica, contrato, diagrama o registro que permita verificar la decisión.
+6. Guarda la evidencia, solicita una revisión de un compañero y registra qué cambiarías después de recibirla.
 
-## ✍️ Tu reto: aplicar negocio, usuarios y contexto
-Ahora te entrego la palabra. Entra en el papel de arquitecto o arquitecta. Parte del caso: la plataforma logística debe recibir pedidos, asignar rutas y responder ante retrasos sin perder trazabilidad. No quiero una respuesta decorativa; quiero acompañarte mientras construyes el razonamiento. Trabaja así:
+Tu entrega debe contener una explicación breve, un artefacto visible y una justificación. El artefacto puede ser un diagrama, una tabla de decisión, un ADR, un contrato, una prueba, una métrica, un fragmento C# o una evidencia de ejecución, según el tema de esta clase.
 
-1. Redacta el problema en tres líneas, sin mencionar tecnologías.
-2. Identifica tres actores y qué esperan del sistema.
-3. Propón dos alternativas razonables.
-4. Compáralas por costo inicial, calidad, riesgo y facilidad de cambio.
-5. Elige una para el MVP y declara qué condición obligaría a revisarla.
-6. Produce un diagrama, tabla, ADR o fragmento de código que haga visible la decisión.
+## 🗣️ Comprobemos juntos tus respuestas
+Estas son respuestas orientadoras, no una clave para copiar:
 
-Cuando termines, vuelve a leer tu propuesta como si fueras un compañero que llega hoy al proyecto. ¿Entendería por qué elegiste esa alternativa? ¿Sabría qué riesgo aceptaste? No busques adivinar "la respuesta que yo daría". Quiero que construyas una respuesta propia y que me la puedas defender. Puede ser diferente y seguir siendo correcta si presenta evidencia, reconoce sus costos y explica sus límites. Cuando la revisemos juntos, miraré tres cosas: que hayas delimitado el problema, que compares alternativas reales y que hagas visibles sus consecuencias.
+1. **¿Mi proyecto está documentado lo suficiente para entender su propósito?** Mi respuesta de partida es: La falta de documentación dificulta mantenimiento y evolución. En el proyecto, esto se comprueba con una evidencia concreta y no solamente con una opinión.
+2. **¿Qué tan fácil es para otra persona entender la arquitectura actual?** Mi respuesta de partida es: La arquitectura debe ser comunicada, no solo construida. En el proyecto, esto se comprueba con una evidencia concreta y no solamente con una opinión.
+3. **¿Estoy dejando la información más en la memoria del equipo que en el proyecto?** Mi respuesta de partida es: Un ARCHITECTURE.md ayuda a dejar claridad documental del sistema. En el proyecto, esto se comprueba con una evidencia concreta y no solamente con una opinión.
 
-### 🔎 Retroalimentación esperada
-Cuando revise tu trabajo, no buscaré una frase elegante ni un diagrama lleno de cajas. Buscaré una decisión que pueda seguirse. Una evidencia madura no dice "elegimos X porque es mejor". Dice: "elegimos X porque priorizamos A y B; aceptamos C; descartamos Y por el riesgo D; verificaremos mediante E". Esa forma de escribir convierte una conversación técnica en conocimiento reutilizable.
+La respuesta será sólida cuando conecte tres niveles: lo que dice la fuente, lo que necesita el caso y lo que decidiste implementar. Si falta uno de ellos, vuelve a revisar tu razonamiento.
 
-Cuando termines, guarda en la carpeta correspondiente a Actividad 1: diagnóstico y contexto arquitectónico el contexto, la decisión, la alternativa descartada, dos consecuencias y una forma de verificación. No lo guardes como un trámite: este documento será la memoria de por qué decidiste construir así el sistema.
+## ⚠️ Lo que suele salir mal
+- Repetir la definición sin mostrar dónde aparece en el sistema.
+- Elegir una tecnología antes de explicar el riesgo que se quiere controlar.
+- Ocultar el costo de la alternativa elegida.
+- Entregar un diagrama o código sin explicar qué decisión representa.
+- Declarar que la solución funciona sin definir cómo se comprobará.
 
+## ✅ Cierre de nuestra conversación
+Quiero que cierres esta clase diciéndome, con tus palabras, qué cambió en tu forma de mirar el sistema. Después resume tu decisión en este orden: problema, evidencia de la fuente, alternativa, elección, costo aceptado y verificación.
 
+La idea que debes llevarte no es “aprendí otro término”. Es esta: ahora puedes mirar negocio, usuarios y contexto, relacionarlo con un problema real y defender una decisión sin esconder sus límites. Esa capacidad será necesaria cuando avancemos hacia requisitos funcionales y no funcionales.
 
-## ⚠️ Errores frecuentes
-- Confundir el nombre del tema con una explicación de cómo negocio, usuarios y contexto afecta el sistema.
-- Elegir una herramienta antes de describir el problema y sus restricciones.
-- Presentar una solución como universal sin explicar cuándo dejaría de ser adecuada.
-- Omitir la evidencia, prueba o métrica que permitiría revisar la decisión.
+## 🤔 Para pensar antes de continuar
+- ¿Mi proyecto está documentado lo suficiente para entender su propósito?
+- ¿Qué tan fácil es para otra persona entender la arquitectura actual?
+- ¿Estoy dejando la información más en la memoria del equipo que en el proyecto?
 
-## ✅ Cierre: lo que te llevas de esta clase
-Hemos llegado al final. Antes de cerrar, imagina que yo te doy dos minutos frente al equipo. Quiero escucharte defender tu decisión: empieza por el problema, describe el contexto, compara las alternativas, explica tu elección y termina con el trade-off y la evidencia que la respalda. No intentes sonar complicado; intenta ser claro. Si otra persona puede entender tu decisión sin haber estado en esta conversación, has hecho un buen trabajo.
-
-Quédate con esta idea: diseñar arquitectura no es adivinar el futuro ni encontrar una solución perfecta. Es tomar una decisión responsable con la información disponible, reconocer lo que todavía no sabemos y preparar el sistema para aprender y cambiar. Cada vez que documentas un supuesto, nombras un riesgo o explicas un costo, estás actuando como arquitecto.
-
-Ahora mira tu propia propuesta y pregúntate: ¿qué parte defendería con confianza?, ¿qué parte necesita evidencia?, ¿qué cambiaría si el negocio creciera mañana? Esa pregunta es el puente hacia la siguiente clase.
-
-## 🧪 Comprobación de aprendizaje
-- ¿Puedes explicarme el problema sin mencionar primero una tecnología?
-- ¿Puedes defender la comparación entre dos alternativas con criterios concretos?
-- ¿Puedes decirme qué cambiaría ante un nuevo requisito o un fallo?
-- ¿Puedes mostrarme qué evidencia respaldaría o refutaría tu decisión?
-
-## 🤔 Preguntas para reflexión
-- ¿Qué restricciones del negocio están impactando mi diseño actual?
-- ¿Estoy resolviendo el problema real o solo la versión técnica de ese problema?
-- ¿Qué decisión arquitectónica me está costando más porque afecta negocio y equipo?
-
-## 🗣️ Respuestas orientadoras
-
-Ahora vamos a responder las preguntas que aparecieron durante la clase. No quiero que memorices una respuesta exacta. Quiero que compares mi razonamiento con el tuyo. Si llegaste a otra conclusión, puede ser válida si puedes explicarme el contexto, el costo y la evidencia que la sostiene.
-
-La fuente de este video plantea: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
-
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real.
-
-Fíjate en algo importante: ninguna respuesta depende de pronunciar el nombre de una tecnología. Lo que importa es que puedas unir cuatro cosas: el problema que observaste, la decisión que tomaste, la consecuencia que aceptaste y la evidencia que te permitirá comprobarla. Así quiero que pienses durante todo el curso.
-
-### Cómo responder este tema concreto
-1. **Cuando te preguntes: ¿Qué restricciones del negocio están impactando mi diseño actual?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que Los requisitos técnicos no son suficientes; el negocio da la forma de la solución. Después busca una evidencia en el caso, no una opinión.
-2. **Cuando te preguntes: ¿Estoy resolviendo el problema real o solo la versión técnica de ese problema?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que El contexto define qué es una buena decisión y qué no lo es. Después busca una evidencia en el caso, no una opinión.
-3. **Cuando te preguntes: ¿Qué decisión arquitectónica me está costando más porque afecta negocio y equipo?** Mi respuesta de partida sería: relaciona esta pregunta con la idea de que Un gran diseño debe equilibrar funcionalidad, costos, tiempo y complejidad. Después busca una evidencia en el caso, no una opinión.
-
-## 🛠️ Solución modelo de la actividad
-
-Esta es una resolución de referencia para que puedas comparar tu trabajo.
-
-### 🔹 Paso 1. Delimitar el problema
-El tema de esta clase se concreta así: El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
-
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real. En el proyecto, el riesgo consiste en aplicar esa idea de forma superficial y terminar con una decisión que no protege el objetivo real. Por eso debemos establecer límites antes de implementar.
-
-### 👥 Paso 2. Identificar actores y necesidades
-- **Cliente:** espera crear el pedido y recibir estados confiables.
-- **Operador logístico:** necesita visualizar incidentes y corregir asignaciones.
-- **Repartidor:** necesita una ruta actualizada y una instrucción clara.
-- **Equipo de desarrollo y operación:** necesita modificar, probar y observar el sistema sin afectar todo el flujo.
-
-### 🔀 Paso 3. Proponer alternativas
-- **Alternativa A:** resolver el problema dentro de la estructura actual con una regla, módulo, prueba o contrato explícito.
-- **Alternativa B:** introducir una separación o mecanismo especializado que atienda el riesgo señalado por la fuente.
-
-### ⚖️ Paso 4. Comparar consecuencias
-La alternativa A reduce el costo inicial y conserva simplicidad, pero puede dejar expuesto el riesgo principal de negocio, usuarios y contexto. La alternativa B ofrece una protección más explícita, pero agrega trabajo, dependencias o complejidad operativa. No conviene elegir B solo porque suena más moderna; debe responder a la evidencia del caso.
-
-### ✅ Paso 5. Tomar una decisión para el MVP
-Para el MVP, recomiendo elegir la alternativa que proteja primero esta idea de la fuente: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.. Declara qué complejidad estás aceptando y qué señal te obligaría a cambiar la decisión.
-
-### 🧪 Paso 6. Definir la verificación
-Verificaremos la decisión con una evidencia relacionada directamente con el tema: una prueba, métrica, revisión de contrato, inspección de dependencias o demostración del flujo. El criterio debe responder: ¿cómo sabremos que la idea de la fuente está funcionando en nuestro sistema?
-
-### 📦 Paso 7. Preparar la entrega
-Guarda en GitHub el problema específico, las ideas de la fuente que aplicaste, la comparación, la decisión, los trade-offs y la evidencia. En el video de sustentación explícame qué entendiste, cómo lo aplicaste y qué riesgo aceptaste.
-
-
-## 🚀 Preparación para la siguiente clase
-Revisa la evidencia, registra los supuestos aún no validados y lleva una pregunta abierta sobre costo, calidad, dependencia o evolución. Cada clase debe agregar una pieza al expediente arquitectónico.
+## 📦 Evidencia para el repositorio
+Guarda el resultado en la carpeta de Actividad 1: diagnóstico y contexto arquitectónico. Incluye el contexto, la decisión, la alternativa descartada, los trade-offs, el artefacto producido y la forma de verificación. En tu video de sustentación, explica qué entendiste de la fuente y cómo lo convertiste en una decisión propia.
