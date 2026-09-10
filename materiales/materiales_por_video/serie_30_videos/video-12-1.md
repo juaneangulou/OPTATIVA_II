@@ -2,7 +2,7 @@
 
 ## 📚 Fuentes relacionadas
 - [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
-- [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
+- [Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-12.md) | [➡️ Video siguiente](video-13.md)

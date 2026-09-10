@@ -77,7 +77,7 @@ GROUPS = [
     ("Observabilidad, seguridad y privacidad", [15, 16]),
     ("Testing, DevOps y entrega continua", [17, 18]),
     ("Evolución, riesgos y costos", [19, 20]),
-    ("Estrategia tecnológica y roadmap", [21, 21]),
+    ("Estrategia tecnológica y roadmap", [21, 52]),
     ("Liderazgo, negociación e impacto social", [22, 23]),
     ("Cierre de fundamentos y transición", [24, 24]),
     ("Método arquitectónico e inteligencia artificial", [25, 26]),
@@ -1171,6 +1171,28 @@ Antes de activar la nueva política, mediremos:
 
 La decisión se revisa si la nueva política mejora puntualidad sin multiplicar costo y complejidad. Si no aporta valor, la retiramos. Diseñar para evolución significa aceptar que una hipótesis puede ser descartada.
 
+## Qué decisión es reversible y cuál no
+Cambiar la implementación de `IRoutingPolicy` es relativamente reversible: podemos apagar la política nueva y conservar el contrato del caso de uso. Cambiar el modelo de datos de todos los pedidos, migrar cientos de millones de registros o repartir el flujo en varios servicios es mucho más costoso de deshacer.
+
+Por eso, antes de tomar una decisión irreversible, quiero que me respondas cuatro preguntas:
+
+1. ¿Qué evidencia todavía nos falta?
+2. ¿Podemos probar la hipótesis con una muestra pequeña?
+3. ¿Qué costo tendría retirar la decisión?
+4. ¿Qué señal concreta nos obligaría a continuar, detenernos o cambiar de dirección?
+
+La arquitectura madura no intenta eliminar toda la incertidumbre. La convierte en experimentos pequeños, fechas de revisión y límites de pérdida aceptables.
+
+## Matriz de decisión
+
+| Alternativa | Aprendizaje | Costo inicial | Costo de retirarla | Riesgo operativo | Decisión |
+|---|---:|---:|---:|---:|---|
+| Reescribir todo el motor | Bajo al inicio | Muy alto | Muy alto | Alto | No ahora |
+| Nueva política detrás de interfaz | Alto | Medio | Bajo | Bajo | Experimentar |
+| Agregar condiciones al motor actual | Bajo | Bajo | Medio | Medio | Solo temporal |
+
+La elección de la política intercambiable gana porque nos permite aprender sin comprometer todo el producto. Esa es una decisión arquitectónica, aunque todavía no hayamos creado un microservicio.
+
 ## Preguntas y respuestas
 ### ¿Qué parte del sistema está más rígida?
 
@@ -1193,6 +1215,18 @@ La opción de una política intercambiable es más reversible que una reescritur
 5. Especifica un experimento de máximo una semana y sus métricas.
 6. Escribe un ADR con la decisión reversible y la condición de revisión.
 7. Presenta qué harías si la evidencia contradice tu hipótesis inicial.
+
+### Entrega modelo
+
+**Hipótesis:** una política de rutas con ventanas horarias reducirá entregas tardías sin aumentar más del 10% los kilómetros recorridos.
+
+**Experimento:** ejecutar la política nueva con el 5% de las entregas durante cinco días, sin cambiar el flujo principal.
+
+**Métricas:** puntualidad, kilómetros por pedido, tiempo p95 de cálculo, reasignaciones manuales y errores del proveedor.
+
+**Regla de decisión:** continuar si la puntualidad mejora al menos 15% y el costo por entrega no aumenta más del 10%; retirar si la latencia o los errores superan el umbral acordado.
+
+**Riesgo aceptado:** mantener temporalmente dos políticas y aumentar el esfuerzo de prueba. El riesgo queda limitado porque la activación puede apagarse sin migrar todo el sistema.
 
 ## Cierre
 La arquitectura madura no promete acertar siempre. Promete que el costo de aprender no será destructivo. En el siguiente video convertiremos estas decisiones en una estrategia y un roadmap que el equipo pueda ejecutar.
@@ -1254,6 +1288,36 @@ Usa esta tabla antes de incluir trabajo en el roadmap:
 
 El roadmap debe permitir decir no. Si todo entra, nada está priorizado.
 
+## Cómo construir el roadmap paso a paso
+
+### Paso 1: empieza por un resultado de negocio
+No escribas “migrar a microservicios”. Escribe “reducir las entregas tardías del 18% al 10% sin aumentar el costo por pedido”. La tecnología aparece después del resultado.
+
+### Paso 2: conecta capacidades con resultados
+Para reducir entregas tardías necesitamos conocer capacidad de ruteo, tiempos de respuesta, disponibilidad de repartidores, calidad de direcciones y tratamiento de incidentes. Cada capacidad debe tener un propietario y una evidencia.
+
+### Paso 3: ordena dependencias
+No puedes extraer Ruteo de forma segura si antes no tienes un contrato estable, trazas y manejo de timeouts. No puedes medir puntualidad si el estado de entrega no es confiable. El roadmap debe mostrar qué trabajo habilita al siguiente.
+
+### Paso 4: asigna capacidad real
+Supón que el equipo tiene cuatro semanas y 40 puntos de capacidad. No puedes prometer todas las iniciativas. Una planificación razonable podría ser:
+
+| Iniciativa | Capacidad | Dependencia | Resultado |
+|---|---:|---|---|
+| Métricas de Ruteo | 5 | Ninguna | Línea base p95 |
+| Contrato de Ruteo | 8 | Modelo de dominio | Interfaz estable |
+| Pruebas de timeout | 5 | Contrato | Fallo controlado |
+| Dashboard de incidentes | 8 | Métricas | Diagnóstico operativo |
+| Política de ventanas | 13 | Contrato y pruebas | Experimento |
+| Reserva de contingencia | 1 | Ninguna | Atención de imprevistos |
+
+### Paso 5: define una condición de avance
+Ruteo no se separa porque esté en el roadmap. Se separa si durante dos campañas el p95 supera dos segundos, el equipo puede operar el servicio y la extracción reduce el impacto medido. Sin condición de avance, el roadmap es una lista de deseos.
+
+## Decisiones que quedan fuera
+
+Para este trimestre no construiremos microservicios para Inventario, no cambiaremos de nube y no reescribiremos toda la plataforma. No son necesariamente malas ideas; quedan fuera porque no están respaldadas por el riesgo prioritario ni por la capacidad disponible. Esta exclusión también es una decisión arquitectónica.
+
 ## Preguntas y respuestas
 ### ¿Qué dirección tecnológica está tomando el proyecto?
 
@@ -1276,6 +1340,18 @@ Deja fuera lo que no reduzca el riesgo prioritario, no tenga capacidad disponibl
 5. Define una métrica de salida para cada horizonte.
 6. Escribe una decisión que explícitamente dejarás fuera y por qué.
 7. Presenta el roadmap al equipo y registra qué prioridad cambió después de la conversación.
+
+### Entrega modelo
+
+**Objetivo:** reducir entregas tardías del 18% al 10% en tres meses sin aumentar más del 10% el costo por pedido.
+
+**Mes 1: conocer y estabilizar.** Medir p95 de Ruteo, estados estancados y errores del proveedor. Crear trazas y contratos mínimos.
+
+**Mes 2: experimentar.** Activar una política de ventanas para el 5% de pedidos y construir un tablero de incidentes. Comparar puntualidad, kilómetros y latencia.
+
+**Mes 3: decidir.** Mantener la política si cumple los umbrales; extraer Ruteo solo si la evidencia muestra saturación independiente y existe capacidad operativa.
+
+**Fuera del alcance:** reescritura completa, microservicios para todos los dominios y migración de nube. Se revisarán cuando cambien los datos o aparezca un riesgo que lo justifique.
 
 ## Cierre
 Una estrategia tecnológica no predice todo el futuro. Define cómo vamos a aprender, qué riesgos atenderemos primero y qué señales justificarán la siguiente inversión. En el próximo video trabajaremos cómo comunicar estas decisiones a personas con intereses diferentes.

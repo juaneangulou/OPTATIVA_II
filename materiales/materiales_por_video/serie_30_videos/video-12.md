@@ -2,7 +2,7 @@
 
 ## 📚 Lecturas de referencia: decidir qué construir después
 - [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
-- [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
+- [Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
 ## 🔗 De riesgos aislados a una dirección tecnológica
 [⬅️ Video anterior](video-11.md) | [➡️ Video siguiente](video-12-1.md)
@@ -53,6 +53,36 @@ Usa esta tabla antes de incluir trabajo en el roadmap:
 
 El roadmap debe permitir decir no. Si todo entra, nada está priorizado.
 
+## Cómo construir el roadmap paso a paso
+
+### Paso 1: empieza por un resultado de negocio
+No escribas “migrar a microservicios”. Escribe “reducir las entregas tardías del 18% al 10% sin aumentar el costo por pedido”. La tecnología aparece después del resultado.
+
+### Paso 2: conecta capacidades con resultados
+Para reducir entregas tardías necesitamos conocer capacidad de ruteo, tiempos de respuesta, disponibilidad de repartidores, calidad de direcciones y tratamiento de incidentes. Cada capacidad debe tener un propietario y una evidencia.
+
+### Paso 3: ordena dependencias
+No puedes extraer Ruteo de forma segura si antes no tienes un contrato estable, trazas y manejo de timeouts. No puedes medir puntualidad si el estado de entrega no es confiable. El roadmap debe mostrar qué trabajo habilita al siguiente.
+
+### Paso 4: asigna capacidad real
+Supón que el equipo tiene cuatro semanas y 40 puntos de capacidad. No puedes prometer todas las iniciativas. Una planificación razonable podría ser:
+
+| Iniciativa | Capacidad | Dependencia | Resultado |
+|---|---:|---|---|
+| Métricas de Ruteo | 5 | Ninguna | Línea base p95 |
+| Contrato de Ruteo | 8 | Modelo de dominio | Interfaz estable |
+| Pruebas de timeout | 5 | Contrato | Fallo controlado |
+| Dashboard de incidentes | 8 | Métricas | Diagnóstico operativo |
+| Política de ventanas | 13 | Contrato y pruebas | Experimento |
+| Reserva de contingencia | 1 | Ninguna | Atención de imprevistos |
+
+### Paso 5: define una condición de avance
+Ruteo no se separa porque esté en el roadmap. Se separa si durante dos campañas el p95 supera dos segundos, el equipo puede operar el servicio y la extracción reduce el impacto medido. Sin condición de avance, el roadmap es una lista de deseos.
+
+## Decisiones que quedan fuera
+
+Para este trimestre no construiremos microservicios para Inventario, no cambiaremos de nube y no reescribiremos toda la plataforma. No son necesariamente malas ideas; quedan fuera porque no están respaldadas por el riesgo prioritario ni por la capacidad disponible. Esta exclusión también es una decisión arquitectónica.
+
 ## Preguntas y respuestas
 ### ¿Qué dirección tecnológica está tomando el proyecto?
 
@@ -75,6 +105,18 @@ Deja fuera lo que no reduzca el riesgo prioritario, no tenga capacidad disponibl
 5. Define una métrica de salida para cada horizonte.
 6. Escribe una decisión que explícitamente dejarás fuera y por qué.
 7. Presenta el roadmap al equipo y registra qué prioridad cambió después de la conversación.
+
+### Entrega modelo
+
+**Objetivo:** reducir entregas tardías del 18% al 10% en tres meses sin aumentar más del 10% el costo por pedido.
+
+**Mes 1: conocer y estabilizar.** Medir p95 de Ruteo, estados estancados y errores del proveedor. Crear trazas y contratos mínimos.
+
+**Mes 2: experimentar.** Activar una política de ventanas para el 5% de pedidos y construir un tablero de incidentes. Comparar puntualidad, kilómetros y latencia.
+
+**Mes 3: decidir.** Mantener la política si cumple los umbrales; extraer Ruteo solo si la evidencia muestra saturación independiente y existe capacidad operativa.
+
+**Fuera del alcance:** reescritura completa, microservicios para todos los dominios y migración de nube. Se revisarán cuando cambien los datos o aparezca un riesgo que lo justifique.
 
 ## Cierre
 Una estrategia tecnológica no predice todo el futuro. Define cómo vamos a aprender, qué riesgos atenderemos primero y qué señales justificarán la siguiente inversión. En el próximo video trabajaremos cómo comunicar estas decisiones a personas con intereses diferentes.
