@@ -23,6 +23,19 @@ logger.LogInformation(
     Activity.Current?.TraceId);
 ```
 
+## 🧩 Cómo leer el código de observabilidad en .NET
+
+`logger` representa `ILogger<T>`, la abstracción de logging de .NET. La clase no decide si el registro termina en consola, Application Insights, OpenTelemetry o un archivo; esa configuración ocurre al iniciar la aplicación. Esto mantiene el código de negocio independiente del destino del log.
+
+`LogInformation` registra un evento normal. Si hay una falla de Ruteo usaríamos `LogWarning` o `LogError` y pasaríamos la excepción para conservar el detalle técnico sin mostrarlo al cliente.
+
+Los textos `{OrderId}`, `{Status}` y `{TraceId}` no son interpolación de cadenas. Son propiedades estructuradas: el sistema guarda cada valor con nombre. Por eso soporte puede buscar todos los registros de un pedido o construir una métrica por estado sin analizar texto libre.
+
+`Activity.Current?.TraceId` obtiene el identificador de trazabilidad de la solicitud actual. El operador `?.` significa “si `Activity.Current` existe, toma su `TraceId`; si no existe, devuelve `null` sin lanzar una excepción”. Ese identificador conecta API, Inventario y Ruteo en una misma investigación.
+
+Nunca coloques correo, dirección, token, contraseña o cuerpo HTTP completo dentro de las propiedades del log. Una traza debe explicar el comportamiento del sistema, no copiar datos privados del cliente.
+
+
 El actor principal es **el equipo de soporte**. Necesita responder al cliente con información confiable. La regla es: **los registros deben permitir reconstruir el flujo sin almacenar secretos, tokens, direcciones completas ni datos personales innecesarios**.
 
 ## Qué observamos

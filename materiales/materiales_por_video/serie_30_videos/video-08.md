@@ -51,6 +51,8 @@ public sealed class OrdersController : ControllerBase
 
 El controlador recibe HTTP y devuelve HTTP. La validación de formato puede estar aquí; la regla “un pedido se confirma solo si hay inventario y ruta viable” vive en el caso de uso y el dominio. Así podemos cambiar ASP.NET, la aplicación móvil o un proveedor externo sin mover la regla principal.
 
+None
+
 ## Infraestructura reproducible
 Para que el contrato funcione fuera de tu computador, necesitas un entorno repetible. Define variables para conexión, proveedor de rutas, timeout y ambiente. El despliegue debe ejecutar pruebas, crear la configuración y publicar la misma versión que fue validada. No dependas de cambios manuales que nadie pueda reconstruir.
 

@@ -304,6 +304,59 @@ Documentar no significa escribir más; significa dejar menos espacio para que el
 """
 
 
+def dotnet_concepts(include_http=False):
+    http_concepts = ""
+    if include_http:
+        http_concepts = """
+### `[FromServices]`: no construyas dependencias dentro del controlador
+`[FromServices] CreateOrderUseCase useCase` le pide a ASP.NET Core que entregue una instancia ya configurada del caso de uso. Esto es inyección de dependencias: el controlador no hace `new CreateOrderUseCase(...)`, porque no debería decidir qué repositorio, cliente HTTP o configuración usa la aplicación. Esas decisiones se registran al iniciar el programa, normalmente en `Program.cs`.
+
+```csharp
+builder.Services.AddScoped<CreateOrderUseCase>();
+builder.Services.AddScoped<IRouteEstimator, MapsRouteEstimator>();
+```
+
+`AddScoped` significa que la instancia se comparte durante una solicitud HTTP y se descarta al terminar. El primer registro permite resolver el caso de uso; el segundo indica qué implementación concreta se entrega cuando el caso de uso pide `IRouteEstimator`.
+"""
+
+
+def dotnet_observability_concepts():
+    return """## 🧩 Cómo leer el código de observabilidad en .NET
+
+`logger` representa `ILogger<T>`, la abstracción de logging de .NET. La clase no decide si el registro termina en consola, Application Insights, OpenTelemetry o un archivo; esa configuración ocurre al iniciar la aplicación. Esto mantiene el código de negocio independiente del destino del log.
+
+`LogInformation` registra un evento normal. Si hay una falla de Ruteo usaríamos `LogWarning` o `LogError` y pasaríamos la excepción para conservar el detalle técnico sin mostrarlo al cliente.
+
+Los textos `{OrderId}`, `{Status}` y `{TraceId}` no son interpolación de cadenas. Son propiedades estructuradas: el sistema guarda cada valor con nombre. Por eso soporte puede buscar todos los registros de un pedido o construir una métrica por estado sin analizar texto libre.
+
+`Activity.Current?.TraceId` obtiene el identificador de trazabilidad de la solicitud actual. El operador `?.` significa “si `Activity.Current` existe, toma su `TraceId`; si no existe, devuelve `null` sin lanzar una excepción”. Ese identificador conecta API, Inventario y Ruteo en una misma investigación.
+
+Nunca coloques correo, dirección, token, contraseña o cuerpo HTTP completo dentro de las propiedades del log. Una traza debe explicar el comportamiento del sistema, no copiar datos privados del cliente.
+"""
+    return f"""## 🧩 Cómo leer este código C# y .NET
+
+### `public`, `private` y modificadores de acceso
+`public` significa que otro código puede usar ese tipo o miembro. Usamos `public interface IRouteEstimator` porque el caso de uso necesita conocer el contrato. `private` significa que solo la misma clase puede acceder al miembro. Por eso los campos como `_routes` son privados: nadie desde fuera debe reemplazarlos sin pasar por el constructor.
+
+La idea no es ocultar por ocultar. Es proteger decisiones. Un controlador puede llamar al caso de uso; no debe cambiar directamente la conexión a base de datos ni el proveedor de rutas.
+
+### `sealed`: esta clase no está diseñada para herencia
+`sealed class CreateOrderUseCase` significa que ninguna otra clase puede heredar de `CreateOrderUseCase`. Lo usamos cuando una clase representa una pieza concreta de la aplicación y no queremos que alguien altere su comportamiento mediante herencia. En este curso preferimos extender el comportamiento con interfaces y composición, no con cadenas de clases hijas difíciles de seguir.
+
+`sealed` no hace que la clase sea inmutable ni más segura por sí sola. Solo expresa una intención: esta implementación es final; si necesitas variar el comportamiento, crea otra implementación del contrato correspondiente.
+
+### `record`: datos que viajan entre límites
+Un `record` representa principalmente datos. `CreateOrderRequest`, `RouteRequest` y `RouteEstimate` son buenos candidatos porque describen información que cruza un límite: HTTP hacia aplicación, Pedidos hacia Ruteo, o una respuesta desde una dependencia. C# les da igualdad por valor: dos solicitudes con los mismos valores se consideran iguales.
+
+### Interfaces: el contrato antes que la tecnología
+`IRouteEstimator` define qué necesita el caso de uso: estimar una ruta. No dice si se usa Google Maps, otro proveedor, una fórmula local o una implementación falsa para pruebas. Esa separación permite cambiar infraestructura sin cambiar la regla de negocio.
+
+### `private readonly`: dependencia estable después de construir la clase
+`private readonly IRouteEstimator _routes;` declara un campo privado que solo puede asignarse en el constructor. `private` evita acceso externo; `readonly` evita que la clase cambie de proveedor a mitad de su vida. El constructor deja visibles las dependencias reales de la clase.
+{http_concepts}
+"""
+
+
 def video_four_material(source_items, source_links, navigation):
     return f"""# Video 04: Responsabilidad, escalabilidad, seguridad y ética
 
@@ -761,6 +814,8 @@ public sealed class OrdersController : ControllerBase
 
 El controlador recibe HTTP y devuelve HTTP. La validación de formato puede estar aquí; la regla “un pedido se confirma solo si hay inventario y ruta viable” vive en el caso de uso y el dominio. Así podemos cambiar ASP.NET, la aplicación móvil o un proveedor externo sin mover la regla principal.
 
+{dotnet_concepts(include_http=True)}
+
 ## Infraestructura reproducible
 Para que el contrato funcione fuera de tu computador, necesitas un entorno repetible. Define variables para conexión, proveedor de rutas, timeout y ambiente. El despliegue debe ejecutar pruebas, crear la configuración y publicar la misma versión que fue validada. No dependas de cambios manuales que nadie pueda reconstruir.
 
@@ -829,6 +884,8 @@ logger.LogInformation(
     Activity.Current?.TraceId);
 ```
 
+{dotnet_observability_concepts()}
+
 El actor principal es **el equipo de soporte**. Necesita responder al cliente con información confiable. La regla es: **los registros deben permitir reconstruir el flujo sin almacenar secretos, tokens, direcciones completas ni datos personales innecesarios**.
 
 ## Qué observamos
@@ -886,6 +943,109 @@ Observar no significa guardar todo. Significa tener las señales necesarias para
 """
 
 
+def video_ten_material(source_items, source_links, navigation):
+        return f"""# Video 10: Testing, DevOps y entrega continua
+
+## 📚 Lecturas de referencia: comprobar y entregar con confianza
+{source_links}
+
+## 🔗 De observar incidentes a prevenirlos
+{navigation}
+
+## 🎯 El cambio que no debe romper una entrega
+El equipo modifica la regla de confirmación: ahora un pedido solo puede confirmarse si tiene inventario reservado y una ruta viable. En el computador de quien programó funciona. Sin embargo, nadie ejecutó pruebas en otro entorno y el viernes el despliegue manual publica una versión que permite confirmar pedidos sin ruta.
+
+El actor más afectado es **el cliente**, porque puede recibir una promesa de entrega que la operación no puede cumplir. El segundo actor es **el equipo de operación**, porque debe corregir pedidos ya confirmados. La regla que protegemos es: **un pedido no puede pasar a Confirmed si Inventario o Ruteo informan que el flujo no es viable**.
+
+## La prueba que protege la regla
+```csharp
+public sealed class ConfirmOrderUseCaseTests
+{{
+        [Fact]
+        public async Task Does_not_confirm_when_route_is_not_viable()
+        {{
+                var inventory = new FakeInventoryAvailability(hasStock: true);
+                var routes = new FakeRoutePlanning(isViable: false);
+                var useCase = new ConfirmOrderUseCase(inventory, routes);
+                var order = Order.Create("cliente@correo.com", 150_000m);
+
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                        () => useCase.ConfirmAsync(order));
+
+                Assert.Equal(OrderStatus.Pending, order.Status);
+        }}
+}}
+```
+
+Esta prueba no comprueba que un método privado fue llamado ni que un mock recibió una llamada exacta. Comprueba comportamiento: cuando Ruteo no ofrece una ruta viable, el pedido sigue pendiente. Ese es el tipo de prueba que protege una decisión arquitectónica.
+
+## 🧩 Cómo leer esta prueba en .NET
+`public sealed class ConfirmOrderUseCaseTests` es una clase de pruebas. `sealed` indica que no se diseñó para herencia; cada prueba debe ser simple e independiente. `[Fact]` es un atributo de xUnit que marca un método como caso de prueba sin parámetros.
+
+`async Task` permite esperar operaciones asíncronas. `await Assert.ThrowsAsync<InvalidOperationException>(...)` verifica que el caso de uso rechaza el pedido. `Assert.Equal` compara el estado final. Los nombres `FakeInventoryAvailability` y `FakeRoutePlanning` indican implementaciones controladas para pruebas: no abren una base de datos ni llaman una API real.
+
+El modificador `public` permite que xUnit descubra la prueba. Las variables `var inventory` y `var routes` son locales al método: viven solo durante esa prueba. En producción, las mismas interfaces reciben adaptadores reales mediante inyección de dependencias; en la prueba reciben falsos controlados.
+
+## Dos estrategias de entrega
+### Opción A: probar y desplegar manualmente
+Cada desarrollador ejecuta lo que recuerda en su máquina y alguien publica archivos en producción. Es rápida al inicio, pero no garantiza que se ejecuten pruebas, que la configuración sea correcta ni que el artefacto desplegado sea el que se revisó.
+
+### Opción B: pipeline que valida antes de publicar
+Cada cambio ejecuta restauración, compilación, pruebas y análisis. Solo si esas etapas pasan se crea un artefacto versionado y se despliega. La entrega tarda unos minutos más, pero elimina pasos manuales y deja evidencia de qué versión superó las pruebas.
+
+Para la plataforma elijo B. No significa que el pipeline reemplace el criterio humano; significa que los controles repetibles no dependen de que alguien los recuerde bajo presión.
+
+## Pipeline mínimo
+```yaml
+name: verify-order-flow
+on: [pull_request]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-dotnet@v4
+                with:
+                    dotnet-version: 8.0.x
+            - run: dotnet restore
+            - run: dotnet build --configuration Release --no-restore
+            - run: dotnet test --configuration Release --no-build
+```
+
+Este flujo se ejecuta en cada pull request. `dotnet restore` descarga dependencias; `dotnet build` compila; `dotnet test` ejecuta los casos de prueba. `--no-restore` y `--no-build` evitan repetir trabajo en las últimas etapas porque ya se hicieron antes. Si falla una prueba, el cambio no debería fusionarse hasta entender la causa.
+
+## Preguntas y respuestas
+### ¿Qué tan bien validamos la estructura del sistema?
+
+La validamos cuando una prueba comprueba una regla relevante y una revisión confirma que Pedidos depende de contratos, no de infraestructura concreta. En este caso, la prueba demuestra que una ruta inviable no confirma el pedido; una prueba de integración puede demostrar después que el adaptador de rutas traduce correctamente la respuesta externa.
+
+### ¿Qué tan fácil es detectar un problema antes de producción?
+
+Debe detectarse en el pull request. Si el cambio rompe la regla de confirmación, `dotnet test` falla antes de crear un artefacto. Si el pipeline solo se ejecuta después de desplegar, el control llega demasiado tarde.
+
+### ¿Qué tan automatizado está el proceso de entrega?
+
+Está automatizado cuando restaurar, compilar, probar y generar el artefacto ocurren con el mismo pipeline para todos. Una lista de pasos en un documento no es automatización; es una tarea manual que puede olvidarse.
+
+## Actividad: protege un cambio con una prueba y un pipeline
+
+1. Implementa la regla de confirmación en `ConfirmOrderUseCase`.
+2. Crea dos falsos: uno con inventario disponible y otro con ruta inviable.
+3. Escribe una prueba que confirme que el pedido sigue `Pending` cuando falle Ruteo.
+4. Escribe una segunda prueba de caso feliz con inventario y ruta viable.
+5. Crea `.github/workflows/verify-order-flow.yml` con `restore`, `build` y `test`.
+6. Introduce temporalmente un error en la regla y observa que la prueba falla.
+7. Corrige el error, ejecuta el pipeline y guarda el enlace o captura de la ejecución exitosa.
+
+## Cómo comprobar que terminaste
+Tu solución está completa si puedes mostrar una prueba que falla cuando la regla se rompe, una prueba que pasa cuando el flujo es válido y una ejecución de GitHub Actions que impide integrar el cambio defectuoso.
+
+## Cierre
+Probar no es confirmar que el código compila. Entregar continuamente no es desplegar muchas veces. Ambas prácticas construyen una barrera confiable entre una idea y un cambio que llega a producción. En el siguiente video estudiaremos cómo estimar el costo y el riesgo de evolucionar esa arquitectura.
+"""
+
+
 def make_material(number, title, source_items):
     summaries = "\n\n".join(f"**Fuente {i}: {item['title']}**\n{item['summary']}" for i, item in enumerate(source_items, 1))
     ideas = []
@@ -933,6 +1093,8 @@ def make_material(number, title, source_items):
         return video_eight_material(source_items, source_links, " | ".join(navigation))
     if number == 9:
         return video_nine_material(source_items, source_links, " | ".join(navigation))
+    if number == 10:
+        return video_ten_material(source_items, source_links, " | ".join(navigation))
     return f"""# Video {number:02d}: {title}
 
 ## Fuentes oficiales

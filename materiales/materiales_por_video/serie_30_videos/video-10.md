@@ -1,99 +1,100 @@
 # Video 10: Testing, DevOps y entrega continua
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: comprobar y entregar con confianza
 - [Testing y validación de arquitectura](https://platzi.com/cursos/fundamentos-arquitectura-software/paradigmas-y-principios-solid-explicados/)
 - [DevOps y automatización de entrega](https://platzi.com/cursos/fundamentos-arquitectura-software/que-hace-limpia-a-una-arquitectura-de-so/)
 
-## 🔗 Navegación
+## 🔗 De observar incidentes a prevenirlos
 [⬅️ Video anterior](video-09.md) | [➡️ Video siguiente](video-11.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: testing, devops y entrega continua. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 El cambio que no debe romper una entrega
+El equipo modifica la regla de confirmación: ahora un pedido solo puede confirmarse si tiene inventario reservado y una ruta viable. En el computador de quien programó funciona. Sin embargo, nadie ejecutó pruebas en otro entorno y el viernes el despliegue manual publica una versión que permite confirmar pedidos sin ruta.
 
-## Resumen integrado
-**Fuente 1: Testing y validación de arquitectura**
-En este video se explica que la arquitectura no debe validarse solo con la ejecución del sistema en un entorno feliz. También debe evaluarse mediante pruebas, simulaciones, revisión de calidad y validación de dependencias. La validación arquitectónica permite corroborar que el sistema cumple con expectativas de rendimiento, confiabilidad, seguridad y facilidad de evolución.
+El actor más afectado es **el cliente**, porque puede recibir una promesa de entrega que la operación no puede cumplir. El segundo actor es **el equipo de operación**, porque debe corregir pedidos ya confirmados. La regla que protegemos es: **un pedido no puede pasar a Confirmed si Inventario o Ruteo informan que el flujo no es viable**.
 
-Cuando se hace testing de arquitectura, se busca detectar problemas estructurales antes de que creen deuda técnica o incidentes en producción. La calidad de una solución no siempre se ve al principio, por eso se requiere una evaluación más profunda que la simple funcionalidad básica.
+## La prueba que protege la regla
+```csharp
+public sealed class ConfirmOrderUseCaseTests
+{
+        [Fact]
+        public async Task Does_not_confirm_when_route_is_not_viable()
+        {
+                var inventory = new FakeInventoryAvailability(hasStock: true);
+                var routes = new FakeRoutePlanning(isViable: false);
+                var useCase = new ConfirmOrderUseCase(inventory, routes);
+                var order = Order.Create("cliente@correo.com", 150_000m);
 
-**Fuente 2: DevOps y automatización de entrega**
-Este video conecta arquitectura con entrega continua. La forma en que se construye, prueba, despliega y opera una aplicación influye directamente en su calidad. Si el proceso de entrega es manual y poco repetible, el sistema será más frágil incluso si su diseño inicial es bueno. Por eso DevOps y automatización son parte interesante de la arquitectura moderna.
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                        () => useCase.ConfirmAsync(order));
 
-La entrega automatizada permite reducir errores humanos, aumentar velocidad, mejorar reusabilidad y hacer más segura la evolución del sistema. El objetivo no es solo desplegar más rápido, sino hacerlo de manera controlada y confiable.
+                Assert.Equal(OrderStatus.Pending, order.Status);
+        }
+}
+```
 
-## Ideas que debes conservar
-- La arquitectura debe validarse con criterios más allá del “funciona”.
-- Las pruebas ayudan a detectar riesgos estructurales.
-- La validación reduce la probabilidad de fallos costosos.
-- La calidad del diseño se confirma con observación y pruebas.
-- La entrega continua es parte de la arquitectura.
-- La automatización reduce errores y acelera cambios seguros.
-- Las pruebas y despliegues deben ser repetibles y controlados.
-- La operación y el desarrollo deben alinearse en un mismo flujo.
+Esta prueba no comprueba que un método privado fue llamado ni que un mock recibió una llamada exacta. Comprueba comportamiento: cuando Ruteo no ofrece una ruta viable, el pedido sigue pendiente. Ese es el tipo de prueba que protege una decisión arquitectónica.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: testing, devops y entrega continua. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+## 🧩 Cómo leer esta prueba en .NET
+`public sealed class ConfirmOrderUseCaseTests` es una clase de pruebas. `sealed` indica que no se diseñó para herencia; cada prueba debe ser simple e independiente. `[Fact]` es un atributo de xUnit que marca un método como caso de prueba sin parámetros.
 
-## Aplicación al caso logístico
-Para estudiar **testing, devops y entrega continua**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La arquitectura debe validarse con criterios más allá del “funciona”.
+`async Task` permite esperar operaciones asíncronas. `await Assert.ThrowsAsync<InvalidOperationException>(...)` verifica que el caso de uso rechaza el pedido. `Assert.Equal` compara el estado final. Los nombres `FakeInventoryAvailability` y `FakeRoutePlanning` indican implementaciones controladas para pruebas: no abren una base de datos ni llaman una API real.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos testing, devops y entrega continua al flujo.
-    2. **Actor prioritario de testing, devops y entrega continua:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en testing, devops y entrega continua:** escribe la condición que debe permanecer verdadera y relaciónala con la arquitectura debe validarse con criterios más allá del “funciona”..
-    4. **Punto de decisión para testing, devops y entrega continua:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de testing, devops y entrega continua:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+El modificador `public` permite que xUnit descubra la prueba. Las variables `var inventory` y `var routes` son locales al método: viven solo durante esa prueba. En producción, las mismas interfaces reciben adaptadores reales mediante inyección de dependencias; en la prueba reciben falsos controlados.
 
-Para resolver el caso de **testing, devops y entrega continua**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## Dos estrategias de entrega
+### Opción A: probar y desplegar manualmente
+Cada desarrollador ejecuta lo que recuerda en su máquina y alguien publica archivos en producción. Es rápida al inicio, pero no garantiza que se ejecuten pruebas, que la configuración sea correcta ni que el artefacto desplegado sea el que se revisó.
 
+### Opción B: pipeline que valida antes de publicar
+Cada cambio ejecuta restauración, compilación, pruebas y análisis. Solo si esas etapas pasan se crea un artefacto versionado y se despliega. La entrega tarda unos minutos más, pero elimina pasos manuales y deja evidencia de qué versión superó las pruebas.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa testing, devops y entrega continua y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la arquitectura debe validarse con criterios más allá del “funciona”.
-3. Identifica el actor que recibe el impacto de testing, devops y entrega continua y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para testing, devops y entrega continua; compara sus costos y riesgos.
-5. Elige una opción para testing, devops y entrega continua, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: testing, devops y entrega continua debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Para la plataforma elijo B. No significa que el pipeline reemplace el criterio humano; significa que los controles repetibles no dependen de que alguien los recuerde bajo presión.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué tan bien validamos la estructura de mi sistema?
+## Pipeline mínimo
+```yaml
+name: verify-order-flow
+on: [pull_request]
 
-**Respuesta concreta:** Para testing, devops y entrega continua, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-dotnet@v4
+                with:
+                    dotnet-version: 8.0.x
+            - run: dotnet restore
+            - run: dotnet build --configuration Release --no-restore
+            - run: dotnet test --configuration Release --no-build
+```
 
-### ❓ ¿Qué tan fácil es detectar un problema arquitectónico antes de producción?
+Este flujo se ejecuta en cada pull request. `dotnet restore` descarga dependencias; `dotnet build` compila; `dotnet test` ejecuta los casos de prueba. `--no-restore` y `--no-build` evitan repetir trabajo en las últimas etapas porque ya se hicieron antes. Si falla una prueba, el cambio no debería fusionarse hasta entender la causa.
 
-**Respuesta concreta:** Para testing, devops y entrega continua, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Preguntas y respuestas
+### ¿Qué tan bien validamos la estructura del sistema?
 
-### ❓ ¿Qué tan automatizado está mi proceso de entrega?
+La validamos cuando una prueba comprueba una regla relevante y una revisión confirma que Pedidos depende de contratos, no de infraestructura concreta. En este caso, la prueba demuestra que una ruta inviable no confirma el pedido; una prueba de integración puede demostrar después que el adaptador de rutas traduce correctamente la respuesta externa.
 
-**Respuesta concreta:** Para testing, devops y entrega continua, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿Qué tan fácil es detectar un problema antes de producción?
 
-### ❓ ¿Qué riesgos se reducen o aumentan con el flujo actual?
+Debe detectarse en el pull request. Si el cambio rompe la regla de confirmación, `dotnet test` falla antes de crear un artefacto. Si el pipeline solo se ejecuta después de desplegar, el control llega demasiado tarde.
 
-**Respuesta concreta:** Para testing, devops y entrega continua, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿Qué tan automatizado está el proceso de entrega?
 
-## 🛠️ Cómo resolver la actividad
+Está automatizado cuando restaurar, compilar, probar y generar el artefacto ocurren con el mismo pipeline para todos. Una lista de pasos en un documento no es automatización; es una tarea manual que puede olvidarse.
 
-1. **Comprende el tema:** explica con tus palabras qué significa testing, devops y entrega continua y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de testing, devops y entrega continua:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para testing, devops y entrega continua:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de testing, devops y entrega continua:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La arquitectura debe validarse con criterios más allá del “funciona”. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a testing, devops y entrega continua: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de testing, devops y entrega continua, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+## Actividad: protege un cambio con una prueba y un pipeline
 
-**Respuesta modelo para Testing, DevOps y entrega continua:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+1. Implementa la regla de confirmación en `ConfirmOrderUseCase`.
+2. Crea dos falsos: uno con inventario disponible y otro con ruta inviable.
+3. Escribe una prueba que confirme que el pedido sigue `Pending` cuando falle Ruteo.
+4. Escribe una segunda prueba de caso feliz con inventario y ruta viable.
+5. Crea `.github/workflows/verify-order-flow.yml` con `restore`, `build` y `test`.
+6. Introduce temporalmente un error en la regla y observa que la prueba falla.
+7. Corrige el error, ejecuta el pipeline y guarda el enlace o captura de la ejecución exitosa.
 
+## Cómo comprobar que terminaste
+Tu solución está completa si puedes mostrar una prueba que falla cuando la regla se rompe, una prueba que pasa cuando el flujo es válido y una ejecución de GitHub Actions que impide integrar el cambio defectuoso.
 
-## Conclusiones de las fuentes
-Un sistema técnico no queda validado solo por tener casos de éxito; necesita pruebas y evaluación que confirmen que su estructura soporta el presente y el crecimiento futuro.
-
-La automatización de entrega no es solo una práctica operativa, sino una decisión arquitectónica que mejora confiabilidad, velocidad y sostenibilidad.
-
-## Preguntas para preparar la grabación
-- ¿Qué tan bien validamos la estructura de mi sistema?
-- ¿Qué tan fácil es detectar un problema arquitectónico antes de producción?
-- ¿Qué tan automatizado está mi proceso de entrega?
-- ¿Qué riesgos se reducen o aumentan con el flujo actual?
-
-## Evidencia para el repositorio
-Guarda la explicación de testing, devops y entrega continua, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Probar no es confirmar que el código compila. Entregar continuamente no es desplegar muchas veces. Ambas prácticas construyen una barrera confiable entre una idea y un cambio que llega a producción. En el siguiente video estudiaremos cómo estimar el costo y el riesgo de evolucionar esa arquitectura.
