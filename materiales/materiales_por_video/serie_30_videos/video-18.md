@@ -5,7 +5,7 @@
 - [Resiliencia y tolerancia a fallos](https://platzi.com/cursos/software-avanzado/agentes-de-ia-que-revisan-tu-codigo-en-g/)
 
 ## 🔗 Navegación
-[⬅️ Video anterior](video-17.md) | [➡️ Video siguiente](video-19.md)
+[⬅️ Video anterior](video-17.md) | [➡️ Video siguiente](video-18-1.md)
 
 ## Propósito
 Esta clase combina las fuentes anteriores para resolver un problema específico: documentación viva y revisión con ia. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.

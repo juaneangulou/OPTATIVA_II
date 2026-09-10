@@ -5,7 +5,7 @@
 - [Escalabilidad, seguridad y ética](https://platzi.com/cursos/fundamentos-arquitectura-software/requisitos-funcionales-y-no-funcionales/)
 
 ## 🔗 Continúa el recorrido
-[⬅️ Video anterior](video-03.md) | [➡️ Video siguiente](video-05.md)
+[⬅️ Video anterior](video-03.md) | [➡️ Video siguiente](video-04-1.md)
 
 ## 🎯 La decisión de esta clase
 En esta clase vas a tomar una decisión incómoda: cómo usar datos de ubicación para mejorar una entrega sin convertir al repartidor ni al cliente en una fuente de vigilancia permanente. La arquitectura no se evalúa solo por velocidad; también se evalúa por las personas que quedan expuestas cuando el sistema toma una decisión.
@@ -74,3 +74,4 @@ Tu propuesta está completa si puedes demostrar tres cosas: el cliente recibe un
 
 ## ✅ Cierre: velocidad sin daño innecesario
 La escalabilidad tiene valor cuando mantiene el servicio bajo presión. La seguridad tiene valor cuando protege a las personas. La ética tiene valor cuando impide que una solución rápida normalice un daño innecesario. En el siguiente video vamos a bajar de estas decisiones al código: principios de diseño, acoplamiento y cohesión.
+

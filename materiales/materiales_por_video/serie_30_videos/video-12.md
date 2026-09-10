@@ -1,93 +1,80 @@
 # Video 12: Estrategia tecnológica y roadmap
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: decidir qué construir después
 - [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
 - [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-11.md) | [➡️ Video siguiente](video-13.md)
+## 🔗 De riesgos aislados a una dirección tecnológica
+[⬅️ Video anterior](video-11.md) | [➡️ Video siguiente](video-12-1.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: estrategia tecnológica y roadmap. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 La situación que vamos a ordenar
+La plataforma logística tiene más solicitudes que capacidad: mejorar rutas, crear una aplicación para operadores, agregar otro proveedor de mapas, automatizar incidentes y construir reportes. Si todo se considera urgente, el equipo no tiene estrategia; solo reacciona.
 
-## Resumen integrado
-**Fuente 1: Estrategia tecnológica y roadmap**
-Este video enfatiza que la arquitectura no debe ir a la deriva. Debe estar guiada por una estrategia tecnológica clara que defina prioridades, inversiones y objetivos a largo plazo. El roadmap transforma la visión en un plan de acción, permitiendo que el sistema evolucione de manera ordenada y con menos improvisación.
+Un roadmap arquitectónico no es una lista de deseos. Es una secuencia de decisiones vinculada a objetivos de negocio, riesgos y capacidad del equipo.
 
-Cuando no hay estrategia, cada decisión responde más a una urgencia que a un criterio sostenible. En ese contexto, el sistema crece sin dirección, y la deuda técnica se acumula. El roadmap ayuda a alinear equipo, negocio y tecnología.
+## Objetivo estratégico
+Durante el próximo trimestre queremos reducir entregas tardías sin aumentar el costo operativo por pedido. Esa frase permite ordenar las iniciativas: una mejora que no ayuda a puntualidad, costo, confiabilidad o capacidad de aprendizaje no es prioritaria para este ciclo.
 
-**Fuente 2: Estrategia tecnológica y roadmap**
-Este video enfatiza que la arquitectura no debe ir a la deriva. Debe estar guiada por una estrategia tecnológica clara que defina prioridades, inversiones y objetivos a largo plazo. El roadmap transforma la visión en un plan de acción, permitiendo que el sistema evolucione de manera ordenada y con menos improvisación.
+## Roadmap propuesto
 
-Cuando no hay estrategia, cada decisión responde más a una urgencia que a un criterio sostenible. En ese contexto, el sistema crece sin dirección, y la deuda técnica se acumula. El roadmap ayuda a alinear equipo, negocio y tecnología.
+### Horizonte 1: estabilizar el MVP
+- Medir p95 de rutas y pedidos estancados.
+- Crear contratos para Inventario, Ruteo y Entregas.
+- Automatizar pruebas y despliegue.
+- Definir logs, métricas y trazas mínimas.
 
-## Ideas que debes conservar
-- La estrategia tecnológica da dirección al sistema.
-- Un roadmap ayuda a priorizar y organizar el crecimiento.
-- La arquitectura debe responder a objetivos de negocio y capacidades reales.
-- Sin estrategia, la solución se vuelve reactiva.
+**Salida:** sabemos dónde está el problema y podemos publicar cambios con control.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: estrategia tecnológica y roadmap. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+### Horizonte 2: mejorar la operación
+- Probar una política de rutas con ventanas horarias.
+- Agregar tablero de incidentes para operaciones.
+- Reducir consultas innecesarias al proveedor de mapas.
+- Definir retención de datos de ubicación.
 
-## Aplicación al caso logístico
-Para estudiar **estrategia tecnológica y roadmap**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La estrategia tecnológica da dirección al sistema.
+**Salida:** mejoramos puntualidad sin distribuir componentes prematuramente.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos estrategia tecnológica y roadmap al flujo.
-    2. **Actor prioritario de estrategia tecnológica y roadmap:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en estrategia tecnológica y roadmap:** escribe la condición que debe permanecer verdadera y relaciónala con la estrategia tecnológica da dirección al sistema..
-    4. **Punto de decisión para estrategia tecnológica y roadmap:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de estrategia tecnológica y roadmap:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+### Horizonte 3: separar solo lo justificado
+- Extraer Ruteo si las métricas muestran saturación independiente.
+- Agregar un segundo proveedor mediante el mismo puerto.
+- Versionar contratos externos.
+- Preparar recuperación ante fallos del proveedor.
 
-Para resolver el caso de **estrategia tecnológica y roadmap**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+**Salida:** la inversión en distribución responde a evidencia, no a una moda.
 
+## Cómo priorizar una iniciativa
+Usa esta tabla antes de incluir trabajo en el roadmap:
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa estrategia tecnológica y roadmap y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la estrategia tecnológica da dirección al sistema.
-3. Identifica el actor que recibe el impacto de estrategia tecnológica y roadmap y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para estrategia tecnológica y roadmap; compara sus costos y riesgos.
-5. Elige una opción para estrategia tecnológica y roadmap, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: estrategia tecnológica y roadmap debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+| Iniciativa | Valor | Riesgo reducido | Esfuerzo | Decisión |
+|---|---:|---:|---:|---|
+| Medir p95 de Ruteo | Alto | Alto | Bajo | Primero |
+| Reescribir toda la plataforma | Incierto | Alto | Muy alto | Esperar evidencia |
+| Segundo proveedor de mapas | Medio | Alto | Medio | Experimento |
+| Dashboard de incidentes | Alto | Medio | Medio | Segundo horizonte |
 
-## Respuestas a las preguntas
-### ❓ ¿Qué dirección tecnológica está tomando mi proyecto?
+El roadmap debe permitir decir no. Si todo entra, nada está priorizado.
 
-**Respuesta concreta:** Para estrategia tecnológica y roadmap, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Preguntas y respuestas
+### ¿Qué dirección tecnológica está tomando el proyecto?
 
-### ❓ ¿Tengo un plan claro de evolución o solo reacciones inmediatas?
+La dirección es evolucionar desde un monolito modular observable hacia separaciones selectivas. Primero medimos y automatizamos; después aislamos Ruteo solo si las métricas muestran que necesita autonomía.
 
-**Respuesta concreta:** Para estrategia tecnológica y roadmap, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿Qué diferencia hay entre estrategia y lista de tareas?
 
-### ❓ ¿Qué dirección tecnológica está tomando mi proyecto?
+Una tarea dice “crear un dashboard”. Una estrategia dice “reducir el tiempo de diagnóstico para disminuir entregas tardías”. El dashboard es una inversión solo si produce evidencia para ese objetivo.
 
-**Respuesta concreta:** Para estrategia tecnológica y roadmap, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### ¿Cómo sé qué dejar fuera del roadmap?
 
-### ❓ ¿Tengo un plan claro de evolución o solo reacciones inmediatas?
+Deja fuera lo que no reduzca el riesgo prioritario, no tenga capacidad disponible o no pueda verificarse. No incluiría microservicios completos ni una reescritura hasta contar con métricas y un equipo capaz de operarlos.
 
-**Respuesta concreta:** Para estrategia tecnológica y roadmap, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## Actividad: construye el roadmap de la plataforma
 
-## 🛠️ Cómo resolver la actividad
+1. Define un objetivo de negocio medible para los próximos tres meses.
+2. Lista diez iniciativas tecnológicas o arquitectónicas.
+3. Puntúa valor, riesgo, esfuerzo y reversibilidad.
+4. Organiza las iniciativas en estabilizar, mejorar y evolucionar.
+5. Define una métrica de salida para cada horizonte.
+6. Escribe una decisión que explícitamente dejarás fuera y por qué.
+7. Presenta el roadmap al equipo y registra qué prioridad cambió después de la conversación.
 
-1. **Comprende el tema:** explica con tus palabras qué significa estrategia tecnológica y roadmap y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de estrategia tecnológica y roadmap:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para estrategia tecnológica y roadmap:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de estrategia tecnológica y roadmap:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La estrategia tecnológica da dirección al sistema. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a estrategia tecnológica y roadmap: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de estrategia tecnológica y roadmap, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
-
-**Respuesta modelo para Estrategia tecnológica y roadmap:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
-
-
-## Conclusiones de las fuentes
-La estrategia tecnológica es la base que le da sentido a la arquitectura. Sin ella, la solución se vuelve más reactiva y menos sostenida.
-
-La estrategia tecnológica es la base que le da sentido a la arquitectura. Sin ella, la solución se vuelve más reactiva y menos sostenida.
-
-## Preguntas para preparar la grabación
-- ¿Qué dirección tecnológica está tomando mi proyecto?
-- ¿Tengo un plan claro de evolución o solo reacciones inmediatas?
-
-## Evidencia para el repositorio
-Guarda la explicación de estrategia tecnológica y roadmap, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Una estrategia tecnológica no predice todo el futuro. Define cómo vamos a aprender, qué riesgos atenderemos primero y qué señales justificarán la siguiente inversión. En el próximo video trabajaremos cómo comunicar estas decisiones a personas con intereses diferentes.

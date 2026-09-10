@@ -5,7 +5,7 @@
 - [Acoplamiento, cohesión y calidad estructural](https://platzi.com/cursos/fundamentos-arquitectura-software/alineacion-de-arquitectura-de-software-c/)
 
 ## 🔗 Del caso de privacidad al código
-[⬅️ Video anterior](video-04.md) | [➡️ Video siguiente](video-06.md)
+[⬅️ Video anterior](video-04-1.md) | [➡️ Video siguiente](video-06.md)
 
 ## 🎯 El objetivo del refactor
 En esta clase vamos a dejar de hablar de “código limpio” como una frase bonita. Vas a ver una clase que intenta hacer demasiado, identificarás por qué es frágil y la convertirás en componentes que cambian por razones distintas. El objetivo no es tener más archivos: es lograr que una regla de rutas no obligue a modificar pagos, notificaciones y acceso a datos al mismo tiempo.

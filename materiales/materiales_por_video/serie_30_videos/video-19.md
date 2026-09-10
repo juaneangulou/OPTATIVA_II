@@ -5,7 +5,7 @@
 - [Integración y contratos de API](https://platzi.com/cursos/software-avanzado/domain-driven-design-para-arquitectura-l/)
 
 ## 🔗 Navegación
-[⬅️ Video anterior](video-18.md) | [➡️ Video siguiente](video-20.md)
+[⬅️ Video anterior](video-18-1.md) | [➡️ Video siguiente](video-20.md)
 
 ## Propósito
 Esta clase combina las fuentes anteriores para resolver un problema específico: architecture.md y domain driven design. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.

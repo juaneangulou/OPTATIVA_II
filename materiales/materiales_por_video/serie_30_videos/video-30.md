@@ -4,7 +4,7 @@
 - [Cierre profesional y legado arquitectónico](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
 
 ## 🔗 Navegación
-[⬅️ Video anterior](video-29.md)
+[⬅️ Video anterior](video-29.md) | [➡️ Video siguiente](video-30-1.md)
 
 ## Propósito
 Esta clase combina las fuentes anteriores para resolver un problema específico: cierre y defensa de la arquitectura. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.

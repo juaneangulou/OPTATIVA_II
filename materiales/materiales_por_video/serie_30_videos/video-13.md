@@ -5,7 +5,7 @@
 - [Arquitectura con impacto social y valor real](https://platzi.com/cursos/fundamentos-arquitectura-software/preguntas-clave-que-todo-arquitecto-de-s/)
 
 ## 🔗 Navegación
-[⬅️ Video anterior](video-12.md) | [➡️ Video siguiente](video-14.md)
+[⬅️ Video anterior](video-12-1.md) | [➡️ Video siguiente](video-14.md)
 
 ## Propósito
 Esta clase combina las fuentes anteriores para resolver un problema específico: liderazgo, negociación e impacto social. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.

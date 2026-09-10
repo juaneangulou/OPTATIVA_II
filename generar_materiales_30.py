@@ -433,6 +433,68 @@ Tu propuesta está completa si puedes demostrar tres cosas: el cliente recibe un
 
 ## ✅ Cierre: velocidad sin daño innecesario
 La escalabilidad tiene valor cuando mantiene el servicio bajo presión. La seguridad tiene valor cuando protege a las personas. La ética tiene valor cuando impide que una solución rápida normalice un daño innecesario. En el siguiente video vamos a bajar de estas decisiones al código: principios de diseño, acoplamiento y cohesión.
+
+## 4.1 Actividad 1: diagnóstico y contexto arquitectónico
+
+Ahora vamos a convertir la clase en el primer entregable del proyecto. No quiero que saltes a elegir tecnología. Primero vamos a demostrar que entiendes el problema, las personas afectadas y los límites del sistema.
+
+### Caso para resolver
+
+Durante la tormenta, la plataforma debe reasignar 400 entregas. Operaciones solicita ubicación GPS en tiempo real, historial de rutas y acceso para todos los supervisores. El equipo debe mejorar la puntualidad sin exponer datos personales ni permitir decisiones de asignación imposibles de auditar.
+
+### Paso 1: definir el problema
+
+La plataforma no tiene únicamente un problema de rendimiento. Tiene que coordinar muchas reasignaciones bajo presión, proteger la ubicación de los repartidores y explicar por qué una entrega cambió de responsable. El problema se formula así:
+
+> La plataforma necesita reasignar entregas afectadas por la tormenta de forma rápida y trazable, usando solo los datos de ubicación necesarios y respetando los permisos de cada rol.
+
+### Paso 2: identificar actores
+
+- **Cliente:** necesita conocer una nueva promesa de entrega y recibir información comprensible.
+- **Operador logístico:** necesita reasignar pedidos y ver solo la información necesaria para operar.
+- **Repartidor:** necesita una ruta actualizada y protección sobre su ubicación personal.
+- **Soporte:** necesita reconstruir una decisión sin acceder indiscriminadamente a datos sensibles.
+- **Equipo técnico:** necesita cambiar reglas de asignación sin romper autorización, auditoría ni notificaciones.
+
+### Paso 3: delimitar el sistema
+
+Dentro del sistema quedan la reasignación, las reglas de autorización, el registro de auditoría, las notificaciones y la consulta de ubicación mínima. Fuera del sistema quedan el proveedor GPS, el servicio de mapas, la red móvil y los sistemas externos de identidad. Esta frontera evita que el equipo prometa controlar fallos que pertenecen a terceros.
+
+### Paso 4: declarar restricciones
+
+- La ubicación precisa no debe estar disponible para cualquier usuario.
+- La reasignación debe dejar una evidencia consultable.
+- El sistema debe continuar operando si el proveedor de mapas responde lentamente.
+- El cliente no debe recibir datos personales del repartidor.
+- La solución debe poder implementarse con el equipo y presupuesto del MVP.
+
+### Paso 5: registrar riesgos
+
+| Riesgo | Impacto | Señal temprana | Respuesta |
+|---|---|---|---|
+| Acceso indebido a ubicación | Alto | Consulta fuera del rol permitido | Autorización por rol y auditoría |
+| Reasignaciones duplicadas | Alto | Dos entregas activas para un repartidor | Regla de exclusión y prueba de concurrencia |
+| Proveedor GPS lento | Medio | Latencia por encima del objetivo | Timeout, caché temporal y operación manual |
+| Cliente sin información | Alto | Pedidos sin actualización | Evento de cambio y notificación verificable |
+
+### Paso 6: respuesta modelo
+
+La decisión inicial es construir un módulo de reasignación dentro del monolito modular, protegido por un puerto de ubicación y un servicio de autorización. No almacenaremos el historial preciso más tiempo del necesario. Cada consulta quedará auditada con usuario, rol, pedido, propósito y hora. Separar este módulo como microservicio no es necesario todavía: primero necesitamos demostrar volumen, límites de equipo y carga operativa.
+
+### Entregables de la Actividad 1
+
+Guarda en `docs/actividad-1/`:
+
+1. `README.md` con el problema y el resumen ejecutivo.
+2. `contexto.md` con actores, alcance y restricciones.
+3. `riesgos.md` con probabilidad, impacto y respuesta.
+4. `diagrama-contexto.md` o un diagrama exportado.
+5. `decisiones-iniciales.md` con la alternativa elegida y las descartadas.
+6. Un video de sustentación donde expliques problema, actores, límites y riesgos.
+
+### Cómo saber si la resolviste bien
+
+Otra persona debe poder leer tu carpeta y responder: ¿qué problema resolvemos?, ¿quién se ve afectado?, ¿qué está dentro y fuera del sistema?, ¿qué riesgos aceptamos?, ¿qué decisión inicial tomamos y por qué? Si el documento solo contiene tecnologías, todavía no es un diagnóstico arquitectónico.
 """
 
 
@@ -1046,6 +1108,269 @@ Probar no es confirmar que el código compila. Entregar continuamente no es desp
 """
 
 
+def video_eleven_material(source_items, source_links, navigation):
+    return f"""# Video 11: Evolución, riesgos y costos
+
+## 📚 Lecturas de referencia: cambiar sin destruir
+{source_links}
+
+## 🔗 De la entrega automatizada a las decisiones reversibles
+{navigation}
+
+## 🎯 La situación que vamos a decidir
+El algoritmo actual de rutas funciona para el volumen del MVP, pero el negocio quiere agregar entregas con ventanas de horario, múltiples bodegas y restricciones de vehículos. El equipo tiene dos impulsos peligrosos: reescribir todo inmediatamente o continuar agregando condiciones hasta que nadie pueda entender el código.
+
+La pregunta correcta es: ¿qué parte del cambio debemos aislar ahora y qué evidencia necesitamos antes de invertir en una transformación mayor?
+
+## Registro de riesgos
+
+| Riesgo | Probabilidad | Impacto | Señal temprana | Respuesta |
+|---|---:|---:|---|---|
+| El cálculo de rutas no soporta ventanas horarias | Media | Alto | p95 supera 3 s | Experimento con datos reales |
+| Una reescritura interrumpe entregas | Media | Muy alto | errores en piloto | Migración gradual |
+| El proveedor de mapas aumenta precio | Media | Medio | cambio de tarifa | Adaptador y segundo proveedor |
+| El equipo no puede operar servicios nuevos | Alta | Alto | alertas sin atender | Mantener monolito modular |
+
+No todos los riesgos se resuelven escribiendo código. Algunos se reducen con una medición, una prueba, un contrato o una decisión de alcance.
+
+## Dos decisiones posibles
+### Opción A: reescribir el motor de rutas ahora
+Promete una solución más limpia y preparada para crecer, pero concentra el riesgo en un proyecto largo. Mientras se reescribe, el negocio sigue necesitando entregas; además, podríamos descubrir tarde que nuestras suposiciones sobre volumen y ventanas eran incorrectas.
+
+### Opción B: introducir una política nueva detrás de una interfaz
+Conservamos el flujo actual, definimos `IRoutingPolicy` y probamos una implementación para ventanas horarias con una muestra de pedidos. Si el experimento demuestra valor, activamos la política gradualmente; si falla, retiramos el cambio sin perder todo el sistema.
+
+```csharp
+public interface IRoutingPolicy
+{{
+    RoutePlan BuildPlan(IReadOnlyList<Delivery> deliveries, RoutingContext context);
+}}
+
+public sealed class CurrentRoutingPolicy : IRoutingPolicy
+{{
+    public RoutePlan BuildPlan(
+        IReadOnlyList<Delivery> deliveries,
+        RoutingContext context)
+    {{
+        return RoutePlan.FromNearestStop(deliveries);
+    }}
+}}
+```
+
+La interfaz es una decisión reversible: permite probar una política nueva sin destruir la actual. El costo es mantener dos implementaciones durante un tiempo, pero el riesgo queda limitado a un experimento.
+
+## Cómo evaluar la decisión
+Antes de activar la nueva política, mediremos:
+
+- tiempo de cálculo p50 y p95,
+- porcentaje de entregas dentro de la ventana,
+- kilómetros recorridos,
+- reasignaciones manuales,
+- errores del proveedor de mapas,
+- costo por entrega.
+
+La decisión se revisa si la nueva política mejora puntualidad sin multiplicar costo y complejidad. Si no aporta valor, la retiramos. Diseñar para evolución significa aceptar que una hipótesis puede ser descartada.
+
+## Preguntas y respuestas
+### ¿Qué parte del sistema está más rígida?
+
+El motor de rutas es rígido si cualquier nueva regla exige modificar el flujo de pedidos, persistencia y notificaciones. La solución es aislar la política detrás de `IRoutingPolicy` y medir el cambio con un experimento.
+
+### ¿Qué decisión se está tomando con incertidumbre?
+
+No sabemos todavía si el volumen y las ventanas horarias justifican una reescritura. Por eso no la aprobamos por intuición: probamos una política acotada, definimos métricas y dejamos una condición explícita de continuación o retiro.
+
+### ¿Qué tan reversible es la opción elegida?
+
+La opción de una política intercambiable es más reversible que una reescritura. Podemos retirar `CurrentRoutingPolicy` o `TimeWindowRoutingPolicy` sin cambiar el contrato del caso de uso.
+
+## Actividad: construye una decisión bajo incertidumbre
+
+1. Elige un cambio del caso logístico: ventanas horarias, múltiples bodegas o segundo proveedor de mapas.
+2. Registra tres riesgos con probabilidad, impacto y señal temprana.
+3. Propón una opción de reescritura y otra incremental.
+4. Define qué parte puede aislarse detrás de una interfaz.
+5. Especifica un experimento de máximo una semana y sus métricas.
+6. Escribe un ADR con la decisión reversible y la condición de revisión.
+7. Presenta qué harías si la evidencia contradice tu hipótesis inicial.
+
+## Cierre
+La arquitectura madura no promete acertar siempre. Promete que el costo de aprender no será destructivo. En el siguiente video convertiremos estas decisiones en una estrategia y un roadmap que el equipo pueda ejecutar.
+"""
+
+
+def video_twelve_material(source_items, source_links, navigation):
+    return f"""# Video 12: Estrategia tecnológica y roadmap
+
+## 📚 Lecturas de referencia: decidir qué construir después
+{source_links}
+
+## 🔗 De riesgos aislados a una dirección tecnológica
+{navigation}
+
+## 🎯 La situación que vamos a ordenar
+La plataforma logística tiene más solicitudes que capacidad: mejorar rutas, crear una aplicación para operadores, agregar otro proveedor de mapas, automatizar incidentes y construir reportes. Si todo se considera urgente, el equipo no tiene estrategia; solo reacciona.
+
+Un roadmap arquitectónico no es una lista de deseos. Es una secuencia de decisiones vinculada a objetivos de negocio, riesgos y capacidad del equipo.
+
+## Objetivo estratégico
+Durante el próximo trimestre queremos reducir entregas tardías sin aumentar el costo operativo por pedido. Esa frase permite ordenar las iniciativas: una mejora que no ayuda a puntualidad, costo, confiabilidad o capacidad de aprendizaje no es prioritaria para este ciclo.
+
+## Roadmap propuesto
+
+### Horizonte 1: estabilizar el MVP
+- Medir p95 de rutas y pedidos estancados.
+- Crear contratos para Inventario, Ruteo y Entregas.
+- Automatizar pruebas y despliegue.
+- Definir logs, métricas y trazas mínimas.
+
+**Salida:** sabemos dónde está el problema y podemos publicar cambios con control.
+
+### Horizonte 2: mejorar la operación
+- Probar una política de rutas con ventanas horarias.
+- Agregar tablero de incidentes para operaciones.
+- Reducir consultas innecesarias al proveedor de mapas.
+- Definir retención de datos de ubicación.
+
+**Salida:** mejoramos puntualidad sin distribuir componentes prematuramente.
+
+### Horizonte 3: separar solo lo justificado
+- Extraer Ruteo si las métricas muestran saturación independiente.
+- Agregar un segundo proveedor mediante el mismo puerto.
+- Versionar contratos externos.
+- Preparar recuperación ante fallos del proveedor.
+
+**Salida:** la inversión en distribución responde a evidencia, no a una moda.
+
+## Cómo priorizar una iniciativa
+Usa esta tabla antes de incluir trabajo en el roadmap:
+
+| Iniciativa | Valor | Riesgo reducido | Esfuerzo | Decisión |
+|---|---:|---:|---:|---|
+| Medir p95 de Ruteo | Alto | Alto | Bajo | Primero |
+| Reescribir toda la plataforma | Incierto | Alto | Muy alto | Esperar evidencia |
+| Segundo proveedor de mapas | Medio | Alto | Medio | Experimento |
+| Dashboard de incidentes | Alto | Medio | Medio | Segundo horizonte |
+
+El roadmap debe permitir decir no. Si todo entra, nada está priorizado.
+
+## Preguntas y respuestas
+### ¿Qué dirección tecnológica está tomando el proyecto?
+
+La dirección es evolucionar desde un monolito modular observable hacia separaciones selectivas. Primero medimos y automatizamos; después aislamos Ruteo solo si las métricas muestran que necesita autonomía.
+
+### ¿Qué diferencia hay entre estrategia y lista de tareas?
+
+Una tarea dice “crear un dashboard”. Una estrategia dice “reducir el tiempo de diagnóstico para disminuir entregas tardías”. El dashboard es una inversión solo si produce evidencia para ese objetivo.
+
+### ¿Cómo sé qué dejar fuera del roadmap?
+
+Deja fuera lo que no reduzca el riesgo prioritario, no tenga capacidad disponible o no pueda verificarse. No incluiría microservicios completos ni una reescritura hasta contar con métricas y un equipo capaz de operarlos.
+
+## Actividad: construye el roadmap de la plataforma
+
+1. Define un objetivo de negocio medible para los próximos tres meses.
+2. Lista diez iniciativas tecnológicas o arquitectónicas.
+3. Puntúa valor, riesgo, esfuerzo y reversibilidad.
+4. Organiza las iniciativas en estabilizar, mejorar y evolucionar.
+5. Define una métrica de salida para cada horizonte.
+6. Escribe una decisión que explícitamente dejarás fuera y por qué.
+7. Presenta el roadmap al equipo y registra qué prioridad cambió después de la conversación.
+
+## Cierre
+Una estrategia tecnológica no predice todo el futuro. Define cómo vamos a aprender, qué riesgos atenderemos primero y qué señales justificarán la siguiente inversión. En el próximo video trabajaremos cómo comunicar estas decisiones a personas con intereses diferentes.
+"""
+
+
+ACTIVITY_COMPANIONS = {
+    4: {
+        "title": "Actividad 1: diagnóstico y contexto arquitectónico",
+        "purpose": "comprender el problema antes de elegir tecnologías",
+        "case": "una tormenta obliga a reasignar 400 entregas mientras operaciones solicita ubicación GPS amplia y acceso para todos los supervisores",
+        "deliverables": "README con resumen ejecutivo, definición del problema, actores, alcance, restricciones, riesgos, diagrama de contexto y decisiones iniciales",
+        "solution": "Elegimos un módulo de reasignación dentro de un monolito modular, protegemos la ubicación por roles, registramos auditoría y dejamos fuera la separación en microservicios hasta tener evidencia de volumen y operación.",
+    },
+    8: {
+        "title": "Actividad 2: requisitos y decisión estructural",
+        "purpose": "convertir necesidades del negocio en criterios arquitectónicos y comparar alternativas",
+        "case": "la aplicación móvil necesita crear pedidos sin romperse cuando se agrega una ventana de entrega y el sistema debe soportar picos de campaña",
+        "deliverables": "requisitos priorizados, escenarios de calidad, matriz de alternativas, ADR estructural, trade-offs y criterios de revisión",
+        "solution": "Elegimos un monolito modular con contratos HTTP versionados, adaptadores de infraestructura y métricas de latencia; dejamos la extracción de Ruteo como decisión condicionada por evidencia.",
+    },
+    12: {
+        "title": "Actividad 3: diseño y dominio",
+        "purpose": "proteger reglas del negocio mediante entidades, límites y casos de uso",
+        "case": "Pedidos, Inventario, Ruteo y Entregas usan conceptos parecidos como disponibilidad, pero cada contexto tiene una regla distinta",
+        "deliverables": "modelo de dominio, entidades, objetos de valor, invariantes, casos de uso, puertos, adaptadores y decisiones de diseño",
+        "solution": "Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas.",
+    },
+    18: {
+        "title": "Actividad 4: implementación e integración",
+        "purpose": "construir un flujo ejecutable desde la entrada hasta una integración externa",
+        "case": "crear un pedido debe validar, reservar inventario, calcular una ruta, persistir el resultado y comunicar el estado",
+        "deliverables": "código ejecutable, API, caso de uso, persistencia, adaptador externo, manejo de errores, README y evidencia de integración",
+        "solution": "Construimos un vertical slice en C# con controlador, caso de uso, dominio, repositorio y adaptador de rutas; los errores externos se convierten en respuestas controladas.",
+    },
+    30: {
+        "title": "Actividad 5: pruebas, operación y defensa final",
+        "purpose": "comprobar comportamiento, operación, riesgos y evolución de la arquitectura",
+        "case": "un incidente de rutas debe diagnosticarse sin exponer datos personales y la arquitectura debe defenderse ante un escenario de crecimiento",
+        "deliverables": "pruebas unitarias, integración, observabilidad, seguridad, deuda técnica, plan de evolución, expediente final y video de sustentación",
+        "solution": "Defendemos una arquitectura con pruebas de dominio, trazas, métricas, controles de acceso, riesgos documentados y un roadmap condicionado por evidencia.",
+    },
+}
+
+
+def activity_companion(number, source_links, navigation):
+    item = ACTIVITY_COMPANIONS[number]
+    return f"""# Video {number:02d}.1: {item['title']}
+
+## 📚 Fuentes relacionadas
+{source_links}
+
+## 🔗 Navegación
+{navigation}
+
+## Propósito de esta actividad
+Esta clase independiente sirve para {item['purpose']}. Aquí no agregamos teoría nueva por acumular contenido: convertimos los videos del bloque anterior en una entrega concreta del proyecto.
+
+## Caso obligatorio
+{item['case']}.
+
+## Qué debes resolver
+
+1. Define el problema sin empezar por una tecnología.
+2. Identifica actores, necesidades y restricciones.
+3. Delimita qué está dentro y fuera del sistema.
+4. Propón al menos dos alternativas.
+5. Compara costos, riesgos, calidad y facilidad de cambio.
+6. Elige una opción y declara el trade-off.
+7. Define cómo comprobarás que la decisión funciona.
+
+## Entregables
+{item['deliverables']}.
+
+Todos los entregables deben quedar en GitHub con commits que muestren evolución y con un video de explicación y sustentación.
+
+## Resolución modelo
+{item['solution']}
+
+La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
+
+## Guion para la sustentación
+
+1. Presenta el problema y explica por qué importa.
+2. Identifica los actores afectados.
+3. Muestra las alternativas consideradas.
+4. Defiende la alternativa elegida.
+5. Explica qué costo aceptaste.
+6. Muestra la evidencia y la condición que obligaría a revisar la decisión.
+
+## Criterio de cierre
+La actividad está completa cuando una persona externa puede entender qué problema resolviste, por qué elegiste esa arquitectura y cómo sabrás si la decisión sigue siendo válida.
+"""
+
+
 def make_material(number, title, source_items):
     summaries = "\n\n".join(f"**Fuente {i}: {item['title']}**\n{item['summary']}" for i, item in enumerate(source_items, 1))
     ideas = []
@@ -1074,6 +1399,10 @@ def make_material(number, title, source_items):
     source_links = "\n".join(f"- [{item['title']}]({source_url(item)})" for item in source_items)
     previous = f"video-{number - 1:02d}.md" if number > 1 else None
     following = f"video-{number + 1:02d}.md" if number < 30 else None
+    if number in (5, 9, 13, 19):
+        previous = f"video-{number - 1:02d}-1.md"
+    if number in (4, 8, 12, 18, 30):
+        following = f"video-{number:02d}-1.md"
     navigation = []
     if previous:
         navigation.append(f"[⬅️ Video anterior]({previous})")
@@ -1095,6 +1424,10 @@ def make_material(number, title, source_items):
         return video_nine_material(source_items, source_links, " | ".join(navigation))
     if number == 10:
         return video_ten_material(source_items, source_links, " | ".join(navigation))
+    if number == 11:
+        return video_eleven_material(source_items, source_links, " | ".join(navigation))
+    if number == 12:
+        return video_twelve_material(source_items, source_links, " | ".join(navigation))
     return f"""# Video {number:02d}: {title}
 
 ## Fuentes oficiales
@@ -1144,9 +1477,26 @@ def main():
         selected = []
         for ref in ranges:
             selected.append(sources[ref - 1])
-        (OUT / f"video-{index:02d}.md").write_text(make_material(index, title, selected), encoding="utf-8")
+        material = make_material(index, title, selected)
+        if index == 4 and "\n## 4.1 Actividad 1:" in material:
+            material = material.split("\n## 4.1 Actividad 1:", 1)[0] + "\n"
+        (OUT / f"video-{index:02d}.md").write_text(material, encoding="utf-8")
+        if index in ACTIVITY_COMPANIONS:
+            activity_sources = selected
+            activity_links = "\n".join(f"- [{item['title']}]({source_url(item)})" for item in activity_sources)
+            previous = f"video-{index:02d}.md"
+            following = f"video-{index + 1:02d}.md" if index < 30 else None
+            activity_navigation = []
+            activity_navigation.append(f"[⬅️ Video anterior]({previous})")
+            if following:
+                activity_navigation.append(f"[➡️ Video siguiente]({following})")
+            activity_file = OUT / f"video-{index:02d}-1.md"
+            activity_file.write_text(activity_companion(index, activity_links, " | ".join(activity_navigation)), encoding="utf-8")
     readme = ["# Serie de 30 videos combinados", "", "Cada material combina resúmenes de los cursos oficiales de Platzi en orden pedagógico.", ""]
-    readme.extend(f"- [Video {i:02d}: {title}](video-{i:02d}.md)" for i, (title, _) in enumerate(GROUPS, 1))
+    for i, (title, _) in enumerate(GROUPS, 1):
+        readme.append(f"- [Video {i:02d}: {title}](video-{i:02d}.md)")
+        if i in ACTIVITY_COMPANIONS:
+            readme.append(f"  - [Video {i:02d}.1: {ACTIVITY_COMPANIONS[i]['title']}](video-{i:02d}-1.md)")
     (OUT / "README.md").write_text("\n".join(readme) + "\n", encoding="utf-8")
     print(f"Generados {len(GROUPS)} materiales en {OUT}")
 

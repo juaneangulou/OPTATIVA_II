@@ -5,7 +5,7 @@
 - [Seguridad, datos sensibles y privacidad](https://platzi.com/cursos/fundamentos-arquitectura-software/costos-ocultos-de-los-microservicios/)
 
 ## 🔗 Del contrato de API a la operación responsable
-[⬅️ Video anterior](video-08.md) | [➡️ Video siguiente](video-10.md)
+[⬅️ Video anterior](video-08-1.md) | [➡️ Video siguiente](video-10.md)
 
 ## 🎯 El incidente que vamos a investigar
 Un cliente informa que su pedido aparece como “en preparación” desde hace cuarenta minutos. Operaciones no sabe si falló inventario, ruteo, notificación o la API. Un desarrollador propone registrar el correo, la dirección completa y el token de acceso en cada log “para investigar más rápido”. Esa solución puede resolver un incidente y crear otro: exponer datos sensibles.

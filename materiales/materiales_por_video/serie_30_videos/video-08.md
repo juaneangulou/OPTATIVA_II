@@ -5,7 +5,7 @@
 - [Infraestructura, despliegue y entorno de ejecución](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitecturas-orientadas-a-servicios-con/)
 
 ## 🔗 De microservicios a una integración segura
-[⬅️ Video anterior](video-07.md) | [➡️ Video siguiente](video-09.md)
+[⬅️ Video anterior](video-07.md) | [➡️ Video siguiente](video-08-1.md)
 
 ## 🎯 La decisión de esta clase
 Hoy vamos a construir el borde de la plataforma: el punto donde una aplicación externa o una interfaz web solicita crear un pedido. La pregunta no es solamente “¿qué endpoint hacemos?”. La pregunta es qué contrato prometemos, cómo evitamos romper a quienes lo consumen y dónde dejamos los detalles de infraestructura.
