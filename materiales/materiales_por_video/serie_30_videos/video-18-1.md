@@ -31,6 +31,21 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 ## Resolución modelo
 Construimos un vertical slice en C# con controlador, caso de uso, dominio, repositorio y adaptador de rutas; los errores externos se convierten en respuestas controladas.
 
+## 🧾 Ejemplo de entrega resuelta
+
+### Flujo implementado
+`POST /api/orders` recibe la solicitud, `CreateOrderUseCase` valida la regla, `IOrderRepository` persiste y `IRouteEstimator` consulta el proveedor de mapas.
+
+### Adaptación de errores
+Un timeout del proveedor no devuelve un error técnico al cliente. Se registra con `traceId`, el pedido queda pendiente y el operador recibe una tarea de revisión.
+
+### Decisión
+Usar puertos y adaptadores para que la API, la base de datos y el proveedor externo puedan cambiar sin contaminar el dominio.
+
+### Evidencia
+Código ejecutable, README, endpoint operativo, prueba de integración, adaptador externo y captura de una ejecución exitosa.
+
+
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
 ## Guion para la sustentación

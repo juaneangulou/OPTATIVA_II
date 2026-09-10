@@ -31,6 +31,28 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 ## Resolución modelo
 Elegimos un monolito modular con contratos HTTP versionados, adaptadores de infraestructura y métricas de latencia; dejamos la extracción de Ruteo como decisión condicionada por evidencia.
 
+## 🧾 Ejemplo de entrega resuelta
+
+### Requisito prioritario
+La aplicación móvil debe crear pedidos aunque no envíe todavía la nueva ventana de entrega.
+
+### Escenario de calidad
+El 95% de las solicitudes debe responder en menos de dos segundos y una versión anterior del cliente debe seguir funcionando.
+
+### Alternativas
+1. Cambiar el contrato actual y obligar a todos los clientes a actualizar.
+2. Agregar `DeliveryWindow` como campo opcional y reservar una versión nueva para cambios incompatibles.
+
+### Decisión
+Elegimos la segunda alternativa. Mantendremos compatibilidad hacia atrás y documentaremos los errores `inventory_unavailable` y `route_not_viable`.
+
+### Trade-off
+Debemos mantener versiones y pruebas de contrato, pero evitamos romper clientes existentes.
+
+### Evidencia
+ADR estructural, contrato OpenAPI, prueba de cliente antiguo y matriz comparativa de alternativas.
+
+
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
 ## Guion para la sustentación

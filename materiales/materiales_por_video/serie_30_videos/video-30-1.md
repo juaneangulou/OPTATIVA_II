@@ -30,6 +30,24 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 ## Resolución modelo
 Defendemos una arquitectura con pruebas de dominio, trazas, métricas, controles de acceso, riesgos documentados y un roadmap condicionado por evidencia.
 
+## 🧾 Ejemplo de entrega resuelta
+
+### Evidencias reunidas
+Prueba unitaria de la regla de confirmación, prueba de integración del flujo de pedido, trazas por `traceId`, métrica p95 de Ruteo y prueba de acceso denegado a datos de ubicación.
+
+### Riesgo identificado
+El proveedor de mapas puede responder lento y dejar pedidos pendientes sin explicación.
+
+### Decisión de evolución
+Mantener un monolito modular durante el MVP y extraer Ruteo solo si el p95 supera el objetivo durante dos campañas y el equipo puede operar un servicio independiente.
+
+### Defensa
+La arquitectura se sostiene porque cada decisión tiene una razón, un costo aceptado, una evidencia y una condición de revisión.
+
+### Entrega final
+Expediente arquitectónico, scorecard de calidad, registro de deuda técnica, plan de evolución y video de sustentación.
+
+
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
 ## Guion para la sustentación

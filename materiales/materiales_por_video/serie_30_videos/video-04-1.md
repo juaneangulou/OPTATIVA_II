@@ -31,6 +31,30 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 ## Resolución modelo
 Elegimos un módulo de reasignación dentro de un monolito modular, protegemos la ubicación por roles, registramos auditoría y dejamos fuera la separación en microservicios hasta tener evidencia de volumen y operación.
 
+## 🧾 Ejemplo de entrega resuelta
+
+### Problema
+Durante una tormenta, la plataforma debe reasignar 400 entregas sin exponer el historial de ubicación de los repartidores.
+
+### Actores
+Cliente, operador logístico, repartidor, soporte y equipo técnico.
+
+### Alcance
+Dentro: reasignación, autorización, auditoría, notificaciones y consulta mínima de ubicación. Fuera: proveedor GPS, mapas, red móvil e identidad externa.
+
+### Riesgos
+Acceso indebido a ubicación, doble asignación de un repartidor, proveedor GPS lento y cliente sin actualización.
+
+### Decisión
+Usar un módulo de reasignación dentro del monolito modular, con autorización por rol, ubicación temporal y auditoría de consultas. No crear un microservicio todavía.
+
+### Justificación
+La decisión reduce complejidad operativa y permite validar el problema antes de distribuirlo. Se revisará si el volumen, el equipo o la necesidad de escalar de forma independiente lo justifican.
+
+### Evidencia
+`docs/actividad-1/contexto.md`, `riesgos.md`, `diagrama-contexto.md` y un video donde se explica el problema, los actores y la decisión.
+
+
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
 ## Guion para la sustentación

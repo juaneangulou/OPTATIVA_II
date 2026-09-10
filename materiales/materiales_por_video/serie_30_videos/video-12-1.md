@@ -31,6 +31,24 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 ## Resolución modelo
 Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas.
 
+## 🧾 Ejemplo de entrega resuelta
+
+### Problema de dominio
+La palabra “disponible” significa stock para Inventario, ruta viable para Ruteo y repartidor asignable para Entregas.
+
+### Límites
+Pedidos confirma la compra; Inventario reserva unidades; Ruteo calcula viabilidad; Entregas asigna una persona.
+
+### Decisión
+Usar un monolito modular con modelos separados y contratos entre contextos. No compartir una entidad `Order` gigante ni acceder directamente a tablas ajenas.
+
+### Invariante
+Una entrega no puede tener dos repartidores activos al mismo tiempo.
+
+### Evidencia
+Mapa de contextos, entidades, objeto de valor `RouteEstimate`, interfaces de puertos y prueba de la invariante.
+
+
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
 ## Guion para la sustentación

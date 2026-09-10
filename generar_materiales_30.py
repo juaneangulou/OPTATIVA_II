@@ -1320,9 +1320,105 @@ ACTIVITY_COMPANIONS = {
     },
 }
 
+ACTIVITY_EXAMPLES = {
+    4: """## 🧾 Ejemplo de entrega resuelta
+
+### Problema
+Durante una tormenta, la plataforma debe reasignar 400 entregas sin exponer el historial de ubicación de los repartidores.
+
+### Actores
+Cliente, operador logístico, repartidor, soporte y equipo técnico.
+
+### Alcance
+Dentro: reasignación, autorización, auditoría, notificaciones y consulta mínima de ubicación. Fuera: proveedor GPS, mapas, red móvil e identidad externa.
+
+### Riesgos
+Acceso indebido a ubicación, doble asignación de un repartidor, proveedor GPS lento y cliente sin actualización.
+
+### Decisión
+Usar un módulo de reasignación dentro del monolito modular, con autorización por rol, ubicación temporal y auditoría de consultas. No crear un microservicio todavía.
+
+### Justificación
+La decisión reduce complejidad operativa y permite validar el problema antes de distribuirlo. Se revisará si el volumen, el equipo o la necesidad de escalar de forma independiente lo justifican.
+
+### Evidencia
+`docs/actividad-1/contexto.md`, `riesgos.md`, `diagrama-contexto.md` y un video donde se explica el problema, los actores y la decisión.
+""",
+    8: """## 🧾 Ejemplo de entrega resuelta
+
+### Requisito prioritario
+La aplicación móvil debe crear pedidos aunque no envíe todavía la nueva ventana de entrega.
+
+### Escenario de calidad
+El 95% de las solicitudes debe responder en menos de dos segundos y una versión anterior del cliente debe seguir funcionando.
+
+### Alternativas
+1. Cambiar el contrato actual y obligar a todos los clientes a actualizar.
+2. Agregar `DeliveryWindow` como campo opcional y reservar una versión nueva para cambios incompatibles.
+
+### Decisión
+Elegimos la segunda alternativa. Mantendremos compatibilidad hacia atrás y documentaremos los errores `inventory_unavailable` y `route_not_viable`.
+
+### Trade-off
+Debemos mantener versiones y pruebas de contrato, pero evitamos romper clientes existentes.
+
+### Evidencia
+ADR estructural, contrato OpenAPI, prueba de cliente antiguo y matriz comparativa de alternativas.
+""",
+    12: """## 🧾 Ejemplo de entrega resuelta
+
+### Problema de dominio
+La palabra “disponible” significa stock para Inventario, ruta viable para Ruteo y repartidor asignable para Entregas.
+
+### Límites
+Pedidos confirma la compra; Inventario reserva unidades; Ruteo calcula viabilidad; Entregas asigna una persona.
+
+### Decisión
+Usar un monolito modular con modelos separados y contratos entre contextos. No compartir una entidad `Order` gigante ni acceder directamente a tablas ajenas.
+
+### Invariante
+Una entrega no puede tener dos repartidores activos al mismo tiempo.
+
+### Evidencia
+Mapa de contextos, entidades, objeto de valor `RouteEstimate`, interfaces de puertos y prueba de la invariante.
+""",
+    18: """## 🧾 Ejemplo de entrega resuelta
+
+### Flujo implementado
+`POST /api/orders` recibe la solicitud, `CreateOrderUseCase` valida la regla, `IOrderRepository` persiste y `IRouteEstimator` consulta el proveedor de mapas.
+
+### Adaptación de errores
+Un timeout del proveedor no devuelve un error técnico al cliente. Se registra con `traceId`, el pedido queda pendiente y el operador recibe una tarea de revisión.
+
+### Decisión
+Usar puertos y adaptadores para que la API, la base de datos y el proveedor externo puedan cambiar sin contaminar el dominio.
+
+### Evidencia
+Código ejecutable, README, endpoint operativo, prueba de integración, adaptador externo y captura de una ejecución exitosa.
+""",
+    30: """## 🧾 Ejemplo de entrega resuelta
+
+### Evidencias reunidas
+Prueba unitaria de la regla de confirmación, prueba de integración del flujo de pedido, trazas por `traceId`, métrica p95 de Ruteo y prueba de acceso denegado a datos de ubicación.
+
+### Riesgo identificado
+El proveedor de mapas puede responder lento y dejar pedidos pendientes sin explicación.
+
+### Decisión de evolución
+Mantener un monolito modular durante el MVP y extraer Ruteo solo si el p95 supera el objetivo durante dos campañas y el equipo puede operar un servicio independiente.
+
+### Defensa
+La arquitectura se sostiene porque cada decisión tiene una razón, un costo aceptado, una evidencia y una condición de revisión.
+
+### Entrega final
+Expediente arquitectónico, scorecard de calidad, registro de deuda técnica, plan de evolución y video de sustentación.
+""",
+}
+
 
 def activity_companion(number, source_links, navigation):
     item = ACTIVITY_COMPANIONS[number]
+    example = ACTIVITY_EXAMPLES[number]
     return f"""# Video {number:02d}.1: {item['title']}
 
 ## 📚 Fuentes relacionadas
@@ -1354,6 +1450,8 @@ Todos los entregables deben quedar en GitHub con commits que muestren evolución
 
 ## Resolución modelo
 {item['solution']}
+
+{example}
 
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
