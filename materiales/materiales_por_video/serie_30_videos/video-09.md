@@ -1,99 +1,79 @@
 # Video 09: Observabilidad, seguridad y privacidad
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: detectar sin exponer
 - [Observabilidad y monitoreo de sistemas](https://platzi.com/cursos/fundamentos-arquitectura-software/como-funcionan-los-eventos-en-sistemas-d/)
 - [Seguridad, datos sensibles y privacidad](https://platzi.com/cursos/fundamentos-arquitectura-software/costos-ocultos-de-los-microservicios/)
 
-## 🔗 Navegación
+## 🔗 Del contrato de API a la operación responsable
 [⬅️ Video anterior](video-08.md) | [➡️ Video siguiente](video-10.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: observabilidad, seguridad y privacidad. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 El incidente que vamos a investigar
+Un cliente informa que su pedido aparece como “en preparación” desde hace cuarenta minutos. Operaciones no sabe si falló inventario, ruteo, notificación o la API. Un desarrollador propone registrar el correo, la dirección completa y el token de acceso en cada log “para investigar más rápido”. Esa solución puede resolver un incidente y crear otro: exponer datos sensibles.
 
-## Resumen integrado
-**Fuente 1: Observabilidad y monitoreo de sistemas**
-La observabilidad es una capacidad esencial en sistemas modernos. Permite entender qué está sucediendo en producción, detectar fallos, identificar cuellos de botella y responder rápidamente ante anomalías. Si un sistema no es observable, el equipo trabaja a ciegas y la resolución de incidentes se vuelve más costosa.
+Hoy diseñaremos una observabilidad útil: suficiente para reconstruir el flujo, limitada para no revelar información que soporte no necesita ver.
 
-La observabilidad no es solo activar logs; incluye métricas, trazabilidad, alertas y mecanismos para evaluar el comportamiento real del sistema. Cuando se diseña bien, ayuda a prevenir incidentes, entender la carga y tomar decisiones basadas en evidencia.
+## El flujo y sus señales
+Cuando llega `POST /api/orders`, el sistema crea un `traceId`. Ese identificador acompaña la reserva de inventario, la estimación de ruta y la notificación. Soporte puede buscar el `traceId` y entender dónde se detuvo el pedido sin ver el correo ni la dirección exacta del cliente.
 
-**Fuente 2: Seguridad, datos sensibles y privacidad**
-Este video refuerza la idea de que la seguridad debe integrarse desde el inicio del diseño. No se trata solo de proteger la aplicación frente a intrusos, sino también de gestionar adecuadamente datos sensibles, permisos de acceso y riesgos derivados del tratamiento de información. Cualquier sistema que maneje datos valiosos debe diseñarse con principios de privacidad, control y minimización.
+```csharp
+logger.LogInformation(
+    "Order {OrderId} moved to {Status}. Trace {TraceId}",
+    order.Id,
+    order.Status,
+    Activity.Current?.TraceId);
+```
 
-La arquitectura debe prestar atención a qué información guarda, cómo la protege y quién puede acceder a ella. Cuando se ignora esto, se generan riesgos reales tanto para la empresa como para las personas que usan el sistema.
+El actor principal es **el equipo de soporte**. Necesita responder al cliente con información confiable. La regla es: **los registros deben permitir reconstruir el flujo sin almacenar secretos, tokens, direcciones completas ni datos personales innecesarios**.
 
-## Ideas que debes conservar
-- La observabilidad permite entender el comportamiento real del sistema.
-- Los logs, métricas y trazas son herramientas esenciales de diagnósticos.
-- Un sistema difícil de monitorear es más riesgoso en producción.
-- La observabilidad es una decisión arquitectónica, no un detalle final.
-- La seguridad debe estar integrada al diseño, no añadida al final.
-- Los datos sensibles requieren más criterios de control y protección.
-- La privacidad es parte del valor del sistema.
-- Un sistema debe minimizar exposición de información innecesaria.
+## Qué observamos
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: observabilidad, seguridad y privacidad. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+| Señal | Pregunta que responde | Ejemplo |
+|---|---|---|
+| Log estructurado | ¿Qué transición ocurrió? | pedido confirmado, reserva rechazada |
+| Métrica | ¿Con qué frecuencia ocurre? | porcentaje de rutas fallidas |
+| Traza | ¿Dónde se demoró el flujo? | API -> Inventario -> Ruteo |
+| Alerta | ¿Cuándo debemos intervenir? | p95 de ruteo supera 2 segundos |
+| Auditoría | ¿Quién consultó datos sensibles? | operador consultó detalle de entrega |
 
-## Aplicación al caso logístico
-Para estudiar **observabilidad, seguridad y privacidad**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La observabilidad permite entender el comportamiento real del sistema.
+## Dos opciones
+### Opción A: registrar todo para depurar
+Incluye cuerpos HTTP, correos, direcciones, tokens y respuestas externas. La investigación parece rápida, pero aumenta riesgo de fuga, incumplimiento y acceso innecesario.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos observabilidad, seguridad y privacidad al flujo.
-    2. **Actor prioritario de observabilidad, seguridad y privacidad:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en observabilidad, seguridad y privacidad:** escribe la condición que debe permanecer verdadera y relaciónala con la observabilidad permite entender el comportamiento real del sistema..
-    4. **Punto de decisión para observabilidad, seguridad y privacidad:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de observabilidad, seguridad y privacidad:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+### Opción B: observabilidad estructurada y minimizada
+Usa `orderId`, `traceId`, tipo de error, duración, estado y dependencia afectada. Protege atributos sensibles con enmascaramiento y limita la auditoría a roles autorizados. Es más trabajo inicial, pero soporte obtiene señales útiles sin usar datos personales como herramienta de depuración.
 
-Para resolver el caso de **observabilidad, seguridad y privacidad**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Elijo B. Una traza útil no necesita conocer la vida privada del cliente.
 
+## Preguntas y respuestas
+### ¿Qué tan claro es el estado del sistema en producción?
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa observabilidad, seguridad y privacidad y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la observabilidad permite entender el comportamiento real del sistema.
-3. Identifica el actor que recibe el impacto de observabilidad, seguridad y privacidad y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para observabilidad, seguridad y privacidad; compara sus costos y riesgos.
-5. Elige una opción para observabilidad, seguridad y privacidad, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: observabilidad, seguridad y privacidad debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Es claro si soporte puede seguir un pedido por `traceId` y ver en qué paso se detuvo. Si solo existen mensajes libres como “error inesperado”, el sistema no es observable. Lo comprobaría simulando una caída del proveedor de rutas y verificando que la traza muestra el error, la duración y el estado final.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué tan claro es el estado actual de mi sistema en producción?
+### ¿Estoy monitoreando lo que importa?
 
-**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Para este flujo, mediría confirmaciones exitosas, latencia p95 de Inventario y Ruteo, número de reintentos y pedidos estancados por más de diez minutos. No mediría solamente uso de CPU; esa métrica no le dice a operaciones si el cliente está esperando una entrega sin respuesta.
 
-### ❓ ¿Estoy monitoreando lo que realmente importa?
+### ¿Qué datos sensibles maneja el sistema?
 
-**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Correo, dirección, teléfono, ubicación y tokens de sesión. Cada uno necesita un propósito, un rol de acceso y una política de retención. En los logs usaría `orderId` y `traceId`; la consulta del detalle personal ocurre solo en el sistema autorizado y queda auditada.
 
-### ❓ ¿Qué datos sensibles maneja mi sistema?
+### ¿Cómo reduzco exposición innecesaria?
 
-**Respuesta concreta:** La prioridad de observabilidad, seguridad y privacidad es proteger a el repartidor, porque recibir una instrucción vigente y consistente. Aplicaría un control que impida violar la regla 'evitar dos asignaciones activas para la misma entrega', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
+No escribas cuerpos completos de solicitud en logs. Enmascara campos, elimina tokens, cifra datos en tránsito y restringe paneles de observabilidad por rol. Lo verifico con una prueba que revise los logs de un pedido y confirme que no contienen correo, dirección ni token.
 
-### ❓ ¿Estoy reduciendo la exposición innecesaria de información?
+## Actividad: investiga un pedido sin mirar datos privados
 
-**Respuesta concreta:** Para observabilidad, seguridad y privacidad, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+1. Define una secuencia de estados: `Created`, `InventoryReserved`, `RouteEstimated`, `Assigned`, `Failed`.
+2. Agrega `traceId`, `orderId`, estado, duración y tipo de error a cada log.
+3. Define tres métricas: porcentaje de pedidos confirmados, p95 de ruteo y pedidos estancados.
+4. Crea una alerta cuando un pedido lleve más de diez minutos sin transición.
+5. Escribe una lista de datos que no deben aparecer en logs: correo, dirección, teléfono, token y ubicación precisa.
+6. Simula que Ruteo responde con timeout y documenta qué verá soporte.
+7. Agrega una prueba automatizada que falle si un correo o token aparece en el registro.
+8. Agrega una prueba de acceso denegado para comprobar que un usuario sin rol de soporte no puede abrir la traza detallada.
 
-## 🛠️ Cómo resolver la actividad
+## Cómo comprobar que terminaste
+Entrega una traza de ejemplo donde soporte identifica un timeout de Ruteo usando `traceId`. Entrega también el log enmascarado y la prueba que demuestra que los datos privados no están allí. Si puedes diagnosticar el incidente sin abrir información personal, la solución es correcta.
 
-1. **Comprende el tema:** explica con tus palabras qué significa observabilidad, seguridad y privacidad y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de observabilidad, seguridad y privacidad:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para observabilidad, seguridad y privacidad:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de observabilidad, seguridad y privacidad:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La observabilidad permite entender el comportamiento real del sistema. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a observabilidad, seguridad y privacidad: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de observabilidad, seguridad y privacidad, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
-
-**Respuesta modelo para Observabilidad, seguridad y privacidad:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
-
-
-## Conclusiones de las fuentes
-La observabilidad es una parte central de la arquitectura porque permite entender, prevenir y corregir problemas antes de que se vuelvan críticos.
-
-La seguridad y la privacidad no son requisitos secundarios: son elementos fundamentales de una arquitectura responsable y confiable.
-
-## Preguntas para preparar la grabación
-- ¿Qué tan claro es el estado actual de mi sistema en producción?
-- ¿Estoy monitoreando lo que realmente importa?
-- ¿Qué datos sensibles maneja mi sistema?
-- ¿Estoy reduciendo la exposición innecesaria de información?
-
-## Evidencia para el repositorio
-Guarda la explicación de observabilidad, seguridad y privacidad, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Observar no significa guardar todo. Significa tener las señales necesarias para actuar con rapidez y proteger a las personas mientras lo hacemos. En el siguiente video llevaremos esta disciplina a pruebas automatizadas, despliegue y entrega continua.

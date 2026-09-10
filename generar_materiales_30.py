@@ -708,6 +708,184 @@ Los microservicios no son el siguiente nivel natural de un monolito. Son una her
 """
 
 
+def video_eight_material(source_items, source_links, navigation):
+    return f"""# Video 08: APIs, contratos e infraestructura
+
+## 📚 Lecturas de referencia: contratos y despliegue
+{source_links}
+
+## 🔗 De microservicios a una integración segura
+{navigation}
+
+## 🎯 La decisión de esta clase
+Hoy vamos a construir el borde de la plataforma: el punto donde una aplicación externa o una interfaz web solicita crear un pedido. La pregunta no es solamente “¿qué endpoint hacemos?”. La pregunta es qué contrato prometemos, cómo evitamos romper a quienes lo consumen y dónde dejamos los detalles de infraestructura.
+
+## Escena: una aplicación móvil ya usa tu API
+El equipo móvil consume `POST /api/orders`. La próxima semana, negocio pide agregar un campo de ventana de entrega. Alguien propone cambiar `address` por un objeto complejo y renombrar `total` por `amount`. La aplicación móvil publicada no se actualizará de inmediato. Si rompemos el contrato, el cliente no podrá crear pedidos aunque el servidor funcione.
+
+El actor principal es **la aplicación móvil del cliente**. Necesita enviar una solicitud estable y recibir un error comprensible. La regla que protegemos es: **un cambio compatible agrega información opcional; un cambio incompatible se publica como una versión nueva del contrato**.
+
+## Contrato de entrada
+```csharp
+public sealed record CreateOrderRequest(
+    string CustomerEmail,
+    string DeliveryAddress,
+    decimal Total,
+    string? DeliveryWindow);
+
+public sealed record CreateOrderResponse(
+    Guid OrderId,
+    string Status,
+    DateTimeOffset CreatedAt);
+```
+
+`DeliveryWindow` es opcional. Una aplicación antigua puede no enviarlo y el servidor puede aplicar una regla por defecto. Si necesitáramos cambiar el significado de `Total`, no modificaríamos silenciosamente el contrato: publicaríamos `/api/v2/orders` y mantendríamos la versión anterior durante una ventana acordada.
+
+## El controlador no contiene la regla de negocio
+```csharp
+[ApiController]
+[Route("api/orders")]
+public sealed class OrdersController : ControllerBase
+{{
+    [HttpPost]
+    public async Task<ActionResult<CreateOrderResponse>> Create(
+        CreateOrderRequest request,
+        [FromServices] CreateOrderUseCase useCase,
+        CancellationToken cancellationToken)
+    {{
+        var result = await useCase.ExecuteAsync(request, cancellationToken);
+        return Created($"/api/orders/{{result.OrderId}}", result);
+    }}
+}}
+```
+
+El controlador recibe HTTP y devuelve HTTP. La validación de formato puede estar aquí; la regla “un pedido se confirma solo si hay inventario y ruta viable” vive en el caso de uso y el dominio. Así podemos cambiar ASP.NET, la aplicación móvil o un proveedor externo sin mover la regla principal.
+
+## Infraestructura reproducible
+Para que el contrato funcione fuera de tu computador, necesitas un entorno repetible. Define variables para conexión, proveedor de rutas, timeout y ambiente. El despliegue debe ejecutar pruebas, crear la configuración y publicar la misma versión que fue validada. No dependas de cambios manuales que nadie pueda reconstruir.
+
+## Dos alternativas
+### Opción A: controlador conectado directamente a SQL y al proveedor de mapas
+Se construye rápido, pero el endpoint conoce contraseñas, queries, URL de mapas y lógica de negocio. Probarlo exige infraestructura real y cualquier cambio externo obliga a modificar la API.
+
+### Opción B: contrato estable, caso de uso y adaptadores
+El controlador llama a `CreateOrderUseCase`; el caso de uso depende de puertos para persistencia y rutas; infraestructura implementa esos puertos. Cuesta crear contratos y configuración, pero cada borde tiene una responsabilidad clara.
+
+Elijo B. El contrato debe sobrevivir a cambios de interfaz y los detalles de infraestructura deben poder reemplazarse sin tocar la creación de pedidos.
+
+## Preguntas y respuestas
+### ¿Qué pasa si una aplicación usa una versión anterior?
+
+La versión anterior debe continuar aceptando su formato durante el periodo anunciado. Agregar `DeliveryWindow` como opcional no rompe al cliente; cambiar el significado de un campo sí requiere versión nueva. Lo verifico con pruebas de contrato que ejecuten la misma solicitud de una aplicación antigua y una nueva.
+
+### ¿Mis interfaces están documentadas?
+
+Están documentadas si alguien puede saber qué campos son obligatorios, qué errores recibe, qué significa cada estado y cómo evoluciona la versión. Publicaría OpenAPI, ejemplos de solicitudes y respuestas, y códigos de error como `inventory_unavailable` o `route_not_viable`.
+
+### ¿El entorno es reproducible?
+
+Lo es si otro integrante puede levantar la API con las mismas variables, ejecutar pruebas y obtener el mismo comportamiento sin configurar valores manualmente. La evidencia será un archivo de configuración por ambiente y una ejecución de despliegue automatizada.
+
+## Actividad: crea el borde del pedido
+
+1. Define `CreateOrderRequest` y `CreateOrderResponse`.
+2. Escribe tres reglas del contrato: campos obligatorios, error de inventario y compatibilidad de versiones.
+3. Implementa un controlador que solo traduzca HTTP a la llamada del caso de uso.
+4. Declara los puertos `IOrderRepository` e `IRouteEstimator`.
+5. Agrega una prueba de contrato para una solicitud sin `DeliveryWindow`.
+6. Documenta en un ADR por qué eliges agregar un campo opcional en lugar de cambiar el formato existente.
+7. Escribe las variables de entorno que el adaptador de rutas necesita para ejecutarse.
+
+## Cómo comprobar que terminaste
+La actividad está bien resuelta si puedes cambiar el proveedor de rutas sin cambiar el controlador, ejecutar una solicitud de una versión anterior sin error y levantar el proyecto en otro equipo sin pasos secretos.
+
+## Cierre
+Una API es una promesa. La infraestructura es el lugar donde esa promesa se ejecuta. En el siguiente video veremos cómo saber qué ocurrió cuando esa promesa falla, sin convertir los logs en una fuga de datos.
+"""
+
+
+def video_nine_material(source_items, source_links, navigation):
+    return f"""# Video 09: Observabilidad, seguridad y privacidad
+
+## 📚 Lecturas de referencia: detectar sin exponer
+{source_links}
+
+## 🔗 Del contrato de API a la operación responsable
+{navigation}
+
+## 🎯 El incidente que vamos a investigar
+Un cliente informa que su pedido aparece como “en preparación” desde hace cuarenta minutos. Operaciones no sabe si falló inventario, ruteo, notificación o la API. Un desarrollador propone registrar el correo, la dirección completa y el token de acceso en cada log “para investigar más rápido”. Esa solución puede resolver un incidente y crear otro: exponer datos sensibles.
+
+Hoy diseñaremos una observabilidad útil: suficiente para reconstruir el flujo, limitada para no revelar información que soporte no necesita ver.
+
+## El flujo y sus señales
+Cuando llega `POST /api/orders`, el sistema crea un `traceId`. Ese identificador acompaña la reserva de inventario, la estimación de ruta y la notificación. Soporte puede buscar el `traceId` y entender dónde se detuvo el pedido sin ver el correo ni la dirección exacta del cliente.
+
+```csharp
+logger.LogInformation(
+    "Order {{OrderId}} moved to {{Status}}. Trace {{TraceId}}",
+    order.Id,
+    order.Status,
+    Activity.Current?.TraceId);
+```
+
+El actor principal es **el equipo de soporte**. Necesita responder al cliente con información confiable. La regla es: **los registros deben permitir reconstruir el flujo sin almacenar secretos, tokens, direcciones completas ni datos personales innecesarios**.
+
+## Qué observamos
+
+| Señal | Pregunta que responde | Ejemplo |
+|---|---|---|
+| Log estructurado | ¿Qué transición ocurrió? | pedido confirmado, reserva rechazada |
+| Métrica | ¿Con qué frecuencia ocurre? | porcentaje de rutas fallidas |
+| Traza | ¿Dónde se demoró el flujo? | API -> Inventario -> Ruteo |
+| Alerta | ¿Cuándo debemos intervenir? | p95 de ruteo supera 2 segundos |
+| Auditoría | ¿Quién consultó datos sensibles? | operador consultó detalle de entrega |
+
+## Dos opciones
+### Opción A: registrar todo para depurar
+Incluye cuerpos HTTP, correos, direcciones, tokens y respuestas externas. La investigación parece rápida, pero aumenta riesgo de fuga, incumplimiento y acceso innecesario.
+
+### Opción B: observabilidad estructurada y minimizada
+Usa `orderId`, `traceId`, tipo de error, duración, estado y dependencia afectada. Protege atributos sensibles con enmascaramiento y limita la auditoría a roles autorizados. Es más trabajo inicial, pero soporte obtiene señales útiles sin usar datos personales como herramienta de depuración.
+
+Elijo B. Una traza útil no necesita conocer la vida privada del cliente.
+
+## Preguntas y respuestas
+### ¿Qué tan claro es el estado del sistema en producción?
+
+Es claro si soporte puede seguir un pedido por `traceId` y ver en qué paso se detuvo. Si solo existen mensajes libres como “error inesperado”, el sistema no es observable. Lo comprobaría simulando una caída del proveedor de rutas y verificando que la traza muestra el error, la duración y el estado final.
+
+### ¿Estoy monitoreando lo que importa?
+
+Para este flujo, mediría confirmaciones exitosas, latencia p95 de Inventario y Ruteo, número de reintentos y pedidos estancados por más de diez minutos. No mediría solamente uso de CPU; esa métrica no le dice a operaciones si el cliente está esperando una entrega sin respuesta.
+
+### ¿Qué datos sensibles maneja el sistema?
+
+Correo, dirección, teléfono, ubicación y tokens de sesión. Cada uno necesita un propósito, un rol de acceso y una política de retención. En los logs usaría `orderId` y `traceId`; la consulta del detalle personal ocurre solo en el sistema autorizado y queda auditada.
+
+### ¿Cómo reduzco exposición innecesaria?
+
+No escribas cuerpos completos de solicitud en logs. Enmascara campos, elimina tokens, cifra datos en tránsito y restringe paneles de observabilidad por rol. Lo verifico con una prueba que revise los logs de un pedido y confirme que no contienen correo, dirección ni token.
+
+## Actividad: investiga un pedido sin mirar datos privados
+
+1. Define una secuencia de estados: `Created`, `InventoryReserved`, `RouteEstimated`, `Assigned`, `Failed`.
+2. Agrega `traceId`, `orderId`, estado, duración y tipo de error a cada log.
+3. Define tres métricas: porcentaje de pedidos confirmados, p95 de ruteo y pedidos estancados.
+4. Crea una alerta cuando un pedido lleve más de diez minutos sin transición.
+5. Escribe una lista de datos que no deben aparecer en logs: correo, dirección, teléfono, token y ubicación precisa.
+6. Simula que Ruteo responde con timeout y documenta qué verá soporte.
+7. Agrega una prueba automatizada que falle si un correo o token aparece en el registro.
+8. Agrega una prueba de acceso denegado para comprobar que un usuario sin rol de soporte no puede abrir la traza detallada.
+
+## Cómo comprobar que terminaste
+Entrega una traza de ejemplo donde soporte identifica un timeout de Ruteo usando `traceId`. Entrega también el log enmascarado y la prueba que demuestra que los datos privados no están allí. Si puedes diagnosticar el incidente sin abrir información personal, la solución es correcta.
+
+## Cierre
+Observar no significa guardar todo. Significa tener las señales necesarias para actuar con rapidez y proteger a las personas mientras lo hacemos. En el siguiente video llevaremos esta disciplina a pruebas automatizadas, despliegue y entrega continua.
+"""
+
+
 def make_material(number, title, source_items):
     summaries = "\n\n".join(f"**Fuente {i}: {item['title']}**\n{item['summary']}" for i, item in enumerate(source_items, 1))
     ideas = []
@@ -751,6 +929,10 @@ def make_material(number, title, source_items):
         return video_six_material(source_items, source_links, " | ".join(navigation))
     if number == 7:
         return video_seven_material(source_items, source_links, " | ".join(navigation))
+    if number == 8:
+        return video_eight_material(source_items, source_links, " | ".join(navigation))
+    if number == 9:
+        return video_nine_material(source_items, source_links, " | ".join(navigation))
     return f"""# Video {number:02d}: {title}
 
 ## Fuentes oficiales

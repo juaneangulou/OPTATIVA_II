@@ -1,99 +1,93 @@
 # Video 08: APIs, contratos e infraestructura
 
-## Fuentes oficiales
+## 📚 Lecturas de referencia: contratos y despliegue
 - [APIs y contratos de integración](https://platzi.com/cursos/fundamentos-arquitectura-software/que-son-las-arquitecturas-monoliticas-y/)
 - [Infraestructura, despliegue y entorno de ejecución](https://platzi.com/cursos/fundamentos-arquitectura-software/arquitecturas-orientadas-a-servicios-con/)
 
-## 🔗 Navegación
+## 🔗 De microservicios a una integración segura
 [⬅️ Video anterior](video-07.md) | [➡️ Video siguiente](video-09.md)
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: apis, contratos e infraestructura. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 🎯 La decisión de esta clase
+Hoy vamos a construir el borde de la plataforma: el punto donde una aplicación externa o una interfaz web solicita crear un pedido. La pregunta no es solamente “¿qué endpoint hacemos?”. La pregunta es qué contrato prometemos, cómo evitamos romper a quienes lo consumen y dónde dejamos los detalles de infraestructura.
 
-## Resumen integrado
-**Fuente 1: APIs y contratos de integración**
-Este video centra la atención en la forma en que los sistemas se integran entre sí. Las APIs son contratos entre partes: representan cómo se comunica un servicio con otro y cómo se comparte información. Cuando esos contratos son claros, la integración es más productiva y menos frágil. Cuando no lo son, se vuelven fuentes de errores, incompatibilidades y cambios difíciles de gestionar.
+## Escena: una aplicación móvil ya usa tu API
+El equipo móvil consume `POST /api/orders`. La próxima semana, negocio pide agregar un campo de ventana de entrega. Alguien propone cambiar `address` por un objeto complejo y renombrar `total` por `amount`. La aplicación móvil publicada no se actualizará de inmediato. Si rompemos el contrato, el cliente no podrá crear pedidos aunque el servidor funcione.
 
-El diseño de APIs incluye no solo endpoints o rutas, sino también formato, validaciones, errores, versionado y políticas de evolución. Una buena API debe ser clara, estable y fácil de consumirse por el equipo o por sistemas externos.
+El actor principal es **la aplicación móvil del cliente**. Necesita enviar una solicitud estable y recibir un error comprensible. La regla que protegemos es: **un cambio compatible agrega información opcional; un cambio incompatible se publica como una versión nueva del contrato**.
 
-**Fuente 2: Infraestructura, despliegue y entorno de ejecución**
-Este video muestra que la arquitectura incluye también la infraestructura que ejecuta el sistema. Un diseño puede ser excelente en código, pero si el entorno de ejecución es caótico, manual o poco reproducible, la aplicación no será sostenible. La arquitectura debe considerar tanto la capa lógica como la capa operativa que la pone en marcha.
+## Contrato de entrada
+```csharp
+public sealed record CreateOrderRequest(
+    string CustomerEmail,
+    string DeliveryAddress,
+    decimal Total,
+    string? DeliveryWindow);
 
-La infraestructura debe ser fácil de reproducir, detectar fallos y trasladar entre entornos. Los despliegues automatizados y los procesos de entorno ayudan a reducir errores humanos y mejorar la confianza del sistema en producción.
+public sealed record CreateOrderResponse(
+    Guid OrderId,
+    string Status,
+    DateTimeOffset CreatedAt);
+```
 
-## Ideas que debes conservar
-- Las APIs son acuerdos de comunicación entre sistemas.
-- Los contratos deben ser claros y bien documentados.
-- El versionado reduce riesgos de romper dependencias.
-- Una mala API genera fragilidad en la integración.
-- La infraestructura es parte del diseño arquitectónico.
-- El entorno debe ser reproducible y consistente.
-- Un despliegue manual aumenta riesgos y errores.
-- La infraestructura debe soportar diferentes contextos: desarrollo, prueba y producción.
+`DeliveryWindow` es opcional. Una aplicación antigua puede no enviarlo y el servidor puede aplicar una regla por defecto. Si necesitáramos cambiar el significado de `Total`, no modificaríamos silenciosamente el contrato: publicaríamos `/api/v2/orders` y mantendríamos la versión anterior durante una ventana acordada.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: apis, contratos e infraestructura. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+## El controlador no contiene la regla de negocio
+```csharp
+[ApiController]
+[Route("api/orders")]
+public sealed class OrdersController : ControllerBase
+{
+    [HttpPost]
+    public async Task<ActionResult<CreateOrderResponse>> Create(
+        CreateOrderRequest request,
+        [FromServices] CreateOrderUseCase useCase,
+        CancellationToken cancellationToken)
+    {
+        var result = await useCase.ExecuteAsync(request, cancellationToken);
+        return Created($"/api/orders/{result.OrderId}", result);
+    }
+}
+```
 
-## Aplicación al caso logístico
-Para estudiar **apis, contratos e infraestructura**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: Las APIs son acuerdos de comunicación entre sistemas.
+El controlador recibe HTTP y devuelve HTTP. La validación de formato puede estar aquí; la regla “un pedido se confirma solo si hay inventario y ruta viable” vive en el caso de uso y el dominio. Así podemos cambiar ASP.NET, la aplicación móvil o un proveedor externo sin mover la regla principal.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos apis, contratos e infraestructura al flujo.
-    2. **Actor prioritario de apis, contratos e infraestructura:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en apis, contratos e infraestructura:** escribe la condición que debe permanecer verdadera y relaciónala con las apis son acuerdos de comunicación entre sistemas..
-    4. **Punto de decisión para apis, contratos e infraestructura:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de apis, contratos e infraestructura:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+## Infraestructura reproducible
+Para que el contrato funcione fuera de tu computador, necesitas un entorno repetible. Define variables para conexión, proveedor de rutas, timeout y ambiente. El despliegue debe ejecutar pruebas, crear la configuración y publicar la misma versión que fue validada. No dependas de cambios manuales que nadie pueda reconstruir.
 
-Para resolver el caso de **apis, contratos e infraestructura**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## Dos alternativas
+### Opción A: controlador conectado directamente a SQL y al proveedor de mapas
+Se construye rápido, pero el endpoint conoce contraseñas, queries, URL de mapas y lógica de negocio. Probarlo exige infraestructura real y cualquier cambio externo obliga a modificar la API.
 
+### Opción B: contrato estable, caso de uso y adaptadores
+El controlador llama a `CreateOrderUseCase`; el caso de uso depende de puertos para persistencia y rutas; infraestructura implementa esos puertos. Cuesta crear contratos y configuración, pero cada borde tiene una responsabilidad clara.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa apis, contratos e infraestructura y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: las apis son acuerdos de comunicación entre sistemas.
-3. Identifica el actor que recibe el impacto de apis, contratos e infraestructura y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para apis, contratos e infraestructura; compara sus costos y riesgos.
-5. Elige una opción para apis, contratos e infraestructura, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: apis, contratos e infraestructura debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Elijo B. El contrato debe sobrevivir a cambios de interfaz y los detalles de infraestructura deben poder reemplazarse sin tocar la creación de pedidos.
 
-## Respuestas a las preguntas
-### ❓ ¿Mis interfaces están bien definidas y documentadas?
+## Preguntas y respuestas
+### ¿Qué pasa si una aplicación usa una versión anterior?
 
-**Respuesta concreta:** Para apis, contratos e infraestructura, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+La versión anterior debe continuar aceptando su formato durante el periodo anunciado. Agregar `DeliveryWindow` como opcional no rompe al cliente; cambiar el significado de un campo sí requiere versión nueva. Lo verifico con pruebas de contrato que ejecuten la misma solicitud de una aplicación antigua y una nueva.
 
-### ❓ ¿Qué pasa si un cliente usa una versión anterior?
+### ¿Mis interfaces están documentadas?
 
-**Respuesta concreta:** Para apis, contratos e infraestructura, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Están documentadas si alguien puede saber qué campos son obligatorios, qué errores recibe, qué significa cada estado y cómo evoluciona la versión. Publicaría OpenAPI, ejemplos de solicitudes y respuestas, y códigos de error como `inventory_unavailable` o `route_not_viable`.
 
-### ❓ ¿Mi entorno es reproducible y consistente?
+### ¿El entorno es reproducible?
 
-**Respuesta concreta:** Para apis, contratos e infraestructura, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Lo es si otro integrante puede levantar la API con las mismas variables, ejecutar pruebas y obtener el mismo comportamiento sin configurar valores manualmente. La evidencia será un archivo de configuración por ambiente y una ejecución de despliegue automatizada.
 
-### ❓ ¿Qué tan fácil es desplegar una versión nueva sin riesgos innecesarios?
+## Actividad: crea el borde del pedido
 
-**Respuesta concreta:** Para apis, contratos e infraestructura, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+1. Define `CreateOrderRequest` y `CreateOrderResponse`.
+2. Escribe tres reglas del contrato: campos obligatorios, error de inventario y compatibilidad de versiones.
+3. Implementa un controlador que solo traduzca HTTP a la llamada del caso de uso.
+4. Declara los puertos `IOrderRepository` e `IRouteEstimator`.
+5. Agrega una prueba de contrato para una solicitud sin `DeliveryWindow`.
+6. Documenta en un ADR por qué eliges agregar un campo opcional en lugar de cambiar el formato existente.
+7. Escribe las variables de entorno que el adaptador de rutas necesita para ejecutarse.
 
-## 🛠️ Cómo resolver la actividad
+## Cómo comprobar que terminaste
+La actividad está bien resuelta si puedes cambiar el proveedor de rutas sin cambiar el controlador, ejecutar una solicitud de una versión anterior sin error y levantar el proyecto en otro equipo sin pasos secretos.
 
-1. **Comprende el tema:** explica con tus palabras qué significa apis, contratos e infraestructura y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de apis, contratos e infraestructura:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para apis, contratos e infraestructura:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de apis, contratos e infraestructura:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: Las APIs son acuerdos de comunicación entre sistemas. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a apis, contratos e infraestructura: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de apis, contratos e infraestructura, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
-
-**Respuesta modelo para APIs, contratos e infraestructura:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
-
-
-## Conclusiones de las fuentes
-El diseño de APIs es una parte central de la arquitectura. Un buen contrato de integración mejora la evolución del sistema y reduce errores de colaboración entre equipos.
-
-La arquitectura no termina en el código: incluye cómo se ejecuta, se despliega y se mantiene. Un sistema bien diseñado también necesita un entorno bien pensado.
-
-## Preguntas para preparar la grabación
-- ¿Mis interfaces están bien definidas y documentadas?
-- ¿Qué pasa si un cliente usa una versión anterior?
-- ¿Mi entorno es reproducible y consistente?
-- ¿Qué tan fácil es desplegar una versión nueva sin riesgos innecesarios?
-
-## Evidencia para el repositorio
-Guarda la explicación de apis, contratos e infraestructura, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Cierre
+Una API es una promesa. La infraestructura es el lugar donde esa promesa se ejecuta. En el siguiente video veremos cómo saber qué ocurrió cuando esa promesa falla, sin convertir los logs en una fuga de datos.
