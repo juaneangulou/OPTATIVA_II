@@ -1,25 +1,21 @@
-# Video 7: Escalabilidad y rendimiento
+# Video 7: Quarto como sitio de documentación viva
 
 ## Título
-Escalabilidad y rendimiento
+Quarto como sitio de documentación viva
 
 ## Resumen
-El video aborda la diferencia entre un sistema que funciona con pocos usuarios y un sistema que mantiene calidad cuando la carga aumenta. La escalabilidad no es un concepto abstracto: se refiere a la capacidad del sistema para crecer sin perder rendimiento, estabilidad o calidad de servicio. También se menciona que no siempre la solución correcta es “hacerlo más grande”, sino diseñarlo para adaptarse a la demanda con una estrategia clara.
+Quarto convierte archivos fuente de texto y código en documentos o sitios web navegables. Un equipo puede mantener ahí la explicación del sistema, sus decisiones y los pasos para ejecutar y probar el proyecto.
 
-El rendimiento no depende solo de servidores o hardware; también influye la estructura del sistema, la forma en que se comunican componentes, el uso de caché, la distribución de responsabilidades y la calidad del diseño. Aquí aparece la idea de que la escalabilidad debe planearse desde el inicio, pero no siempre con una arquitectura más compleja que el problema justifique.
+La documentación es viva cuando se revisa y actualiza junto con el código. Generar un sitio no basta: también hay que revisar enlaces, diagramas y contenido para asegurar que todavía describen el comportamiento actual.
 
 ## Ideas principales
-- Escalabilidad significa crecer sin romper el sistema.
-- El rendimiento es un problema de diseño, no solo de infraestructura.
-- Un sistema puede ser lento por mala arquitectura, no solo por falta de recursos.
-- Aumentar capacidad no siempre es la mejor solución; a veces hay que mejorar diseño.
-- La escalabilidad exige análisis de carga, demanda y evolución del negocio.
-- La arquitectura debe decidir cuándo escalar horizontal o verticalmente, y qué costo tiene cada opción.
+- Los archivos fuente se editan y versionan; el sitio es el resultado generado.
+- La documentación debe responder preguntas reales de quien desarrolla u opera.
+- Los diagramas también necesitan actualizarse cuando cambian las relaciones.
+- El flujo de generación depende de la configuración del proyecto.
+- Un sitio legible y actualizado ayuda a que otra persona entienda el sistema.
 
-## Conclusión
-La escalabilidad y el rendimiento son indicadores de madurez arquitectónica. Un sistema que puede crecer sin perder calidad no solo sirve mejor, sino que también reduce riesgos operativos y costos de corrección a largo plazo.
-
-## Preguntas para reflexión
-- ¿Mi sistema está preparado para crecer en usuarios, tráfico o complejidad?
-- ¿Qué cuellos de botella reales existen hoy?
-- ¿Estoy agregando infraestructura sin resolver el problema raíz de diseño?
+## Preguntas para pensar
+- ¿Qué información necesita alguien nuevo para ejecutar el proyecto?
+- ¿Qué documentación debe cambiar cuando cambia el flujo de pedidos?
+- ¿Qué comprobarías después de generar el sitio?

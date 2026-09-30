@@ -1,25 +1,21 @@
-# Video 6: Arquitectura y decisiones de diseño
+# Video 6: Modelo C4 para diagramar arquitecturas
 
 ## Título
-Arquitectura y decisiones de diseño
+Modelo C4 para diagramar arquitecturas
 
 ## Resumen
-En este video se enfoca en la idea de que la arquitectura no es solo un conjunto de componentes, sino una serie de decisiones que ordenan cómo funciona un sistema. Cada elección de diseño tiene consecuencias sobre mantenibilidad, complejidad, acoplamiento, tiempo de entrega y calidad general. El arquitecto no solo define una estructura; define un conjunto de reglas que guían el crecimiento del sistema.
+El modelo C4 explica una arquitectura con distintos niveles de acercamiento: Contexto, Contenedores, Componentes y Código. Cada diagrama responde una pregunta diferente, desde quién utiliza el sistema hasta cómo se organiza una parte de su implementación.
 
-La clave es entender que las decisiones arquitectónicas no se toman solo por gustos técnicos. Se basan en restricciones del negocio, capacidades del equipo, objetivos de evolución, riesgos y costos. El video muestra que una arquitectura sana toma decisiones con intención y no por accidente. Cuando el diseño está guiado por principios claros, el sistema avanza sin convertirse en una estructura caótica.
+En la plataforma logística, un diagrama de contexto puede mostrar clientes, operadores y servicios externos; uno de contenedores puede mostrar la aplicación, la API y la base de datos. No es obligatorio crear los cuatro niveles: se dibujan los que ayudan a explicar una decisión.
 
 ## Ideas principales
-- La arquitectura es un conjunto de decisiones con impacto a largo plazo.
-- Cada diseño tiene beneficios y costos asociados.
-- El acoplamiento y la cohesión son criterios clave para evaluar un diseño.
-- Un sistema bien diseñado reduce la fricción para cambiar y escalar.
-- La arquitectura debe ser explícita, no improvisada.
-- Las decisiones deben estar alineadas con objetivos de negocio y capacidad del equipo.
+- El contexto muestra el sistema, sus usuarios y sus relaciones externas.
+- En C4, un contenedor es una unidad ejecutable o almacén lógico; no significa necesariamente Docker.
+- Componentes explican la organización interna de un contenedor.
+- El nivel de código puede ser innecesario si el propio código ya es más claro.
+- Diagramas legibles muestran responsabilidades y nombran sus conexiones.
 
-## Conclusión
-Una buena arquitectura no aparece por azar; se construye deliberadamente. El valor de la arquitectura radica en la claridad con la que guía el crecimiento del sistema y en la capacidad de soportar decisiones futuras sin destruir la base actual.
-
-## Preguntas para reflexión
-- ¿Qué decisiones de diseño están guiando mi sistema hoy?
-- ¿Estoy tomando decisiones por intuición o por un criterio explícito?
-- ¿Qué parte del sistema está empezando a volverse rígida o difícil de modificar?
+## Preguntas para pensar
+- ¿Qué necesita saber una persona que ve el sistema por primera vez?
+- ¿Qué nivel de C4 responde mejor a esa pregunta?
+- ¿Qué información dejarías fuera para que el diagrama siga siendo legible?

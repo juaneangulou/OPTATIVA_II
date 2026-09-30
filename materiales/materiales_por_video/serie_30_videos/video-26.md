@@ -1,99 +1,147 @@
 # Video 26: Process Manager, Durable State y Event Sourcing
 
-## Fuentes oficiales
-- [Estrategia tecnológica y roadmap](https://platzi.com/cursos/software-avanzado/que-es-el-patron-process-manager/)
-- [Evaluación de tecnologías y decisiones de stack](https://platzi.com/cursos/software-avanzado/durable-state-vs-event-sourcing-en-siste/)
+## Fuentes de este video
+- [Qué es el patrón Process Manager](https://platzi.com/cursos/software-avanzado/que-es-el-patron-process-manager/)
+- [Durable State vs Event Sourcing en sistemas](https://platzi.com/cursos/software-avanzado/durable-state-vs-event-sourcing-en-siste/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-25.md) | [➡️ Video siguiente](video-27.md)
+## Para estudiar por tu cuenta
+Una entrega puede tardar minutos u horas y depender de varios pasos. El sistema debe recordar qué ocurrió si se reinicia y decidir qué hacer cuando una respuesta falla.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: process manager, durable state y event sourcing. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Este capítulo conecta dos preguntas: quién coordina el proceso y cómo guarda el sistema el progreso para retomarlo más tarde.
 
-## Resumen integrado
-**Fuente 1: Estrategia tecnológica y roadmap**
-El video aborda el papel de la estrategia tecnológica en la arquitectura. No basta con elegir una buena herramienta o un patrón útil; también hace falta una dirección clara para el camino del sistema. Una estrategia tecnológica define hacia dónde va la solución, qué capacidades se priorizan, qué riesgos se asumen y qué inversiones son necesarias para que la arquitectura evolucione de forma ordenada.
+## 1. El flujo de una entrega
+Para preparar el pedido 245 puede ser necesario:
 
-El roadmap se convierte en la herramienta que convierte la visión en acción. Cuando hay estrategia y planificación, el equipo evita decisiones aisladas y poco alineadas. El arquitecto tiene un rol importante en definir no solo cómo se construye el sistema, sino también qué se prioriza y en qué orden.
+1. confirmar el pedido;
+2. reservar inventario;
+3. asignar un repartidor;
+4. informar al cliente;
+5. registrar la recepción.
 
-**Fuente 2: Evaluación de tecnologías y decisiones de stack**
-La elección de tecnologías es una decisión arquitectónica y no una cuestión de moda. Cada stack tiene ventajas, costos y limitaciones. El video insiste en que seleccionar una tecnología debe hacerse con base en el problema, la capacidad del equipo, los requisitos de operación, la curva de aprendizaje y la sostenibilidad a largo plazo.
+Cada paso puede corresponder a un servicio diferente. La comunicación puede demorarse, fallar o repetirse. Una secuencia en memoria no basta si el programa se reinicia mientras espera una respuesta.
 
-Muchas veces se adopta una tecnología por popularidad, pero eso no garantiza que se adapte bien al caso real. La evaluación del stack debe incluir mantenimiento, soporte, costos operativos, compatibilidad, seguridad y potencial de crecimiento. Así, la decisión de usar determinada herramienta o framework se vuelve más estratégica y menos impulsiva.
+## 2. Qué hace un Process Manager
+Un **Process Manager** coordina un proceso que tiene varios pasos y decisiones. Guarda el progreso, relaciona respuestas con el pedido correcto y decide qué acción corresponde después.
 
-## Ideas que debes conservar
-- La estrategia tecnológica guía la evolución del sistema.
-- Un roadmap ayuda a convertir visión en decisiones secuenciales.
-- Las decisiones deben priorizar capacidades que generen valor real.
-- Sin estrategia, la arquitectura puede volverse reactiva y caótica.
-- Las tecnologías deben elegirse por contexto, no por tendencia.
-- Cada stack implica costos de operación, entrenamiento y mantenimiento.
-- Un buen stack debe facilitar velocidad de entrega y sostenibilidad.
-- La elección tecnológica debe estar alineada con la estrategia del sistema.
+No reemplaza a los servicios que participan:
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: process manager, durable state y event sourcing. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+- Inventario decide si puede reservar existencias.
+- Entregas asigna rutas y repartidores.
+- Notificaciones envía mensajes al cliente.
+- Process Manager recuerda el proceso completo y coordina el orden.
 
-## Aplicación al caso logístico
-Para estudiar **process manager, durable state y event sourcing**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La estrategia tecnológica guía la evolución del sistema.
+Una **saga** es una forma de coordinar varios pasos que no comparten una única transacción de base de datos. Si uno no puede continuar, puede ser necesario compensar los efectos anteriores.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos process manager, durable state y event sourcing al flujo.
-    2. **Actor prioritario de process manager, durable state y event sourcing:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en process manager, durable state y event sourcing:** escribe la condición que debe permanecer verdadera y relaciónala con la estrategia tecnológica guía la evolución del sistema..
-    4. **Punto de decisión para process manager, durable state y event sourcing:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de process manager, durable state y event sourcing:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+## 3. Estado actual persistido
+El **estado** describe cómo se encuentra el proceso ahora. Una tabla podría guardar:
 
-Para resolver el caso de **process manager, durable state y event sourcing**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+| Pedido | Paso actual | Resultado | Actualizado |
+|---|---|---|---|
+| 245 | Esperando repartidor | Inventario reservado | 13:42 |
 
+Cuando el proceso avanza, se actualiza el registro. El sistema puede leerlo y continuar después de un reinicio.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa process manager, durable state y event sourcing y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la estrategia tecnológica guía la evolución del sistema.
-3. Identifica el actor que recibe el impacto de process manager, durable state y event sourcing y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para process manager, durable state y event sourcing; compara sus costos y riesgos.
-5. Elige una opción para process manager, durable state y event sourcing, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: process manager, durable state y event sourcing debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Esto se suele llamar estado durable o persistido: el dato sigue disponible después de cerrar el programa. Persistir el estado no requiere guardar cada transición como evento principal.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué dirección tecnológica está tomando mi proyecto?
+## 4. Event Sourcing
+**Event Sourcing** guarda como fuente principal una secuencia de hechos que ocurrieron. El estado actual se obtiene aplicando esos hechos en orden.
 
-**Respuesta concreta:** Para process manager, durable state y event sourcing, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Para el pedido 245, los eventos pueden ser:
 
-### ❓ ¿Tengo una hoja de ruta clara o solo decisiones aisladas?
+```text
+PedidoConfirmado
+ProductosReservados
+RepartidorAsignado
+EntregaIniciada
+EntregaCompletada
+```
 
-**Respuesta concreta:** Para process manager, durable state y event sourcing, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Al leerlos en orden, el sistema reconstruye el estado actual y puede explicar cómo llegó ahí.
 
-### ❓ ¿Estoy eligiendo tecnología por necesidad o por tendencia?
+### No confundas historia con logs
+Un log técnico ayuda a diagnosticar. En Event Sourcing, los eventos son la fuente principal del estado de negocio. Agregar logs a una aplicación que guarda el estado actual no la convierte automáticamente en Event Sourcing.
 
-**Respuesta concreta:** Para process manager, durable state y event sourcing, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 5. Comparación con una libreta de seguimiento
+- **Estado actual:** una ficha dice “Esperando repartidor”. Se consulta rápido, pero puede no mostrar los pasos anteriores.
+- **Event Sourcing:** una bitácora guarda “inventario reservado” y otros hechos. El estado se reconstruye leyendo la secuencia.
 
-### ❓ ¿Qué tan bien se adapta mi stack a los objetivos del proyecto?
+La primera forma suele ser más sencilla. La segunda puede ser útil si el negocio necesita reconstruir el historial con detalle, pero exige diseñar eventos, correcciones y consultas.
 
-**Respuesta concreta:** Para process manager, durable state y event sourcing, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 6. Cómo se conectan el Process Manager y el almacenamiento
+El Process Manager necesita recordar el paso actual. Puede hacerlo guardando una fila actualizada cada vez que recibe una respuesta, o puede reconstruirlo desde eventos.
 
-## 🛠️ Cómo resolver la actividad
+Una forma sencilla de empezar:
 
-1. **Comprende el tema:** explica con tus palabras qué significa process manager, durable state y event sourcing y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de process manager, durable state y event sourcing:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para process manager, durable state y event sourcing:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de process manager, durable state y event sourcing:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La estrategia tecnológica guía la evolución del sistema. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a process manager, durable state y event sourcing: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de process manager, durable state y event sourcing, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+```csharp
+public sealed record ProcesoEntrega(
+    Guid PedidoId,
+    string Estado,
+    DateTimeOffset ActualizadoEn);
+```
 
-**Respuesta modelo para Process Manager, Durable State y Event Sourcing:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+Al recibir `InventarioReservado`, el Process Manager cambia el estado a “Esperando repartidor”. Al recibir `RepartidorAsignado`, cambia a “Esperando recogida”.
 
+El dato debe guardarse antes de responder como si el paso se hubiera completado. Relaciona cada mensaje con `PedidoId` y conserva identificadores para reconocer respuestas repetidas.
 
-## Conclusiones de las fuentes
-La estrategia y el roadmap son lo que hacen que la arquitectura deje de ser una respuesta improvisada y se convierta en una dirección clara. Un sistema necesita visión para crecer sin perder coherencia.
+## 7. Qué pasa cuando un paso falla
+Supón que Inventario reservó productos, pero Entregas no encuentra repartidor.
 
-Elegir tecnologías es una forma de diseñar la capacidad del sistema para seguir funcionando bien en el futuro. La mejor decisión es la que resuelve el problema real con menos deuda técnica y menos riesgo.
+El Process Manager puede solicitar liberar la reserva. Esto es una **compensación**: una nueva acción que busca corregir o contrarrestar un efecto anterior. No borra que el inventario sí estuvo reservado.
 
-## Preguntas para preparar la grabación
-- ¿Qué dirección tecnológica está tomando mi proyecto?
-- ¿Tengo una hoja de ruta clara o solo decisiones aisladas?
-- ¿Estoy eligiendo tecnología por necesidad o por tendencia?
-- ¿Qué tan bien se adapta mi stack a los objetivos del proyecto?
+Si la liberación también falla, el proceso no debe marcarse como cancelado con éxito. Se guarda “Requiere revisión” y el error para que pueda retomarse.
 
-## Evidencia para el repositorio
-Guarda la explicación de process manager, durable state y event sourcing, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+Cada paso debe contemplar:
+
+- respuesta exitosa;
+- respuesta negativa del negocio;
+- timeout o falta de respuesta;
+- respuesta duplicada;
+- proceso cancelado a mitad del flujo.
+
+## 8. ¿Qué opción elegir?
+| Pregunta | Estado actual persistido | Event Sourcing |
+|---|---|---|
+| ¿Qué se guarda como fuente principal? | Paso y estado más reciente | Hechos que producen los cambios |
+| ¿Cómo se obtiene el estado actual? | Se lee el registro | Se aplican eventos en orden |
+| ¿Es sencillo ver el progreso actual? | Sí, normalmente directo | Puede requerir una proyección |
+| ¿Permite reconstruir la historia? | No necesariamente | Sí, si la secuencia está completa |
+| ¿Qué complejidad agrega? | Menor en flujos simples | Versionado de eventos, correcciones y proyecciones |
+
+Para una primera versión, un estado persistido puede bastar. Event Sourcing se justifica si la historia detallada es una necesidad real de negocio, auditoría o reconstrucción.
+
+## 9. Errores que debes evitar
+- Usar Event Sourcing solo porque suena más robusto.
+- Confundir el estado actual con el historial de eventos.
+- Cambiar o borrar eventos antiguos sin entender a quienes dependen de ellos.
+- Olvidar que respuestas y mensajes pueden repetirse.
+- Marcar el proceso como terminado antes de guardar el estado.
+- Tratar una compensación como si borrara una acción ya ocurrida.
+
+## 10. Actividad de autoestudio
+El pedido 245 ya reservó inventario, pero no se encuentra repartidor en el tiempo definido por el negocio.
+
+1. Escribe qué estado debería guardar el Process Manager.
+2. Decide cuál acción de compensación podría solicitar.
+3. Explica qué harías si la respuesta “inventario liberado” llega dos veces.
+4. ¿Guardarías solo el paso actual o cada evento? Justifica según la necesidad de la plataforma.
+5. Escribe una señal que requiera revisión manual.
+
+### Respuesta modelo
+El estado puede ser “Liberando inventario” hasta recibir confirmación; después “Requiere reasignación” o “Cancelado”, según la regla acordada. Si la confirmación llega dos veces, el proceso reconoce que el pedido ya pasó ese paso y no libera ni notifica otra vez.
+
+Para un MVP que solo necesita saber en qué paso está cada pedido, persistir el estado actual puede ser suficiente. Si soporte o auditoría necesitan reconstruir cada transición exacta, se puede evaluar Event Sourcing y aceptar su mayor complejidad.
+
+## Comprueba lo que aprendiste
+1. ¿Qué responsabilidad tiene el Process Manager?
+2. ¿Qué diferencia hay entre estado persistido y Event Sourcing?
+3. ¿Qué es una compensación?
+4. ¿Por qué guardar el estado antes de confirmar el paso?
+
+### Respuestas
+1. Coordinar pasos y recordar el progreso del proceso.
+2. El estado persistido guarda la situación más reciente; Event Sourcing conserva los hechos que producen los cambios y reconstruye la situación.
+3. Una acción nueva que intenta corregir o contrarrestar un efecto anterior.
+4. Para poder retomar el flujo correctamente después de un reinicio o una falla.
+
+## Conclusión
+El Process Manager coordina el proceso de entrega. El estado durable permite retomarlo; Event Sourcing conserva los hechos para reconstruirlo. Empieza con la persistencia que cubra la necesidad demostrada y aumenta complejidad solo cuando el historial completo aporte valor.

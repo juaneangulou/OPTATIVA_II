@@ -1,99 +1,108 @@
 # Video 13: Liderazgo, negociación e impacto social
 
-## Fuentes oficiales
+## Fuentes de este video
 - [Comunicación, liderazgo y negociación técnica](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucion-del-software-personal-hacia-el/)
 - [Arquitectura con impacto social y valor real](https://platzi.com/cursos/fundamentos-arquitectura-software/preguntas-clave-que-todo-arquitecto-de-s/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-12-1.md) | [➡️ Video siguiente](video-14.md)
+## Para estudiar por tu cuenta
+Una decisión de arquitectura afecta a personas distintas, aunque solo una parte del equipo escriba el código. En este capítulo combinarás dos ideas: comunicar y negociar decisiones técnicas, y revisar el impacto que esas decisiones tienen en quienes usan o mantienen el sistema.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: liderazgo, negociación e impacto social. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+El caso será el seguimiento de repartidores. La empresa quiere ofrecer al cliente una experiencia más clara; el repartidor también necesita privacidad y seguridad. Tu objetivo es comparar opciones y justificar una decisión equilibrada.
 
-## Resumen integrado
-**Fuente 1: Comunicación, liderazgo y negociación técnica**
-Este video destaca que una gran parte del trabajo del arquitecto no está en el código, sino en la conversación. Cuando se diseña un sistema, se necesita comunicar decisiones, negociar prioridades y hacer que diferentes actores comprendan por qué se elige una solución y no otra. La arquitectura se fortalece cuando hay claridad, diálogo y liderazgo.
+## 1. Qué aporta cada fuente
+La primera fuente trata la comunicación, el liderazgo y la negociación técnica. Su idea central es que una decisión no se implementa solo porque alguien la diseñó: otras personas deben comprender su propósito, sus límites y el trabajo que implica.
 
-El arquitecto debe ser capaz de escuchar, explicar trade-offs, escuchar preocupaciones y alinear decisiones entre negocio, equipo y usuarios. La negociación técnica no es improvisación; es la capacidad de construir consenso con criterio y equilibrio.
+La segunda fuente conecta arquitectura con impacto social y valor real. El sistema afecta tiempo, datos, confianza y condiciones de trabajo; por eso una solución técnicamente posible no siempre es responsable para todas las personas involucradas.
 
-**Fuente 2: Arquitectura con impacto social y valor real**
-Este video cierra la dimensión ética y social de la arquitectura. Un sistema no solo debe cumplir con requisitos técnicos; también debe generar valor real para las personas, mejorar procesos y no causar daño. La arquitectura industrial y de software termina teniendo un impacto humano y social, incluso cuando no se nota a simple vista.
+Las dos fuentes se conectan así: comunicar bien permite descubrir a quién afecta una decisión; comprender ese impacto permite negociar una solución mejor que imponer la primera opción.
 
-La idea es que el valor de una solución no se mide solo por su complejidad o performance, sino por el beneficio real que produce, la confianza que genera y la responsabilidad con quienes la usan. La arquitectura más valiosa es la que crea impacto positivo sin ignorar el contexto social.
+## 2. Conceptos en palabras sencillas
+- **Liderazgo técnico:** ayudar al equipo a entender el problema y avanzar con una decisión explicable. No significa decidir por todos.
+- **Negociación:** buscar un acuerdo entre necesidades diferentes, sin esconder costos ni riesgos.
+- **Impacto social:** consecuencias que la solución tiene para personas y grupos, como privacidad, accesibilidad, seguridad o carga de trabajo.
+- **Trade-off:** beneficio que se obtiene a cambio de aceptar un costo o una limitación.
 
-## Ideas que debes conservar
-- La comunicación es una habilidad arquitectónica central.
-- Las decisiones de arquitectura implican balancear intereses distintos.
-- El liderazgo técnico ayuda a alinear equipo y visión.
-- La negociación permite tomar decisiones sin improvisación.
-- La tecnología tiene impacto sobre personas y comunidades.
-- El valor real no se mide solo por complejidad o volumen.
-- La arquitectura debe generar utilidad y confianza.
-- La responsabilidad técnica incluye consecuencias sociales.
+## 3. El caso: mostrar la ubicación de un repartidor
+Atención al cliente recibe muchas preguntas porque el estado del pedido tarda en actualizarse. Alguien propone mostrar en un mapa la ubicación exacta del repartidor durante toda su jornada.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: liderazgo, negociación e impacto social. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+Antes de aceptar esa propuesta, define el problema con precisión: el cliente necesita saber si la entrega se acerca; soporte necesita explicar retrasos. La ubicación exacta todo el día es una solución posible, no la necesidad original.
 
-## Aplicación al caso logístico
-Para estudiar **liderazgo, negociación e impacto social**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La comunicación es una habilidad arquitectónica central.
+Identifica a quienes reciben el impacto:
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos liderazgo, negociación e impacto social al flujo.
-    2. **Actor prioritario de liderazgo, negociación e impacto social:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en liderazgo, negociación e impacto social:** escribe la condición que debe permanecer verdadera y relaciónala con la comunicación es una habilidad arquitectónica central..
-    4. **Punto de decisión para liderazgo, negociación e impacto social:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de liderazgo, negociación e impacto social:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+| Actor | Necesidad | Riesgo posible |
+|---|---|---|
+| Cliente | Saber si su paquete está próximo | Recibir una posición desactualizada como si fuera actual |
+| Repartidor | Completar entregas de forma segura | Exponer su ubicación fuera del trabajo de una entrega |
+| Soporte | Resolver preguntas sobre retrasos | No poder reconstruir qué estado se comunicó |
+| Operación | Coordinar rutas | Recopilar más información personal de la necesaria |
 
-Para resolver el caso de **liderazgo, negociación e impacto social**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## 4. Distingue posiciones e intereses
+Una **posición** es una petición concreta: “quiero ubicación en vivo” o “no compartamos ninguna ubicación”. El **interés** es la necesidad detrás: reducir incertidumbre, proteger privacidad o resolver una entrega tardía.
 
+Al buscar intereses puedes proponer alternativas que las posiciones iniciales no mostraban. El cliente quizá solo necesite una hora estimada; soporte quizá necesite un historial de estados; el repartidor puede aceptar que la ubicación se muestre solo durante una entrega activa.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa liderazgo, negociación e impacto social y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la comunicación es una habilidad arquitectónica central.
-3. Identifica el actor que recibe el impacto de liderazgo, negociación e impacto social y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para liderazgo, negociación e impacto social; compara sus costos y riesgos.
-5. Elige una opción para liderazgo, negociación e impacto social, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: liderazgo, negociación e impacto social debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 5. Comparación de opciones
 
-## Respuestas a las preguntas
-### ❓ ¿Estoy logrando explicar bien mis decisiones técnicas?
+| Opción | Qué recibe el cliente | Beneficio | Costo o riesgo |
+|---|---|---|---|
+| A. Estado del pedido y hora estimada | “En camino; llega entre 14:00 y 14:30” | Menos datos de ubicación expuestos | La estimación puede cambiar |
+| B. Ubicación aproximada durante la entrega activa | Una zona aproximada y su hora de actualización | Puede reducir la incertidumbre en tiempo real | Requiere permisos y limitar cuándo se consulta |
+| C. Ubicación exacta durante toda la jornada | Movimiento continuo del repartidor | Mucho detalle para la operación | Exposición de ubicación más amplia de la necesaria |
 
-**Respuesta concreta:** Para liderazgo, negociación e impacto social, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+No hay una alternativa universal. La elección depende del valor para el cliente, las condiciones de trabajo, las reglas de privacidad y la capacidad de proteger la información.
 
-### ❓ ¿Qué conflictos de prioridad están bloqueando el proyecto?
+## 6. Una decisión argumentada
+Para una primera versión, podrías mostrar estado y hora estimada. Si después la evidencia muestra que hace falta ubicación, prueba la opción B durante una entrega activa, con acceso limitado y una hora visible para identificar datos antiguos.
 
-**Respuesta concreta:** Para liderazgo, negociación e impacto social, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Una defensa clara de esa decisión sería: “Resolvemos la incertidumbre del cliente con estado y estimación. No guardamos ubicación continua porque no hemos demostrado que sea necesaria. Revisaremos la elección si las consultas a soporte siguen siendo altas y si una prueba controlada demuestra un beneficio adicional”.
 
-### ❓ ¿Qué impacto social tiene mi solución?
+La decisión incluye una condición de revisión; no se presenta como correcta para siempre.
 
-**Respuesta concreta:** La decisión sobre liderazgo, negociación e impacto social afecta directamente a el repartidor: necesita recibir una instrucción vigente y consistente. Por eso protegería esta regla: evitar dos asignaciones activas para la misma entrega. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el repartidor es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+## 7. Cómo negociar sin ocultar el problema
+Cuando dos áreas proponen soluciones diferentes, organiza la conversación así:
 
-### ❓ ¿Está generando valor real o solo cumpliendo un requisito técnico?
+1. Repite el problema común con palabras neutrales.
+2. Separa lo que ya se sabe de lo que todavía se supone.
+3. Pregunta qué resultado necesita cada actor.
+4. Compara opciones y costos con los mismos criterios.
+5. Escribe los límites que no se deben romper.
+6. Define una prueba que permita aprender si la decisión funcionó.
 
-**Respuesta concreta:** Para liderazgo, negociación e impacto social, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Esto evita que la discusión se convierta en “mi tecnología contra la tuya”.
 
-## 🛠️ Cómo resolver la actividad
+## 8. Actividad de autoestudio
+La empresa quiere guardar la ubicación exacta del repartidor durante toda la jornada para reducir consultas de clientes.
 
-1. **Comprende el tema:** explica con tus palabras qué significa liderazgo, negociación e impacto social y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de liderazgo, negociación e impacto social:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para liderazgo, negociación e impacto social:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de liderazgo, negociación e impacto social:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La comunicación es una habilidad arquitectónica central. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a liderazgo, negociación e impacto social: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de liderazgo, negociación e impacto social, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+1. Escribe el problema que intenta resolver sin repetir la solución propuesta.
+2. Identifica tres actores y lo que necesita cada uno.
+3. Anota un hecho y una suposición.
+4. Propón dos alternativas que recopilen menos información.
+5. Elige una opción inicial y explica un costo aceptado.
+6. Define una prueba y una señal que justificaría revisar la decisión.
 
-**Respuesta modelo para Liderazgo, negociación e impacto social:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+### Pistas
+- “La ubicación continua reducirá las consultas” es una hipótesis que se puede medir.
+- No todo el mundo necesita ver la misma información.
+- Una ubicación antigua debe identificarse como antigua.
 
+## 9. Respuesta modelo
+El problema es que el cliente no sabe si su paquete llegará pronto y soporte recibe consultas repetidas. El cliente necesita una estimación; el repartidor necesita que la ubicación no quede expuesta fuera de entregas activas; soporte necesita el último estado y su hora.
 
-## Conclusiones de las fuentes
-La arquitectura no solo se diseña; también se comunica y se negocia. Un buen arquitecto no solo toma decisiones, sino que logra que el equipo y la organización las entienda y las apoye.
+Un hecho del caso es que hoy no hay una vista única del estado. Una suposición es que compartir la posición exacta todo el día reducirá las consultas.
 
-Una buena arquitectura no solo es eficiente técnicamente; también genera valor real para la sociedad y para quienes interactúan con el sistema.
+Una opción es mostrar estado y hora estimada. Otra es mostrar ubicación aproximada solo durante una entrega activa. Elegiría primero la estimación porque requiere menos exposición de datos; mediría consultas y retrasos durante un período definido. Si no mejora la experiencia, evaluaría la ubicación aproximada con límites de acceso y retención.
 
-## Preguntas para preparar la grabación
-- ¿Estoy logrando explicar bien mis decisiones técnicas?
-- ¿Qué conflictos de prioridad están bloqueando el proyecto?
-- ¿Qué impacto social tiene mi solución?
-- ¿Está generando valor real o solo cumpliendo un requisito técnico?
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre la necesidad y la solución propuesta?
+2. ¿Por qué importa identificar varios actores?
+3. ¿Qué información debe acompañar una ubicación que podría estar desactualizada?
+4. ¿Qué significa dejar una condición de revisión?
 
-## Evidencia para el repositorio
-Guarda la explicación de liderazgo, negociación e impacto social, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+### Respuestas
+1. La necesidad describe el problema; la solución es una manera posible de resolverlo.
+2. Una decisión puede beneficiar a un grupo y crear riesgos para otro.
+3. La hora de la última actualización y una indicación de que no necesariamente es actual.
+4. Especificar qué evidencia futura haría reexaminar la decisión.
+
+## Cierre
+El liderazgo técnico no es elegir por otras personas. Es aclarar el problema, hacer visibles los impactos, negociar alternativas y comprobar qué resultado produjo la decisión.

@@ -38,5 +38,16 @@ Cada material combina resúmenes de los cursos oficiales de Platzi en orden peda
 - [Video 30: Cierre y defensa de la arquitectura](video-30.md)
 
 ## Material complementario
-- [Guía de 10 videos extra: patrones de arquitectura en C#/.NET](guia_10_videos_extra_patrones_csharp.md)
-  - [Video 30.1: Actividad 5: pruebas, operación y defensa final](video-30-1.md)
+- Ruta complementaria: patrones de arquitectura en C#/.NET. Cada capítulo tiene su propio archivo de autoestudio:
+  - [Extra 1: Monolito modular](video-extra-01-monolito-modular-csharp.md)
+  - [Extra 2: Arquitectura hexagonal](video-extra-02-arquitectura-hexagonal-csharp.md)
+  - [Extra 3: Repositorios y EF Core](video-extra-03-repositorios-efcore-csharp.md)
+  - [Extra 4: CQRS](video-extra-04-cqrs-csharp.md)
+  - [Extra 5: Decorator y pipeline](video-extra-05-decorator-pipeline-csharp.md)
+  - [Extra 6: Transactional Outbox e idempotencia](video-extra-06-outbox-idempotencia-csharp.md)
+  - [Extra 7: Saga y Process Manager](video-extra-07-saga-process-manager-csharp.md)
+  - [Extra 8: Resiliencia HTTP](video-extra-08-resiliencia-http-csharp.md)
+  - [Extra 9: Cache-Aside](video-extra-09-cache-aside-csharp.md)
+  - [Extra 10: Pruebas de arquitectura](video-extra-10-pruebas-arquitectura-csharp.md)
+- [Compilación anterior de la ruta extra](guia_10_videos_extra_patrones_csharp.md)
+- [Video 30.1: Actividad 5: pruebas, operación y defensa final](video-30-1.md)

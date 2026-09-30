@@ -78,4 +78,4 @@ Este proyecto organiza cada curso en su propia carpeta, con un README y una cole
 
 La ruta ampliada de 60 videos, sus materiales Markdown y las presentaciones PowerPoint se encuentran en [materiales/materiales_por_video/serie_60_videos](materiales/materiales_por_video/serie_60_videos/README.md).
 
-La guía suplementaria de diez videos sobre [patrones de arquitectura en C#/.NET](materiales/materiales_por_video/serie_30_videos/guia_10_videos_extra_patrones_csharp.md) propone prácticas adicionales para la plataforma logística.
+La ruta suplementaria de diez videos sobre [patrones de arquitectura en C#/.NET](materiales/materiales_por_video/serie_30_videos/README.md) propone capítulos independientes de autoestudio para la plataforma logística.

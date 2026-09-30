@@ -1,25 +1,21 @@
-# Video 11: Microservicios y dominios
+# Video 11: Técnicas pre-mortem y cinco why para prevenir fallos
 
 ## Título
-Microservicios y dominios
+Técnicas pre-mortem y cinco why para prevenir fallos
 
 ## Resumen
-Este video analiza una de las decisiones arquitectónicas más debatidas del desarrollo actual: la adopción de microservicios. La idea central no es que los microservicios sean automáticamente mejores que una arquitectura monolítica, sino que pueden encajar muy bien cuando el sistema necesita evolución separada por dominios, equipos y responsabilidades. El problema es que muchos equipos los adoptan por moda sin analizar si el problema real los justifica.
+El pre-mortem imagina que un proyecto ya falló y busca causas que podrían llevar a ese resultado. La técnica de cinco porqués profundiza en una causa preguntando qué condición la produjo, sin convertir el ejercicio en una búsqueda de culpables.
 
-También se introduce la relación entre arquitectura y dominio. Un buen diseño de software debe reflejar el dominio del negocio. Cuando los servicios corresponden a límites de negocio claros, la solución se vuelve más entendible, escalable y mantenible. La clave está en separar responsabilidades con sentido, no en dividir por tecnología por el solo hecho de hacerlo.
+En una plataforma logística, el ejercicio puede revelar riesgos como tareas duplicadas, estados contradictorios o datos de dirección incompletos. El resultado útil conecta una causa posible con su consecuencia, una señal temprana y una medida preventiva.
 
 ## Ideas principales
-- Los microservicios son una opción, no una obligación.
-- La arquitectura debe reflejar el dominio del negocio y no solo la tecnología.
-- La división por componentes debe hacerse con criterios claros de responsabilidad.
-- La complejidad operativa aumenta al adoptar múltiples servicios.
-- Un diseño basado en dominios mejora la claridad y la evolución del sistema.
-- El objetivo es reducir acoplamientos innecesarios y mejorar la capacidad de cambio.
+- Un pre-mortem explora escenarios posibles; no predice el futuro.
+- Cinco porqués es una guía para buscar condiciones corregibles, no un número rígido.
+- Evita culpar personas; investiga procesos, información y protecciones.
+- Prioriza riesgos según impacto y evidencia disponible.
+- Convierte cada riesgo importante en una señal o acción comprobable.
 
-## Conclusión
-Microservicios no son la respuesta universal. Su valor aparece cuando ayudan a organizar un sistema complejo en dominios manejables y equipos con responsabilidades claras. El verdadero criterio es la capacidad de crear un sistema entendible y evolutivo, no solo distribuirlo en muchos servicios.
-
-## Preguntas para reflexión
-- ¿Mi sistema necesita separación por dominio o la complejidad no justifica eso?
-- ¿Estoy dividiendo el sistema por negocio o por comodidad técnica?
-- ¿La arquitectura elegida aumenta claridad o solo agrega coordinación y costos?
+## Preguntas para pensar
+- ¿Qué podría hacer que dos repartidores reciban la misma entrega?
+- ¿Qué condición del sistema permitiría esa duplicación?
+- ¿Qué señal mostraría que el riesgo empieza a materializarse?

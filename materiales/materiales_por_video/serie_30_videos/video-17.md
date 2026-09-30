@@ -1,99 +1,150 @@
 # Video 17: BDD y modelo C4
 
-## Fuentes oficiales
-- [IA, visión y liderazgo arquitectónico](https://platzi.com/cursos/software-avanzado/behavior-driven-development-para-alinear/)
-- [Arquitectura y decisiones de diseño](https://platzi.com/cursos/software-avanzado/modelo-c4-para-diagramar-arquitecturas/)
+## Fuentes de este video
+- [Behavior Driven Development para alinear equipos técnicos y de negocio](https://platzi.com/cursos/software-avanzado/behavior-driven-development-para-alinear/)
+- [Modelo C4 para diagramar arquitecturas](https://platzi.com/cursos/software-avanzado/modelo-c4-para-diagramar-arquitecturas/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-16.md) | [➡️ Video siguiente](video-18.md)
+## Para estudiar por tu cuenta
+BDD y C4 responden preguntas diferentes, pero pueden usarse juntos. **Behavior Driven Development (BDD)** ayuda a aclarar qué comportamiento necesita una persona. El **modelo C4** ayuda a explicar qué partes del sistema participan para ofrecerlo.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: bdd y modelo c4. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Usaremos un solo caso de la plataforma logística: confirmar un pedido cuando hay inventario suficiente.
 
-## Resumen integrado
-**Fuente 1: IA, visión y liderazgo arquitectónico**
-El video cierra la idea de que la arquitectura de software no es solo técnica, sino también estratégica y humana. Con el crecimiento de la inteligencia artificial, el arquitecto puede apoyarse en herramientas para analizar soluciones, detectar riesgos, simular escenarios y ampliar su capacidad de decisión. Sin embargo, la IA no sustituye la visión, el criterio y la responsabilidad de tomar decisiones de impacto real.
+## 1. Antes de programar: aclara el comportamiento
+Una frase como “el pedido se confirma correctamente” deja preguntas abiertas:
 
-La arquitectura moderna exige un liderazgo que combine conocimiento técnico con pensamiento crítico, capacidad de comunicación y visión de negocio. El papel del arquitecto no es solo diseñar diagramas o elegir tecnologías, sino influir en el equipo, ayudar a los stakeholders a tomar mejores decisiones y construir sistemas que perduren. La IA puede acelerar análisis, pero la dirección y la intención siguen siendo humanas.
+- ¿Qué significa “correctamente”?
+- ¿Qué pasa si el inventario no alcanza?
+- ¿Qué debería ver el cliente?
+- ¿Se descuenta el inventario si el pedido no se confirma?
 
-**Fuente 2: Arquitectura y decisiones de diseño**
-En este video se enfoca en la idea de que la arquitectura no es solo un conjunto de componentes, sino una serie de decisiones que ordenan cómo funciona un sistema. Cada elección de diseño tiene consecuencias sobre mantenibilidad, complejidad, acoplamiento, tiempo de entrega y calidad general. El arquitecto no solo define una estructura; define un conjunto de reglas que guían el crecimiento del sistema.
+BDD busca responder esas preguntas con ejemplos concretos antes de construir la función.
 
-La clave es entender que las decisiones arquitectónicas no se toman solo por gustos técnicos. Se basan en restricciones del negocio, capacidades del equipo, objetivos de evolución, riesgos y costos. El video muestra que una arquitectura sana toma decisiones con intención y no por accidente. Cuando el diseño está guiado por principios claros, el sistema avanza sin convertirse en una estructura caótica.
+## 2. Dado–Cuando–Entonces
+Un escenario suele tener tres partes:
 
-## Ideas que debes conservar
-- La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.
-- La tecnología no reemplaza la visión del arquitecto; la potencia.
-- El arquitecto debe conectar tecnología, negocio y operación.
-- Un buen diseño depende de la capacidad de comunicar y guiar decisiones.
-- La arquitectura es un conjunto de decisiones con impacto a largo plazo.
-- Cada diseño tiene beneficios y costos asociados.
-- El acoplamiento y la cohesión son criterios clave para evaluar un diseño.
-- Un sistema bien diseñado reduce la fricción para cambiar y escalar.
+- **Dado:** el contexto que ya existe.
+- **Cuando:** la acción que realiza alguien o el sistema.
+- **Entonces:** el resultado observable que debe ocurrir.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: bdd y modelo c4. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+Ejemplo del camino exitoso:
 
-## Aplicación al caso logístico
-Para estudiar **bdd y modelo c4**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La IA puede apoyar la evaluación de decisiones y la identificación de riesgos.
+```text
+Escenario: confirmar un pedido con inventario suficiente
+Dado que hay 5 unidades del producto A
+Cuando la clienta solicita 2 unidades
+Entonces el pedido queda confirmado
+Y quedan 3 unidades disponibles
+```
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos bdd y modelo c4 al flujo.
-    2. **Actor prioritario de bdd y modelo c4:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en bdd y modelo c4:** escribe la condición que debe permanecer verdadera y relaciónala con la ia puede apoyar la evaluación de decisiones y la identificación de riesgos..
-    4. **Punto de decisión para bdd y modelo c4:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de bdd y modelo c4:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Y un caso de rechazo:
 
-Para resolver el caso de **bdd y modelo c4**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+```text
+Escenario: rechazar un pedido que supera las existencias
+Dado que hay 1 unidad del producto A
+Cuando la clienta solicita 2 unidades
+Entonces el pedido no queda confirmado
+Y las existencias siguen siendo 1 unidad
+```
 
+Los números y reglas son ejemplos. En un proyecto real se acuerda con el negocio si reservar unidades al iniciar, al pagar o en otro momento.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa bdd y modelo c4 y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la ia puede apoyar la evaluación de decisiones y la identificación de riesgos.
-3. Identifica el actor que recibe el impacto de bdd y modelo c4 y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para bdd y modelo c4; compara sus costos y riesgos.
-5. Elige una opción para bdd y modelo c4, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: bdd y modelo c4 debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 3. Qué aporta BDD y qué no
+Los escenarios BDD hacen visible el significado del requisito y permiten convertir ejemplos en pruebas. No sustituyen todas las pruebas unitarias ni obligan a escribir cada detalle técnico en lenguaje natural.
 
-## Respuestas a las preguntas
-### ❓ ¿Cómo puedo usar IA para mejorar decisiones arquitectónicas sin perder criterio?
+Un escenario es útil si alguien del negocio puede entenderlo y si la condición final puede comprobarse. Si una frase admite dos interpretaciones, todavía falta acordarla.
 
-**Respuesta concreta:** Para bdd y modelo c4, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 4. Modelo C4: cuatro niveles de acercamiento
+C4 organiza diagramas como acercamientos sucesivos:
 
-### ❓ ¿Qué tan claro es mi liderazgo técnico dentro del equipo?
+1. **Contexto:** quién usa el sistema y con qué sistemas externos se comunica.
+2. **Contenedores:** aplicaciones, procesos y almacenes de datos principales.
+3. **Componentes:** partes importantes dentro de un contenedor.
+4. **Código:** clases o estructuras internas cuando explicarlas realmente ayuda.
 
-**Respuesta concreta:** Para bdd y modelo c4, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+En C4, un **contenedor** es una unidad ejecutable o un almacén de datos. No significa necesariamente que use Docker.
 
-### ❓ ¿Qué decisiones de diseño están guiando mi sistema hoy?
+No siempre necesitas cuatro diagramas. Elige el nivel que responda una pregunta concreta y detente cuando añadir detalle ya no ayude a quien lee.
 
-**Respuesta concreta:** La parte frágil de bdd y modelo c4 es la que permite que el repartidor reciba un resultado incorrecto: recibir una instrucción vigente y consistente. La corregiría colocando la regla 'evitar dos asignaciones activas para la misma entrega' en un límite explícito, en lugar de dejarla repartida entre la interfaz y la infraestructura. El costo será reorganizar el flujo y agregar pruebas; la evidencia será un cambio aislado que no rompa los demás módulos.
+## 5. El mismo escenario, explicado con C4
 
-### ❓ ¿Estoy tomando decisiones por intuición o por un criterio explícito?
+### Contexto
+La clienta usa la tienda digital. La plataforma logística valida el pedido. El proveedor de pagos confirma el pago.
 
-**Respuesta concreta:** Para bdd y modelo c4, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+```text
+Clienta -> Plataforma logística -> Proveedor de pagos
+```
 
-## 🛠️ Cómo resolver la actividad
+Este dibujo responde quién participa, pero todavía no explica qué aplicaciones contiene la plataforma.
 
-1. **Comprende el tema:** explica con tus palabras qué significa bdd y modelo c4 y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de bdd y modelo c4:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para bdd y modelo c4:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de bdd y modelo c4:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La IA puede apoyar la evaluación de decisiones y la identificación de riesgos. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a bdd y modelo c4: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de bdd y modelo c4, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+### Contenedores
+```text
+Tienda web -> API logística -> Base de datos
+                         -> Proveedor de pagos
+```
 
-**Respuesta modelo para BDD y modelo C4:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+La API recibe la solicitud; la base de datos conserva pedidos e inventario. El proveedor de pagos es externo.
 
+### Componentes dentro de la API
+```text
+Endpoint de pedidos -> Caso de uso ConfirmarPedido
+                               |             |
+                               v             v
+                         Pedidos        Inventario
+```
 
-## Conclusiones de las fuentes
-La arquitectura del futuro combina técnica, análisis, liderazgo y uso responsable de la IA. El arquitecto no es solo un especialista del sistema, sino un guía que transforma complejidad en claridad y ayuda a construir soluciones con sentido, dirección y valor de largo plazo.
+El caso de uso coordina la confirmación. Pedidos conserva su información; Inventario comprueba y actualiza existencias según las reglas acordadas.
 
-Una buena arquitectura no aparece por azar; se construye deliberadamente. El valor de la arquitectura radica en la claridad con la que guía el crecimiento del sistema y en la capacidad de soportar decisiones futuras sin destruir la base actual.
+## 6. Cómo se conectan BDD y C4
+El escenario BDD dice qué comportamiento debe suceder. El diagrama C4 explica qué partes podrían colaborar para ofrecerlo.
 
-## Preguntas para preparar la grabación
-- ¿Cómo puedo usar IA para mejorar decisiones arquitectónicas sin perder criterio?
-- ¿Qué tan claro es mi liderazgo técnico dentro del equipo?
-- ¿Qué decisiones de diseño están guiando mi sistema hoy?
-- ¿Estoy tomando decisiones por intuición o por un criterio explícito?
+- BDD: “Con 5 unidades, solicitar 2 confirma el pedido y deja 3 disponibles”.
+- C4: muestra que la API recibe la solicitud, el caso de uso coordina y los componentes de Pedidos e Inventario participan.
 
-## Evidencia para el repositorio
-Guarda la explicación de bdd y modelo c4, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+Si el escenario dice una cosa y el diagrama describe un flujo incompatible, hay una pregunta para resolver antes de implementar. Uno no reemplaza al otro: el escenario se concentra en el resultado; el diagrama, en la estructura y las relaciones.
+
+## 7. Del ejemplo a las pruebas
+Puedes convertir el camino exitoso en una prueba del caso de uso con inventario de ensayo. Una prueba de integración puede verificar después que la base de datos real guarda la reserva junto con el pedido.
+
+El escenario de rechazo permite verificar que no se confirme el pedido ni se descuenten unidades que no existen. El nivel de prueba depende de la parte que quieras comprobar:
+
+- regla pura: prueba unitaria;
+- conexión entre caso de uso y almacenamiento: prueba de integración;
+- límites entre partes: prueba de arquitectura.
+
+## 8. Actividad de autoestudio
+Dibuja y describe el caso “la tienda solicita una devolución”:
+
+1. Escribe un escenario Dado–Cuando–Entonces para una devolución aceptada.
+2. Escribe otro para una devolución rechazada.
+3. Dibuja el contexto con cliente, plataforma y sistema de pagos.
+4. Dibuja contenedores para la tienda, API, base de datos y proveedor de pagos.
+5. Amplía la API con componentes que expliquen quién valida la devolución y quién solicita el reembolso.
+6. Anota qué decisión de negocio no puedes inventar, como el plazo permitido para devolver un producto.
+
+## 9. Respuesta modelo
+```text
+Escenario: aceptar una devolución dentro del plazo
+Dado que el pedido fue entregado y todavía está dentro del plazo acordado
+Cuando la clienta solicita la devolución con un motivo válido
+Entonces la solicitud queda registrada para revisión
+Y el sistema no afirma que el dinero ya fue reembolsado
+```
+
+La tienda envía la solicitud a la API. Un caso de uso consulta Pedidos y la política de devoluciones. Si se aprueba, puede pedir al sistema externo de pagos que procese el reembolso. La API registra el resultado y lo comunica a la clienta.
+
+El plazo y los motivos aceptados deben venir de una política real del negocio; no los determina el diagrama ni la herramienta de pruebas.
+
+## Comprueba lo que aprendiste
+1. ¿Qué explica un escenario BDD que un diagrama C4 no explica por sí solo?
+2. ¿Qué muestra C4 que el escenario no detalla?
+3. ¿Todos los diagramas C4 deben llegar al nivel de clases?
+4. ¿Por qué no debes inventar el plazo de una devolución?
+
+### Respuestas
+1. El comportamiento esperado ante una situación concreta.
+2. Las partes principales del sistema, sus responsabilidades y comunicaciones.
+3. No; se llega solo al nivel necesario para responder la pregunta.
+4. Porque es una regla del negocio que debe confirmarse con la organización.
+
+## Conclusión
+BDD convierte requisitos ambiguos en ejemplos revisables. C4 muestra qué partes intervienen para cumplirlos. Juntos ayudan a conectar lo que una persona espera con la estructura que el sistema necesita, sin confundir el comportamiento con la tecnología.

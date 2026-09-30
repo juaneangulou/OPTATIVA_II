@@ -1,8 +1,8 @@
 # Video 12.1: Actividad 3: diseño y dominio
 
 ## 📚 Fuentes relacionadas
-- [Estrategia tecnológica y roadmap](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucionar-un-mvp-sin-rearquitectar-des/)
-- [Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
+- [Modelado de dominios y límites de contexto](https://platzi.com/cursos/fundamentos-arquitectura-software/mindset-del-arquitecto-que-abraza-el-cam/)
+- [Arquitectura moderna y liderazgo](https://platzi.com/cursos/software-avanzado/migraciones-de-base-de-datos-con-flyway/)
 
 ## 🔗 Navegación
 [⬅️ Video anterior](video-12.md) | [➡️ Video siguiente](video-13.md)
@@ -24,12 +24,12 @@ Pedidos, Inventario, Ruteo y Entregas usan conceptos parecidos como disponibilid
 7. Define cómo comprobarás que la decisión funciona.
 
 ## Entregables
-modelo de dominio, entidades, objetos de valor, invariantes, casos de uso, puertos, adaptadores y decisiones de diseño.
+código en `/src`, entidades, objetos de valor, invariantes, casos de uso, contratos de aplicación, puertos, adaptadores, dirección de dependencias, diagrama y decisiones de diseño.
 
 Todos los entregables deben quedar en GitHub con commits que muestren evolución y con un video de explicación y sustentación.
 
 ## Resolución modelo
-Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas.
+Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas. La infraestructura implementa puertos definidos por la aplicación.
 
 ## 🧾 Ejemplo de entrega resuelta
 
@@ -48,10 +48,64 @@ Una entrega no puede tener dos repartidores activos al mismo tiempo.
 ### Evidencia
 Mapa de contextos, entidades, objeto de valor `RouteEstimate`, interfaces de puertos y prueba de la invariante.
 
+### Código mínimo de la solución
+```csharp
+public sealed record DeliveryId(Guid Value);
+public sealed record DeliveryAddress(string Value);
+
+public sealed class Delivery
+{
+    public DeliveryId Id { get; }
+    public DeliveryAddress Address { get; }
+    public Guid? CourierId { get; private set; }
+
+    public Delivery(DeliveryId id, DeliveryAddress address)
+    {
+        Id = id;
+        Address = address;
+    }
+
+    public void AssignCourier(Guid courierId)
+    {
+        if (CourierId.HasValue)
+            throw new InvalidOperationException("The delivery already has a courier");
+
+        CourierId = courierId;
+    }
+}
+
+public interface IDeliveryRepository
+{
+    Task<Delivery?> GetAsync(DeliveryId id);
+    Task SaveAsync(Delivery delivery);
+}
+
+public sealed class AssignCourierUseCase
+{
+    private readonly IDeliveryRepository _repository;
+
+    public AssignCourierUseCase(IDeliveryRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task ExecuteAsync(DeliveryId deliveryId, Guid courierId)
+    {
+        var delivery = await _repository.GetAsync(deliveryId)
+            ?? throw new InvalidOperationException("Delivery not found");
+
+        delivery.AssignCourier(courierId);
+        await _repository.SaveAsync(delivery);
+    }
+}
+```
+
+En este código, `Delivery` protege la invariante; `AssignCourierUseCase` coordina la intención del negocio; `IDeliveryRepository` es un puerto; y la implementación de base de datos queda en infraestructura. La dependencia apunta hacia la regla del negocio, no al revés.
+
 
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
-## Guion para la sustentación
+## Prepara tu sustentación
 
 1. Presenta el problema y explica por qué importa.
 2. Identifica los actores afectados.

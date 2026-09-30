@@ -34,7 +34,7 @@
 - [Video 30: Cierre y defensa final de la arquitectura](videos/video-30-defensa-final.md)
 
 ## Material complementario
-- [Guía de 10 videos extra: patrones de arquitectura en C#/.NET](../../materiales/materiales_por_video/serie_30_videos/guia_10_videos_extra_patrones_csharp.md)
+- [Ruta complementaria: 10 videos de patrones en C#/.NET](../../materiales/materiales_por_video/serie_30_videos/README.md)
 
 ## Descripción
 

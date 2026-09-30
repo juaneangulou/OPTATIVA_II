@@ -1,99 +1,118 @@
 # Video 22: Bases de datos y API Gateway
 
-## Fuentes oficiales
-- [Arquitectura moderna y liderazgo](https://platzi.com/cursos/software-avanzado/migraciones-de-base-de-datos-con-flyway/)
-- [Documentación y decisiones explícitas](https://platzi.com/cursos/software-avanzado/api-gateway-como-capa-de-abstraccion-en/)
+## Fuentes de este video
+- [Migraciones de base de datos con Flyway](https://platzi.com/cursos/software-avanzado/migraciones-de-base-de-datos-con-flyway/)
+- [API Gateway como capa de abstracción](https://platzi.com/cursos/software-avanzado/api-gateway-como-capa-de-abstraccion-en/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-21.md) | [➡️ Video siguiente](video-23.md)
+## Para estudiar por tu cuenta
+Una nueva pantalla de seguimiento puede exigir cambiar la base de datos y la respuesta de la API al mismo tiempo. Si cambias solo una parte, clientes antiguos podrían fallar; si modificas datos sin planear los pedidos existentes, podrías perder información.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: bases de datos y api gateway. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Este capítulo conecta dos temas: usar Flyway para aplicar cambios de base de datos en orden y usar una API Gateway como entrada estable entre clientes y servicios.
 
-## Resumen integrado
-**Fuente 1: Arquitectura moderna y liderazgo**
-El video final reúne los principales temas del curso: la arquitectura de software ya no es solo una disciplina técnica de diagramas y patrones, sino una práctica estratégica que conecta negocio, tecnología, personas y evolución. El arquitecto moderno debe pensar en sistemas sostenibles, seguros, escalables, observables y alineados con el contexto real donde operan.
+## 1. El caso: agregar una hora estimada
+La plataforma guarda pedidos y estados, pero ahora quiere mostrar una hora estimada de llegada. Esa hora se calcula o recibe desde Entregas y debe llegar al cliente mediante la API.
 
-Además, se resalta que la tecnología cambia rápido, pero la esencia del liderazgo arquitectónico no: la clave es tomar decisiones con criterio, comunicar claramente, resolver conflictos, y guiar a equipos a construir soluciones con sentido. La arquitectura moderna requiere una mezcla de técnica, visión de negocio, capacidad de análisis, juicio ético y habilidades de liderazgo. Es más que construir software: es diseñar el camino para que ese software pueda sobrevivir y aportar valor con el tiempo.
+Participan tres piezas:
 
-**Fuente 2: Documentación y decisiones explícitas**
-La documentación de arquitectura no es un lujo ni una actividad burocrática superficial; es una herramienta clave para que el sistema pueda entenderse, evolucionar y sostenerse en el tiempo. Cuando las decisiones se documentan de forma clara, el equipo puede reducir ambigüedad, evitar errores de interpretación y mantener continuidad incluso con cambios de personal. El video hace hincapié en que la arquitectura debe dejarse escrita, no solo en la cabeza de unos pocos.
+- **Base de datos:** conserva el nuevo dato cuando existe.
+- **Servicio de Entregas:** conoce o calcula la estimación.
+- **API Gateway:** recibe la consulta del cliente y dirige la solicitud al servicio que puede responder.
 
-Esto incluye explicar trade-offs, restricciones, decisiones tomadas y alternativas descartadas. Cuando un proyecto se basa en decisiones implícitas, cada integrante empieza a hacer su propia “lectura” del sistema. La documentación ayuda a que el diseño sea compartido, revisado y mejorado con base en evidencia.
+La Gateway no es dueña de la hora ni decide cómo se calcula. La base de datos tampoco decide si la estimación es confiable. Cada pieza tiene una responsabilidad diferente.
 
-## Ideas que debes conservar
-- La arquitectura moderna combina tecnología, negocio y estrategia.
-- El arquitecto actúa como guía, decisor y comunicador.
-- La calidad del sistema depende de decisiones y procesos, no solo de ideas técnicas.
-- La evolución continua exige adaptación constante y aprendizaje.
-- La documentación reduce ambigüedad y ayuda a la continuidad del proyecto.
-- Las decisiones arquitectónicas deben ser explícitas, no solo inferidas.
-- Documentar no significa escribir mucho por escrito; significa registrar lo relevante.
-- Se deben reflejar restricciones, decisiones, alternativas y razones.
+## 2. Preparar el cambio de base de datos con Flyway
+Una **migración** es un cambio planeado en la estructura o los datos guardados. Flyway ejecuta archivos de migración numerados y registra cuáles ya se aplicaron.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: bases de datos y api gateway. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+Un archivo podría llamarse:
 
-## Aplicación al caso logístico
-Para estudiar **bases de datos y api gateway**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La arquitectura moderna combina tecnología, negocio y estrategia.
+```text
+V4__Agregar_hora_estimada.sql
+```
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos bases de datos y api gateway al flujo.
-    2. **Actor prioritario de bases de datos y api gateway:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en bases de datos y api gateway:** escribe la condición que debe permanecer verdadera y relaciónala con la arquitectura moderna combina tecnología, negocio y estrategia..
-    4. **Punto de decisión para bases de datos y api gateway:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de bases de datos y api gateway:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+`V4` indica el orden de la migración; el resto describe su propósito. En un proyecto real, verifica el historial y el formato que la configuración de Flyway espera.
 
-Para resolver el caso de **bases de datos y api gateway**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+Antes de aplicarlo, pregunta qué ocurre con los pedidos anteriores, que no tienen hora estimada. Una respuesta puede ser dejar el campo vacío hasta obtener un cálculo, no inventar un valor.
 
+## 3. Mantener compatibilidad durante el despliegue
+La base de datos y la aplicación no siempre se actualizan en el mismo instante. Puede seguir activa una versión antigua de la API mientras se aplica una migración nueva.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa bases de datos y api gateway y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la arquitectura moderna combina tecnología, negocio y estrategia.
-3. Identifica el actor que recibe el impacto de bases de datos y api gateway y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para bases de datos y api gateway; compara sus costos y riesgos.
-5. Elige una opción para bases de datos y api gateway, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: bases de datos y api gateway debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Un enfoque gradual consiste en:
 
-## Respuestas a las preguntas
-### ❓ ¿Qué tipo de arquitecto quiero ser: técnico, estratégico o de liderazgo?
+1. Añadir un campo opcional que las versiones antiguas puedan ignorar.
+2. Aplicar la migración en un entorno de pruebas y comprobar pedidos existentes.
+3. Publicar el servicio que calcula y devuelve la estimación.
+4. Actualizar el contrato de la API para incluir el campo opcional.
+5. Verificar que clientes antiguos sigan funcionando.
+6. Si en el futuro se vuelve obligatorio, preparar otro cambio y una actualización de datos antes de imponerlo.
 
-**Respuesta concreta:** Para bases de datos y api gateway, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Este enfoque se suele llamar **expandir y contraer**: primero agregas una capacidad compatible; después migras consumidores; por último eliminas lo antiguo solo cuando ya nadie depende de ello.
 
-### ❓ ¿Estoy construyendo soluciones solo para hoy o para el crecimiento futuro?
+## 4. ¿Qué hace la API Gateway?
+La **API Gateway** es una puerta de entrada que recibe solicitudes de las aplicaciones y las dirige a los servicios apropiados. Puede ofrecer una dirección estable aunque internamente cambien los servicios.
 
-**Respuesta concreta:** Si el sistema crece en el tema de bases de datos y api gateway, el operador logístico seguirá necesitando reasignar una ruta sin perder el historial del pedido. No elegiría una solución distribuida automáticamente; primero mediría carga, latencia y errores. Mantendría la regla 'conservar trazabilidad de cada cambio' en un módulo claro y escalaría solo el punto que demuestre saturación. La decisión se verifica con una prueba de carga y una métrica acordada.
+Cuando el cliente pide el pedido 245, la Gateway puede dirigir la consulta a Entregas y devolver un contrato como:
 
-### ❓ ¿Qué decisiones importantes de mi proyecto están aún en la cabeza de una sola persona?
+```text
+Estado: En camino
+Hora estimada: 14:30 (estimación; actualizada 14:05)
+```
 
-**Respuesta concreta:** Para bases de datos y api gateway, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+El **contrato** define qué datos devuelve la API y qué significan. Si la hora todavía no existe, el contrato debe indicar si el campo se omite, se devuelve vacío o se informa de otra manera; no dejes esa decisión implícita.
 
-### ❓ ¿Estoy documentando solo la solución final o también el porqué?
+La Gateway puede adaptar o combinar respuestas según el diseño, pero no debería guardar su propia copia del estado ni duplicar la regla de Entregas.
 
-**Respuesta concreta:** Para bases de datos y api gateway, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 5. Datos y API deben evolucionar juntos
+Para cada nuevo campo pregunta:
 
-## 🛠️ Cómo resolver la actividad
+- ¿Quién produce el dato?
+- ¿Quién lo guarda?
+- ¿Quién lo devuelve al cliente?
+- ¿Es obligatorio o puede faltar?
+- ¿Qué ven las versiones anteriores de la aplicación?
+- ¿Qué información no debe exponerse a todos los clientes?
 
-1. **Comprende el tema:** explica con tus palabras qué significa bases de datos y api gateway y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de bases de datos y api gateway:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para bases de datos y api gateway:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de bases de datos y api gateway:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La arquitectura moderna combina tecnología, negocio y estrategia. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a bases de datos y api gateway: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de bases de datos y api gateway, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+Si el nuevo campo contiene una estimación, el contrato debe distinguirla de una hora garantizada. Una etiqueta como “estimada” evita que el cliente interprete el dato como promesa exacta.
 
-**Respuesta modelo para Bases de datos y API Gateway:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+## 6. Qué probar antes de publicar
+- Ejecutar Flyway sobre una copia de la base y verificar que los pedidos antiguos sigan disponibles.
+- Confirmar que la nueva versión del servicio puede leer el campo opcional.
+- Comprobar que la Gateway conserva el formato anterior y agrega el nuevo dato de forma compatible.
+- Consultar con una versión antigua del cliente.
+- Probar el caso en que todavía no existe una hora estimada.
+- Verificar permisos: el cliente solo puede consultar pedidos que le pertenecen.
 
+Una migración aplicada no demuestra que la API esté bien, y una API que compila no demuestra que los datos antiguos sean válidos. Comprueba ambos límites.
 
-## Conclusiones de las fuentes
-El curso cierra con una visión clara: la mejor arquitectura no es la más compleja ni la más innovadora, sino la que resuelve el problema real con criterio, sostenibilidad y capacidad de evolución. El arquitecto de software es quien convierte la complejidad en claridad y guía a la organización para crear soluciones con valor duradero.
+## 7. Actividad de autoestudio
+La plataforma quiere agregar `hora_estimada` al seguimiento:
 
-La documentación arquitectónica es una forma de preservar el conocimiento y de evitar que el sistema se vuelva incomprensible con el tiempo. Un buen diseño debe ser enseñable, comprensible y defendible.
+1. Decide si puede faltar para pedidos antiguos.
+2. Escribe el nombre de una migración posterior a `V3__Crear_tabla_pedidos.sql`.
+3. Describe el orden de cambios entre base de datos, servicio y Gateway.
+4. Especifica qué devuelve la API si no hay estimación.
+5. Propón tres pruebas para versiones antiguas y nuevas.
+6. Indica qué harías si la migración funciona pero el cliente recibe un formato distinto al esperado.
 
-## Preguntas para preparar la grabación
-- ¿Qué tipo de arquitecto quiero ser: técnico, estratégico o de liderazgo?
-- ¿Estoy construyendo soluciones solo para hoy o para el crecimiento futuro?
-- ¿Qué decisiones importantes de mi proyecto están aún en la cabeza de una sola persona?
-- ¿Estoy documentando solo la solución final o también el porqué?
+### Respuesta modelo
+La migración puede ser `V4__Agregar_hora_estimada.sql`, si V4 es la siguiente versión libre. El campo empieza opcional; Flyway se prueba primero en una copia; luego se publica el servicio y se extiende el contrato de la Gateway.
 
-## Evidencia para el repositorio
-Guarda la explicación de bases de datos y api gateway, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+Si no existe estimación, la API puede omitir el dato o devolverlo como no disponible, siempre de manera consistente con el contrato. Las pruebas verificarían pedidos antiguos, pedidos nuevos con estimación y compatibilidad con cliente antiguo.
+
+Si el formato de la API no coincide, se detiene la ampliación y se corrige el contrato o el adaptador antes de continuar; no se debe cambiar silenciosamente el significado del campo.
+
+## Comprueba lo que aprendiste
+1. ¿Qué registra Flyway?
+2. ¿Qué significa mantener compatibilidad durante una migración?
+3. ¿Quién es responsable de calcular la hora estimada?
+4. ¿Por qué la API debe indicar que una hora es estimada?
+
+### Respuestas
+1. Qué archivos de migración se aplicaron y en qué orden.
+2. Que las versiones que conviven sigan pudiendo leer y producir los datos necesarios.
+3. El servicio del dominio responsable de seguimiento o rutas, no la Gateway por defecto.
+4. Para que el cliente no confunda una predicción con una garantía.
+
+## Conclusión
+Una migración de base de datos y un cambio de API son partes coordinadas de la misma evolución. Flyway mantiene el orden de los cambios persistentes; la Gateway puede proteger una entrada estable; el contrato explica qué ve el cliente.
+
+El cambio es seguro cuando considera pedidos existentes, clientes antiguos, datos opcionales, pruebas y una forma de detener la publicación si algo no coincide.

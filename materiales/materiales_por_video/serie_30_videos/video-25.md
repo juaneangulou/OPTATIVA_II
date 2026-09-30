@@ -1,99 +1,115 @@
 # Video 25: Dead Letter Queue y consumidores en tiempo real
 
-## Fuentes oficiales
-- [Diseño para cambio y evolución](https://platzi.com/cursos/software-avanzado/dead-letter-queue-en-productor-consumido/)
-- [Calidad de servicio y experiencia de usuario](https://platzi.com/cursos/software-avanzado/patron-comparing-consumers-para-procesam/)
+## Fuentes de este video
+- [Dead Letter Queue en productor-consumidor](https://platzi.com/cursos/software-avanzado/dead-letter-queue-en-productor-consumido/)
+- [Comparing Consumers para procesamiento en tiempo real](https://platzi.com/cursos/software-avanzado/patron-comparing-consumers-para-procesam/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-24.md) | [➡️ Video siguiente](video-26.md)
+## Para estudiar por tu cuenta
+Un mensaje de entrega puede fallar al procesarse, mientras que un nuevo consumidor puede producir resultados distintos al actual. Este capítulo conecta dos necesidades diferentes: conservar fallos que requieren investigación y comparar una versión candidata antes de darle efecto real.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: dead letter queue y consumidores en tiempo real. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 1. Recuerda productor, consumidor y cola
+Pedidos puede producir un mensaje para que Entregas procese una tarea. Una **cola** conserva los mensajes pendientes; el **consumidor** los recoge y realiza el trabajo.
 
-## Resumen integrado
-**Fuente 1: Diseño para cambio y evolución**
-Este video introduce una de las ideas más importantes de la arquitectura moderna: un sistema no solo debe resolver el problema actual, sino prepararse para cambiar cuando cambien las necesidades del negocio o el contexto. El diseño arquitectónico debe pensar en la evolución como una variable esperada, no como una excepción. Por eso se enfatizan principios como la modularidad, la flexibilidad, la separación de responsabilidades y la protección de las capas críticas del sistema.
+Un fallo no siempre significa lo mismo:
 
-Cuando el software se diseña para el cambio, se vuelve más sostenible. En cambio, si se construye como una estructura rígida y demasiado acoplada, cualquier cambio pequeño termina convirtiéndose en una tarea riesgosa. La arquitectura entonces deja de ser una estructura estática y pasa a ser una base que permite crecer y adaptarse con menos fricción.
+- un proveedor temporalmente fuera de servicio puede justificar un reintento;
+- una dirección incompleta necesita corrección;
+- un error desconocido necesita investigación.
 
-**Fuente 2: Calidad de servicio y experiencia de usuario**
-La arquitectura de software no solo se mide por qué tan bien se ejecuta internamente, sino por la experiencia que entrega a quienes la usan. Si el sistema es técnicamente sólido pero lento, poco intuitivo o inconsistente, la arquitectura termina fallando en la práctica. Este video conecta calidad técnica con calidad percibida por el usuario: tiempo de respuesta, confiabilidad, claridad, disponibilidad y consistencia.
+Reintentar sin límite puede bloquear trabajo o saturar dependencias. El sistema necesita un máximo razonado, pausas y registro del motivo.
 
-Cuando el sistema es parte de una experiencia de negocio, la calidad de servicio se vuelve una necesidad de diseño. Un sistema puede estar bien estructurado, pero si no entrega valor de forma clara y confiable, no cumple su propósito. La arquitectura debe aportar experiencia y resultados, no solo estructura interna.
+## 2. Dead Letter Queue: apartar lo que ya no debe bloquear la cola normal
+Una **Dead Letter Queue (DLQ)** es una cola separada para mensajes que superaron los intentos permitidos o requieren atención.
 
-## Ideas que debes conservar
-- La evolución es una característica normal del software, no un problema excepcional.
-- Un buen diseño reduce el costo de cambiar.
-- La modularidad permite aislar áreas del sistema y facilitar adaptaciones.
-- La arquitectura debe proteger los puntos sensibles del negocio.
-- La experiencia del usuario es una consecuencia del diseño arquitectónico.
-- Calidad técnica y calidad de servicio no son conceptos separados.
-- El tiempo de respuesta, la estabilidad y la claridad influyen en la percepción del sistema.
-- Un servicio bueno no solo funciona; funciona con un nivel de calidad soportable.
+```text
+Cola normal -> consumidor -> éxito: se registra el resultado
+                         -> fallos repetidos: DLQ para investigar
+```
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: dead letter queue y consumidores en tiempo real. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+La DLQ no repara un pedido ni decide automáticamente que debe reintentarse. Conserva el mensaje y el contexto del fallo para que puedas investigar la causa.
 
-## Aplicación al caso logístico
-Para estudiar **dead letter queue y consumidores en tiempo real**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La evolución es una característica normal del software, no un problema excepcional.
+Antes de devolver un mensaje a la cola normal, comprueba que:
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos dead letter queue y consumidores en tiempo real al flujo.
-    2. **Actor prioritario de dead letter queue y consumidores en tiempo real:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en dead letter queue y consumidores en tiempo real:** escribe la condición que debe permanecer verdadera y relaciónala con la evolución es una característica normal del software, no un problema excepcional..
-    4. **Punto de decisión para dead letter queue y consumidores en tiempo real:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de dead letter queue y consumidores en tiempo real:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+1. se corrigió la causa del fallo;
+2. el mensaje no produjo ya el efecto deseado;
+3. repetirlo no duplicará una reserva o entrega;
+4. el sistema puede soportar la cantidad de mensajes que se reprocesará.
 
-Para resolver el caso de **dead letter queue y consumidores en tiempo real**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## 3. Comparing Consumers: comparar antes de sustituir
+**Comparing Consumers** ejecuta el consumidor actual y una versión candidata con entradas equivalentes. El actual sigue controlando las respuestas reales; el candidato calcula y guarda sus resultados para compararlos, sin afectar al usuario.
 
+Este uso de la versión candidata se llama a menudo **modo sombra**. “Sombra” significa que observa el mismo flujo, pero no realiza acciones externas reales como asignar repartidores o enviar avisos.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa dead letter queue y consumidores en tiempo real y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la evolución es una característica normal del software, no un problema excepcional.
-3. Identifica el actor que recibe el impacto de dead letter queue y consumidores en tiempo real y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para dead letter queue y consumidores en tiempo real; compara sus costos y riesgos.
-5. Elige una opción para dead letter queue y consumidores en tiempo real, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: dead letter queue y consumidores en tiempo real debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+```text
+Mensaje de seguimiento ─┬─> Consumidor actual -> respuesta real
+                        └─> Consumidor candidato -> resultado comparativo
+```
 
-## Respuestas a las preguntas
-### ❓ ¿Qué partes de mi sistema son difíciles de cambiar?
+Las dos versiones necesitan recibir los mismos datos. Si reparten los mensajes entre ellas, cada una verá pedidos distintos y la comparación dejará de ser justa.
 
-**Respuesta concreta:** Para dead letter queue y consumidores en tiempo real, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 4. Cómo se complementan
+La plataforma quiere cambiar el consumidor que calcula una hora estimada de llegada.
 
-### ❓ ¿Estoy diseñando para el futuro o solo para la versión actual?
+1. El consumidor actual sigue respondiendo al cliente.
+2. El candidato recibe una copia de la misma entrada y calcula su resultado.
+3. El equipo compara precisión, demora, errores y costo.
+4. Si el candidato falla al procesar un mensaje de prueba, ese fallo se registra para investigar; no afecta a la operación real.
+5. Si el comportamiento es favorable, se prueba gradualmente antes de reemplazar al actual.
 
-**Respuesta concreta:** Si el sistema crece en el tema de dead letter queue y consumidores en tiempo real, el operador logístico seguirá necesitando reasignar una ruta sin perder el historial del pedido. No elegiría una solución distribuida automáticamente; primero mediría carga, latencia y errores. Mantendría la regla 'conservar trazabilidad de cada cambio' en un módulo claro y escalaría solo el punto que demuestre saturación. La decisión se verifica con una prueba de carga y una métrica acordada.
+Una diferencia entre resultados no es automáticamente un error ni un mensaje para DLQ. Es evidencia que se analiza. La DLQ es para tareas que no se procesan correctamente; el registro de comparación guarda salidas que pueden ser distintas.
 
-### ❓ ¿Qué tan buena es la experiencia de uso de mi sistema?
+## 5. Qué comparar
+Define antes de la prueba qué significa “mejor”:
 
-**Respuesta concreta:** Para dead letter queue y consumidores en tiempo real, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+- diferencia entre hora estimada y hora real;
+- porcentaje de errores de cálculo;
+- tiempo que tarda cada versión;
+- resultado por zona y hora del día;
+- recursos que consume el candidato.
 
-### ❓ ¿Qué factores técnicos afectan la percepción del usuario?
+Compara suficientes casos normales y excepcionales. Un promedio puede esconder que una versión nueva falla en una zona concreta.
 
-**Respuesta concreta:** Para dead letter queue y consumidores en tiempo real, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 6. Evita efectos duplicados
+El candidato no debe enviar notificaciones, actualizar el pedido ni asignar una ruta. Si ambas versiones hacen esas acciones, podrías mandar dos mensajes al cliente o crear dos entregas.
 
-## 🛠️ Cómo resolver la actividad
+Al publicar una nueva versión con efecto real, prepara:
 
-1. **Comprende el tema:** explica con tus palabras qué significa dead letter queue y consumidores en tiempo real y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de dead letter queue y consumidores en tiempo real:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para dead letter queue y consumidores en tiempo real:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de dead letter queue y consumidores en tiempo real:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La evolución es una característica normal del software, no un problema excepcional. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a dead letter queue y consumidores en tiempo real: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de dead letter queue y consumidores en tiempo real, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+- una forma de habilitarla para un grupo pequeño;
+- métricas para detectar errores o demoras;
+- un plan para volver a la versión anterior;
+- protección para que una tarea repetida no duplique efectos.
 
-**Respuesta modelo para Dead Letter Queue y consumidores en tiempo real:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+## 7. Datos de la DLQ y cuidado operativo
+Los mensajes pueden incluir identificadores, direcciones o información de cliente. Limita quién puede leerlos y conserva solo lo necesario. Define cuánto tiempo se mantienen y quién investiga los que llevan demasiado tiempo sin resolver.
 
+Una DLQ sin revisión termina convirtiéndose en un lugar donde se olvidan tareas. Debe tener alertas, responsable y procedimiento de reproceso.
 
-## Conclusiones de las fuentes
-La arquitectura más útil es la que acepta que el sistema cambiará. Cuando el diseño está preparado para la evolución, el software se vuelve más robusto, adaptable y sostenible.
+## 8. Actividad de autoestudio
+El consumidor actual calcula rutas por distancia. El candidato considera también tráfico. Durante la prueba, un mensaje de una entrega de ensayo no puede procesarse porque le falta el destino.
 
-La arquitectura debe diseñarse para entregar valor no solo dentro del equipo técnico, sino también en la experiencia real del usuario. La calidad de servicio aparece como indicador de que la solución responde bien a las necesidades del entorno.
+1. ¿Qué consumidor debe seguir controlando las rutas reales durante la comparación?
+2. ¿Qué datos deben recibir ambas versiones?
+3. ¿Qué resultados medirías para comparar rutas?
+4. ¿Qué harías con el mensaje inválido?
+5. ¿Qué acciones debe tener prohibidas el candidato en modo sombra?
+6. ¿Qué comprobarías antes de reprocesar el mensaje inválido?
 
-## Preguntas para preparar la grabación
-- ¿Qué partes de mi sistema son difíciles de cambiar?
-- ¿Estoy diseñando para el futuro o solo para la versión actual?
-- ¿Qué tan buena es la experiencia de uso de mi sistema?
-- ¿Qué factores técnicos afectan la percepción del usuario?
+### Respuesta modelo
+El consumidor actual mantiene el control. Ambos reciben las mismas condiciones de pedido, ubicación y datos de tráfico permitidos. Compararía duración real, precisión de hora estimada, errores y resultados por zona.
 
-## Evidencia para el repositorio
-Guarda la explicación de dead letter queue y consumidores en tiempo real, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+El mensaje inválido se registra con el identificador y la causa, y tras los intentos permitidos va a una DLQ para corregir el destino. El candidato no debe asignar una ruta ni enviar avisos. Antes de reprocesar, se corrige el dato y se comprueba que no exista ya una asignación.
+
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre una DLQ y un registro de comparación?
+2. ¿Qué versión responde al cliente durante el modo sombra?
+3. ¿Por qué ambas versiones necesitan entradas equivalentes?
+4. ¿Qué debe ocurrir antes de reprocesar un mensaje fallido?
+
+### Respuestas
+1. La DLQ conserva mensajes que no pudieron procesarse; el registro comparativo guarda resultados para evaluar dos consumidores.
+2. El consumidor actual.
+3. Para atribuir las diferencias al comportamiento y no a que recibieron datos distintos.
+4. Corregir la causa, comprobar si hubo efectos previos y evitar duplicados.
+
+## Conclusión
+La DLQ protege el flujo normal frente a tareas que fallan repetidamente y conserva evidencia para investigarlas. Comparing Consumers permite evaluar una nueva lógica en paralelo sin que afecte a clientes. Uno maneja fallos; el otro compara comportamientos. Pueden coexistir, pero no cumplen la misma función.

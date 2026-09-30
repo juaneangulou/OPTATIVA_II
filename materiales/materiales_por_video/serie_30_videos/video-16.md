@@ -1,99 +1,129 @@
 # Video 16: Monorepos, trunk-based development y calidad
 
-## Fuentes oficiales
-- [Contexto, negocio y decisiones arquitectónicas](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
-- [Principios, calidad y trade-offs](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
+## Fuentes de este video
+- [Monorepos con Pantsbuild en proyectos reales](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
+- [Trunk Based Development con rulesets en GitHub](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-15.md) | [➡️ Video siguiente](video-17.md)
+## Para estudiar por tu cuenta
+En este capítulo vas a combinar dos decisiones de trabajo: cómo guardar varios proyectos relacionados en un repositorio y cómo integrar sus cambios con frecuencia sin dejar desprotegida la rama principal.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: monorepos, trunk-based development y calidad. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Usaremos Pedidos, Entregas y una biblioteca compartida para direcciones. El objetivo es seguir un cambio pequeño desde que se edita hasta que se integra con pruebas.
 
-## Resumen integrado
-**Fuente 1: Contexto, negocio y decisiones arquitectónicas**
-El video muestra que la arquitectura de software no se construye en un vacío técnico. Cada decisión depende del contexto del negocio, los objetivos del cliente, las personas involucradas, las restricciones de tiempo, costo, seguridad y operación. Un sistema excelente para un caso puede ser inútil para otro si no se toma en cuenta el entorno.
+## 1. Monorepo: varios proyectos en un solo repositorio
+Un **repositorio** guarda archivos y el historial de cambios. Un **monorepo** contiene varios proyectos relacionados en el mismo repositorio.
 
-Por eso, el arquitecto debe interpretar no solo requisitos funcionales, sino también necesidades de negocio, riesgos, evolución esperada, experiencia del usuario y capacidad operativa del equipo. La arquitectura deja de ser una actividad puramente técnica y se convierte en una actividad de análisis, negociación y toma de decisiones. En otras palabras, no se diseña solo para resolver un problema lógico; se diseña para resolver un problema real dentro de un contexto real.
+```text
+plataforma/
+  servicios/pedidos/
+  servicios/entregas/
+  bibliotecas/direcciones/
+```
 
-**Fuente 2: Principios, calidad y trade-offs**
-Este video habla de una realidad central en arquitectura de software: no existe una solución perfecta para todos los casos, sino decisiones que equilibran objetivos en conflicto. A menudo el equipo quiere velocidad, el negocio quiere menor costo, la operación quiere estabilidad y el usuario quiere experiencia rápida. La arquitectura de software consiste en resolver esas tensiones con criterio técnico y estratégico.
+Los proyectos pueden seguir compilándose y desplegándose por separado. Compartir repositorio no significa compartir una base de datos, ejecutar todo en un solo proceso ni publicar todos los servicios al mismo tiempo.
 
-La idea principal es que la calidad del diseño no se mide solo por cuán elegante es, sino por cuán bien se adapta al problema real. Un sistema puede ser técnicamente sofisticado y aun así ser un mal diseño si no considera costo, complejidad, operatividad y capacidad de evolución. El video enfatiza la importancia de principios, ya que los principios ayudan a tomar decisiones cuando no hay una respuesta única.
+Un monorepo puede ayudar cuando un cambio tiene que actualizar un servicio y una biblioteca en la misma revisión. También exige reglas claras para dependencias, pruebas y permisos.
 
-## Ideas que debes conservar
-- Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
-- El contexto define qué es una buena decisión y qué no lo es.
-- Un gran diseño debe equilibrar funcionalidad, costos, tiempo y complejidad.
-- El arquitecto actúa como traductor entre negocio y tecnología.
-- No todo en arquitectura es absoluto; muchas decisiones implican trade-offs.
-- La calidad del diseño depende del contexto, no de una fórmula universal.
-- Un sistema debe balancear velocidad, claridad, costo, rendimiento y sostenibilidad.
-- Los principios técnicos ayudan a evitar decisiones impulsivas o improvisadas.
+## 2. Qué aporta Pantsbuild
+Pantsbuild es una herramienta para describir proyectos, sus dependencias y las tareas de construcción o prueba que se pueden ejecutar sobre ellos.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: monorepos, trunk-based development y calidad. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+Un **target** es una unidad nombrada de trabajo, como construir la biblioteca de direcciones o probar el servicio de Pedidos. Los archivos de configuración, por ejemplo `BUILD`, describen targets y relaciones.
 
-## Aplicación al caso logístico
-Para estudiar **monorepos, trunk-based development y calidad**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
+Si Entregas depende de Direcciones, esa relación debe aparecer en la configuración. Así Pantsbuild puede ayudar a identificar qué tareas probar cuando cambia la biblioteca. La herramienta no adivina dependencias que el equipo no declaró.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos monorepos, trunk-based development y calidad al flujo.
-    2. **Actor prioritario de monorepos, trunk-based development y calidad:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en monorepos, trunk-based development y calidad:** escribe la condición que debe permanecer verdadera y relaciónala con los requisitos técnicos no son suficientes; el negocio da la forma de la solución..
-    4. **Punto de decisión para monorepos, trunk-based development y calidad:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de monorepos, trunk-based development y calidad:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Un comando ilustrativo podría ser:
 
-Para resolver el caso de **monorepos, trunk-based development y calidad**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+```text
+./pants test servicios/pedidos::
+```
 
+El significado de `::`, la ruta y las opciones dependen de la configuración de Pants del proyecto. Antes de usar un comando, revisa el `README` y la versión configurada; no lo copies a ciegas en un repositorio distinto.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa monorepos, trunk-based development y calidad y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: los requisitos técnicos no son suficientes; el negocio da la forma de la solución.
-3. Identifica el actor que recibe el impacto de monorepos, trunk-based development y calidad y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para monorepos, trunk-based development y calidad; compara sus costos y riesgos.
-5. Elige una opción para monorepos, trunk-based development y calidad, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: monorepos, trunk-based development y calidad debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 3. Trunk Based Development: integrar cambios pequeños
+La rama principal suele llamarse `main`. En Trunk Based Development, las personas integran cambios pequeños a esa rama con frecuencia.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué restricciones del negocio están impactando mi diseño actual?
+Se pueden usar ramas de trabajo, pero se mantienen cortas. Una rama que vive semanas se aleja de `main` y puede acumular diferencias difíciles de combinar.
 
-**Respuesta concreta:** La parte frágil de monorepos, trunk-based development y calidad es la que permite que el cliente reciba un resultado incorrecto: recibir un estado de entrega confiable. La corregiría colocando la regla 'no mostrar una entrega como completada sin evidencia válida' en un límite explícito, en lugar de dejarla repartida entre la interfaz y la infraestructura. El costo será reorganizar el flujo y agregar pruebas; la evidencia será un cambio aislado que no rompa los demás módulos.
+Una **integración continua** ejecuta comprobaciones cada vez que se propone o integra un cambio. Por ejemplo: compilar, ejecutar pruebas y revisar reglas de arquitectura.
 
-### ❓ ¿Estoy resolviendo el problema real o solo la versión técnica de ese problema?
+## 4. Qué son los rulesets de GitHub
+Un **ruleset** configura condiciones para proteger una rama. En `main`, podrías exigir que los cambios lleguen por Pull Request, que pasen ciertas pruebas o que alguien revise la modificación.
 
-**Respuesta concreta:** Para monorepos, trunk-based development y calidad, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Estas reglas protegen el proceso, no certifican que el diseño sea correcto. Si una prueba no verifica nada útil, que aparezca como “verde” no protege el sistema.
 
-### ❓ ¿Qué trade-off estoy asumiendo sin darme cuenta en mi proyecto?
+Un **feature flag** es un interruptor que permite mantener desactivada una función aunque su código ya esté integrado. Sirve si la funcionalidad todavía no está lista para mostrarse, pero no elimina la necesidad de probarla ni de retirar el flag cuando ya no haga falta.
 
-**Respuesta concreta:** Para monorepos, trunk-based development y calidad, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 5. Cambio guiado: ajustar la dirección de entrega
+La biblioteca de direcciones necesita distinguir entre dirección escrita y dirección confirmada. Pedidos y Entregas usan esta biblioteca.
 
-### ❓ ¿Estoy priorizando la solución más elegante o la más adecuada?
+### Paso 1: delimita el cambio
+Decide qué campo cambia y qué compatibilidad necesitan sus consumidores. No modifiques contratos de tres proyectos si la necesidad solo afecta a uno.
 
-**Respuesta concreta:** Para monorepos, trunk-based development y calidad, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### Paso 2: actualiza dependencias y pruebas
+Pants debe conocer qué proyectos consumen la biblioteca. Añade o ajusta pruebas de la biblioteca, Pedidos y Entregas para que el cambio no pase inadvertido.
 
-## 🛠️ Cómo resolver la actividad
+### Paso 3: prepara una rama corta
+Actualiza tu rama con `main`, crea una rama de trabajo para este cambio y evita acumular funcionalidades distintas en la misma propuesta.
 
-1. **Comprende el tema:** explica con tus palabras qué significa monorepos, trunk-based development y calidad y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de monorepos, trunk-based development y calidad:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para monorepos, trunk-based development y calidad:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de monorepos, trunk-based development y calidad:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: Los requisitos técnicos no son suficientes; el negocio da la forma de la solución. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a monorepos, trunk-based development y calidad: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de monorepos, trunk-based development y calidad, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+### Paso 4: ejecuta tareas relevantes
+Ejecuta las pruebas de los proyectos afectados y revisa el cambio completo. En un repositorio Pants, usa los targets y comandos definidos por ese mismo repositorio.
 
-**Respuesta modelo para Monorepos, trunk-based development y calidad:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+### Paso 5: abre una Pull Request
+Explica qué problema resuelve el cambio, qué proyectos afecta y qué pruebas ejecutaste. Una persona revisa la propuesta y GitHub aplica las reglas configuradas.
 
+### Paso 6: integra y limpia
+Cuando las comprobaciones y la revisión pasan, integra el cambio y elimina la rama corta. Si la función no debe estar visible todavía, controla su activación con una configuración o feature flag documentado.
 
-## Conclusiones de las fuentes
-Una buena arquitectura no se mide solo por su elegancia técnica, sino por su capacidad de responder a un problema auténtico con sentido de negocio. El mejor diseño es aquel que sirve al contexto y no el que solo parece bonito desde el punto de vista teórico.
+## 6. Qué no debes confundir
+- **Monorepo** responde dónde se guardan varios proyectos.
+- **Pantsbuild** ayuda a declarar relaciones y ejecutar tareas.
+- **Trunk Based Development** describe cómo integrar cambios.
+- **Rulesets** establecen protecciones para la rama.
 
-La arquitectura no es una búsqueda de perfección abstracta, sino de equilibrio. El arquitecto debe aprender a elegir entre alternativas con sentido, entendiendo que cada decisión tiene consecuencias en costo, mantenimiento y evolución del sistema.
+Puedes tener monorepo sin Pantsbuild, y puedes trabajar con ramas cortas sin monorepo. Son herramientas y prácticas que se pueden combinar si responden a una necesidad real.
 
-## Preguntas para preparar la grabación
-- ¿Qué restricciones del negocio están impactando mi diseño actual?
-- ¿Estoy resolviendo el problema real o solo la versión técnica de ese problema?
-- ¿Qué trade-off estoy asumiendo sin darme cuenta en mi proyecto?
-- ¿Estoy priorizando la solución más elegante o la más adecuada?
+## 7. Costos y decisiones
+| Decisión | Beneficio posible | Costo o riesgo |
+|---|---|---|
+| Monorepo | Revisar juntos cambios coordinados | Repositorio grande y reglas de permisos más cuidadosas |
+| Pantsbuild | Tareas y dependencias explícitas | Configuración que el equipo debe aprender y mantener |
+| Ramas cortas | Detectar conflictos y fallos pronto | Requiere mantener cambios pequeños y probar a menudo |
+| Rulesets | Evitar integraciones sin revisión o pruebas | Puede bloquear trabajo si exige comprobaciones mal definidas |
 
-## Evidencia para el repositorio
-Guarda la explicación de monorepos, trunk-based development y calidad, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+No apliques todas las opciones por moda. Primero identifica el problema: por ejemplo, “no sabemos qué pruebas ejecutar cuando cambia la biblioteca compartida”. Luego decide si Pantsbuild aporta valor para esa escala.
+
+## 8. Actividad de autoestudio
+Una modificación de la biblioteca `Direcciones` cambia cómo se valida el código postal. La usan Pedidos y Entregas.
+
+1. Dibuja los tres proyectos y sus dependencias.
+2. Anota qué pruebas correrías y por qué.
+3. Escribe los pasos que seguirías desde la rama de trabajo hasta `main`.
+4. Propón dos reglas para proteger `main`.
+5. Explica qué puede salir mal si la rama permanece sin integrar durante tres semanas.
+6. Decide si necesitas Pantsbuild para este repositorio; explica qué información te falta.
+
+### Pistas
+- Una biblioteca compartida puede romper un consumidor aunque sus propias pruebas pasen.
+- Una regla de GitHub es útil solo si corresponde a una comprobación importante.
+- Un monorepo pequeño no necesita automáticamente una herramienta de construcción avanzada.
+
+## 9. Respuesta modelo
+Pedidos y Entregas dependen de `Direcciones`. Ejecutaría pruebas de la biblioteca y de los dos consumidores, porque ambos pueden interpretar la validación de manera distinta.
+
+Trabajaría en una rama corta, abriría una Pull Request con la explicación y resultados, esperaría las pruebas exigidas y una revisión, integraría y eliminaría la rama. Rulesets razonables podrían impedir el borrado de `main` y exigir las pruebas de los consumidores antes de integrar.
+
+Tres semanas sin integrar aumentan la posibilidad de conflictos, incompatibilidades y errores tardíos. Pantsbuild podría servir si el número de proyectos o el costo de ejecutar pruebas completas crece; primero habría que conocer la escala del repositorio y sus tiempos de construcción.
+
+## Comprueba lo que aprendiste
+1. ¿Un monorepo implica desplegar todos los proyectos juntos?
+2. ¿Qué tarea automatiza Pantsbuild y qué debe declarar el equipo?
+3. ¿Trunk Based Development prohíbe ramas de trabajo?
+4. ¿Qué garantiza un ruleset?
+
+### Respuestas
+1. No; los proyectos pueden desplegarse por separado.
+2. Ayuda a construir y probar targets; el equipo debe declarar proyectos y dependencias.
+3. No; permite ramas breves que se integran con frecuencia.
+4. Que se siguen las condiciones configuradas, no que el código sea correcto en todos los sentidos.
+
+## Conclusión
+Un monorepo puede facilitar cambios coordinados; Pantsbuild puede ayudar a ejecutar pruebas de los proyectos afectados; Trunk Based Development busca integrar cambios pequeños; GitHub rulesets protege el flujo. Cada decisión tiene costos y debe responder a una dificultad real del equipo.

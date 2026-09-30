@@ -1,99 +1,136 @@
 # Video 24: Mensajes, eventos y productor-consumidor
 
-## Fuentes oficiales
-- [Madurez arquitectónica y evolución continua](https://platzi.com/cursos/software-avanzado/mensajes-vs-eventos-en-microservicios/)
-- [Cierre del curso y próximos pasos](https://platzi.com/cursos/software-avanzado/patron-productor-consumidor-vs-fan-in-y/)
+## Fuentes de este video
+- [Mensajes vs eventos en microservicios](https://platzi.com/cursos/software-avanzado/mensajes-vs-eventos-en-microservicios/)
+- [Patrón productor-consumidor y fan-in/fan-out](https://platzi.com/cursos/software-avanzado/patron-productor-consumidor-vs-fan-in-y/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-23.md) | [➡️ Video siguiente](video-25.md)
+## Para estudiar por tu cuenta
+Pedidos, Inventario, Entregas y Notificaciones necesitan coordinarse sin esperar siempre una llamada inmediata entre ellos. Para entender esa comunicación, primero distingue si una parte pide una acción o anuncia un hecho que ya ocurrió. Después sigue quién crea y quién procesa el trabajo.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: mensajes, eventos y productor-consumidor. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 1. Qué es un mensaje
+Un **mensaje** es información que un componente envía a otro. La palabra describe el transporte; el contenido puede tener intenciones diferentes.
 
-## Resumen integrado
-**Fuente 1: Madurez arquitectónica y evolución continua**
-Este video reflexiona sobre la madurez de una arquitectura: no se trata de llegar a una solución “perfecta” de una vez, sino de ir desarrollando capacidades para manejar complejidad, cambios y crecimiento sin perder control. La madurez arquitectónica se observa cuando un equipo es capaz de aprender del sistema, ajustar decisiones, evolucionar sus procesos y mantener calidad aunque el negocio cambie.
+Hay dos intenciones comunes:
 
-La evolución continua es parte esencial de la arquitectura moderna. Un sistema no debe quedar congelado en una decisión inicial; debe poder adaptarse a nuevos requerimientos, nuevas tecnologías y nuevos riesgos. Esa capacidad de evolución depende tanto del diseño como del hábito de revisión, observación y mejora constante.
+- **Comando:** pide a un destinatario que haga algo. Ejemplo: “Reserva dos unidades para el pedido 245”.
+- **Evento:** comunica un hecho que ya ocurrió. Ejemplo: “El pedido 245 fue confirmado”.
 
-**Fuente 2: Cierre del curso y próximos pasos**
-El curso culmina con una visión integradora: la arquitectura de software es una disciplina de pensamiento, decisión y responsabilidad. No se trata de seguir patrones por moda ni de aplicar herramientas por entusiasmo, sino de construir sistemas que resuelvan problemas reales, respeten el contexto y puedan evolucionar con el tiempo. La arquitectura exige equilibrio entre rigor técnico, sensibilidad de negocio y capacidad de liderazgo.
+La diferencia importa. Si un comando falla, alguien puede necesitar un resultado. Un evento informa un hecho; los componentes interesados deciden qué hacer con él.
 
-El cierre invita a la reflexión sobre el camino profesional: el arquitecto no nace solo con conocimiento, sino con la habilidad de combinar criterio, experiencia, observación y mejora constante. La invitación final es continuar aprendiendo, enfrentando problemas reales, cuestionando decisiones y construyendo software con propósito. La diferencia entre un buen desarrollador y un buen arquitecto no está en la cantidad de herramientas que conoce, sino en cómo piensa y decide ante la complejidad.
+## 2. Una comparación cotidiana
+“Cierra la puerta” es una instrucción: pide una acción que aún no se hizo.
 
-## Ideas que debes conservar
-- La madurez arquitectónica se construye con el tiempo.
-- Un sistema no se vuelve mejor solo por agregar más tecnología.
-- La evolución continua permite mantener claridad a medida que crece la complejidad.
-- El equipo debe aprender a revisar decisiones y rediseñar cuando sea necesario.
-- La arquitectura es una disciplina de decisión y pensamiento, no solo de herramientas.
-- La práctica real es donde se desarrollan las habilidades arquitectónicas.
-- Los mejores arquitectos combinan técnica, estrategia y criterio humano.
-- La evolución profesional se construye con experiencia, análisis y reflexión.
+“La puerta quedó cerrada” es un evento: informa un hecho terminado.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: mensajes, eventos y productor-consumidor. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+En software, `ReservarInventario` es una petición; `InventarioReservado` solo debe publicarse después de que la reserva ocurra realmente.
 
-## Aplicación al caso logístico
-Para estudiar **mensajes, eventos y productor-consumidor**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La madurez arquitectónica se construye con el tiempo.
+## 3. Productor y consumidor
+Un **productor** crea una tarea o mensaje. Un **consumidor** lo recibe y realiza un trabajo.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos mensajes, eventos y productor-consumidor al flujo.
-    2. **Actor prioritario de mensajes, eventos y productor-consumidor:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en mensajes, eventos y productor-consumidor:** escribe la condición que debe permanecer verdadera y relaciónala con la madurez arquitectónica se construye con el tiempo..
-    4. **Punto de decisión para mensajes, eventos y productor-consumidor:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de mensajes, eventos y productor-consumidor:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+En el ejemplo logístico:
 
-Para resolver el caso de **mensajes, eventos y productor-consumidor**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+- Pedidos produce una tarea de preparación.
+- Entregas consume esa tarea y prepara una ruta.
 
+Una **cola** conserva trabajo pendiente entre el productor y el consumidor:
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa mensajes, eventos y productor-consumidor y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la madurez arquitectónica se construye con el tiempo.
-3. Identifica el actor que recibe el impacto de mensajes, eventos y productor-consumidor y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para mensajes, eventos y productor-consumidor; compara sus costos y riesgos.
-5. Elige una opción para mensajes, eventos y productor-consumidor, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: mensajes, eventos y productor-consumidor debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+```text
+Pedidos (productor) -> Cola de entregas -> Entregas (consumidor)
+```
 
-## Respuestas a las preguntas
-### ❓ ¿Mi arquitectura está creciendo con el sistema o volviéndose rígida?
+La cola permite que Pedidos termine su trabajo sin esperar a que Entregas esté libre. No garantiza que la tarea se complete: el sistema también debe manejar retrasos, errores y reintentos.
 
-**Respuesta concreta:** Para mensajes, eventos y productor-consumidor, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 4. El pedido 245 paso a paso
 
-### ❓ ¿Estoy revisando mis decisiones de forma periódica?
+### Paso 1: el pedido queda confirmado
+Pedidos valida sus reglas y guarda el nuevo estado. El hecho `PedidoConfirmado` puede interesar a Inventario, Entregas y Notificaciones.
 
-**Respuesta concreta:** Para mensajes, eventos y productor-consumidor, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### Paso 2: se publica el evento
+Publicar significa dejar el evento disponible para consumidores interesados. El evento no significa que Inventario ya reservó unidades; solo informa que el pedido se confirmó.
 
-### ❓ ¿Qué aspectos del curso más me impactaron como profesional?
+### Paso 3: un consumidor inicia su tarea
+Inventario puede recibir `PedidoConfirmado` y decidir reservar los productos. La reserva es otra acción y puede tener su propio resultado.
 
-**Respuesta concreta:** Para mensajes, eventos y productor-consumidor, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+### Paso 4: una instrucción solicita algo concreto
+Si el diseño separa el trabajo, un componente puede enviar el comando `ReservarProductos` dirigido a Inventario. El consumidor intenta cumplirlo y responde con un resultado.
 
-### ❓ ¿Qué decisiones arquitectónicas quiero aplicar en mis proyectos reales?
+### Paso 5: se publica el resultado
+Si la reserva ocurrió, Inventario comunica `ProductosReservados`. Entregas puede entonces crear su tarea de preparación.
 
-**Respuesta concreta:** Para mensajes, eventos y productor-consumidor, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+La secuencia no es una obligación idéntica para todo sistema. El equipo decide si una parte publica eventos, comandos o ambos, con nombres que describan su intención.
 
-## 🛠️ Cómo resolver la actividad
+## 5. Ejemplo de datos de un evento
+Un evento debe identificar el hecho y el elemento afectado. Un tipo C# sencillo podría ser:
 
-1. **Comprende el tema:** explica con tus palabras qué significa mensajes, eventos y productor-consumidor y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de mensajes, eventos y productor-consumidor:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para mensajes, eventos y productor-consumidor:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de mensajes, eventos y productor-consumidor:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La madurez arquitectónica se construye con el tiempo. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a mensajes, eventos y productor-consumidor: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de mensajes, eventos y productor-consumidor, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+```csharp
+public sealed record PedidoConfirmado(
+    Guid PedidoId,
+    DateTimeOffset OcurridoEn);
+```
 
-**Respuesta modelo para Mensajes, eventos y productor-consumidor:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+`PedidoId` indica a qué pedido se refiere; `OcurridoEn` indica cuándo ocurrió el hecho. En un sistema real el mensaje puede requerir versión, origen u otros datos. Incluye solo lo necesario y evita información personal que los consumidores no necesitan.
 
+El nombre en pasado ayuda a leerlo como hecho. No publiques `PedidoConfirmado` antes de guardar la confirmación; otros componentes podrían actuar sobre algo que luego no ocurrió.
 
-## Conclusiones de las fuentes
-La madurez arquitectónica no es un estado final; es un proceso de aprendizaje, ajuste y mejora constante. La arquitectura más sólida es la que puede evolucionar sin perder coherencia ni calidad.
+## 6. Cola de trabajo y evento compartido no son lo mismo
+Una cola de trabajo compartida suele distribuir tareas entre varios trabajadores: cada mensaje lo procesa uno de ellos.
 
-El curso se cierra con una idea clave: el software de calidad no se construye solo con código, sino con visión, método, criterio y responsabilidad. Los próximos pasos consisten en aplicar estas ideas en proyectos reales, seguir aprendiendo y asumir la arquitectura como una práctica de crecimiento profesional y de impacto real.
+Un evento puede interesar a varios componentes. Si Inventario, Entregas y Notificaciones deben enterarse de `PedidoConfirmado`, el sistema tiene que entregar la información a cada consumidor interesado; no debe repartirla entre ellos como si solo uno necesitara verla.
 
-## Preguntas para preparar la grabación
-- ¿Mi arquitectura está creciendo con el sistema o volviéndose rígida?
-- ¿Estoy revisando mis decisiones de forma periódica?
-- ¿Qué aspectos del curso más me impactaron como profesional?
-- ¿Qué decisiones arquitectónicas quiero aplicar en mis proyectos reales?
+Pregunta clave: **¿quieres que una persona del grupo haga la tarea, o quieres que varias áreas sepan que ocurrió el hecho?**
 
-## Evidencia para el repositorio
-Guarda la explicación de mensajes, eventos y productor-consumidor, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## 7. Qué pasa si el consumidor recibe dos veces el mismo mensaje
+Un mensaje puede repetirse si el consumidor hizo el trabajo pero la confirmación se perdió. Si procesa de nuevo `CrearEntrega`, puede crear una segunda entrega para el pedido.
+
+El consumidor debe reconocer repeticiones que no deberían duplicar efectos. Una forma es conservar el identificador del mensaje o una clave de operación y revisar si ya se procesó.
+
+Esto no significa que todos los errores se resuelvan ignorando mensajes duplicados. El consumidor tiene que distinguir una repetición idéntica de una nueva solicitud legítima.
+
+## 8. Cuando un mensaje falla
+Si la tarea no se puede procesar:
+
+- un error temporal puede justificar un reintento limitado;
+- un dato incorrecto necesita corrección, no repetición infinita;
+- si tras varios intentos sigue fallando, puede enviarse a una cola de fallidos para investigar;
+- el consumidor debe conservar suficiente contexto para relacionar el error con el pedido, sin exponer secretos.
+
+Los siguientes videos profundizan en las tareas fallidas y en los flujos con más pasos.
+
+## 9. Actividad de autoestudio
+Clasifica cada mensaje como comando o evento y explica quién debería recibirlo:
+
+1. `ReservarProductos(pedido 245)`.
+2. `PedidoConfirmado(pedido 245)`.
+3. `EnviarAvisoDeRetraso(pedido 245)`.
+4. `AvisoDeRetrasoEnviado(pedido 245)`.
+5. `AsignarRepartidor(pedido 245)`.
+6. `RepartidorAsignado(pedido 245)`.
+
+Después dibuja el camino de `PedidoConfirmado` hasta que Entregas recibe una tarea.
+
+### Respuesta modelo
+1. Comando: Inventario recibe una petición para reservar.
+2. Evento: comunica un hecho que ya ocurrió; puede interesar a varios consumidores.
+3. Comando: Notificaciones debe intentar enviar un aviso.
+4. Evento: informa que el aviso ya se envió.
+5. Comando: el servicio de asignación debe buscar un repartidor.
+6. Evento: informa que un repartidor quedó asignado.
+
+El camino puede ser: Pedidos confirma y publica el evento; Inventario reserva; al confirmarse la reserva se informa el resultado; Entregas recibe una tarea para preparar la ruta. Cada transición tiene un resultado explícito.
+
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre comando y evento?
+2. ¿Quién produce y quién consume en la tarea de preparar una entrega?
+3. ¿Por qué una cola compartida no significa que todos los consumidores reciban cada mensaje?
+4. ¿Qué protección evita crear una entrega duplicada?
+
+### Respuestas
+1. Un comando pide una acción; un evento comunica un hecho ocurrido.
+2. Pedidos produce la tarea y Entregas la consume.
+3. Una cola de trabajo suele repartir cada tarea entre los trabajadores disponibles.
+4. El consumidor identifica la solicitud ya procesada y evita repetir el efecto.
+
+## Conclusión
+Mensajes es el término general. Un comando pide una acción a alguien; un evento informa algo que ya sucedió. Productor-consumidor separa quién crea el trabajo de quién lo procesa, a menudo con una cola que conserva tareas pendientes.
+
+El diseño debe dejar claras la intención, la responsabilidad y la respuesta ante repetición o fallo. Si una parte no puede explicar qué mensaje produce y quién debe consumirlo, el contrato aún no está suficientemente claro.

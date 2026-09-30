@@ -57,7 +57,7 @@ La decisión reduce complejidad operativa y permite validar el problema antes de
 
 La solución no se evalúa por usar la tecnología más compleja. Se evalúa por comprender el problema, justificar la decisión y dejar evidencia verificable.
 
-## Guion para la sustentación
+## Prepara tu sustentación
 
 1. Presenta el problema y explica por qué importa.
 2. Identifica los actores afectados.

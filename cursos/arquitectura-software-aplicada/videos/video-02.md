@@ -1,25 +1,21 @@
-# Video 2: Del código funcional a la solución sostenible
+# Video 2: Cómo analizar una licitación real con inteligencia artificial
 
 ## Título
-Del código funcional a la solución sostenible
+Cómo analizar una licitación real con inteligencia artificial
 
 ## Resumen
-Este video enfatiza el cambio de mentalidad que ocurre cuando un desarrollador deja de pensar solo en entregar una funcionalidad rápida y empieza a pensar en la calidad del sistema completo. El objetivo ya no es solo que el código compile o que la funcionalidad funcione, sino que el sistema pueda evolucionar, soportar cambios y ser mantenido por más personas.
+Una licitación reúne requisitos, condiciones y criterios de evaluación para contratar un sistema. Este video muestra cómo usar inteligencia artificial para extraer y ordenar esa información, mantener la referencia de cada requisito y señalar ambigüedades.
 
-La diferencia entre un código funcional y una solución sostenible radica en la capacidad de estructurar el problema. Cuando se ignora la arquitectura, el sistema suele volverse difícil de entender, frágil ante cambios y costoso de mantener. El video presenta esta transición como un paso importante en la carrera profesional: de ser alguien que resuelve tareas puntuales a alguien que diseña soluciones con visión de producto y negocio.
+La IA ayuda a organizar el documento, pero no demuestra que el producto cumpla ni debe inventar evidencia. El análisis termina cuando cada requisito se compara con una capacidad comprobable y las preguntas pendientes quedan identificadas.
 
 ## Ideas principales
-- Un sistema que funciona puede seguir siendo una mala solución si no está bien diseñado.
-- La mantenibilidad es una dimensión clave del valor de una arquitectura.
-- El diseño debe facilitar cambios futuros y no solo la entrega inicial.
-- Los problemas reales aparecen cuando el software crece en complejidad, usuarios, reglas de negocio y dependencias.
-- El arquitecto debe pensar en el sistema como un conjunto de decisiones sostenibles, no solo como una colección de features.
-- El código limpio no es un fin en sí mismo; es una herramienta para soportar la evolución del negocio.
+- Divide el documento en requisitos que puedan verificarse.
+- Conserva la sección o frase que respalda cada requisito.
+- Separa hechos, interpretaciones y preguntas sin resolver.
+- No compartas documentos confidenciales con herramientas sin autorización.
+- Una respuesta generada por IA debe contrastarse con la licitación original.
 
-## Conclusión
-El salto del “código que funciona” al “sistema que sobrevive” es lo que marca la diferencia entre un desarrollador ordinario y un arquitecto de software. El valor no está solo en resolver el problema del momento, sino en construir una base que permita seguir creciendo sin perder calidad.
-
-## Preguntas para reflexión
-- ¿Qué tan sostenible es la solución que estoy construyendo hoy?
-- ¿Qué parte del sistema es difícil de cambiar y por qué?
-- ¿Estoy optimizando para el presente o para la evolución futura?
+## Preguntas para pensar
+- ¿Qué evidencia demuestra que el producto cumple un requisito?
+- ¿Qué riesgo tiene marcar “cumple” sin una prueba o referencia?
+- ¿Qué información no deberías subir a una herramienta de IA sin permiso?

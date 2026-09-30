@@ -1,93 +1,109 @@
 # Video 29: Criterio, liderazgo y arquitectura responsable
 
-## Fuentes oficiales
-- [Cierre profesional y legado arquitectónico](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
-- [Cierre profesional y legado arquitectónico](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
+## Fuente de este video
+- [Sabiduría y criterio en arquitectura de software](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-28.md) | [➡️ Video siguiente](video-30.md)
+## Para estudiar por tu cuenta
+No existe una solución que sea la mejor para todos los sistemas. El criterio arquitectónico consiste en entender el contexto, distinguir evidencia de suposiciones, comparar alternativas y hacerse responsable de las consecuencias.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: criterio, liderazgo y arquitectura responsable. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+En esta clase vas a practicar una decisión con necesidades en conflicto: permitir que soporte investigue retrasos sin exponer datos personales de repartidores más allá de lo necesario.
 
-## Resumen integrado
-**Fuente 1: Cierre profesional y legado arquitectónico**
-El curso finaliza con una reflexión sobre el legado que deja un arquitecto. No se trata solo de construir sistemas que funcionen durante un proyecto, sino de dejar una base sólida, una cultura de calidad y una forma de pensar que perdure en el tiempo. El verdadero legado de la arquitectura no son los diagramas o las herramientas elegidas, sino la capacidad de crear sistemas que sigan aportando valor y que puedan ser entendidos, mejorados y heredados por otras personas.
+## 1. Qué es criterio arquitectónico
+El **criterio arquitectónico** es la capacidad de elegir y explicar una solución a partir de información incompleta, considerando a las personas afectadas y los costos de cada alternativa.
 
-Este cierre reúne todos los temas del curso: paciencia, criterio, responsabilidad, visión, estrategia, empatía y mejora continua. El arquitecto no crea solo software; crea una infraestructura de conocimiento, decisiones y confianza que acompaña la evolución del negocio y del equipo.
+No equivale a:
 
-**Fuente 2: Cierre profesional y legado arquitectónico**
-El curso finaliza con una reflexión sobre el legado que deja un arquitecto. No se trata solo de construir sistemas que funcionen durante un proyecto, sino de dejar una base sólida, una cultura de calidad y una forma de pensar que perdure en el tiempo. El verdadero legado de la arquitectura no son los diagramas o las herramientas elegidas, sino la capacidad de crear sistemas que sigan aportando valor y que puedan ser entendidos, mejorados y heredados por otras personas.
+- elegir la tecnología más nueva;
+- repetir un patrón conocido sin revisar si aplica;
+- defender la primera idea para no reconocer que cambió el contexto;
+- ocultar costos porque una alternativa parece más elegante.
 
-Este cierre reúne todos los temas del curso: paciencia, criterio, responsabilidad, visión, estrategia, empatía y mejora continua. El arquitecto no crea solo software; crea una infraestructura de conocimiento, decisiones y confianza que acompaña la evolución del negocio y del equipo.
+El criterio se puede observar en la explicación y en las pruebas que la sostienen, no solo en el título profesional de quien decide.
 
-## Ideas que debes conservar
-- El verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó.
-- La arquitectura deja huella en el equipo, en la organización y en la forma de pensar.
-- Un buen diseño puede ser heredado y mejorado por otras personas.
-- La calidad del trabajo arquitectónico se refleja en la sostenibilidad y el valor a largo plazo.
+## 2. Una decisión con intereses distintos
+Soporte necesita investigar entregas tardías. Una opción es conservar la ubicación precisa del repartidor durante muchas horas; otra es guardar únicamente estados y horas de actualización.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: criterio, liderazgo y arquitectura responsable. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+La primera opción puede aportar detalle para una investigación, pero aumenta exposición de datos y necesidades de acceso. La segunda reduce la ubicación almacenada, aunque quizá no permita reconstruir algunos recorridos.
 
-## Aplicación al caso logístico
-Para estudiar **criterio, liderazgo y arquitectura responsable**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: El verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó.
+Antes de decidir, pregunta:
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos criterio, liderazgo y arquitectura responsable al flujo.
-    2. **Actor prioritario de criterio, liderazgo y arquitectura responsable:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en criterio, liderazgo y arquitectura responsable:** escribe la condición que debe permanecer verdadera y relaciónala con el verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó..
-    4. **Punto de decisión para criterio, liderazgo y arquitectura responsable:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de criterio, liderazgo y arquitectura responsable:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+- ¿Qué incidencia concreta necesita investigar soporte?
+- ¿Qué datos son indispensables para resolverla?
+- ¿Cuánto tiempo se necesitan?
+- ¿Quién puede consultarlos?
+- ¿Qué riesgo queda si guardamos menos detalle?
 
-Para resolver el caso de **criterio, liderazgo y arquitectura responsable**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## 3. Separa evidencia, hipótesis y decisión
+- **Evidencia:** datos observados o pruebas reproducibles, como cuántos reclamos de demora recibe soporte.
+- **Hipótesis:** explicación todavía no confirmada, como “guardar toda la ruta reducirá los reclamos”.
+- **Decisión:** opción elegida con base en el contexto actual.
+- **Condición de revisión:** señal que justificaría cambiarla.
 
+Una hipótesis puede ser razonable y aun así resultar falsa. El documento de decisión debe dejar claro qué parte se conoce y qué parte se probará.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa criterio, liderazgo y arquitectura responsable y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: el verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó.
-3. Identifica el actor que recibe el impacto de criterio, liderazgo y arquitectura responsable y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para criterio, liderazgo y arquitectura responsable; compara sus costos y riesgos.
-5. Elige una opción para criterio, liderazgo y arquitectura responsable, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: criterio, liderazgo y arquitectura responsable debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 4. Método breve para decidir
+1. Describe el problema sin incluir la solución propuesta.
+2. Identifica a quién afecta y qué dato o proceso está en riesgo.
+3. Reúne hechos disponibles y enumera incertidumbres.
+4. Compara al menos dos alternativas viables.
+5. Explica qué gana y qué costo acepta cada alternativa.
+6. Elige una opción para el contexto actual.
+7. Define cómo comprobarla y cuándo revisarla.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué legado quiero dejar en mis sistemas y en mi equipo?
+## 5. Decisión trabajada
+**Problema:** soporte necesita investigar por qué algunos pedidos llegaron tarde.
 
-**Respuesta concreta:** Para criterio, liderazgo y arquitectura responsable, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+**Hecho:** se registran la hora estimada y los cambios de estado de la entrega.
 
-### ❓ ¿Qué tipo de arquitecto quiero ser en el futuro?
+**Suposición por comprobar:** la posición precisa del repartidor es necesaria para resolver la mayoría de las incidencias.
 
-**Respuesta concreta:** Si el sistema crece en el tema de criterio, liderazgo y arquitectura responsable, el operador logístico seguirá necesitando reasignar una ruta sin perder el historial del pedido. No elegiría una solución distribuida automáticamente; primero mediría carga, latencia y errores. Mantendría la regla 'conservar trazabilidad de cada cambio' en un módulo claro y escalaría solo el punto que demuestre saturación. La decisión se verifica con una prueba de carga y una métrica acordada.
+**Alternativa A:** conservar cada posición precisa durante el recorrido.
+- Beneficio: mayor detalle para reconstruir el trayecto.
+- Costo: más información sensible almacenada, mayor necesidad de restringir y auditar accesos.
 
-### ❓ ¿Qué legado quiero dejar en mis sistemas y en mi equipo?
+**Alternativa B:** conservar cambios de estado, hora y zona aproximada durante un período definido.
+- Beneficio: soporte puede revisar la secuencia sin guardar toda la ruta precisa.
+- Costo: algunas investigaciones no podrán reconstruir el recorrido exacto.
 
-**Respuesta concreta:** Para criterio, liderazgo y arquitectura responsable, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+**Decisión inicial:** usar B y registrar qué incidencias no se pueden resolver con esos datos. Si esas incidencias resultan frecuentes y requieren ubicación precisa, revisar la política con privacidad, operación y representantes de repartidores.
 
-### ❓ ¿Qué tipo de arquitecto quiero ser en el futuro?
+**Comprobación:** toma una muestra de incidencias, intenta resolverlas con el historial reducido y registra cuáles requieren otro dato.
 
-**Respuesta concreta:** Si el sistema crece en el tema de criterio, liderazgo y arquitectura responsable, el equipo de soporte seguirá necesitando reconstruir qué ocurrió durante un incidente. No elegiría una solución distribuida automáticamente; primero mediría carga, latencia y errores. Mantendría la regla 'tener eventos, errores y estados observables' en un módulo claro y escalaría solo el punto que demuestre saturación. La decisión se verifica con una prueba de carga y una métrica acordada.
+La decisión es responsable si permite investigar el problema y protege los datos que no son necesarios; no porque una opción sea siempre moralmente superior.
 
-## 🛠️ Cómo resolver la actividad
+## 6. Comunica sin imponer
+Una explicación útil puede decir:
 
-1. **Comprende el tema:** explica con tus palabras qué significa criterio, liderazgo y arquitectura responsable y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de criterio, liderazgo y arquitectura responsable:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para criterio, liderazgo y arquitectura responsable:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de criterio, liderazgo y arquitectura responsable:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: El verdadero legado arquitectónico no es solo el sistema, sino la forma en que se construyó. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a criterio, liderazgo y arquitectura responsable: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de criterio, liderazgo y arquitectura responsable, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+> “Elegimos guardar estados y zonas aproximadas porque resuelven la mayoría de las investigaciones observadas y reducen la cantidad de ubicación precisa almacenada. Aceptamos que algunos casos requerirán información adicional. Revisaremos la política si esos casos superan el límite acordado”.
 
-**Respuesta modelo para Criterio, liderazgo y arquitectura responsable:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+Esta forma de explicar reconoce intereses, razón, costo y condición de revisión. También permite que alguien cuestione la decisión con nueva evidencia.
 
+## 7. Actividad de autoestudio
+La operación quiere añadir un nuevo servicio de mapas porque podría mejorar las rutas.
 
-## Conclusiones de las fuentes
-El camino de un arquitecto va más allá del código. Su legado es la capacidad de construir sistemas con propósito, mejorar la forma de trabajar del equipo y dejar una base sólida para que el futuro pueda crecer sin perder claridad ni calidad.
+1. Escribe el problema actual sin nombrar mapas.
+2. Anota qué datos existen y qué dato falta.
+3. Formula una hipótesis que pueda comprobarse.
+4. Compara usar el proveedor nuevo con mejorar la planificación actual.
+5. Nombra los costos de datos, disponibilidad, pago y mantenimiento.
+6. Propón una prueba pequeña y el resultado que te haría continuar o detenerte.
 
-El camino de un arquitecto va más allá del código. Su legado es la capacidad de construir sistemas con propósito, mejorar la forma de trabajar del equipo y dejar una base sólida para que el futuro pueda crecer sin perder claridad ni calidad.
+### Respuesta modelo
+Problema: algunas entregas tardan más que la estimación y se desconoce si las rutas son la causa. Hipótesis: considerar el tráfico real reducirá los retrasos sin aumentar demasiado el costo por pedido.
 
-## Preguntas para preparar la grabación
-- ¿Qué legado quiero dejar en mis sistemas y en mi equipo?
-- ¿Qué tipo de arquitecto quiero ser en el futuro?
+Antes de contratar el proveedor, mediría retrasos y compararía una muestra de rutas históricas. Probaría el servicio en modo de cálculo sin asignar repartidores, cotejaría estimación y tiempo real, y revisaría costo y errores. Seguiría solo si mejora la medida acordada y no expone información innecesaria.
 
-## Evidencia para el repositorio
-Guarda la explicación de criterio, liderazgo y arquitectura responsable, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre evidencia e hipótesis?
+2. ¿Qué debe explicar una decisión además de la solución elegida?
+3. ¿Por qué una decisión debe tener una condición de revisión?
+4. ¿Qué hace responsable una decisión con impacto en personas?
+
+### Respuestas
+1. La evidencia se observa o reproduce; una hipótesis todavía debe comprobarse.
+2. El problema, las alternativas, los costos y la forma de verificar el resultado.
+3. Permite cambiarla cuando el contexto o los datos contradicen las razones iniciales.
+4. Considera quién recibe beneficios y riesgos, limita daños evitables y define controles verificables.
+
+## Conclusión
+La sabiduría arquitectónica no es tener una respuesta permanente. Es aprender a tomar decisiones proporcionales al problema, hacer visibles sus consecuencias y revisarlas cuando la evidencia cambie.

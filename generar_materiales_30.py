@@ -1377,8 +1377,8 @@ ACTIVITY_COMPANIONS = {
         "title": "Actividad 3: diseño y dominio",
         "purpose": "proteger reglas del negocio mediante entidades, límites y casos de uso",
         "case": "Pedidos, Inventario, Ruteo y Entregas usan conceptos parecidos como disponibilidad, pero cada contexto tiene una regla distinta",
-        "deliverables": "modelo de dominio, entidades, objetos de valor, invariantes, casos de uso, puertos, adaptadores y decisiones de diseño",
-        "solution": "Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas.",
+        "deliverables": "código en `/src`, entidades, objetos de valor, invariantes, casos de uso, contratos de aplicación, puertos, adaptadores, dirección de dependencias, diagrama y decisiones de diseño",
+        "solution": "Separamos los contextos y protegemos sus reglas con modelos propios; el caso de uso coordina contratos y no modifica directamente infraestructura ni entidades ajenas. La infraestructura implementa puertos definidos por la aplicación.",
     },
     18: {
         "title": "Actividad 4: implementación e integración",
@@ -1457,6 +1457,60 @@ Una entrega no puede tener dos repartidores activos al mismo tiempo.
 
 ### Evidencia
 Mapa de contextos, entidades, objeto de valor `RouteEstimate`, interfaces de puertos y prueba de la invariante.
+
+### Código mínimo de la solución
+```csharp
+public sealed record DeliveryId(Guid Value);
+public sealed record DeliveryAddress(string Value);
+
+public sealed class Delivery
+{
+    public DeliveryId Id { get; }
+    public DeliveryAddress Address { get; }
+    public Guid? CourierId { get; private set; }
+
+    public Delivery(DeliveryId id, DeliveryAddress address)
+    {
+        Id = id;
+        Address = address;
+    }
+
+    public void AssignCourier(Guid courierId)
+    {
+        if (CourierId.HasValue)
+            throw new InvalidOperationException("The delivery already has a courier");
+
+        CourierId = courierId;
+    }
+}
+
+public interface IDeliveryRepository
+{
+    Task<Delivery?> GetAsync(DeliveryId id);
+    Task SaveAsync(Delivery delivery);
+}
+
+public sealed class AssignCourierUseCase
+{
+    private readonly IDeliveryRepository _repository;
+
+    public AssignCourierUseCase(IDeliveryRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task ExecuteAsync(DeliveryId deliveryId, Guid courierId)
+    {
+        var delivery = await _repository.GetAsync(deliveryId)
+            ?? throw new InvalidOperationException("Delivery not found");
+
+        delivery.AssignCourier(courierId);
+        await _repository.SaveAsync(delivery);
+    }
+}
+```
+
+En este código, `Delivery` protege la invariante; `AssignCourierUseCase` coordina la intención del negocio; `IDeliveryRepository` es un puerto; y la implementación de base de datos queda en infraestructura. La dependencia apunta hacia la regla del negocio, no al revés.
 """,
     18: """## 🧾 Ejemplo de entrega resuelta
 
@@ -1656,7 +1710,10 @@ def main():
             material = material.split("\n## 4.1 Actividad 1:", 1)[0] + "\n"
         (OUT / f"video-{index:02d}.md").write_text(material, encoding="utf-8")
         if index in ACTIVITY_COMPANIONS:
-            activity_sources = selected
+            if index == 12:
+                activity_sources = [sources[9], sources[38]]
+            else:
+                activity_sources = selected
             activity_links = "\n".join(f"- [{item['title']}]({source_url(item)})" for item in activity_sources)
             previous = f"video-{index:02d}.md"
             following = f"video-{index + 1:02d}.md" if index < 30 else None

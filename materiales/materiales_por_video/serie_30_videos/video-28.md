@@ -1,99 +1,121 @@
 # Video 28: Fitness Functions, OpenTelemetry y caos
 
-## Fuentes oficiales
-- [Decisiones bajo incertidumbre](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
-- [Arquitectura con impacto social y ético](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
+## Fuentes de este video
+- [Fitness Functions para medir tu arquitectura](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
+- [Observabilidad con OpenTelemetry e ingeniería del caos](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-27.md) | [➡️ Video siguiente](video-29.md)
+## Para estudiar por tu cuenta
+Una decisión arquitectónica no queda protegida solo porque esté escrita. Un cambio futuro podría romperla sin que el equipo lo note. Este capítulo conecta tres herramientas: una comprobación repetible, datos para observar el sistema y un experimento controlado para comprobar su comportamiento ante fallos.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: fitness functions, opentelemetry y caos. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+## 1. Fitness Function: comprobar una cualidad del sistema
+Una **Fitness Function** (función de adecuación arquitectónica) es una prueba o medición que comprueba de manera repetible una característica importante del sistema.
 
-## Resumen integrado
-**Fuente 1: Decisiones bajo incertidumbre**
-La arquitectura de software ocurre en un contexto de incertidumbre. No siempre se conocen todos los requerimientos, ni todas las tecnologías, ni el comportamiento real del sistema en producción. El arquitecto debe tomar decisiones con información incompleta, y por eso necesita comprender riesgos, hipótesis y probabilidades. El video enseña que la arquitectura no es un acto de perfección, sino de decisión inteligente bajo condiciones imperfectas.
+Ejemplos:
 
-Cuando se enfrenta la incertidumbre, la mejor práctica no es esperar a tener toda la información; es diseñar de forma que el sistema pueda cambiar, aprender y soportar errores de suposición. En otras palabras, la habilidad de decidir bajo incertidumbre es una competencia clave del arquitecto.
+- el dominio no depende directamente de EF Core;
+- una consulta de seguimiento cumple el tiempo objetivo acordado;
+- una falla de rutas no hace que la API invente una ubicación;
+- el número de errores no supera el umbral definido para el servicio.
 
-**Fuente 2: Arquitectura con impacto social y ético**
-El video introduce un enfoque humanista y ético en la arquitectura de software. Un sistema no solo afecta procesos técnicos y económicos, sino también personas, comunidades y valores. Por eso, la arquitectura debe considerar implicaciones sociales, de privacidad, accesibilidad, inclusión y responsabilidad. Un sistema que funciona técnicamente puede causar daño si no se diseña con criterio ético.
+La función protege una pregunta concreta; no asigna una nota total a toda la arquitectura.
 
-Esto invita a pensar que el arquitecto no actúa solo como técnico, sino también como responsable del impacto de sus decisiones. Cuando se diseña software para personas, su contexto social y sus necesidades humanas deben integrarse en la solución. Este enfoque aporta más valor y reduce consecuencias negativas en el largo plazo.
+## 2. Define el objetivo antes del número
+Supón que el equipo dice “el seguimiento debe ser rápido”. Esa frase no especifica cuánto ni cómo comprobarlo.
 
-## Ideas que debes conservar
-- La incertidumbre es parte normal de la arquitectura.
-- No siempre se dispone de toda la información antes de diseñar.
-- Las decisiones deben evaluarse por riesgo y reversibilidad.
-- Diseñar para cambiar reduce el impacto de la incertidumbre.
-- La tecnología tiene impacto real sobre personas, comunidades y decisiones humanas.
-- La ética no es ajena a la arquitectura; es parte de la responsabilidad del diseño.
-- La privacidad, la accesibilidad y la inclusión deben considerarse en el sistema.
-- Un sistema puede tener éxito técnico y aun así fallar socialmente.
+Una condición más útil sería: “En el entorno y carga de prueba acordados, el 95% de las consultas termina dentro de la meta de respuesta definida con producto”.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: fitness functions, opentelemetry y caos. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+El **percentil 95** indica un punto que alcanza o mejora el 95% de las respuestas; ayuda a ver las más lentas sin usar solo un promedio. La meta exacta depende de la experiencia que necesita el producto, el costo y la capacidad; no se copia de otra aplicación sin contexto.
 
-## Aplicación al caso logístico
-Para estudiar **fitness functions, opentelemetry y caos**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La incertidumbre es parte normal de la arquitectura.
+## 3. ¿Qué es OpenTelemetry?
+**OpenTelemetry (OTel)** es un conjunto de herramientas y formatos para generar y transportar datos de observabilidad. No es necesariamente la base que almacena los datos ni el tablero donde aparecen los gráficos; normalmente se conecta con otras herramientas para guardarlos y mostrarlos.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos fitness functions, opentelemetry y caos al flujo.
-    2. **Actor prioritario de fitness functions, opentelemetry y caos:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en fitness functions, opentelemetry y caos:** escribe la condición que debe permanecer verdadera y relaciónala con la incertidumbre es parte normal de la arquitectura..
-    4. **Punto de decisión para fitness functions, opentelemetry y caos:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de fitness functions, opentelemetry y caos:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Las tres señales más conocidas son:
 
-Para resolver el caso de **fitness functions, opentelemetry y caos**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+- **Métrica:** número agregado, como cantidad de consultas o tiempo de respuesta.
+- **Log:** registro de un hecho específico, como “el proveedor de rutas no respondió”.
+- **Traza:** recorrido de una solicitud por componentes, como API → Pedidos → Rutas.
 
+## 4. Sigue la consulta del pedido 245
+Ana consulta el seguimiento. La API recibe su solicitud, Pedidos confirma que puede ver el pedido y Rutas devuelve la última ubicación.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa fitness functions, opentelemetry y caos y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la incertidumbre es parte normal de la arquitectura.
-3. Identifica el actor que recibe el impacto de fitness functions, opentelemetry y caos y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para fitness functions, opentelemetry y caos; compara sus costos y riesgos.
-5. Elige una opción para fitness functions, opentelemetry y caos, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: fitness functions, opentelemetry y caos debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Una traza podría mostrar:
 
-## Respuestas a las preguntas
-### ❓ ¿Estoy tomando decisiones con datos suficientes o con suposiciones no verificadas?
+```text
+Consulta total:       1,8 s
+API:                  0,1 s
+Pedidos:              0,2 s
+Rutas:                1,5 s
+```
 
-**Respuesta concreta:** La prioridad de fitness functions, opentelemetry y caos es proteger a el cliente, porque recibir un estado de entrega confiable. Aplicaría un control que impida violar la regla 'no mostrar una entrega como completada sin evidencia válida', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
+Esto indica que Rutas tomó la mayor parte del tiempo. La traza ayuda a localizar el paso; la métrica muestra si el problema se repite; el log conserva detalles de una solicitud concreta.
 
-### ❓ ¿Qué tan reversible es esta decisión si cambian los requerimientos?
+Evita incluir contraseñas, tokens, direcciones exactas u otros datos personales que el diagnóstico no necesita. Los identificadores de trazas ayudan a unir pasos relacionados y no deben contener datos sensibles.
 
-**Respuesta concreta:** Para fitness functions, opentelemetry y caos, elegiría la alternativa que garantice que el operador logístico pueda reasignar una ruta sin perder el historial del pedido. La opción sencilla reduce el costo inicial, pero puede dejar débil la regla 'conservar trazabilidad de cada cambio'; la opción más estructurada cuesta más, pero facilita probarla y cambiarla. Para el MVP escogería la segunda solo si el riesgo es crítico y documentaría la condición de revisión.
+## 5. Cómo se conectan las tres ideas
+- La **Fitness Function** declara qué condición debe comprobarse.
+- **OpenTelemetry** ayuda a observar qué hizo el sistema durante la comprobación.
+- El **experimento de caos** introduce una falla controlada para probar una hipótesis de resiliencia.
 
-### ❓ ¿Qué impacto social tiene mi sistema?
+Ejemplo:
 
-**Respuesta concreta:** La decisión sobre fitness functions, opentelemetry y caos afecta directamente a el repartidor: necesita recibir una instrucción vigente y consistente. Por eso protegería esta regla: evitar dos asignaciones activas para la misma entrega. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el repartidor es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+> Hipótesis: si Rutas deja de responder, el cliente aún puede ver el estado confirmado del pedido y recibe un aviso claro sobre la ubicación faltante.
 
-### ❓ ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
+La prueba simula el fallo; OTel ayuda a observar cuánto espera la API y qué respuesta produce; la Fitness Function comprueba que no se pierda el estado confirmado y que la consulta termine dentro del límite acordado.
 
-**Respuesta concreta:** La decisión sobre fitness functions, opentelemetry y caos afecta directamente a el equipo de soporte: necesita reconstruir qué ocurrió durante un incidente. Por eso protegería esta regla: tener eventos, errores y estados observables. En la arquitectura cambiaría la responsabilidad para que el componente que conoce esa regla la valide antes de comunicar el resultado. Acepto el costo de agregar una validación y una prueba porque el riesgo de afectar a el equipo de soporte es mayor. Lo verificaría simulando el caso y comprobando el resultado observable para ese actor.
+## 6. Experimento de caos seguro
+Ingeniería del caos no significa romper sistemas al azar. Es probar de forma controlada cómo responde un sistema ante una falla posible.
 
-## 🛠️ Cómo resolver la actividad
+Antes de empezar define:
 
-1. **Comprende el tema:** explica con tus palabras qué significa fitness functions, opentelemetry y caos y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de fitness functions, opentelemetry y caos:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para fitness functions, opentelemetry y caos:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de fitness functions, opentelemetry y caos:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La incertidumbre es parte normal de la arquitectura. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a fitness functions, opentelemetry y caos: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de fitness functions, opentelemetry y caos, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+1. **Hipótesis:** qué comportamiento esperas mantener.
+2. **Alcance:** qué servicio y entorno participan.
+3. **Datos de ensayo:** evita afectar pedidos reales.
+4. **Señales:** qué métricas, logs y trazas observarás.
+5. **Límite para detener:** qué error o efecto obliga a parar.
+6. **Responsable de restaurar:** cómo volver al estado normal.
 
-**Respuesta modelo para Fitness Functions, OpenTelemetry y caos:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+Si no sabes cómo detener el experimento o restaurar el servicio, todavía no está listo para ejecutarse.
 
+## 7. Una Fitness Function como prueba
+Una prueba de arquitectura puede afirmar que el sistema no convierte una falla de geolocalización en un falso estado “Entregado”. Otra puede revisar que el módulo de dominio no dependa directamente de infraestructura.
 
-## Conclusiones de las fuentes
-No hace falta conocer todo para tomar una buena decisión arquitectónica. Lo esencial es saber evaluar riesgos, mantener opciones abiertas y decidir con criterio en medio de la incertidumbre.
+En C#, una prueba de comportamiento podría preparar un cliente de rutas que falle y comprobar que el caso de uso devuelve “ubicación no disponible” mientras conserva el estado del pedido. El doble de prueba simula la dependencia; una prueba separada verificará que la integración real produce las señales de OTel configuradas.
 
-La arquitectura no es neutral. Sus decisiones tienen impacto social y ético. Un buen diseño considera el efecto real que tendrá en las personas y en la sociedad, no solo en la lógica de la aplicación.
+No necesitas automatizar todo en un solo test. Cada prueba debe tener un objetivo claro y un resultado que puedas explicar.
 
-## Preguntas para preparar la grabación
-- ¿Estoy tomando decisiones con datos suficientes o con suposiciones no verificadas?
-- ¿Qué tan reversible es esta decisión si cambian los requerimientos?
-- ¿Qué impacto social tiene mi sistema?
-- ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
+## 8. Riesgos y límites
+- Una métrica promedio puede ocultar respuestas muy lentas.
+- OTel transporta señales, pero no garantiza que alguien las revise.
+- Una traza puede exponer datos sensibles si se instrumenta sin cuidado.
+- Una falla de prueba que afecta a producción no es un experimento controlado.
+- Una Fitness Function mal calibrada puede generar alertas constantes que nadie atiende.
+- Pasar las comprobaciones no demuestra que todas las propiedades estén protegidas.
 
-## Evidencia para el repositorio
-Guarda la explicación de fitness functions, opentelemetry y caos, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## 9. Actividad de autoestudio
+Comprueba la hipótesis: “Si el proveedor de rutas no responde, el cliente todavía puede ver el estado confirmado del pedido y sabe que la ubicación falta”.
+
+1. Elige el entorno y los datos que usarías.
+2. Define una métrica, un log y una traza que observarías.
+3. Escribe la Fitness Function en forma de condición verificable.
+4. Define una señal para detener el experimento.
+5. Describe cómo restaurarías y confirmarías el funcionamiento.
+
+### Respuesta modelo
+Empezaría con pedidos ficticios en un entorno aislado. Mediría los errores y la duración de consultas, registraría que Rutas no respondió y usaría la traza para confirmar cuánto esperó la API.
+
+La Fitness Function podría comprobar que el estado del pedido se devuelve y que la respuesta identifica la ubicación como no disponible dentro del límite de espera acordado. Detendría la prueba si afecta servicios fuera del alcance o si no puedo restablecer Rutas. Después haría una consulta nueva para confirmar la recuperación.
+
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre una métrica, un log y una traza?
+2. ¿Qué pregunta responde una Fitness Function?
+3. ¿Qué hace que una prueba de caos sea controlada?
+4. ¿OpenTelemetry guarda y visualiza necesariamente todos los datos?
+
+### Respuestas
+1. La métrica resume números; el log registra hechos; la traza muestra el recorrido de una solicitud.
+2. Si una condición arquitectónica concreta se cumple.
+3. Tiene hipótesis, alcance, señales, límites de seguridad y plan de restauración.
+4. No; OTel genera y transporta señales, y suele conectarse a otros sistemas que las almacenan o muestran.
+
+## Conclusión
+Una Fitness Function comprueba una cualidad definida; OpenTelemetry aporta datos para observar el comportamiento; la ingeniería del caos prueba una hipótesis mediante fallos controlados. Juntas convierten una preocupación abstracta en evidencia, siempre que protejas a las personas y puedas restaurar el sistema.

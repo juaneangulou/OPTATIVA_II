@@ -1,99 +1,122 @@
 # Video 23: Bounded Context e infraestructura como código
 
-## Fuentes oficiales
-- [Cultura de arquitectura en el equipo](https://platzi.com/cursos/software-avanzado/bounded-context-y-context-maps-en-micros/)
-- [Comunicación y negociación técnica](https://platzi.com/cursos/software-avanzado/infraestructura-como-codigo-en-monorepos/)
+## Fuentes de este video
+- [Bounded context y context maps en microservicios](https://platzi.com/cursos/software-avanzado/bounded-context-y-context-maps-en-micros/)
+- [Infraestructura como código en monorepos](https://platzi.com/cursos/software-avanzado/infraestructura-como-codigo-en-monorepos/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-22.md) | [➡️ Video siguiente](video-24.md)
+## Para estudiar por tu cuenta
+Un sistema puede tener límites de negocio claros y aun así desplegar sus servicios de forma manual e inconsistente. También puede tener archivos de infraestructura muy ordenados y repartir mal las responsabilidades del negocio.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: bounded context e infraestructura como código. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Este capítulo conecta ambas preguntas: primero decides qué responsabilidad pertenece a cada contexto; después describes de manera repetible los recursos que necesita.
 
-## Resumen integrado
-**Fuente 1: Cultura de arquitectura en el equipo**
-La arquitectura de software no se construye solo con diagramas o decisiones individuales; también depende de la cultura del equipo. Cuando el equipo entiende la importancia de la calidad, la comunicación, la responsabilidad y la evolución del sistema, la arquitectura tiene más posibilidades de ser sólida. Si la cultura del equipo es deficiente, incluso un buen diseño técnico puede terminar diluyéndose por falta de disciplina o consenso.
+## 1. Bounded Context: una frontera de significado
+Un **contexto delimitado** (Bounded Context) es una zona del sistema en la que los términos y reglas tienen un significado acordado.
 
-El video resalta que la arquitectura debe ser una práctica compartida, no un privilegio de unos pocos. Eso implica hablar sobre decisiones, revisar cambios, cuestionar supuestos, aceptar feedback y crear una mentalidad que valore la sostenibilidad por encima de la rapidez improvisada.
+En la plataforma logística, “pedido” puede significar una compra para el contexto de Pedidos y un trabajo de traslado para Entregas. Cada contexto mantiene las reglas que conoce:
 
-**Fuente 2: Comunicación y negociación técnica**
-Una gran parte del trabajo de un arquitecto no ocurre en un editor de código, sino en conversaciones. El arquitecto debe comunicar decisiones, explicar trade-offs, escuchar necesidades del negocio y convencer a diferentes actores sobre la dirección correcta de la solución. La comunicación técnica es una competencia esencial porque la arquitectura no se implementa solo con conocimiento; se ejecuta con consenso.
+- **Pedidos:** confirma la compra, registra cliente y productos.
+- **Entregas:** asigna repartidor, ruta y estado del traslado.
+- **Inventario:** conoce existencias y reservas.
 
-El video subraya que en muchas decisiones arquitectónicas hay conflictos entre necesidades de tiempo, costo, calidad, riesgo y visión. En esos momentos, la capacidad de negociar, sintetizar y explicar la elección correcta es tan importante como el conocimiento técnico. La arquitectura también se trata de ser claro, persuasivo y empático con quienes toman decisiones o se ven afectados por ellas.
+Los contextos no son necesariamente servicios. Pueden ser módulos dentro de una sola aplicación. Definirlos aclara quién es responsable de cada dato antes de decidir cómo desplegarlo.
 
-## Ideas que debes conservar
-- La arquitectura se fortalece con una cultura de calidad y reflexión.
-- Los equipos necesitan una manera clara de discutir y decidir cambios.
-- La mejora continua es más efectiva que la improvisación aislada.
-- La construcción de software no es solo técnica; es una práctica colectiva.
-- La arquitectura se comunica tanto como se diseña.
-- Los stakeholders no siempre hablan el mismo lenguaje técnico.
-- Los trade-offs deben explicarse de forma clara y útil.
-- Un arquitecto debe escuchar, explicar y alinear.
+## 2. Context Map: quién comparte qué
+Un **Context Map** (mapa de contextos) dibuja las fronteras y relaciones entre ellas.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: bounded context e infraestructura como código. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+```text
+Pedidos -- pedido listo para logística --> Entregas
+Inventario -- disponibilidad/reserva --> Pedidos
+```
 
-## Aplicación al caso logístico
-Para estudiar **bounded context e infraestructura como código**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La arquitectura se fortalece con una cultura de calidad y reflexión.
+Cada flecha debe decir qué información cruza y qué significa. Pedidos podría compartir identificador, dirección y productos. Entregas no necesita recibir contraseñas ni copiar toda la información de pago.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos bounded context e infraestructura como código al flujo.
-    2. **Actor prioritario de bounded context e infraestructura como código:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en bounded context e infraestructura como código:** escribe la condición que debe permanecer verdadera y relaciónala con la arquitectura se fortalece con una cultura de calidad y reflexión..
-    4. **Punto de decisión para bounded context e infraestructura como código:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de bounded context e infraestructura como código:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Una relación confusa, como dos contextos modificando libremente la misma tabla, dificulta saber quién puede cambiar un dato y qué significado debe conservar.
 
-Para resolver el caso de **bounded context e infraestructura como código**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## 3. ¿Qué es infraestructura como código?
+La **infraestructura** son los recursos que permiten ejecutar el sistema: bases de datos, colas, redes, permisos y máquinas.
 
+**Infraestructura como código (IaC)** significa describir esos recursos y sus propiedades en archivos que pueden revisarse y aplicarse mediante herramientas. Los archivos sirven como una receta versionada; no son la base de datos ni el servicio que describen.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa bounded context e infraestructura como código y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la arquitectura se fortalece con una cultura de calidad y reflexión.
-3. Identifica el actor que recibe el impacto de bounded context e infraestructura como código y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para bounded context e infraestructura como código; compara sus costos y riesgos.
-5. Elige una opción para bounded context e infraestructura como código, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: bounded context e infraestructura como código debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Un **monorepo** guarda varios proyectos relacionados en un repositorio. Puede alojar código y descripciones de infraestructura juntos, pero no convierte automáticamente el sistema en una aplicación ni obliga a desplegar todas sus partes al mismo tiempo.
 
-## Respuestas a las preguntas
-### ❓ ¿Mi equipo tiene una cultura clara para discutir decisiones de arquitectura?
+## 4. El ejemplo: una cola para Entregas
+Cuando Pedidos confirma una compra, Entregas necesita recibir una tarea. El equipo decide usar una cola.
 
-**Respuesta concreta:** Para bounded context e infraestructura como código, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+```text
+plataforma/
+  servicios/pedidos/
+  servicios/entregas/
+  infraestructura/cola-entregas/
+```
 
-### ❓ ¿Se valora la calidad del sistema por encima de la rapidez individual?
+La descripción IaC de la cola debería especificar, según las necesidades reales:
 
-**Respuesta concreta:** Para bounded context e infraestructura como código, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+- quién puede publicar tareas: Pedidos;
+- quién puede leerlas: Entregas;
+- cuánto tiempo se conserva una tarea no procesada;
+- qué tamaño o límites aplican a cada entorno;
+- cómo se observan fallos y acumulación de mensajes.
 
-### ❓ ¿Estoy logrando comunicar claramente mis decisiones técnicas?
+Esto deja visible la relación entre el código que produce la tarea, el consumidor y el recurso compartido.
 
-**Respuesta concreta:** Para bounded context e infraestructura como código, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 5. Un cambio coordinado, paso a paso
+1. **Define el requisito:** Pedidos debe dejar una tarea después de confirmar la compra.
+2. **Define el contrato:** acuerda qué significa el mensaje y qué campos necesita Entregas.
+3. **Cambia el productor y el consumidor:** actualiza sus códigos para el mismo contrato.
+4. **Describe el recurso:** agrega o modifica la cola y sus permisos en los archivos IaC.
+5. **Revisa el plan:** usa la herramienta del proyecto para ver qué recursos creará, cambiará o eliminará.
+6. **Prueba en desarrollo:** envía una tarea de prueba y confirma que Entregas la recibe.
+7. **Repite en un entorno de pruebas:** verifica configuración y permisos antes de producción.
+8. **Aplica en producción con control:** conserva el plan de recuperación y los permisos aprobados.
 
-### ❓ ¿Cómo explico los trade-offs a personas no técnicas?
+En un monorepo, el código y la IaC pueden revisarse juntos en una Pull Request. Eso permite encontrar, por ejemplo, que Entregas espera un campo que la definición del mensaje no contiene.
 
-**Respuesta concreta:** Para bounded context e infraestructura como código, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 6. Qué significa “revisar el plan”
+Una herramienta de IaC suele mostrar una **previsualización** o plan antes de cambiar un entorno. Ese plan puede indicar recursos que se crearán, modificarán o borrarán.
 
-## 🛠️ Cómo resolver la actividad
+No lo apruebes sin leerlo. Si la tarea era añadir una cola y el plan propone reemplazar la base de datos de producción, detente y averigua por qué. El archivo puede ser válido y aun así el efecto no ser el esperado.
 
-1. **Comprende el tema:** explica con tus palabras qué significa bounded context e infraestructura como código y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de bounded context e infraestructura como código:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para bounded context e infraestructura como código:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de bounded context e infraestructura como código:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La arquitectura se fortalece con una cultura de calidad y reflexión. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a bounded context e infraestructura como código: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de bounded context e infraestructura como código, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+## 7. Entornos, permisos y secretos
+Desarrollo, pruebas y producción pueden necesitar valores distintos, como nombres y capacidad. La diferencia debe estar descrita y ser intencional.
 
-**Respuesta modelo para Bounded Context e infraestructura como código:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+Un **secreto** es un dato que permite acceder o modificar recursos, como una contraseña o token. No lo escribas en archivos versionados. Usa el almacén protegido que adopte el proyecto y concede a cada servicio solo los permisos que necesita.
 
+Una cola puede recibir un permiso de escritura para Pedidos y lectura para Entregas. No necesitan permiso para borrar cualquier recurso del entorno.
 
-## Conclusiones de las fuentes
-La arquitectura madura no vive solo en la solución; vive en la manera en que el equipo trabaja. Si la cultura del equipo favorece la claridad, la responsabilidad y la mejora constante, la arquitectura se fortalece de manera natural.
+## 8. Riesgos al combinar contextos e IaC
+- **Límite de negocio mal definido:** el código y la infraestructura son reproducibles, pero nadie sabe quién es dueño del dato.
+- **Contrato ambiguo:** Pedidos y Entregas interpretan “confirmado” de manera diferente.
+- **Cambio manual no registrado:** el entorno ya no coincide con los archivos.
+- **Permisos demasiado amplios:** un servicio puede acceder a datos que no necesita.
+- **Cambios destructivos:** una previsualización puede advertir que un recurso será reemplazado o eliminado.
 
-El arquitecto no solo resuelve problemas técnicos; también ayuda a que el equipo y la organización compartan una visión común. Sin buena comunicación, incluso una arquitectura excelente puede fracasar por falta de comprensión o aceptación.
+Resolver primero el significado y la responsabilidad del recurso hace que la IaC describa una necesidad concreta, no una colección de servidores sin propósito.
 
-## Preguntas para preparar la grabación
-- ¿Mi equipo tiene una cultura clara para discutir decisiones de arquitectura?
-- ¿Se valora la calidad del sistema por encima de la rapidez individual?
-- ¿Estoy logrando comunicar claramente mis decisiones técnicas?
-- ¿Cómo explico los trade-offs a personas no técnicas?
+## 9. Actividad de autoestudio
+Pedidos debe enviar a Entregas la solicitud de preparar un paquete. Resuelve:
 
-## Evidencia para el repositorio
-Guarda la explicación de bounded context e infraestructura como código, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+1. ¿Qué contexto es dueño del estado de compra?
+2. ¿Qué contexto es dueño de la preparación y asignación?
+3. ¿Qué información mínima se comparte?
+4. Dibuja los proyectos y la cola en un monorepo.
+5. Escribe quién puede publicar, leer y administrar la cola.
+6. Anota tres cosas que revisarías en la previsualización de IaC.
+7. Explica cómo probarías que el mensaje llega al consumidor correcto.
+
+### Respuesta modelo
+Pedidos mantiene la compra; Entregas mantiene preparación, ruta y entrega. Pedidos comparte identificador, dirección y artículos necesarios. La cola se describe dentro de `infraestructura`; solo Pedidos publica y Entregas consume. En la previsualización revisarías creación correcta, permisos limitados y ausencia de eliminaciones inesperadas. Una tarea ficticia de prueba permite confirmar que el consumidor la recibe.
+
+## Comprueba lo que aprendiste
+1. ¿Un Bounded Context tiene que ser un microservicio?
+2. ¿Qué describe un archivo IaC?
+3. ¿Monorepo significa desplegar todos los proyectos juntos?
+4. ¿Qué debes hacer si una previsualización muestra una eliminación inesperada?
+
+### Respuestas
+1. No; puede ser un módulo dentro de una aplicación.
+2. Los recursos necesarios y su configuración.
+3. No; los proyectos pueden desplegarse por separado.
+4. Detener la aplicación del plan e investigar qué causa el cambio.
+
+## Conclusión
+Los contextos delimitan significados y responsabilidades; la infraestructura como código describe los recursos que permiten ejecutar esos módulos o servicios. Al alojarlos en un monorepo, puedes revisar juntos cambios relacionados, pero sigues necesitando contratos claros, permisos mínimos y revisión del plan antes de modificar entornos reales.

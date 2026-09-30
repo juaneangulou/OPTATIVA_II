@@ -1,93 +1,102 @@
 # Video 14: Cierre de fundamentos y transición
 
-## Fuentes oficiales
-- [Cierre del curso](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/)
-- [Cierre del curso](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/)
+## Fuentes de este cierre
+Este video termina el bloque de fundamentos y prepara el paso a la arquitectura aplicada. El cierre retoma la idea de carrera y práctica profesional de la fuente oficial [Consejos para desarrollar carrera como arquitecto](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/).
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-13.md) | [➡️ Video siguiente](video-15.md)
+## Para qué sirve esta transición
+Hasta aquí aprendiste a mirar un sistema desde su contexto, sus actores, sus necesidades, sus límites, sus riesgos y sus decisiones. En el bloque siguiente usarás ese modo de pensar para estudiar herramientas y patrones concretos.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: cierre de fundamentos y transición. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+La transición no significa dejar atrás los fundamentos. Significa usarlos para preguntar si una tecnología o patrón resuelve un problema del caso logístico y qué costo añade.
 
-## Resumen integrado
-**Fuente 1: Cierre del curso**
-El curso culmina con una reflexión integral: la arquitectura de software es una práctica de diseño, responsabilidad, criterio y sostenibilidad. No es solo elegir una tecnología o dibujar un diagrama; es construir sistemas que puedan crecer, proteger información, atender necesidades reales y sostenerse en el tiempo.
+## 1. Recuerda el recorrido
+En los fundamentos trabajaste preguntas como:
 
-La idea final es que la arquitectura de software debe aprenderse con práctica, análisis y sentido crítico. Queda como invitación a seguir profundizando en proyectos reales, documentando decisiones, fortaleciendo el criterio y construyendo soluciones con propósito. El buen arquitecto no se limita a resolver un problema del momento; crea una base para que el sistema siga aportando valor en el futuro.
+- ¿Qué problema del negocio necesita resolver el sistema?
+- ¿Quién usa el sistema y quién puede verse afectado?
+- ¿Qué condición debe seguir siendo verdadera?
+- ¿Qué decisiones tienen consecuencias para operación, seguridad o evolución?
+- ¿Cómo explicas por qué una alternativa conviene más que otra?
 
-**Fuente 2: Cierre del curso**
-El curso culmina con una reflexión integral: la arquitectura de software es una práctica de diseño, responsabilidad, criterio y sostenibilidad. No es solo elegir una tecnología o dibujar un diagrama; es construir sistemas que puedan crecer, proteger información, atender necesidades reales y sostenerse en el tiempo.
+No tienes que memorizar nombres de patrones. Lo importante es poder volver a esas preguntas cuando aparece una propuesta técnica.
 
-La idea final es que la arquitectura de software debe aprenderse con práctica, análisis y sentido crítico. Queda como invitación a seguir profundizando en proyectos reales, documentando decisiones, fortaleciendo el criterio y construyendo soluciones con propósito. El buen arquitecto no se limita a resolver un problema del momento; crea una base para que el sistema siga aportando valor en el futuro.
+## 2. El puente hacia la plataforma logística
+La empresa del caso no puede detener sus operaciones para reemplazar todo su sistema. Necesita mejorar pedidos, inventario y entregas mientras continúa atendiendo a clientes.
 
-## Ideas que debes conservar
-- La arquitectura es una disciplina estratégica, no solo técnica.
-- El diseño debe equilibrar funcionalidad, calidad y responsabilidad.
-- La documentación, la visión y la decisión humana son clave.
-- La sostenibilidad del sistema depende de decisiones bien pensadas.
+Antes de escoger herramientas, puedes resumir el problema:
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: cierre de fundamentos y transición. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+> La empresa necesita consultar y coordinar pedidos y entregas con datos confiables, sin detener toda la operación ni exponer información de las personas.
 
-## Aplicación al caso logístico
-Para estudiar **cierre de fundamentos y transición**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La arquitectura es una disciplina estratégica, no solo técnica.
+Este resumen no es todavía una arquitectura. Es un punto de partida para estudiar una necesidad a la vez, comparar opciones y probarlas.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos cierre de fundamentos y transición al flujo.
-    2. **Actor prioritario de cierre de fundamentos y transición:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en cierre de fundamentos y transición:** escribe la condición que debe permanecer verdadera y relaciónala con la arquitectura es una disciplina estratégica, no solo técnica..
-    4. **Punto de decisión para cierre de fundamentos y transición:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de cierre de fundamentos y transición:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+## 3. Convierte una pregunta grande en una práctica pequeña
+Una pregunta como “¿qué arquitectura necesita toda la empresa?” es demasiado amplia para empezar. Puedes acotarla:
 
-Para resolver el caso de **cierre de fundamentos y transición**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+1. Elige un flujo, por ejemplo consultar una entrega.
+2. Identifica quién participa y qué información necesita.
+3. Describe qué ocurre cuando todo funciona y cuando falla una dependencia.
+4. Compara una solución simple con una alternativa de mayor complejidad.
+5. Define qué prueba te permitiría aprender si la decisión funciona.
 
+Así, cada patrón de los siguientes videos responde a una pregunta concreta en vez de convertirse en una receta para todo el sistema.
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa cierre de fundamentos y transición y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la arquitectura es una disciplina estratégica, no solo técnica.
-3. Identifica el actor que recibe el impacto de cierre de fundamentos y transición y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para cierre de fundamentos y transición; compara sus costos y riesgos.
-5. Elige una opción para cierre de fundamentos y transición, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: cierre de fundamentos y transición debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+## 4. Ejemplo: decidir qué hacer ante una entrega demorada
+**Necesidad:** el cliente quiere saber si su paquete sigue avanzando.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué parte de este curso quiero aplicar de inmediato en mi trabajo?
+**Actores:** cliente, repartidor, soporte y operación.
 
-**Respuesta concreta:** Para cierre de fundamentos y transición, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+**Condición importante:** no presentar una ubicación desconocida como si fuera actual.
 
-### ❓ ¿Qué decisiones de diseño puedo mejorar hoy?
+**Alternativa sencilla:** mostrar el último estado confirmado y su hora.
 
-**Respuesta concreta:** La parte frágil de cierre de fundamentos y transición es la que permite que el operador logístico reciba un resultado incorrecto: reasignar una ruta sin perder el historial del pedido. La corregiría colocando la regla 'conservar trazabilidad de cada cambio' en un límite explícito, en lugar de dejarla repartida entre la interfaz y la infraestructura. El costo será reorganizar el flujo y agregar pruebas; la evidencia será un cambio aislado que no rompa los demás módulos.
+**Alternativa de mayor alcance:** consultar ubicación en tiempo real y calcular una nueva hora estimada.
 
-### ❓ ¿Qué parte de este curso quiero aplicar de inmediato en mi trabajo?
+**Costo y riesgo:** la segunda alternativa requiere obtener más datos, proteger su acceso y manejar demoras del proveedor. Puede aportar más detalle, pero también aumenta dependencias.
 
-**Respuesta concreta:** Para cierre de fundamentos y transición, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+**Comprobación:** simular que el proveedor de ubicación no responde y comprobar que el estado confirmado sigue disponible y que la pantalla indica qué información falta.
 
-### ❓ ¿Qué decisiones de diseño puedo mejorar hoy?
+Este ejemplo demuestra el tipo de razonamiento que usarás en la parte aplicada: primero contexto y personas; después diseño y tecnología.
 
-**Respuesta concreta:** La parte frágil de cierre de fundamentos y transición es la que permite que el equipo de soporte reciba un resultado incorrecto: reconstruir qué ocurrió durante un incidente. La corregiría colocando la regla 'tener eventos, errores y estados observables' en un límite explícito, en lugar de dejarla repartida entre la interfaz y la infraestructura. El costo será reorganizar el flujo y agregar pruebas; la evidencia será un cambio aislado que no rompa los demás módulos.
+## 5. Tu punto de partida para el bloque aplicado
+Antes de estudiar cada herramienta, revisa si puedes explicar:
 
-## 🛠️ Cómo resolver la actividad
+- qué necesidad concreta resolverías primero;
+- qué actor recibe el beneficio y quién podría cargar con un riesgo;
+- qué información sabes y cuál solo estás suponiendo;
+- qué opción sencilla existe;
+- qué evidencia te permitiría mantener o revisar la decisión.
 
-1. **Comprende el tema:** explica con tus palabras qué significa cierre de fundamentos y transición y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de cierre de fundamentos y transición:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para cierre de fundamentos y transición:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de cierre de fundamentos y transición:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La arquitectura es una disciplina estratégica, no solo técnica. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a cierre de fundamentos y transición: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de cierre de fundamentos y transición, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+Si una respuesta todavía es incierta, anótala como pregunta abierta. No hace falta inventar certeza para empezar a diseñar.
 
-**Respuesta modelo para Cierre de fundamentos y transición:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+## Actividad de autoestudio
+Elige una situación de la plataforma: pedido duplicado, falta de inventario, entrega demorada o devolución.
 
+1. Describe el problema en dos frases sin nombrar tecnología.
+2. Nombra a las personas afectadas.
+3. Escribe un hecho y una suposición.
+4. Propón una solución pequeña que permita aprender.
+5. Define qué comprobarías antes de ampliar la solución.
+6. Escribe una pregunta que esperas resolver en el bloque aplicado.
 
-## Conclusiones de las fuentes
-El curso cierra con una idea central: la arquitectura de software es la diferencia entre crear una solución temporal y crear una base sólida para el futuro. La verdadera calidad no está solo en el código, sino en la forma de pensar y decidir.
+### Respuesta modelo
+“Algunos pedidos aparecen dos veces y el almacén puede preparar el mismo paquete más de una vez. El operador necesita saber cuál registro es el válido”.
 
-El curso cierra con una idea central: la arquitectura de software es la diferencia entre crear una solución temporal y crear una base sólida para el futuro. La verdadera calidad no está solo en el código, sino en la forma de pensar y decidir.
+Hecho del ejercicio: el sistema puede recibir más de una solicitud para la misma compra. Suposición: la duplicación se debe a que la persona pulsa dos veces; habría que revisar registros para confirmarlo.
 
-## Preguntas para preparar la grabación
-- ¿Qué parte de este curso quiero aplicar de inmediato en mi trabajo?
-- ¿Qué decisiones de diseño puedo mejorar hoy?
+Una primera solución podría reconocer una clave única del pedido y rechazar duplicados. Antes de ampliar el diseño, comprobaría con una prueba que dos solicitudes iguales no creen dos pedidos.
 
-## Evidencia para el repositorio
-Guarda la explicación de cierre de fundamentos y transición, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+Pregunta para el bloque aplicado: ¿cómo distinguirías una repetición válida del mismo pedido de una compra nueva?
+
+## Comprueba tu comprensión
+1. ¿Por qué el bloque aplicado sigue dependiendo de los fundamentos?
+2. ¿Qué diferencia hay entre una necesidad y una tecnología?
+3. ¿Qué haces cuando todavía no tienes evidencia suficiente?
+
+### Respuestas
+1. Los fundamentos ayudan a elegir y evaluar tecnologías según el problema, los actores y los riesgos.
+2. La necesidad describe lo que alguien requiere; la tecnología es una forma posible de resolverlo.
+3. Registras la suposición o pregunta pendiente y defines cómo obtener evidencia.
+
+## Cierre
+El aprendizaje de arquitectura no termina con una lista de conceptos. Continúa cuando aplicas esos conceptos a situaciones reales, justificas decisiones y compruebas sus consecuencias.
+
+En los siguientes videos llevarás los fundamentos a herramientas y prácticas concretas. Conserva esta secuencia: entender el problema, conocer a las personas afectadas, comparar opciones, decidir y comprobar.

@@ -1,99 +1,127 @@
 # Video 15: Método arquitectónico e inteligencia artificial
 
-## Fuentes oficiales
+## Fuentes de este video
 - [Intuición vs método en arquitectura de software](https://platzi.com/cursos/software-avanzado/intuicion-vs-metodo-en-arquitectura-de-s/)
-- [Del código funcional a la solución sostenible](https://platzi.com/cursos/software-avanzado/como-analizar-una-licitacion-real-con-ia/)
+- [Cómo analizar una licitación real con IA](https://platzi.com/cursos/software-avanzado/como-analizar-una-licitacion-real-con-ia/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-14.md) | [➡️ Video siguiente](video-16.md)
+## Para estudiar por tu cuenta
+Este capítulo conecta dos habilidades: decidir con método y usar inteligencia artificial para analizar información extensa sin delegarle la responsabilidad de decidir.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: método arquitectónico e inteligencia artificial. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+La primera fuente explica por qué una intuición puede servir como punto de partida, pero no basta para justificar una arquitectura. La segunda muestra cómo una herramienta de IA puede ayudar a revisar una licitación. Juntas ofrecen una secuencia útil: entender el problema, reunir evidencia, usar IA para organizar información y comprobar sus resultados antes de decidir.
 
-## Resumen integrado
-**Fuente 1: Intuición vs método en arquitectura de software**
-El video parte de una idea clave: muchas personas logran construir software funcional usando solo intuición, experiencia y prueba y error. Eso puede funcionar a corto plazo, pero cuando el sistema crece, aparecen problemas de mantenimiento, complejidad, escalabilidad y entendimiento del negocio. La arquitectura de software deja de ser solo “programar bien” y pasa a ser tomar decisiones con criterio, fundamento y visión de largo plazo.
+## 1. El caso: preparar una propuesta logística
+La empresa de última milla quiere contratar o construir una plataforma que registre pedidos, verifique inventario, organice entregas y permita consultar estados.
 
-La discusión central compara dos enfoques: por un lado, la intuición, que permite improvisar y avanzar rápido; por otro, el método, que ayuda a pensar en el sistema como un conjunto de decisiones estratégicas, no solo soluciones técnicas. El video deja claro que el arquitecto no debe depender de la suerte ni de la improvisación constante: debe analizar contexto, restricciones, objetivos de negocio y riesgos.
+Recibes una licitación extensa. Una primera reacción podría ser pedirle a una IA “resume el documento y dime qué tecnología usar”. Esa respuesta parece rápida, pero mezcla dos tareas distintas:
 
-**Fuente 2: Del código funcional a la solución sostenible**
-Este video enfatiza el cambio de mentalidad que ocurre cuando un desarrollador deja de pensar solo en entregar una funcionalidad rápida y empieza a pensar en la calidad del sistema completo. El objetivo ya no es solo que el código compile o que la funcionalidad funcione, sino que el sistema pueda evolucionar, soportar cambios y ser mantenido por más personas.
+- **Analizar qué pide el documento.** La IA puede ayudar a extraer requisitos y señalar dónde aparecen.
+- **Decidir qué arquitectura proponer.** Requiere entender el negocio, comprobar capacidades, evaluar riesgos y justificar costos.
 
-La diferencia entre un código funcional y una solución sostenible radica en la capacidad de estructurar el problema. Cuando se ignora la arquitectura, el sistema suele volverse difícil de entender, frágil ante cambios y costoso de mantener. El video presenta esta transición como un paso importante en la carrera profesional: de ser alguien que resuelve tareas puntuales a alguien que diseña soluciones con visión de producto y negocio.
+La IA puede apoyar la primera y ayudar a explorar la segunda, pero no conoce automáticamente el producto ni puede certificar que se cumple un requisito.
 
-## Ideas que debes conservar
-- La intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento.
-- Un software puede “servir” sin ser realmente bueno si no está construido para sostener cambios.
-- La arquitectura de software implica decisiones sobre estructura, acoplamiento, escalabilidad, evolución y costos.
-- El método permite reducir la incertidumbre y tomar decisiones con más base técnica y de negocio.
-- Un sistema que funciona puede seguir siendo una mala solución si no está bien diseñado.
-- La mantenibilidad es una dimensión clave del valor de una arquitectura.
-- El diseño debe facilitar cambios futuros y no solo la entrega inicial.
-- Los problemas reales aparecen cuando el software crece en complejidad, usuarios, reglas de negocio y dependencias.
+## 2. Intuición como hipótesis, no como veredicto
+La **intuición** es una idea inicial basada en experiencia. Por ejemplo: “La licitación habla de mucho crecimiento; quizá necesitemos microservicios”.
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: método arquitectónico e inteligencia artificial. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+El **método** consiste en convertir esa intuición en preguntas comprobables:
 
-## Aplicación al caso logístico
-Para estudiar **método arquitectónico e inteligencia artificial**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: La intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento.
+1. ¿La licitación especifica el volumen de pedidos?
+2. ¿Qué plazo de respuesta exige?
+3. ¿Hay equipos distintos que necesiten publicar cambios por separado?
+4. ¿Qué capacidad operativa tiene la empresa para manejar varios servicios?
+5. ¿Qué evidencia demostraría que una separación aporta valor?
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos método arquitectónico e inteligencia artificial al flujo.
-    2. **Actor prioritario de método arquitectónico e inteligencia artificial:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en método arquitectónico e inteligencia artificial:** escribe la condición que debe permanecer verdadera y relaciónala con la intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento..
-    4. **Punto de decisión para método arquitectónico e inteligencia artificial:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de método arquitectónico e inteligencia artificial:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+Si la licitación no da números, anota “sin evidencia localizada” y prepara una pregunta para aclararlo. No conviertas “alto crecimiento” en una predicción técnica que el documento no hace.
 
-Para resolver el caso de **método arquitectónico e inteligencia artificial**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+## 3. Usa IA para organizar, no para certificar
+Una **licitación** es un documento de requisitos, condiciones y criterios de evaluación. Una **matriz de requisitos** convierte sus declaraciones en filas que puedes revisar.
 
+| Identificador | Requisito | Fuente exacta | Estado | Pregunta pendiente |
+|---|---|---|---|---|
+| R-01 | El cliente consulta el estado del pedido | Sección 2, párrafo 4 | Por validar | ¿Qué perfiles pueden verlo? |
+| R-02 | Se registran entregas fallidas | Anexo B, requisito 7 | Parcial | ¿Qué campos y retención exige? |
+| R-03 | Tiempo de respuesta menor a lo acordado | Sin evidencia localizada | Por validar | ¿Qué tiempo y qué carga se medirán? |
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa método arquitectónico e inteligencia artificial y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: la intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento.
-3. Identifica el actor que recibe el impacto de método arquitectónico e inteligencia artificial y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para método arquitectónico e inteligencia artificial; compara sus costos y riesgos.
-5. Elige una opción para método arquitectónico e inteligencia artificial, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: método arquitectónico e inteligencia artificial debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Estados claros evitan confundir “lo encontré en el documento” con “el producto ya cumple”.
 
-## Respuestas a las preguntas
-### ❓ ¿Qué tan frecuente es resolver problemas solo con intuición en mi trabajo?
+## 4. Una instrucción para extraer evidencia
+Puedes pedir a una herramienta de IA que organice una parte del documento:
 
-**Respuesta concreta:** Para método arquitectónico e inteligencia artificial, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+```text
+Extrae los requisitos de esta sección.
+Para cada requisito, copia una frase breve y señala el título o número de sección.
+Clasifica cada uno como funcional, calidad, seguridad, operación o integración.
+Si la fuente no establece un valor, escribe “no especificado”.
+No concluyas que nuestro producto cumple.
+```
 
-### ❓ ¿Qué problemas aparecen cuando el sistema crece sin una base metodológica?
+Después abre la licitación y verifica la frase original. La IA puede equivocarse con tablas, anexos, notas al pie o un PDF escaneado.
 
-**Respuesta concreta:** Para método arquitectónico e inteligencia artificial, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+Antes de subir cualquier documento, confirma que puedes compartirlo con esa herramienta. No incluyas información confidencial, datos personales, tokens ni secretos comerciales sin autorización.
 
-### ❓ ¿Qué tan sostenible es la solución que estoy construyendo hoy?
+## 5. De los requisitos a una propuesta
+Para cada requisito importante, completa el razonamiento:
 
-**Respuesta concreta:** Para método arquitectónico e inteligencia artificial, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+1. **Qué solicita:** copia la obligación en palabras precisas.
+2. **Qué significa:** aclara términos ambiguos.
+3. **Qué actor lo necesita:** cliente, soporte, operación, almacén o repartidor.
+4. **Qué parte del sistema respondería:** Pedidos, Inventario, Entregas u otra.
+5. **Qué opciones hay:** por ejemplo, una aplicación modular o servicios desplegados por separado.
+6. **Qué evidencia falta:** prueba, medición, contrato o pregunta.
+7. **Qué riesgo y costo acepta la propuesta.**
 
-### ❓ ¿Qué parte del sistema es difícil de cambiar y por qué?
+La arquitectura se justifica con esa cadena, no con una palabra popular encontrada en la licitación.
 
-**Respuesta concreta:** Para método arquitectónico e inteligencia artificial, el equipo de soporte necesita reconstruir qué ocurrió durante un incidente. La respuesta concreta es proteger la regla 'tener eventos, errores y estados observables' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 6. Ejemplo resuelto
+La licitación dice: “La solución deberá permitir seguimiento de pedidos en tiempo real”.
 
-## 🛠️ Cómo resolver la actividad
+### Lectura literal
+La frase no define qué significa “tiempo real”, quién puede consultar ni cuántos pedidos deben atenderse. La anotamos como requisito ambiguo, no la completamos con nuestra imaginación.
 
-1. **Comprende el tema:** explica con tus palabras qué significa método arquitectónico e inteligencia artificial y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de método arquitectónico e inteligencia artificial:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para método arquitectónico e inteligencia artificial:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de método arquitectónico e inteligencia artificial:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: La intuición es útil para comenzar, pero no garantiza que el sistema sobreviva al crecimiento. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a método arquitectónico e inteligencia artificial: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de método arquitectónico e inteligencia artificial, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+### Preguntas que faltan
+- ¿Qué demora máxima entre un reporte y la pantalla considera aceptable la entidad?
+- ¿La ubicación debe ser exacta o basta el estado de entrega?
+- ¿Qué roles pueden consultar el recorrido?
+- ¿Qué ocurre cuando el repartidor pierde conexión?
 
-**Respuesta modelo para Método arquitectónico e inteligencia artificial:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+### Propuesta inicial verificable
+Podemos proponer mostrar el último estado confirmado y la hora de actualización. Si el sistema no tiene una ubicación nueva, avisa que el dato está atrasado en vez de presentarlo como actual.
 
+### Evidencia
+Una prueba puede simular que no llega una actualización y comprobar que la interfaz conserva la hora anterior y la marca claramente. El objetivo de demora debe acordarse con la entidad; no lo inventamos.
 
-## Conclusiones de las fuentes
-La diferencia entre intuición y método no es que uno sea bueno y el otro malo; más bien, la intuición es una base de partida y el método es lo que convierte una solución improvisada en una solución sostenible. La arquitectura de software exige pensar más allá del código y decidir con propósito.
+## 7. Ejercicio de autoestudio
+Analiza este requisito ficticio: “La plataforma debe garantizar continuidad y protección de información”.
 
-El salto del “código que funciona” al “sistema que sobrevive” es lo que marca la diferencia entre un desarrollador ordinario y un arquitecto de software. El valor no está solo en resolver el problema del momento, sino en construir una base que permita seguir creciendo sin perder calidad.
+1. Señala qué términos no tienen una medida concreta.
+2. Divide la frase en requisitos comprobables.
+3. Escribe una pregunta de aclaración para cada requisito.
+4. Propón qué tarea pedirías a una IA y qué evidencia debe devolver.
+5. Nombra qué datos no compartirías con una herramienta no autorizada.
+6. Explica qué información necesitas antes de recomendar una arquitectura.
 
-## Preguntas para preparar la grabación
-- ¿Qué tan frecuente es resolver problemas solo con intuición en mi trabajo?
-- ¿Qué problemas aparecen cuando el sistema crece sin una base metodológica?
-- ¿Qué tan sostenible es la solución que estoy construyendo hoy?
-- ¿Qué parte del sistema es difícil de cambiar y por qué?
+### Pistas
+- “Continuidad” puede referirse a disponibilidad, recuperación o funcionamiento parcial.
+- “Protección” puede referirse a acceso, cifrado, auditoría o privacidad; pide alcance.
+- Para recomendar una arquitectura necesitas necesidades y restricciones, no solo el nombre de una tecnología.
 
-## Evidencia para el repositorio
-Guarda la explicación de método arquitectónico e inteligencia artificial, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## 8. Respuesta modelo
+Dividiría la frase en, al menos, dos preguntas: cuánto tiempo puede estar indisponible la plataforma y cuánto tiempo se permite para recuperarse; además, qué datos se consideran sensibles y quién puede consultarlos.
+
+Pediría a la IA extraer requisitos y referencias exactas, sin solicitarle que certifique el cumplimiento. Verificaría cada resultado en el documento original.
+
+No compartiría documentos restringidos ni datos personales sin autorización. Antes de proponer arquitectura pediría volumen, integraciones, perfiles de acceso, objetivos de disponibilidad, presupuesto y capacidad operativa.
+
+## Comprueba lo que aprendiste
+1. ¿Qué diferencia hay entre una intuición y una decisión comprobada?
+2. ¿Qué salida concreta debe producir la IA para que puedas revisar una extracción?
+3. ¿Por qué “no especificado” es preferible a inventar una medida?
+4. ¿Quién es responsable de aprobar que el sistema cumple?
+
+### Respuestas
+1. La intuición propone una hipótesis; una decisión comprobada tiene evidencia y pruebas que la respaldan.
+2. Una frase del documento junto con la sección de donde se obtuvo.
+3. Porque mantiene visible la incertidumbre y permite hacer una pregunta formal.
+4. El equipo y la organización que ofertan, después de validar el producto; no la IA.
+
+## Conclusión
+Usa IA para acelerar la lectura, no para reemplazar el juicio. Conserva la fuente de cada requisito, distingue hechos de suposiciones, pregunta por las ambigüedades y propone una arquitectura solo cuando puedas explicar qué necesidad resuelve y cómo comprobarla.

@@ -1,99 +1,138 @@
-# Video 20: Premortem y pruebas de arquitectura
+# Video 20: Pre-mortem y pruebas de arquitectura
 
-## Fuentes oficiales
-- [Microservicios y dominios](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
-- [Datos y almacenamiento](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
+## Fuentes de este video
+- [Técnicas pre-mortem y cinco why para prevenir fallos](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
+- [Cómo el pre-mortem guía tus tests de arquitectura](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
 
-## 🔗 Navegación
-[⬅️ Video anterior](video-19.md) | [➡️ Video siguiente](video-21.md)
+## Para estudiar por tu cuenta
+El primer video del curso ya te ayudó a imaginar fallos antes de construir. Ahora vas a dar el paso siguiente: convertir un riesgo importante en una prueba que puedas ejecutar repetidamente.
 
-## Propósito
-Esta clase combina las fuentes anteriores para resolver un problema específico: premortem y pruebas de arquitectura. El objetivo es mostrar qué idea aporta cada fuente, cómo se complementan y qué decisión concreta permiten tomar en la plataforma logística.
+Un riesgo escrito no evita que ocurra. Una prueba ayuda a comprobar que el sistema mantiene un comportamiento necesario cuando se presentan las condiciones que podrían provocar ese fallo.
 
-## Resumen integrado
-**Fuente 1: Microservicios y dominios**
-Este video analiza una de las decisiones arquitectónicas más debatidas del desarrollo actual: la adopción de microservicios. La idea central no es que los microservicios sean automáticamente mejores que una arquitectura monolítica, sino que pueden encajar muy bien cuando el sistema necesita evolución separada por dominios, equipos y responsabilidades. El problema es que muchos equipos los adoptan por moda sin analizar si el problema real los justifica.
+## 1. Qué es un pre-mortem
+Un **pre-mortem** es un ejercicio en el que supones que el sistema ya falló y preguntas qué pudo llevarlo hasta ahí. No es una predicción ni una lista de miedos: es una forma de detectar riesgos antes de que afecten a clientes u operación.
 
-También se introduce la relación entre arquitectura y dominio. Un buen diseño de software debe reflejar el dominio del negocio. Cuando los servicios corresponden a límites de negocio claros, la solución se vuelve más entendible, escalable y mantenible. La clave está en separar responsabilidades con sentido, no en dividir por tecnología por el solo hecho de hacerlo.
+En vez de preguntar “¿todo va a salir bien?”, plantea: “Dentro de tres meses, varios clientes recibieron dos repartidores para el mismo pedido. ¿Qué pudo provocar esa situación?”.
 
-**Fuente 2: Datos y almacenamiento**
-El video presenta la importancia decisiva de la estrategia de datos dentro de la arquitectura. Una aplicación no es solo lógica de negocio; también es un sistema de lectura, escritura, consulta y persistencia. La forma en que se almacenan los datos afecta directamente rendimiento, consistencia, recuperación, costos, y capacidad de evolución. Elegir una base de datos o un patrón de almacenamiento equivale a definir parte del comportamiento del sistema.
+La respuesta inicial puede ser “el mensaje se procesó dos veces”. El pre-mortem te ayuda a buscar por qué el diseño permitiría que esa repetición duplicara el efecto.
 
-Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una opción más adecuada para cada problema. La arquitectura debe evaluar volumen, tipos de consulta, consistencia requerida, latencia, integridad y costo operativo. A partir de ahí, se pueden elegir modelos relacionales, NoSQL, colas, caché o arquitecturas híbridas.
+## 2. Usa cinco porqués para profundizar
+Los **cinco porqués** son una guía para preguntar por qué ocurrió una condición y seguir hasta encontrar una causa que el sistema o el proceso puedan corregir.
 
-## Ideas que debes conservar
-- Los microservicios son una opción, no una obligación.
-- La arquitectura debe reflejar el dominio del negocio y no solo la tecnología.
-- La división por componentes debe hacerse con criterios claros de responsabilidad.
-- La complejidad operativa aumenta al adoptar múltiples servicios.
-- La estrategia de datos influye directamente en la arquitectura.
-- No todas las bases de datos resuelven el mismo tipo de problema.
-- El almacenamiento debe obedecer al comportamiento real del negocio.
-- Rendimiento, consistencia y costos son variables que se deben balancear.
+Ejemplo:
 
-## Cómo se conectan las fuentes
-La primera fuente aporta el punto de partida y la segunda amplía o contrasta ese punto. Compáralas desde este tema: premortem y pruebas de arquitectura. Pregúntate qué problema resuelve cada una, dónde coinciden y qué decisión nueva aparece cuando se leen juntas.
+1. ¿Por qué se asignaron dos repartidores? La solicitud de asignación se procesó dos veces.
+2. ¿Por qué se procesó dos veces? El sistema reintentó al no recibir respuesta a tiempo.
+3. ¿Por qué el reintento duplicó la asignación? El consumidor no reconoció que era la misma solicitud.
+4. ¿Por qué no reconoció la repetición? No guardó un identificador único de la tarea procesada.
+5. ¿Por qué esa condición no apareció antes? Las pruebas no simulaban mensajes repetidos ni respuestas tardías.
 
-## Aplicación al caso logístico
-Para estudiar **premortem y pruebas de arquitectura**, vamos a seguir el recorrido de una operación logística y detenernos en el punto donde este tema cambia la decisión. La plataforma recibe un pedido, coordina inventario, propone una ruta y comunica el resultado; el foco de hoy es: Los microservicios son una opción, no una obligación.
+La cadena no busca culpar a quien implementó el reintento. Busca entender qué protección faltó y cómo comprobarla.
 
-1. **Situación propia del tema:** identifica qué puede fallar cuando aplicamos premortem y pruebas de arquitectura al flujo.
-    2. **Actor prioritario de premortem y pruebas de arquitectura:** decide si la consecuencia principal la recibe el cliente, el operador, el repartidor, soporte o el equipo técnico.
-    3. **Regla o calidad protegida en premortem y pruebas de arquitectura:** escribe la condición que debe permanecer verdadera y relaciónala con los microservicios son una opción, no una obligación..
-    4. **Punto de decisión para premortem y pruebas de arquitectura:** delimita qué queda dentro del módulo responsable, qué cruza a otro componente y qué se delega a una dependencia.
-    5. **Evidencia de premortem y pruebas de arquitectura:** elige el artefacto que mejor pruebe esta decisión: diagrama, ADR, contrato, código, prueba, métrica, registro o experimento.
+## 3. De la historia a un riesgo útil
+Describe el riesgo en cuatro partes:
 
-Para resolver el caso de **premortem y pruebas de arquitectura**, empieza por el flujo que mejor represente el tema. Señala el componente responsable, la dependencia que puede fallar y el resultado que espera el actor prioritario. Después compara una solución sencilla para el MVP con otra más robusta. Tu elección debe explicar qué gana, qué sacrifica y cuándo tendría que revisarse.
+- **Causa:** qué condición puede ocurrir.
+- **Evento:** qué pasa en el sistema.
+- **Consecuencia:** quién recibe el daño o costo.
+- **Señal:** cómo sabrías que el riesgo está ocurriendo.
 
+| Parte | Ejemplo de doble asignación |
+|---|---|
+| Causa | La confirmación tarda y la tarea se reintenta |
+| Evento | Dos procesos asignan la misma entrega |
+| Consecuencia | Dos repartidores reciben el mismo trabajo |
+| Señal | Hay más de una asignación activa para el pedido |
 
-## Actividad de construcción
-1. Explica con tus palabras qué significa premortem y pruebas de arquitectura y qué fuente respalda esa interpretación.
-2. Describe una situación de la plataforma logística donde aparezca: los microservicios son una opción, no una obligación.
-3. Identifica el actor que recibe el impacto de premortem y pruebas de arquitectura y la regla que no puede romperse.
-4. Propón una solución mínima y otra más robusta para premortem y pruebas de arquitectura; compara sus costos y riesgos.
-5. Elige una opción para premortem y pruebas de arquitectura, declara qué sacrificas y define la condición que obligaría a revisarla.
-6. Produce la evidencia propia de este tema: premortem y pruebas de arquitectura debe quedar visible en un diagrama, ADR, contrato, código, prueba o métrica.
+Un riesgo es más fácil de tratar cuando puedes explicar su consecuencia y reconocer su señal.
 
-## Respuestas a las preguntas
-### ❓ ¿Mi sistema necesita separación por dominio o la complejidad no justifica eso?
+## 4. Convierte el riesgo en una prueba
+Una prueba debe definir:
 
-**Respuesta concreta:** Para premortem y pruebas de arquitectura, el cliente necesita recibir un estado de entrega confiable. La respuesta concreta es proteger la regla 'no mostrar una entrega como completada sin evidencia válida' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+1. El estado inicial del sistema.
+2. La acción que podría desencadenar el fallo.
+3. El resultado que debe ocurrir.
+4. El resultado que no debe ocurrir.
 
-### ❓ ¿Estoy dividiendo el sistema por negocio o por comodidad técnica?
+Escenario:
 
-**Respuesta concreta:** Para premortem y pruebas de arquitectura, el operador logístico necesita reasignar una ruta sin perder el historial del pedido. La respuesta concreta es proteger la regla 'conservar trazabilidad de cada cambio' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+```text
+Dado que el pedido 245 está listo para asignarse
+Cuando el mismo mensaje de asignación se procesa dos veces
+Entonces queda una sola asignación activa
+Y el sistema conserva registro de la solicitud repetida
+```
 
-### ❓ ¿Qué tipo de consultas y volumen real tiene mi sistema?
+La prueba convierte la frase “evitar duplicados” en un comportamiento que se puede revisar después de cada cambio.
 
-**Respuesta concreta:** Para premortem y pruebas de arquitectura, el repartidor necesita recibir una instrucción vigente y consistente. La respuesta concreta es proteger la regla 'evitar dos asignaciones activas para la misma entrega' dentro del componente responsable, documentar la decisión y comprobarla con una prueba o evidencia observable. No basta relacionar la pregunta con el diseño: debemos mostrar qué cambia en el sistema y qué resultado esperamos.
+## 5. Elige el tipo de prueba correcto
+- **Prueba unitaria:** verifica una regla pequeña sin base de datos ni red, por ejemplo, que una segunda asignación para el mismo pedido se rechace.
+- **Prueba de integración:** confirma que el consumidor y el almacenamiento real recuerdan que el mensaje ya se procesó.
+- **Prueba de arquitectura:** revisa una regla estructural, como que solo el módulo Entregas pueda crear asignaciones.
 
-### ❓ ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
+No tienes que escribir todo en una única prueba. Elige el nivel que compruebe la causa que identificaste. Una prueba unitaria no demuestra que la base guarde correctamente; una prueba de integración no explica por sí sola la regla de negocio.
 
-**Respuesta concreta:** La prioridad de premortem y pruebas de arquitectura es proteger a el equipo de soporte, porque reconstruir qué ocurrió durante un incidente. Aplicaría un control que impida violar la regla 'tener eventos, errores y estados observables', limitaría el acceso a los datos necesarios y registraría los intentos rechazados. El costo es mayor complejidad de autorización y auditoría; lo comprobaría con pruebas de acceso permitido y denegado.
+## 6. Riesgo, prueba y protección
+| Riesgo del pre-mortem | Prueba derivada | Qué demuestra |
+|---|---|---|
+| Se crea una entrega dos veces | Procesar dos veces la misma solicitud | El segundo intento no duplica el efecto |
+| Se acepta una dirección incompleta | Enviar un pedido sin ciudad | El pedido se rechaza o queda en revisión con causa explícita |
+| La ubicación externa no responde | Simular una respuesta lenta o caída | La consulta termina y no inventa una ubicación actual |
+| Un cliente consulta un pedido ajeno | Usar dos cuentas de ensayo | La cuenta sin permiso no recibe datos del otro cliente |
 
-## 🛠️ Cómo resolver la actividad
+## 7. Priorización sin fingir precisión
+Puedes describir cada riesgo como bajo, medio o alto según:
 
-1. **Comprende el tema:** explica con tus palabras qué significa premortem y pruebas de arquitectura y qué idea principal de las fuentes lo justifica.
-    2. **Delimita el caso de premortem y pruebas de arquitectura:** describe qué ocurre en la plataforma logística, qué actor recibe el impacto y qué regla o atributo de calidad está en riesgo.
-    3. **Formula dos opciones para premortem y pruebas de arquitectura:** Opción A, una solución sencilla para el MVP; Opción B, una solución con mayor separación, automatización o control.
-    4. **Compara las opciones de premortem y pruebas de arquitectura:** analiza costo inicial, complejidad operativa, seguridad, rendimiento, mantenibilidad y facilidad de cambio.
-5. **Decide:** elige la opción que proteja primero esta idea: Los microservicios son una opción, no una obligación. Declara qué sacrificas y qué condición obligaría a revisar la decisión.
-6. **Construye la evidencia:** produce el artefacto que mejor responda a premortem y pruebas de arquitectura: ADR, diagrama, contrato, fragmento C#, prueba, métrica o plan de evolución.
-7. **Comprueba y sustenta:** ejecuta la prueba o revisión de premortem y pruebas de arquitectura, registra el resultado y explica en tu video qué tomaste de cada fuente y cómo lo aplicaste.
+- posibilidad de que ocurra;
+- gravedad de la consecuencia;
+- facilidad para detectarlo y recuperarse.
 
-**Respuesta modelo para Premortem y pruebas de arquitectura:** una solución no se justifica diciendo “es mejor”. Se justifica explicando el problema, comparando alternativas, mostrando el costo aceptado y presentando evidencia observable.
+No hace falta asignar números exactos si no tienes datos. Explica por qué lo priorizas y qué evidencia te ayudaría a cambiar esa evaluación.
 
+## 8. Actividad de autoestudio
+Escoge un posible fallo de la plataforma:
 
-## Conclusiones de las fuentes
-Microservicios no son la respuesta universal. Su valor aparece cuando ayudan a organizar un sistema complejo en dominios manejables y equipos con responsabilidades claras. El verdadero criterio es la capacidad de crear un sistema entendible y evolutivo, no solo distribuirlo en muchos servicios.
+- un mensaje se procesa dos veces;
+- un pedido se marca como entregado sin evidencia;
+- una ubicación antigua se muestra como actual;
+- una cuenta consulta datos de otro cliente.
 
-La información es el corazón del sistema. Un diseño arquitectónico sólido toma decisiones inteligentes sobre cómo almacenar, consultar, proteger y evolucionar los datos, porque eso impacta el resto de la solución.
+Escribe:
 
-## Preguntas para preparar la grabación
-- ¿Mi sistema necesita separación por dominio o la complejidad no justifica eso?
-- ¿Estoy dividiendo el sistema por negocio o por comodidad técnica?
-- ¿Qué tipo de consultas y volumen real tiene mi sistema?
-- ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
+1. La causa posible y la consecuencia.
+2. Qué persona o área recibe el impacto.
+3. La señal que permitiría detectar el fallo.
+4. Un escenario Dado–Cuando–Entonces.
+5. El tipo de prueba que elegirías y por qué.
+6. Qué evidencia guardarías cuando se ejecuta.
 
-## Evidencia para el repositorio
-Guarda la explicación de premortem y pruebas de arquitectura, la comparación de alternativas, la decisión tomada, los trade-offs y el artefacto producido. En la grabación explica qué tomaste de cada fuente y cómo esa idea cambia el diseño de la plataforma logística.
+## 9. Respuesta modelo: ubicación desactualizada
+**Riesgo:** el proveedor de geolocalización deja de responder, pero la pantalla sigue mostrando la última ubicación como si fuera actual.
+
+**Persona afectada:** el cliente puede esperar en un lugar equivocado; soporte puede transmitir información incorrecta.
+
+**Prueba:**
+
+```text
+Dado que la última ubicación del pedido 245 se recibió a las 13:10
+Cuando el proveedor no responde a la consulta de las 13:20
+Entonces el sistema no presenta la ubicación de las 13:10 como actual
+Y muestra la hora de la última actualización o informa que no está disponible
+```
+
+Usaría una prueba de integración del recorrido entre consulta, proveedor simulado y respuesta de la API. Guardaría el resultado y el caso de error, sin incluir ubicación real de una persona.
+
+## Comprueba lo que aprendiste
+1. ¿El pre-mortem asegura que ningún fallo ocurrirá?
+2. ¿Qué diferencia hay entre un riesgo y una prueba?
+3. ¿Qué caracteriza una prueba de arquitectura?
+4. ¿Por qué conviene incluir el resultado que no debe ocurrir?
+
+### Respuestas
+1. No; ayuda a encontrar riesgos posibles y preparar respuestas.
+2. El riesgo describe algo que podría salir mal; la prueba define cómo comprobar una respuesta del sistema ante ese escenario.
+3. Verifica una propiedad estructural del sistema, como una dependencia o un límite entre módulos.
+4. Porque la ausencia de un efecto dañino también forma parte del comportamiento esperado.
+
+## Conclusión
+El pre-mortem ayuda a imaginar causas y consecuencias antes de que sucedan. Las pruebas convierten los riesgos prioritarios en comportamientos verificables. El ciclo queda completo cuando puedes mostrar qué podría fallar, cómo lo detectas y qué evidencia confirma que la protección funciona.

@@ -1,25 +1,21 @@
-# Video 12: Datos y almacenamiento
+# Video 12: Cómo el pre-mortem guía tus tests de arquitectura
 
 ## Título
-Datos y almacenamiento
+Cómo el pre-mortem guía tus pruebas de arquitectura
 
 ## Resumen
-El video presenta la importancia decisiva de la estrategia de datos dentro de la arquitectura. Una aplicación no es solo lógica de negocio; también es un sistema de lectura, escritura, consulta y persistencia. La forma en que se almacenan los datos afecta directamente rendimiento, consistencia, recuperación, costos, y capacidad de evolución. Elegir una base de datos o un patrón de almacenamiento equivale a definir parte del comportamiento del sistema.
+Un riesgo anticipado es más útil cuando se convierte en una prueba concreta. Este video conecta el pre-mortem con las comprobaciones del sistema: describe qué podría fallar, qué comportamiento debe protegerse y qué resultado permitiría detectarlo.
 
-Se enfatiza que no existe una base de datos “mejor” en abstracto, sino una opción más adecuada para cada problema. La arquitectura debe evaluar volumen, tipos de consulta, consistencia requerida, latencia, integridad y costo operativo. A partir de ahí, se pueden elegir modelos relacionales, NoSQL, colas, caché o arquitecturas híbridas.
+Por ejemplo, si se teme que un mensaje repetido cree dos entregas, la prueba puede enviar dos veces la misma solicitud y comprobar que solo exista una asignación activa. Así el análisis de riesgos deja de ser una lista y se convierte en evidencia verificable.
 
 ## Ideas principales
-- La estrategia de datos influye directamente en la arquitectura.
-- No todas las bases de datos resuelven el mismo tipo de problema.
-- El almacenamiento debe obedecer al comportamiento real del negocio.
-- Rendimiento, consistencia y costos son variables que se deben balancear.
-- Los datos son un activo crítico, no un detalle técnico.
-- El diseño de persistencia define la evolución futura del sistema.
+- Un escenario de pre-mortem debe producir una pregunta comprobable.
+- Una prueba describe contexto, acción y resultado esperado.
+- El nivel de prueba depende del riesgo: unitario, integración o arquitectura.
+- Verifica tanto lo que debe ocurrir como lo que no debe ocurrir.
+- Guarda el resultado y vuelve a probar cuando cambie el flujo protegido.
 
-## Conclusión
-La información es el corazón del sistema. Un diseño arquitectónico sólido toma decisiones inteligentes sobre cómo almacenar, consultar, proteger y evolucionar los datos, porque eso impacta el resto de la solución.
-
-## Preguntas para reflexión
-- ¿Qué tipo de consultas y volumen real tiene mi sistema?
-- ¿Estoy priorizando velocidad de desarrollo sobre sostenibilidad de datos?
-- ¿La estrategia actual de persistencia sigue siendo adecuada si el sistema crece?
+## Preguntas para pensar
+- ¿Qué prueba detectaría una asignación duplicada?
+- ¿Qué dato o resultado demostraría que la regla se cumplió?
+- ¿Cómo distinguirías una prueba de una suposición sobre el sistema?
