@@ -128,5 +128,20 @@ Tres semanas sin integrar aumentan la posibilidad de conflictos, incompatibilida
 3. No; permite ramas breves que se integran con frecuencia.
 4. Que se siguen las condiciones configuradas, no que el código sea correcto en todos los sentidos.
 
+## Taller aplicado: seguir un cambio compartido
+La biblioteca `Direcciones` debe aceptar códigos postales de un nuevo municipio. Antes de integrar el cambio:
+
+1. Identifica todos los consumidores y sus versiones de ejecución.
+2. Cambia la biblioteca con una prueba del nuevo caso y conserva las pruebas de compatibilidad anterior.
+3. Ejecuta primero las pruebas de `Direcciones`; después las de Pedidos y Entregas.
+4. Abre una rama corta con una descripción del motivo, impacto y resultado de las pruebas.
+5. Integra solo cuando las comprobaciones exigidas estén verdes y alguien haya revisado el cambio.
+6. Si falla un consumidor, decide si el contrato debe evolucionar o si el consumidor estaba usando una regla no documentada.
+
+El objetivo no es integrar a toda velocidad sin control. Es reducir el tiempo durante el que una incompatibilidad queda escondida. Un monorepo ayuda a descubrir consumidores juntos, pero no elimina la necesidad de contratos, pruebas y responsables claros.
+
+### Evidencia de aprendizaje
+Entrega un mapa de dependencias, una Pull Request de ejemplo, la lista de pruebas ejecutadas y una explicación de por qué cada regla de `main` protege una propiedad importante.
+
 ## Conclusión
 Un monorepo puede facilitar cambios coordinados; Pantsbuild puede ayudar a ejecutar pruebas de los proyectos afectados; Trunk Based Development busca integrar cambios pequeños; GitHub rulesets protege el flujo. Cada decisión tiene costos y debe responder a una dificultad real del equipo.

@@ -137,3 +137,16 @@ Quarto facilita publicar documentación desde archivos revisables. Un agente de 
 
 ## Actividad práctica
 Continúa con la [Actividad 4: implementación e integración](video-18-1.md), donde aplicarás estas ideas al flujo de pedidos y entregas.
+
+## Taller aplicado: actualizar una decisión sin romper la documentación
+Supón que el proveedor de geolocalización ahora devuelve una hora de actualización y que la aplicación decide mostrar el último estado confirmado cuando la llamada falla.
+
+1. Modifica primero el archivo fuente de documentación, no solo el HTML generado.
+2. Escribe el comportamiento normal y el comportamiento con timeout.
+3. Actualiza el diagrama o recorrido que muestre la dependencia externa.
+4. Añade una prueba que impida presentar un dato antiguo como actual.
+5. Pide a un agente que busque rutas de código o páginas que todavía describan el comportamiento anterior.
+6. Revisa manualmente cada hallazgo y ejecuta el renderizado, las pruebas y los enlaces.
+
+### Criterio de terminado
+La documentación está actualizada solo cuando una persona puede seguir el flujo, el código implementa lo descrito, las pruebas protegen el caso importante y el sitio generado permite encontrar la explicación. Un comentario del agente o un renderizado exitoso por separado no son suficientes.

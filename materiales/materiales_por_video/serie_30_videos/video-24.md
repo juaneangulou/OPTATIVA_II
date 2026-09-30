@@ -133,6 +133,24 @@ El camino puede ser: Pedidos confirma y publica el evento; Inventario reserva; a
 3. Una cola de trabajo suele repartir cada tarea entre los trabajadores disponibles.
 4. El consumidor identifica la solicitud ya procesada y evita repetir el efecto.
 
+## Taller aplicado: diseñar un contrato de mensaje
+Define `PedidoConfirmado` antes de elegir una herramienta de transporte:
+
+```json
+{
+    "messageId": "...",
+    "eventType": "PedidoConfirmado",
+    "version": 1,
+    "occurredAt": "2026-09-30T14:00:00Z",
+    "pedidoId": "...",
+    "lineas": [{ "productoId": "...", "cantidad": 2 }]
+}
+```
+
+Explica qué campo permite deduplicar, qué datos son necesarios para Inventario y qué información no debería incluirse por privacidad. Después decide si el mensaje es un evento para varios consumidores o una tarea dirigida a uno. Por último, describe qué respuesta se publica cuando la reserva termina y qué ocurre si el consumidor falla tres veces.
+
+El contrato debe evolucionar de forma compatible: agrega campos opcionales antes de eliminar o cambiar el significado de los existentes. Una cola no corrige un contrato ambiguo; solo transporta el problema a otro componente.
+
 ## Conclusión
 Mensajes es el término general. Un comando pide una acción a alguien; un evento informa algo que ya sucedió. Productor-consumidor separa quién crea el trabajo de quién lo procesa, a menudo con una cola que conserva tareas pendientes.
 

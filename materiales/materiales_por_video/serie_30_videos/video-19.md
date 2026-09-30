@@ -110,5 +110,18 @@ La documentación también puede explicar qué decisión se tomó sobre guardar 
 3. El problema, las alternativas, la decisión y sus consecuencias.
 4. Cuando ya no describe el comportamiento, los límites o las decisiones vigentes del sistema.
 
+## Taller aplicado: construir una página útil de Architecture.md
+Completa la página para el flujo “pedido confirmado a entrega completada” con esta secuencia:
+
+1. **Lenguaje:** define pedido, confirmación, preparación, asignación y entrega completada. Indica qué términos no deben usarse como sinónimos.
+2. **Responsabilidad:** escribe qué datos conserva Pedidos y cuáles conserva Entregas.
+3. **Flujo:** describe la transición normal y la respuesta cuando no hay repartidor.
+4. **Decisión:** registra si ambos estados viven en el mismo módulo o cruzan un contrato.
+5. **Protección:** agrega una regla de acceso que impida que un cliente consulte el pedido de otra persona.
+6. **Verificación:** enlaza una prueba o métrica que permita detectar estados imposibles.
+
+### Criterio de calidad
+Una persona nueva debe poder responder, leyendo el documento, quién es dueño de cada dato, qué significa cada estado, qué ocurre ante una falla y dónde comprobar el comportamiento. Si la página solo enumera tecnologías, todavía no documenta la arquitectura.
+
 ## Conclusión
 DDD ayuda a modelar el negocio y `Architecture.md` ayuda a compartir ese modelo y las decisiones del sistema. Juntos reducen ambigüedades cuando las personas cambian y facilitan que el proyecto pueda mantenerse sin depender de memoria oral.

@@ -120,5 +120,20 @@ La Fitness Function podría comprobar que el estado del pedido se devuelve y que
 3. Tiene hipótesis, alcance, señales, límites de seguridad y plan de restauración.
 4. No; OTel genera y transporta señales, y suele conectarse a otros sistemas que las almacenan o muestran.
 
+## Taller aplicado: construir una Fitness Function operable
+Escribe la condición completa para el seguimiento:
+
+```text
+Cuando Rutas no responde dentro del límite acordado,
+la API debe devolver el último estado confirmado,
+mostrar la hora de actualización,
+identificar que la ubicación no está disponible
+y registrar la correlación de la solicitud.
+```
+
+Ahora define cómo comprobarla: pedido ficticio, proveedor simulado, timeout controlado, métrica de duración, log de la falla y traza desde la API hasta Rutas. Establece un límite para detener el experimento y una consulta posterior que demuestre que el sistema se recuperó.
+
+La función no debe medir “arquitectura buena” en abstracto. Debe proteger una propiedad concreta que importe al negocio y tener un dueño que revise sus fallos.
+
 ## Conclusión
 Una Fitness Function comprueba una cualidad definida; OpenTelemetry aporta datos para observar el comportamiento; la ingeniería del caos prueba una hipótesis mediante fallos controlados. Juntas convierten una preocupación abstracta en evidencia, siempre que protejas a las personas y puedas restaurar el sistema.

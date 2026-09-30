@@ -149,5 +149,20 @@ El plazo y los motivos aceptados deben venir de una política real del negocio; 
 3. No; se llega solo al nivel necesario para responder la pregunta.
 4. Porque es una regla del negocio que debe confirmarse con la organización.
 
+## Taller aplicado: conectar escenario, diagrama y prueba
+Toma el caso “confirmar un pedido con inventario suficiente” y produce tres evidencias relacionadas:
+
+1. En BDD, escribe el resultado observable para el cliente y el rechazo por inventario insuficiente.
+2. En C4, muestra quién inicia la acción, qué contenedor recibe la solicitud, dónde se consulta inventario y qué sistema externo participa.
+3. En la prueba, comprueba que el caso exitoso confirma una vez y que el caso rechazado no descuenta existencias.
+4. Compara los tres artefactos: los nombres del escenario, el diagrama y la prueba deben usar los mismos términos.
+5. Si el diagrama incluye un servicio que el escenario no necesita, explica por qué existe o retíralo.
+
+### Error que debes evitar
+Un diagrama lleno de cajas no demuestra una arquitectura madura. Un escenario lleno de detalles técnicos tampoco demuestra que el comportamiento sea correcto. La calidad está en la relación: una necesidad concreta, una estructura suficiente para cumplirla y una prueba que compruebe la afirmación importante.
+
+### Evidencia de aprendizaje
+Conserva dos escenarios, un diagrama de contexto, un diagrama de contenedores y una tabla que relacione cada escenario con su prueba. Esa tabla permite detectar rápidamente qué parte del comportamiento todavía no tiene protección.
+
 ## Conclusión
 BDD convierte requisitos ambiguos en ejemplos revisables. C4 muestra qué partes intervienen para cumplirlos. Juntos ayudan a conectar lo que una persona espera con la estructura que el sistema necesita, sin confundir el comportamiento con la tecnología.

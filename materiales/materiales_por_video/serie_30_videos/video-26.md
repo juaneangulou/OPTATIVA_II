@@ -146,5 +146,19 @@ Para un MVP que solo necesita saber en qué paso está cada pedido, persistir el
 3. Una acción nueva que intenta corregir o contrarrestar un efecto anterior.
 4. Para poder retomar el flujo correctamente después de un reinicio o una falla.
 
+## Taller aplicado: diseñar el estado durable de una entrega
+Define una máquina de estados mínima para el pedido 245:
+
+```text
+Confirmado -> InventarioReservado -> EsperandoRepartidor
+EsperandoRepartidor -> Completado
+EsperandoRepartidor -> CompensandoReserva
+CompensandoReserva -> RequiereRevision
+```
+
+Para cada transición registra evento de entrada, comando que se envía, respuesta esperada, número de intento y acción cuando vence el tiempo. Guarda el estado antes de confirmar que el paso terminó; de lo contrario, un reinicio puede repetir una operación o saltarse una compensación.
+
+Después decide qué necesita realmente la plataforma. Si solo debe continuar procesos activos, el estado actual y un historial breve pueden ser suficientes. Si necesita reconstruir cada cambio para auditoría, evaluar Event Sourcing, pero incluye el costo de versionar eventos, reconstruir proyecciones y corregir hechos publicados incorrectamente.
+
 ## Conclusión
 El Process Manager coordina el proceso de entrega. El estado durable permite retomarlo; Event Sourcing conserva los hechos para reconstruirlo. Empieza con la persistencia que cubra la necesidad demostrada y aumenta complejidad solo cuando el historial completo aporte valor.

@@ -121,5 +121,18 @@ Pedidos mantiene la compra; Entregas mantiene preparación, ruta y entrega. Pedi
 3. No; los proyectos pueden desplegarse por separado.
 4. Detener la aplicación del plan e investigar qué causa el cambio.
 
+## Taller aplicado: del límite de negocio al recurso operable
+Para el flujo Pedidos → Entregas, completa esta relación:
+
+| Decisión | Pregunta de diseño | Evidencia |
+|---|---|---|
+| Dueño del pedido | ¿Quién puede cambiar su estado comercial? | Regla de módulo o contrato |
+| Dueño de la preparación | ¿Quién asigna repartidor y ruta? | Caso de uso y prueba |
+| Comunicación | ¿Se necesita respuesta inmediata o evento? | Contrato de mensaje |
+| Cola | ¿Quién publica, consume y administra? | Permisos mínimos |
+| Despliegue | ¿Qué recurso necesita cada parte? | Plan de IaC revisado |
+
+Antes de aplicar infraestructura, revisa el plan y busca eliminaciones, permisos excesivos, nombres incorrectos y recursos fuera del entorno esperado. La infraestructura como código hace repetible una decisión; también puede repetir un error si nadie revisa la configuración.
+
 ## Conclusión
 Los contextos delimitan significados y responsabilidades; la infraestructura como código describe los recursos que permiten ejecutar esos módulos o servicios. Al alojarlos en un monorepo, puedes revisar juntos cambios relacionados, pero sigues necesitando contratos claros, permisos mínimos y revisión del plan antes de modificar entornos reales.

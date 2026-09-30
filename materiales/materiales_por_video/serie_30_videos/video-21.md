@@ -93,5 +93,15 @@ Ampliaría si la nueva versión muestra estados correctos y cumple los objetivos
 3. No; hay que comprobar exactitud y otras condiciones importantes.
 4. Enviar nuevamente la función al sistema anterior mientras se corrige el nuevo.
 
+## Taller aplicado: plan de migración de seguimiento
+Construye un plan en cuatro cortes:
+
+1. **Línea base:** mide latencia, errores, exactitud del estado y volumen de consultas del sistema actual.
+2. **Corte pequeño:** mueve solo una consulta de prueba o una zona controlada al componente nuevo.
+3. **Comparación:** registra qué versión atendió cada solicitud y compara resultados equivalentes.
+4. **Decisión:** amplía, corrige o vuelve atrás según umbrales definidos antes del experimento.
+
+El mecanismo para volver atrás debe ser operativo, no una frase. Define quién cambia el enrutamiento, cuánto tarda, qué datos deben permanecer compatibles y cómo se informa el incidente. Una migración madura conserva trazabilidad para explicar qué versión respondió a cada pedido.
+
 ## Conclusión
 Strangler Fig limita el tamaño de una migración; las métricas muestran si cada paso aporta el resultado esperado. Define la línea base, migra una función pequeña, compara con datos equivalentes y conserva una forma de detener o revertir el cambio.

@@ -114,5 +114,17 @@ El mensaje inválido se registra con el identificador y la causa, y tras los int
 3. Para atribuir las diferencias al comportamiento y no a que recibieron datos distintos.
 4. Corregir la causa, comprobar si hubo efectos previos y evitar duplicados.
 
+## Taller aplicado: operar una Dead Letter Queue
+Para un mensaje `PrepararEntrega` que falló repetidamente, documenta:
+
+1. Cuántos intentos automáticos permites y qué errores no deben reintentarse.
+2. Qué campos conservas: `messageId`, tipo, causa, timestamps, número de intentos y correlación.
+3. Quién recibe la alerta cuando la DLQ supera un umbral.
+4. Cómo se corrige el mensaje sin editar silenciosamente la evidencia original.
+5. Qué comprobación confirma que el reproceso no crea una segunda entrega.
+6. Cuándo se descarta definitivamente un mensaje y cómo se conserva la razón.
+
+Una DLQ no es un basurero ni una solución automática. Es una cola de trabajo operativo: necesita propietario, retención, métricas, procedimiento de análisis y permiso controlado para reprocesar. El modo sombra del consumidor candidato debe permanecer sin efectos externos hasta que termine la comparación.
+
 ## Conclusión
 La DLQ protege el flujo normal frente a tareas que fallan repetidamente y conserva evidencia para investigarlas. Comparing Consumers permite evaluar una nueva lógica en paralelo sin que afecte a clientes. Uno maneja fallos; el otro compara comportamientos. Pueden coexistir, pero no cumplen la misma función.

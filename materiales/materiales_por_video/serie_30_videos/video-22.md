@@ -115,6 +115,18 @@ Si el formato de la API no coincide, se detiene la ampliación y se corrige el c
 3. El servicio del dominio responsable de seguimiento o rutas, no la Gateway por defecto.
 4. Para que el cliente no confunda una predicción con una garantía.
 
+## Taller aplicado: desplegar un cambio compatible
+Para agregar `hora_estimada` practica este orden:
+
+1. Agrega el campo como opcional sin romper las filas existentes.
+2. Despliega una versión del servicio que pueda leer el campo ausente.
+3. Actualiza la Gateway para conservar la respuesta anterior y exponer el dato solo cuando exista.
+4. Despliega el cálculo de la estimación y registra su hora de generación.
+5. Prueba cliente antiguo, cliente nuevo, pedido histórico y proveedor de rutas no disponible.
+6. Define cómo retirar el campo o hacerlo obligatorio en una migración posterior.
+
+La compatibilidad es temporal y debe tener un plan de salida. Si se mantienen para siempre dos formatos, aumenta el costo de pruebas y soporte. Documenta quién consume cada versión y qué señal permite retirar la anterior.
+
 ## Conclusión
 Una migración de base de datos y un cambio de API son partes coordinadas de la misma evolución. Flyway mantiene el orden de los cambios persistentes; la Gateway puede proteger una entrada estable; el contrato explica qué ve el cliente.
 

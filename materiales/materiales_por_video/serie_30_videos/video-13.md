@@ -107,5 +107,18 @@ Una opción es mostrar estado y hora estimada. Otra es mostrar ubicación aproxi
 3. La hora de la última actualización y una indicación de que no necesariamente es actual.
 4. Especificar qué evidencia futura haría reexaminar la decisión.
 
+## Taller aplicado: negociar una decisión con evidencia
+Imagina que Operaciones exige ubicación exacta durante toda la jornada, mientras que Seguridad pide limitar la recolección de datos. No empieces defendiendo una tecnología. Prepara la conversación:
+
+1. Formula el problema común: reducir incertidumbre sobre entregas demoradas.
+2. Separa intereses: Operaciones necesita diagnóstico; el cliente necesita información; el repartidor necesita protección; Seguridad necesita minimización y control.
+3. Distingue hechos de hipótesis: una cantidad de consultas es un hecho medible; que la ubicación exacta las reduzca es una hipótesis.
+4. Compara una alternativa de bajo riesgo con una alternativa de mayor alcance.
+5. Define el límite que no se negocia: acceso autorizado, retención definida y hora de actualización visible.
+6. Acordar una prueba con duración, métrica, responsable y condición de revisión.
+
+### Producto que debes poder entregar
+Un registro de una página con problema, actores, alternativas, decisión provisional, costo aceptado, riesgos, métrica y fecha de revisión. Si no puedes completar uno de esos campos, todavía existe una incertidumbre que debes investigar.
+
 ## Cierre
 El liderazgo técnico no es elegir por otras personas. Es aclarar el problema, hacer visibles los impactos, negociar alternativas y comprobar qué resultado produjo la decisión.

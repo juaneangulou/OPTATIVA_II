@@ -177,5 +177,18 @@ Marca “sí”, “parcialmente” o “todavía no”:
 
 Si respondiste “todavía no”, vuelve a la sección correspondiente y completa esa evidencia antes de cerrar el expediente.
 
+## Ensayo final de defensa
+Practica una explicación de cinco minutos con este orden:
+
+1. **Situación:** qué problema logístico investigaste y qué quedó fuera del alcance.
+2. **Criterio:** qué requisitos y riesgos tuvieron más peso.
+3. **Diseño:** cómo se separan responsabilidades y por dónde viaja el flujo principal.
+4. **Decisiones:** qué alternativa elegiste, cuál descartaste y qué costo aceptaste.
+5. **Evidencia:** qué pruebas, métricas o experimentos respaldan tus afirmaciones.
+6. **Falla:** qué ocurre si una dependencia se demora, repite o no está disponible.
+7. **Siguiente paso:** qué información falta y qué harás para obtenerla.
+
+Una defensa sólida no oculta los límites. Dice “esto está comprobado”, “esto es una suposición” y “esto todavía requiere una prueba”. Esa honestidad permite evaluar la arquitectura y continuar su evolución.
+
 ## Conclusión
 Defender una arquitectura significa mostrar un razonamiento comprobable, no afirmar que existe una solución perfecta. Deja el expediente en condiciones para que otra persona entienda qué construiste, por qué, qué probaste y qué falta aprender.

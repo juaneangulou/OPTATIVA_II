@@ -108,5 +108,15 @@ Una prueba DAST en un entorno autorizado puede iniciar sesión como una cuenta d
 3. Permiso, alcance, sistemas incluidos, métodos, horarios y contacto ante una falla grave.
 4. Hace explícitos los estados y transiciones permitidas, incluidos errores y respuestas atrasadas.
 
+## Taller aplicado: revisar una transición con seguridad
+Analiza el botón “Cancelar entrega” con dos preguntas separadas:
+
+1. ¿La interfaz puede mostrar el botón para este estado?
+2. ¿El servidor autoriza a esta cuenta a cancelar esta entrega?
+
+Escribe pruebas para una cancelación válida, una entrega ya completada, una cuenta sin permiso y una respuesta tardía del servidor. Comprueba que la pantalla no pase a `Cancelada` solo porque la persona hizo clic: debe esperar una confirmación confiable.
+
+Para la revisión de seguridad, SAST puede localizar rutas sin autorización; DAST puede comprobar el comportamiento de la API en un entorno autorizado; un pentest puede explorar combinaciones dentro de un alcance pactado. Ninguna herramienta sustituye la corrección de la regla de negocio ni autoriza probar sistemas ajenos.
+
 ## Conclusión
 Una máquina de estados hace explícito qué puede mostrar y hacer una interfaz en cada momento. SAST, DAST y pentesting aportan evidencias distintas sobre seguridad. El servidor sigue siendo responsable de proteger los datos y confirmar los cambios que afectan una entrega.

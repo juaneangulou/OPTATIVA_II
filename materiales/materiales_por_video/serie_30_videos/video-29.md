@@ -108,5 +108,17 @@ Antes de contratar el proveedor, mediría retrasos y compararía una muestra de 
 3. Permite cambiarla cuando el contexto o los datos contradicen las razones iniciales.
 4. Considera quién recibe beneficios y riesgos, limita daños evitables y define controles verificables.
 
+## Taller aplicado: revisar una decisión con nueva evidencia
+La decisión inicial fue mostrar estado y zona aproximada del repartidor. Después de un mes aparecen dos datos: las consultas de soporte bajaron, pero aumentaron los accesos fuera de entregas activas.
+
+1. Separa los dos resultados en evidencia, no en opiniones.
+2. Identifica qué condición de la decisión original dejó de cumplirse.
+3. Compara mantener, limitar o retirar la zona aproximada.
+4. Explica qué costo acepta cada alternativa.
+5. Define una prueba de privacidad y una métrica de experiencia.
+6. Registra una decisión revisada con fecha y responsable.
+
+El criterio no consiste en defender la primera elección. Consiste en reconocer cuándo sus supuestos cambiaron y ajustar el diseño de forma trazable.
+
 ## Conclusión
 La sabiduría arquitectónica no es tener una respuesta permanente. Es aprender a tomar decisiones proporcionales al problema, hacer visibles sus consecuencias y revisarlas cuando la evidencia cambie.

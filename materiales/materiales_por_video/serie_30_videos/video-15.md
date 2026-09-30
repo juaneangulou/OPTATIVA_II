@@ -126,5 +126,24 @@ No compartiría documentos restringidos ni datos personales sin autorización. A
 3. Porque mantiene visible la incertidumbre y permite hacer una pregunta formal.
 4. El equipo y la organización que ofertan, después de validar el producto; no la IA.
 
+## Taller aplicado: convertir una licitación en decisiones verificables
+Usa este flujo para analizar un documento extenso sin pedirle a la IA una arquitectura completa:
+
+1. Extrae requisitos y conserva la página o sección de origen.
+2. Clasifica cada requisito como funcional, calidad, restricción, supuesto o pregunta abierta.
+3. Marca contradicciones, por ejemplo “disponibilidad permanente” junto a una ventana de mantenimiento no definida.
+4. Pregunta qué volumen, latencia, retención y perfiles de acceso hacen falta para interpretar cada requisito.
+5. Construye dos alternativas y escribe qué evidencia favorecería una sobre la otra.
+6. Revisa manualmente las citas y ejecuta una prueba pequeña antes de convertir la propuesta en compromiso.
+
+La IA puede acelerar los pasos 1 y 3, pero no puede inventar la política de privacidad, aceptar un riesgo presupuestal ni aprobar el cumplimiento de una licitación. El entregable correcto es una matriz trazable, no un párrafo convincente sin fuentes.
+
+### Lista de control
+- Cada requisito tiene una fuente verificable.
+- Las palabras “rápido”, “seguro” y “continuo” tienen una medida o están marcadas como pendientes.
+- Las salidas de IA se distinguen de las decisiones humanas.
+- Los datos sensibles se excluyeron o se procesaron con una herramienta autorizada.
+- La arquitectura propuesta explica qué evidencia todavía falta.
+
 ## Conclusión
 Usa IA para acelerar la lectura, no para reemplazar el juicio. Conserva la fuente de cada requisito, distingue hechos de suposiciones, pregunta por las ambigüedades y propone una arquitectura solo cuando puedas explicar qué necesidad resuelve y cómo comprobarla.

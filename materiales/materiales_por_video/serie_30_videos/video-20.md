@@ -137,5 +137,17 @@ Usaría una prueba de integración del recorrido entre consulta, proveedor simul
 3. Verifica una propiedad estructural del sistema, como una dependencia o un límite entre módulos.
 4. Porque la ausencia de un efecto dañino también forma parte del comportamiento esperado.
 
+## Taller aplicado: de un temor impreciso a una prueba ejecutable
+Trabaja con el riesgo “una falla del proveedor de rutas deja pedidos sin una hora estimada confiable”:
+
+1. Escribe tres causas posibles: timeout sin límite, caché antigua o cálculo que oculta su fecha.
+2. Identifica la consecuencia para cliente, soporte y operación.
+3. Elige una señal observable: edad del dato, código de error, latencia o estado mostrado.
+4. Formula un escenario Dado–Cuando–Entonces.
+5. Decide si necesitas prueba unitaria, integración, contrato, arquitectura o una combinación.
+6. Guarda el resultado de la prueba y define quién revisa una falla.
+
+No conviertas todos los riesgos en pruebas enormes. Prioriza aquellos que afectan dinero, privacidad, continuidad, integridad de pedidos o una decisión arquitectónica difícil de revertir. El pre-mortem sirve para elegir dónde invertir comprobación.
+
 ## Conclusión
 El pre-mortem ayuda a imaginar causas y consecuencias antes de que sucedan. Las pruebas convierten los riesgos prioritarios en comportamientos verificables. El ciclo queda completo cuando puedes mostrar qué podría fallar, cómo lo detectas y qué evidencia confirma que la protección funciona.
