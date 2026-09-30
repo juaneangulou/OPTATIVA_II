@@ -1,8 +1,5 @@
 # Video 14: Cierre de fundamentos y transición
 
-## Fuentes de este cierre
-Este video termina el bloque de fundamentos y prepara el paso a la arquitectura aplicada. El cierre retoma la idea de carrera y práctica profesional de la fuente oficial [Consejos para desarrollar carrera como arquitecto](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/).
-
 ## Navegación
 [⬅️ Video anterior: negociación e impacto social](video-13.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: método arquitectónico e IA](video-15.md)
 
