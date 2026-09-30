@@ -1,25 +1,27 @@
-# Video 14: DevOps, despliegue y automatización
+# Video 14: Strangler Fig para migrar arquitecturas limpias
 
 ## Título
-DevOps, despliegue y automatización
+Cómo reemplazar un sistema antiguo por partes, sin apagarlo todo
 
 ## Resumen
-Este video conecta arquitectura con entrega continua y operación real. La forma en que se despliega una aplicación afecta directamente la estabilidad, velocidad y capacidad de innovación del equipo. Cuando el despliegue es manual, propenso a errores o difícil de repetir, la arquitectura se vuelve frágil incluso si el diseño técnico es bueno.
+Este video presenta una manera gradual de renovar un programa que ya está en uso. En vez de apagarlo y construir otro completo de una sola vez, trasladamos una tarea pequeña al sistema nuevo, comprobamos que funciona y luego decidimos si trasladamos otra.
 
-La automatización del despliegue, la integración continua, la orquestación y la infraestructura como código permiten que el sistema evolucione con menos riesgos. El video muestra que la arquitectura moderna no se limita a la aplicación, sino al flujo completo de entrega: código, integración, pruebas, despliegue, observabilidad y rollback. Esto hace que la calidad del sistema dependa también del proceso que lo lleva a producción.
+El nombre Strangler Fig viene de una planta que crece alrededor de un árbol y poco a poco ocupa su lugar. En una migración de software, el sistema nuevo va asumiendo tareas mientras el antiguo sigue atendiendo las que todavía no se han cambiado. Una plataforma logística podría empezar trasladando solo la consulta del estado de una entrega.
+
+El cambio gradual ayuda a limitar el riesgo, pero significa que los dos sistemas convivirán durante un tiempo. Por eso hay que comprobar que muestran información coherente y tener una manera de volver atrás si la nueva parte falla.
 
 ## Ideas principales
-- El despliegue es parte de la arquitectura, no una etapa separada.
-- La automatización reduce errores humanos y acelera la entrega.
-- La infraestructura debe ser reproducible y controlada.
-- La calidad del proceso impacta la calidad del sistema.
-- Un pipeline bien diseñado permite cambios más seguros y más frecuentes.
-- La capacidad de rollback y recuperación es clave en entornos reales.
+- No es necesario reemplazar todo el programa en un solo cambio.
+- Se puede empezar con una tarea pequeña y trasladarla al sistema nuevo.
+- El sistema antiguo sigue funcionando mientras aún atiende tareas pendientes.
+- Cada parte nueva debe comprobarse antes de continuar con la siguiente.
+- Los dos sistemas pueden mostrar datos distintos; hay que decidir cómo evitarlo.
+- Conviene saber cómo volver temporalmente al sistema antiguo si algo falla.
 
 ## Conclusión
-La arquitectura moderna integra desarrollo, operación y entrega. Un sistema no se considera bien diseñado si no puede entregarse, operar y evolucionar de manera segura y repetible.
+Strangler Fig es una estrategia para cambiar un sistema por etapas. Cada etapa debe ser pequeña, comprobable y contar con una respuesta si falla. Así la organización puede seguir trabajando mientras renueva su programa.
 
 ## Preguntas para reflexión
-- ¿Mi despliegue es repetible y automatizado?
-- ¿Qué tan rápido puedo revertir un cambio problemático?
-- ¿Estoy diseñando para entrega continua o para “una vez al mes” con riesgo mayor?
+- ¿Qué tarea pequeña cambiarías primero en la plataforma logística?
+- ¿Cómo comprobarías que el sistema nuevo muestra la información correcta?
+- ¿Qué harías si el sistema nuevo deja de responder?

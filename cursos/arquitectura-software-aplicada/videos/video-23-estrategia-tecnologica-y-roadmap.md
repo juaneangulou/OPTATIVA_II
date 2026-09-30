@@ -1,25 +1,25 @@
-# Video 23: Estrategia tecnológica y roadmap
+# Video 23: Qué es el patrón Process Manager
 
 ## Título
-Estrategia tecnológica y roadmap
+Coordinar un proceso largo sin perder de vista cada pedido
 
 ## Resumen
-El video aborda el papel de la estrategia tecnológica en la arquitectura. No basta con elegir una buena herramienta o un patrón útil; también hace falta una dirección clara para el camino del sistema. Una estrategia tecnológica define hacia dónde va la solución, qué capacidades se priorizan, qué riesgos se asumen y qué inversiones son necesarias para que la arquitectura evolucione de forma ordenada.
+Preparar una entrega puede requerir reservar productos, asignar un repartidor y avisar al cliente. Un **Process Manager** guarda en qué paso está cada pedido, envía la solicitud siguiente y decide qué hacer cuando un paso falla o tarda.
 
-El roadmap se convierte en la herramienta que convierte la visión en acción. Cuando hay estrategia y planificación, el equipo evita decisiones aisladas y poco alineadas. El arquitecto tiene un rol importante en definir no solo cómo se construye el sistema, sino también qué se prioriza y en qué orden.
+El Process Manager coordina el proceso completo, pero no reemplaza a los servicios responsables. Inventario sigue decidiendo si hay unidades; Entregas sigue asignando rutas. Si el flujo falla después de reservar productos, el Process Manager puede iniciar una acción de compensación, como liberar la reserva.
+
+Este patrón ayuda cuando hay varios pasos, demoras y rutas de error. Agrega almacenamiento de estado y lógica de coordinación, así que no hace falta para un flujo corto que puede resolverse directamente.
 
 ## Ideas principales
-- La estrategia tecnológica guía la evolución del sistema.
-- Un roadmap ayuda a convertir visión en decisiones secuenciales.
-- Las decisiones deben priorizar capacidades que generen valor real.
-- Sin estrategia, la arquitectura puede volverse reactiva y caótica.
-- La planificación evita que el sistema se descontrole por soluciones aisladas.
-- El diseño técnico debe estar alineado con objetivos de negocio y capacidad operativa.
+- El proceso debe recordar su estado aunque un servicio se reinicie.
+- Cada respuesta se relaciona con el pedido correcto.
+- Una repetición no debe crear reservas o entregas duplicadas.
+- Una compensación es una acción nueva que corrige un efecto anterior.
+- Las reglas locales pertenecen a sus servicios; el Process Manager coordina los pasos.
+- El patrón aporta claridad, pero también costo de operación y pruebas.
 
-## Conclusión
-La estrategia y el roadmap son lo que hacen que la arquitectura deje de ser una respuesta improvisada y se convierta en una dirección clara. Un sistema necesita visión para crecer sin perder coherencia.
-
-## Preguntas para reflexión
-- ¿Qué dirección tecnológica está tomando mi proyecto?
-- ¿Tengo una hoja de ruta clara o solo decisiones aisladas?
-- ¿Qué capacidades priorizaría para favorecer la evolución del sistema?
+## Preguntas para comprobar tu comprensión
+- ¿Qué información debería guardar el Process Manager?
+- ¿Qué parte decide si hay inventario disponible?
+- ¿Qué harías si no se encuentra repartidor después de reservar productos?
+- ¿En qué caso una coordinación directa sería más sencilla?

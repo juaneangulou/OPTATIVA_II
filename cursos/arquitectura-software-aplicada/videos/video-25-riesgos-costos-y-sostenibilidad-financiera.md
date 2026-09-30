@@ -1,25 +1,25 @@
-# Video 25: Riesgos, costos y sostenibilidad financiera
+# Video 25: Máquinas de estado finito en el front-end
 
 ## Título
-Riesgos, costos y sostenibilidad financiera
+Cómo representar las situaciones posibles de una pantalla
 
 ## Resumen
-La arquitectura de software también tiene implicaciones económicas. Un sistema no solo debe funcionar desde el punto de vista técnico; también debe ser viable desde el punto de vista financiero, operativo y de mantenimiento. Este video muestra que las decisiones de arquitectura implican costos directos e indirectos: infraestructura, equipos, tiempo, soporte, seguridad, correcciones y capacidad de adaptación.
+Una pantalla que consulta una entrega puede estar esperando, mostrando un resultado, indicando que el pedido no existe o avisando de un error. Una **máquina de estado finito** representa estas situaciones con estados definidos y describe qué evento permite pasar de uno a otro.
 
-La sostenibilidad financiera no es solo una preocupación del negocio; también afecta la arquitectura. Si el sistema es demasiado costoso de operar o difícil de mantener, su valor real disminuye. Por ello, el arquitecto debe ser capaz de medir el costo total de una solución y no solo el costo inicial de desarrollo.
+Por ejemplo, tocar “Consultar” lleva la interfaz de “Sin consulta” a “Cargando”. Solo cuando llega una respuesta válida puede pasar a “Resultado disponible”. Esto evita mostrar a la vez estados incompatibles, como un resultado exitoso y un error.
+
+El estado de la interfaz no es lo mismo que el estado real del pedido: la pantalla puede estar “Cargando” mientras el pedido está “En camino”. La interfaz presenta el resultado; el sistema responsable confirma qué ocurrió.
 
 ## Ideas principales
-- La arquitectura tiene un costo real en infraestructura, operación y mantenimiento.
-- Los riesgos técnicos y financieros deben evaluarse en conjunto.
-- Un diseño barato al principio puede volverse muy costoso después.
-- La sostenibilidad financiera depende del equilibrio entre valor y costo.
-- El arquitecto debe considerar el costo total de propiedad del sistema.
-- Las decisiones de diseño deben pesar impacto, riesgo y beneficios a largo plazo.
+- Un estado describe la situación actual de la interfaz.
+- Un evento es algo que ocurre y puede cambiar ese estado.
+- Una transición define el paso permitido entre dos estados.
+- Las transiciones ayudan a impedir resultados y acciones incoherentes.
+- Una falla de comunicación no demuestra que la acción no llegó al servidor.
+- El patrón es útil cuando el flujo tiene varias situaciones; no hace falta forzarlo en una pantalla simple.
 
-## Conclusión
-El software no es solo una decisión técnica: es también una decisión financiera y estratégica. Una arquitectura sostenible es la que crea valor sin generar costos ocultos que la vuelvan inviable con el tiempo.
-
-## Preguntas para reflexión
-- ¿Qué costo total real tiene mi solución?
-- ¿Estoy optimizando solo el desarrollo inicial o la sostenibilidad del sistema?
-- ¿Qué riesgo financiero o operativo estoy aceptando con esta arquitectura?
+## Preguntas para comprobar tu comprensión
+- ¿Qué diferencia hay entre “Cargando” y “En camino”?
+- ¿Qué evento permite mostrar un resultado confirmado?
+- ¿Por qué no se muestra “Cancelada” apenas se toca el botón?
+- ¿Qué combinaciones confusas ayudan a prevenir los estados explícitos?

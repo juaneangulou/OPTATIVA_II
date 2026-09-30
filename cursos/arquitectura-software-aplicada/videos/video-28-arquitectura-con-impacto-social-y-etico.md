@@ -1,25 +1,25 @@
-# Video 28: Arquitectura con impacto social y ético
+# Video 28: Observabilidad con OpenTelemetry e ingeniería del caos
 
 ## Título
-Arquitectura con impacto social y ético
+Entender qué ocurre y probar cómo responde el sistema ante una falla
 
 ## Resumen
-El video introduce un enfoque humanista y ético en la arquitectura de software. Un sistema no solo afecta procesos técnicos y económicos, sino también personas, comunidades y valores. Por eso, la arquitectura debe considerar implicaciones sociales, de privacidad, accesibilidad, inclusión y responsabilidad. Un sistema que funciona técnicamente puede causar daño si no se diseña con criterio ético.
+Cuando una consulta de seguimiento pasa por varios servicios, saber que la aplicación está encendida no basta para entender por qué se demoró. Las **métricas** muestran cantidades y tiempos, los **logs** registran hechos y las **trazas** siguen una solicitud por los distintos componentes.
 
-Esto invita a pensar que el arquitecto no actúa solo como técnico, sino también como responsable del impacto de sus decisiones. Cuando se diseña software para personas, su contexto social y sus necesidades humanas deben integrarse en la solución. Este enfoque aporta más valor y reduce consecuencias negativas en el largo plazo.
+**OpenTelemetry (OTel)** ayuda a producir y transportar esos datos; normalmente se conecta a otras herramientas que los guardan y muestran. La **ingeniería del caos** prueba una hipótesis de recuperación mediante una falla controlada, con alcance, límites y plan de restauración definidos.
+
+## Ejemplo del video
+Se detiene temporalmente el servicio de rutas en un entorno de pruebas. El equipo observa si el estado confirmado del pedido sigue disponible, cuánto espera la Gateway y qué mensaje recibe la persona. La prueba se detiene si sale del alcance o supera el límite acordado.
 
 ## Ideas principales
-- La tecnología tiene impacto real sobre personas, comunidades y decisiones humanas.
-- La ética no es ajena a la arquitectura; es parte de la responsabilidad del diseño.
-- La privacidad, la accesibilidad y la inclusión deben considerarse en el sistema.
-- Un sistema puede tener éxito técnico y aun así fallar socialmente.
-- El arquitecto debe pensar en el impacto más allá del flujo de datos o del algoritmo.
-- El diseño responsable es una práctica de ingeniería con sentido humano.
+- Una métrica resume; un log cuenta un hecho; una traza muestra un recorrido.
+- OTel facilita la instrumentación y el envío de telemetría, pero no necesariamente almacena ni visualiza los datos.
+- Un experimento de caos comienza con una hipótesis comprobable.
+- Las pruebas controladas necesitan autorización, alcance, límites y restauración.
+- Observar el fallo ayuda a saber qué mejorar; probar sin una pregunta produce poco aprendizaje.
 
-## Conclusión
-La arquitectura no es neutral. Sus decisiones tienen impacto social y ético. Un buen diseño considera el efecto real que tendrá en las personas y en la sociedad, no solo en la lógica de la aplicación.
-
-## Preguntas para reflexión
-- ¿Qué impacto social tiene mi sistema?
-- ¿Estoy considerando accesibilidad, inclusión y responsabilidad en el diseño?
-- ¿La solución que construyo beneficia a todos o solo a ciertos actores?
+## Preguntas para comprobar tu comprensión
+- ¿Qué diferencia hay entre una métrica y una traza?
+- ¿Qué componente puede ayudar a seguir una consulta entre servicios?
+- ¿Qué debe definirse antes de simular una falla?
+- ¿Qué resultado comprobaría que la hipótesis del ejemplo se cumplió?

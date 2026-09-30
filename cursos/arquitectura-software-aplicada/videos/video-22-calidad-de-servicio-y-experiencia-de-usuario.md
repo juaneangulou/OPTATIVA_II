@@ -1,25 +1,24 @@
-# Video 22: Calidad de servicio y experiencia de usuario
+# Video 22: Patrón Comparing Consumers para procesamiento en tiempo real
 
 ## Título
-Calidad de servicio y experiencia de usuario
+Cómo comparar una versión nueva del procesamiento antes de darle control
 
 ## Resumen
-La arquitectura de software no solo se mide por qué tan bien se ejecuta internamente, sino por la experiencia que entrega a quienes la usan. Si el sistema es técnicamente sólido pero lento, poco intuitivo o inconsistente, la arquitectura termina fallando en la práctica. Este video conecta calidad técnica con calidad percibida por el usuario: tiempo de respuesta, confiabilidad, claridad, disponibilidad y consistencia.
+La plataforma logística usa un consumidor para calcular la hora estimada de llegada. El equipo crea una versión nueva que considera tráfico, pero no quiere que un error afecte inmediatamente a los clientes.
 
-Cuando el sistema es parte de una experiencia de negocio, la calidad de servicio se vuelve una necesidad de diseño. Un sistema puede estar bien estructurado, pero si no entrega valor de forma clara y confiable, no cumple su propósito. La arquitectura debe aportar experiencia y resultados, no solo estructura interna.
+Con el patrón **Comparing Consumers**, la versión actual y la candidata procesan las mismas entradas. La actual sigue definiendo lo que ve el usuario; la candidata calcula su resultado sin enviar avisos ni cambiar pedidos. El equipo compara precisión, rapidez, errores y costo antes de decidir si cambia.
+
+No debe confundirse con repartir una cola entre trabajadores. Si los consumidores compiten por una cola, cada tarea suele ir a uno de ellos; para comparar, ambas versiones necesitan entradas equivalentes. Ejecutar dos versiones requiere recursos y cuidado para evitar efectos duplicados o exposición innecesaria de datos.
 
 ## Ideas principales
-- La experiencia del usuario es una consecuencia del diseño arquitectónico.
-- Calidad técnica y calidad de servicio no son conceptos separados.
-- El tiempo de respuesta, la estabilidad y la claridad influyen en la percepción del sistema.
-- Un servicio bueno no solo funciona; funciona con un nivel de calidad soportable.
-- La arquitectura debe anticipar la experiencia real del usuario final.
-- El impacto del software se mide también por la continuidad y confiabilidad que ofrece.
+- El modo sombra permite observar una versión candidata sin que afecte al usuario.
+- Las entradas deben ser equivalentes para que la comparación sea justa.
+- Hay que comparar los casos desfavorables y no solo promedios favorables.
+- El candidato no debe realizar efectos reales durante la prueba.
+- La adopción debe ser gradual y permitir volver a la versión actual.
 
-## Conclusión
-La arquitectura debe diseñarse para entregar valor no solo dentro del equipo técnico, sino también en la experiencia real del usuario. La calidad de servicio aparece como indicador de que la solución responde bien a las necesidades del entorno.
-
-## Preguntas para reflexión
-- ¿Qué tan buena es la experiencia de uso de mi sistema?
-- ¿Qué factores técnicos afectan la percepción del usuario?
-- ¿Estoy optimizando para robustez interna sin considerar la calidad percibida?
+## Preguntas para comprobar tu comprensión
+- ¿Qué versión mantiene el control durante la comparación?
+- ¿Qué diferencia hay entre comparar consumidores y repartir una cola?
+- ¿Qué impedirías que hiciera el candidato en modo sombra?
+- ¿Qué evidencia pedirías antes de adoptarlo?

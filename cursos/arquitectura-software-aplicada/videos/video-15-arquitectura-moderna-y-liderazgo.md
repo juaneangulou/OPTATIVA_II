@@ -1,25 +1,44 @@
-# Video 15: Arquitectura moderna y liderazgo
+# Video 15: Migraciones de base de datos con Flyway
 
 ## Título
-Arquitectura moderna y liderazgo
+Cómo cambiar la información que guarda un programa sin perder lo que ya existe
 
-## Resumen
-El video final reúne los principales temas del curso: la arquitectura de software ya no es solo una disciplina técnica de diagramas y patrones, sino una práctica estratégica que conecta negocio, tecnología, personas y evolución. El arquitecto moderno debe pensar en sistemas sostenibles, seguros, escalables, observables y alineados con el contexto real donde operan.
+## De qué trata
+Una empresa de entregas quiere que cada pedido muestre si está pendiente, en camino o entregado. Su programa ya guarda miles de pedidos, pero todavía no tiene un espacio para guardar ese estado. El equipo no puede pensar solo en los pedidos nuevos: también debe decidir qué hacer con los pedidos que ya existen.
 
-Además, se resalta que la tecnología cambia rápido, pero la esencia del liderazgo arquitectónico no: la clave es tomar decisiones con criterio, comunicar claramente, resolver conflictos, y guiar a equipos a construir soluciones con sentido. La arquitectura moderna requiere una mezcla de técnica, visión de negocio, capacidad de análisis, juicio ético y habilidades de liderazgo. Es más que construir software: es diseñar el camino para que ese software pueda sobrevivir y aportar valor con el tiempo.
+En este video llamamos **base de datos** al lugar organizado donde el programa conserva información. Una **migración** es un cambio planificado a esa organización o a los datos que contiene. **Flyway** ayuda a aplicar esos cambios en orden y a recordar cuáles ya se hicieron.
 
-## Ideas principales
-- La arquitectura moderna combina tecnología, negocio y estrategia.
-- El arquitecto actúa como guía, decisor y comunicador.
-- La calidad del sistema depende de decisiones y procesos, no solo de ideas técnicas.
-- La evolución continua exige adaptación constante y aprendizaje.
-- El liderazgo arquitectónico ayuda a alinear equipo, objetivos y riesgos.
-- Construir bien no es solo resolver el problema actual, sino preparar el sistema para el futuro.
+## Lo que aprenderás
+- Por qué agregar un dato nuevo también afecta a los pedidos antiguos.
+- Cómo Flyway usa cambios numerados para que el equipo siga los mismos pasos.
+- Por qué primero probamos en una copia y después verificamos el resultado.
+- Qué hacer cuando no conocemos el estado real de un pedido antiguo.
+- Por qué el registro de Flyway no reemplaza un respaldo.
+
+## El ejemplo de la clase
+La empresa tiene pedidos cuyo estado aparece en una hoja de trabajo aparte. Quiere guardar ese estado junto con cada pedido.
+
+1. El equipo averigua qué datos guarda el programa y quién los utiliza.
+2. Define qué significan “Pendiente”, “En camino”, “Entregado” y “Por confirmar”.
+3. Prepara un archivo numerado que describe el cambio.
+4. Prueba en una copia que no se pierdan pedidos ni se inventen estados.
+5. Flyway aplica el cambio pendiente y registra que ya se ejecutó.
+6. El equipo verifica que la aplicación siga consultando y mostrando los pedidos correctamente.
+
+Si no hay información confiable sobre un pedido antiguo, mostrar “Por confirmar” es más responsable que inventar que está pendiente o entregado.
+
+## Ideas para recordar
+- Flyway ejecuta y registra cambios que el equipo preparó; no decide qué necesita el negocio.
+- Las migraciones deben considerar la información que ya está guardada.
+- Una prueba en una copia permite detectar problemas antes de afectar pedidos reales.
+- Los archivos que ya se ejecutaron no se editan; una corrección se registra como un cambio nuevo.
+- Flyway no guarda una copia de seguridad ni garantiza que cualquier cambio pueda deshacerse fácilmente.
+
+## Preguntas para pensar
+- ¿Qué riesgo existe si todos los pedidos antiguos reciben automáticamente el estado “Pendiente”?
+- ¿Qué revisarías en una copia antes de cambiar la base de datos real?
+- ¿Qué diferencia hay entre que Flyway recuerde un cambio y tener un respaldo de los pedidos?
+- ¿Qué dato de la plataforma logística te gustaría agregar y qué harías con los pedidos anteriores?
 
 ## Conclusión
-El curso cierra con una visión clara: la mejor arquitectura no es la más compleja ni la más innovadora, sino la que resuelve el problema real con criterio, sostenibilidad y capacidad de evolución. El arquitecto de software es quien convierte la complejidad en claridad y guía a la organización para crear soluciones con valor duradero.
-
-## Preguntas para reflexión
-- ¿Qué tipo de arquitecto quiero ser: técnico, estratégico o de liderazgo?
-- ¿Estoy construyendo soluciones solo para hoy o para el crecimiento futuro?
-- ¿Qué decisiones de arquitectura me están ayudando a crecer como profesional?
+Flyway ayuda a que los cambios en una base de datos tengan un orden y un historial. La seguridad de la información depende también de las decisiones del equipo: entender los datos existentes, probar el cambio y comprobar que el programa sigue funcionando.

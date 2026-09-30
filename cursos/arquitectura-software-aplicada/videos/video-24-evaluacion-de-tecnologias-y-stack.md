@@ -1,25 +1,23 @@
-# Video 24: Evaluación de tecnologías y decisiones de stack
+# Video 24: Durable State vs Event Sourcing en sistemas
 
 ## Título
-Evaluación de tecnologías y decisiones de stack
+Guardar cómo está un pedido o guardar cada cambio que tuvo
 
 ## Resumen
-La elección de tecnologías es una decisión arquitectónica y no una cuestión de moda. Cada stack tiene ventajas, costos y limitaciones. El video insiste en que seleccionar una tecnología debe hacerse con base en el problema, la capacidad del equipo, los requisitos de operación, la curva de aprendizaje y la sostenibilidad a largo plazo.
+Una aplicación debe recordar la información aunque se reinicie. Una opción es guardar el **estado actual** del pedido: “Entregado”. Otra opción es conservar una secuencia de eventos: “Pedido creado”, “Repartidor asignado” y “Pedido entregado”, y reconstruir el estado aplicando esos hechos.
 
-Muchas veces se adopta una tecnología por popularidad, pero eso no garantiza que se adapte bien al caso real. La evaluación del stack debe incluir mantenimiento, soporte, costos operativos, compatibilidad, seguridad y potencial de crecimiento. Así, la decisión de usar determinada herramienta o framework se vuelve más estratégica y menos impulsiva.
+La primera opción facilita consultar lo que ocurre ahora. **Event Sourcing** permite reconstruir la historia completa, pero requiere organizar los eventos, sus correcciones y la forma de consultarlos. Guardar logs de errores no es lo mismo que usar Event Sourcing.
 
 ## Ideas principales
-- Las tecnologías deben elegirse por contexto, no por tendencia.
-- Cada stack implica costos de operación, entrenamiento y mantenimiento.
-- Un buen stack debe facilitar velocidad de entrega y sostenibilidad.
-- La elección tecnológica debe estar alineada con la estrategia del sistema.
-- La popularidad no siempre significa idoneidad.
-- La arquitectura debe equilibrar innovación, estabilidad y costo total.
+- Persistir es conservar datos para volver a utilizarlos después.
+- El estado actual muestra cómo está algo en este momento.
+- Event Sourcing guarda como fuente principal los hechos que causaron los cambios.
+- Una vista calculada puede resumir eventos para hacer consultas más rápidas.
+- La historia completa puede ayudar en auditorías, pero agrega complejidad.
+- La alternativa correcta depende de qué necesita conocer el negocio.
 
-## Conclusión
-Elegir tecnologías es una forma de diseñar la capacidad del sistema para seguir funcionando bien en el futuro. La mejor decisión es la que resuelve el problema real con menos deuda técnica y menos riesgo.
-
-## Preguntas para reflexión
-- ¿Estoy eligiendo tecnología por necesidad o por tendencia?
-- ¿Qué tan bien se adapta mi stack a los objetivos del proyecto?
-- ¿Qué costo oculto tiene la decisión tecnológica actual?
+## Preguntas para comprobar tu comprensión
+- ¿Qué diferencia hay entre estado actual e historia de eventos?
+- ¿Un registro técnico de errores basta para llamar Event Sourcing al sistema?
+- ¿Qué necesidad podría justificar guardar cada cambio del pedido?
+- ¿Qué costo asumiría el equipo al reconstruir el estado desde eventos?

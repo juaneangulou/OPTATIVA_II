@@ -1,25 +1,32 @@
-# Video 18: Comunicación y negociación técnica
+# Video 18: Infraestructura como código en monorepos para microservicios
 
 ## Título
-Comunicación y negociación técnica
+Cómo describir y revisar los recursos que necesitan varios servicios
 
-## Resumen
-Una gran parte del trabajo de un arquitecto no ocurre en un editor de código, sino en conversaciones. El arquitecto debe comunicar decisiones, explicar trade-offs, escuchar necesidades del negocio y convencer a diferentes actores sobre la dirección correcta de la solución. La comunicación técnica es una competencia esencial porque la arquitectura no se implementa solo con conocimiento; se ejecuta con consenso.
+## Situación
+La plataforma logística tiene un servicio de Pedidos y otro de Entregas. Pedidos necesita dejar tareas en una cola para que Entregas las procese. Si cada entorno se configura manualmente, desarrollo, pruebas y producción pueden terminar distintos sin que el equipo sepa por qué.
 
-El video subraya que en muchas decisiones arquitectónicas hay conflictos entre necesidades de tiempo, costo, calidad, riesgo y visión. En esos momentos, la capacidad de negociar, sintetizar y explicar la elección correcta es tan importante como el conocimiento técnico. La arquitectura también se trata de ser claro, persuasivo y empático con quienes toman decisiones o se ven afectados por ellas.
+**Infraestructura como código** significa describir mediante archivos los recursos del sistema, como una cola, una base de datos y sus permisos. **Monorepo** significa guardar varios proyectos relacionados en un mismo repositorio. No son lo mismo: uno describe cómo preparar recursos; el otro describe dónde guarda el equipo sus proyectos.
 
-## Ideas principales
-- La arquitectura se comunica tanto como se diseña.
-- Los stakeholders no siempre hablan el mismo lenguaje técnico.
-- Los trade-offs deben explicarse de forma clara y útil.
-- Un arquitecto debe escuchar, explicar y alinear.
-- La negociación técnica ayuda a evitar decisiones impulsivas o incomprensibles.
-- La capacidad de comunicación convierte una buena idea en una decisión implementada.
+## Cómo funciona el cambio
+1. El equipo aclara qué necesita: Pedidos debe enviar tareas y Entregas debe leerlas.
+2. Describe la cola y sus permisos en archivos del proyecto.
+3. Revisa el cambio junto con los cambios de ambos servicios.
+4. Previsualiza qué recursos se crearán, cambiarán o borrarán antes de aplicarlo.
+5. Lo prueba en desarrollo o pruebas antes de producción.
+6. Comprueba que la tarea llegue al servicio correcto.
 
-## Conclusión
-El arquitecto no solo resuelve problemas técnicos; también ayuda a que el equipo y la organización compartan una visión común. Sin buena comunicación, incluso una arquitectura excelente puede fracasar por falta de comprensión o aceptación.
+Un monorepo puede facilitar revisar en una sola propuesta el código de los servicios y los recursos que necesitan. No obliga a desplegar todos los servicios juntos ni garantiza que los cambios sean seguros.
 
-## Preguntas para reflexión
-- ¿Estoy logrando comunicar claramente mis decisiones técnicas?
-- ¿Cómo explico los trade-offs a personas no técnicas?
-- ¿Qué decisiones de arquitectura se están bloqueando por falta de alineación o claridad?
+## Cuidados importantes
+- Las contraseñas y claves de acceso son secretos: no deben escribirse directamente en los archivos del repositorio.
+- La previsualización debe revisarse para descubrir reemplazos o eliminaciones inesperadas.
+- Los permisos deben limitarse a lo que cada servicio necesita.
+- Si alguien cambia un entorno manualmente y no actualiza los archivos, la descripción puede dejar de coincidir con la realidad.
+- Infraestructura como código no garantiza por sí sola una configuración correcta; el equipo debe probarla y verificarla.
+
+## Preguntas para comprobar tu comprensión
+- ¿Qué diferencia hay entre infraestructura como código y monorepo?
+- ¿Qué revisarías antes de aplicar un cambio a producción?
+- ¿Qué riesgo existe si se guarda una contraseña en el repositorio?
+- ¿Por qué un monorepo no significa que todos los servicios se despliegan juntos?

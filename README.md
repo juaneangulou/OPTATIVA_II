@@ -68,6 +68,7 @@
 - [Video 27: Fitness functions](cursos/arquitectura-software-aplicada/video-27-decisiones-bajo-incertidumbre.md)
 - [Video 28: Observabilidad con OpenTelemetry e ingeniería del caos](cursos/arquitectura-software-aplicada/video-28-arquitectura-con-impacto-social-y-etico.md)
 - [Video 29: Sabiduría y criterio en arquitectura de software](cursos/arquitectura-software-aplicada/video-29-cierre-profesional-y-legado-arquitectonico.md)
+- [Video 30: Cierre y defensa final de la arquitectura](cursos/arquitectura-software-aplicada/video-30-defensa-final.md)
 
 ## Descripción
 
@@ -76,3 +77,5 @@ Este proyecto organiza cada curso en su propia carpeta, con un README y una cole
 ## Material complementario de 60 videos
 
 La ruta ampliada de 60 videos, sus materiales Markdown y las presentaciones PowerPoint se encuentran en [materiales/materiales_por_video/serie_60_videos](materiales/materiales_por_video/serie_60_videos/README.md).
+
+La guía suplementaria de diez videos sobre [patrones de arquitectura en C#/.NET](materiales/materiales_por_video/serie_30_videos/guia_10_videos_extra_patrones_csharp.md) propone prácticas adicionales para la plataforma logística.

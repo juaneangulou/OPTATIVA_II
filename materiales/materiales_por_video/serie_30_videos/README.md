@@ -36,4 +36,7 @@ Cada material combina resúmenes de los cursos oficiales de Platzi en orden peda
 - [Video 28: Fitness Functions, OpenTelemetry y caos](video-28.md)
 - [Video 29: Criterio, liderazgo y arquitectura responsable](video-29.md)
 - [Video 30: Cierre y defensa de la arquitectura](video-30.md)
+
+## Material complementario
+- [Guía de 10 videos extra: patrones de arquitectura en C#/.NET](guia_10_videos_extra_patrones_csharp.md)
   - [Video 30.1: Actividad 5: pruebas, operación y defensa final](video-30-1.md)

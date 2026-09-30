@@ -1,25 +1,41 @@
-# Video 20: Cierre del curso y próximos pasos
+# Video 20: Patrón productor consumidor vs fan-in y fan-out
 
 ## Título
-Cierre del curso y próximos pasos
+Quién produce una tarea, quién la procesa y hacia dónde viaja la información
 
-## Resumen
-El curso culmina con una visión integradora: la arquitectura de software es una disciplina de pensamiento, decisión y responsabilidad. No se trata de seguir patrones por moda ni de aplicar herramientas por entusiasmo, sino de construir sistemas que resuelvan problemas reales, respeten el contexto y puedan evolucionar con el tiempo. La arquitectura exige equilibrio entre rigor técnico, sensibilidad de negocio y capacidad de liderazgo.
+## Situación
+Cuando se confirma un pedido, la plataforma logística debe iniciar la preparación, avisar al cliente y guardar el hecho para análisis. Además, el historial de una entrega puede recibir actualizaciones del almacén, del repartidor y del cliente.
 
-El cierre invita a la reflexión sobre el camino profesional: el arquitecto no nace solo con conocimiento, sino con la habilidad de combinar criterio, experiencia, observación y mejora constante. La invitación final es continuar aprendiendo, enfrentando problemas reales, cuestionando decisiones y construyendo software con propósito. La diferencia entre un buen desarrollador y un buen arquitecto no está en la cantidad de herramientas que conoce, sino en cómo piensa y decide ante la complejidad.
+Para organizar estos flujos distinguimos tres ideas:
 
-## Ideas principales
-- La arquitectura es una disciplina de decisión y pensamiento, no solo de herramientas.
-- La práctica real es donde se desarrollan las habilidades arquitectónicas.
-- Los mejores arquitectos combinan técnica, estrategia y criterio humano.
-- La evolución profesional se construye con experiencia, análisis y reflexión.
-- El verdadero valor de la arquitectura está en la sostenibilidad de la solución.
-- El aprendizaje continuo es parte esencial del trabajo del arquitecto.
+- **Productor-consumidor:** una parte crea una tarea y otra la recoge y procesa, normalmente usando una cola para esperar.
+- **Fan-out:** una fuente distribuye información a varios destinos.
+- **Fan-in:** varias fuentes envían información a un destino común.
 
-## Conclusión
-El curso se cierra con una idea clave: el software de calidad no se construye solo con código, sino con visión, método, criterio y responsabilidad. Los próximos pasos consisten en aplicar estas ideas en proyectos reales, seguir aprendiendo y asumir la arquitectura como una práctica de crecimiento profesional y de impacto real.
+No son alternativas excluyentes. Describen aspectos distintos del recorrido y pueden combinarse en un mismo sistema.
 
-## Preguntas para reflexión
-- ¿Qué aspectos del curso más me impactaron como profesional?
-- ¿Qué decisiones arquitectónicas quiero aplicar en mis proyectos reales?
-- ¿Cuál es mi siguiente paso para crecer como arquitecto de software?
+## Ejemplos
+
+### Productor-consumidor
+Pedidos crea una tarea de entrega y la deja en una cola. Entregas la recoge cuando puede procesarla. Si hay varios trabajadores, normalmente cada tarea la procesa uno de ellos, no todos.
+
+### Fan-out
+El hecho “Pedido confirmado” se comunica a Entregas, Notificaciones y Análisis. Cada destino necesita enterarse y puede realizar un trabajo diferente.
+
+### Fan-in
+Almacén, repartidor y cliente envían actualizaciones de la entrega a un registro común que construye el historial del pedido.
+
+## Una diferencia que conviene recordar
+Una cola compartida puede repartir el trabajo entre varios trabajadores: cada tarea la procesa uno. Fan-out busca que varios destinos reciban el mismo hecho. Si ambos comportamientos se confunden, un área que debía enterarse podría no recibir nada.
+
+## Riesgos a considerar
+- Una cola puede acumular tareas si llegan más rápido de lo que se procesan.
+- Una tarea puede recibirse más de una vez; el consumidor debe evitar efectos duplicados.
+- En fan-in, las actualizaciones pueden llegar en diferente orden.
+- En fan-out, un destino puede fallar mientras los otros ya procesaron el hecho.
+
+## Preguntas para comprobar tu comprensión
+- ¿Qué patrón describe varias fuentes que alimentan un historial común?
+- ¿Qué patrón describe un evento que se comunica a varias áreas?
+- ¿En qué se diferencia una cola compartida de fan-out?
+- ¿Se pueden usar productor-consumidor y fan-out juntos?

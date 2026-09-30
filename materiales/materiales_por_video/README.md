@@ -68,6 +68,10 @@
 - [Video 27: Fitness functions](cursos/arquitectura-software-aplicada/video-27-decisiones-bajo-incertidumbre.md)
 - [Video 28: Observabilidad con OpenTelemetry e ingeniería del caos](cursos/arquitectura-software-aplicada/video-28-arquitectura-con-impacto-social-y-etico.md)
 - [Video 29: Sabiduría y criterio en arquitectura de software](cursos/arquitectura-software-aplicada/video-29-cierre-profesional-y-legado-arquitectonico.md)
+- [Video 30: Cierre y defensa final de la arquitectura](cursos/arquitectura-software-aplicada/video-30-defensa-final.md)
+
+### Material complementario
+- [Guía de 10 videos extra: patrones de arquitectura en C#/.NET](serie_30_videos/guia_10_videos_extra_patrones_csharp.md)
 
 ## Descripción
 

@@ -1,25 +1,25 @@
-# Video 19: Madurez arquitectónica y evolución continua
+# Video 19: Mensajes vs eventos en microservicios
 
 ## Título
-Madurez arquitectónica y evolución continua
+La diferencia entre pedir una acción y avisar que algo ocurrió
 
 ## Resumen
-Este video reflexiona sobre la madurez de una arquitectura: no se trata de llegar a una solución “perfecta” de una vez, sino de ir desarrollando capacidades para manejar complejidad, cambios y crecimiento sin perder control. La madurez arquitectónica se observa cuando un equipo es capaz de aprender del sistema, ajustar decisiones, evolucionar sus procesos y mantener calidad aunque el negocio cambie.
+Cuando varios servicios colaboran, necesitan enviarse información. Un **mensaje** es esa información enviada de una parte a otra. Su intención puede ser pedir una acción o comunicar un hecho que ya ocurrió.
 
-La evolución continua es parte esencial de la arquitectura moderna. Un sistema no debe quedar congelado en una decisión inicial; debe poder adaptarse a nuevos requerimientos, nuevas tecnologías y nuevos riesgos. Esa capacidad de evolución depende tanto del diseño como del hábito de revisión, observación y mejora constante.
+“Reserva productos para el pedido 245” es una instrucción: Inventario todavía debe intentar hacer algo. “El pedido 245 fue confirmado” es un evento: Pedidos informa un hecho terminado que podría interesar a Inventario, Entregas y Notificaciones.
+
+Un evento no garantiza que los demás servicios terminen su trabajo. Puede llegar tarde o repetirse, así que cada consumidor debe manejar esos casos. La diferencia clave es la intención: **¿estamos pidiendo que ocurra algo o contando que ya ocurrió?**
 
 ## Ideas principales
-- La madurez arquitectónica se construye con el tiempo.
-- Un sistema no se vuelve mejor solo por agregar más tecnología.
-- La evolución continua permite mantener claridad a medida que crece la complejidad.
-- El equipo debe aprender a revisar decisiones y rediseñar cuando sea necesario.
-- La calidad arquitectónica se demuestra por la capacidad de adaptarse.
-- Los sistemas más valiosos son aquellos que pueden cambiar sin caer en caos.
+- Un mensaje lleva información entre partes de un sistema.
+- Una instrucción pide una acción a un destinatario.
+- Un evento cuenta un hecho que ya ocurrió y puede interesar a varios servicios.
+- No se debe anunciar como ocurrido algo que todavía no se completó.
+- Recibir un evento no garantiza que el consumidor terminó su trabajo.
+- Una comunicación repetida no debe producir efectos dañinos duplicados.
 
-## Conclusión
-La madurez arquitectónica no es un estado final; es un proceso de aprendizaje, ajuste y mejora constante. La arquitectura más sólida es la que puede evolucionar sin perder coherencia ni calidad.
-
-## Preguntas para reflexión
-- ¿Mi arquitectura está creciendo con el sistema o volviéndose rígida?
-- ¿Estoy revisando mis decisiones de forma periódica?
-- ¿Qué señales me indican que el sistema necesita un cambio de diseño?
+## Preguntas para comprobar tu comprensión
+- ¿“Envía una notificación” es una instrucción o un evento?
+- ¿“La notificación fue enviada” es una instrucción o un evento?
+- ¿Qué servicios podrían interesarse por el evento “Pedido confirmado”?
+- ¿Qué riesgo existe si Inventario procesa dos veces la misma reserva?

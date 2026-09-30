@@ -1,25 +1,22 @@
-# Video 27: Decisiones bajo incertidumbre
+# Video 27: Fitness Functions para medir tu arquitectura
 
 ## Título
-Decisiones bajo incertidumbre
+Convertir una decisión de arquitectura en una comprobación repetible
 
 ## Resumen
-La arquitectura de software ocurre en un contexto de incertidumbre. No siempre se conocen todos los requerimientos, ni todas las tecnologías, ni el comportamiento real del sistema en producción. El arquitecto debe tomar decisiones con información incompleta, y por eso necesita comprender riesgos, hipótesis y probabilidades. El video enseña que la arquitectura no es un acto de perfección, sino de decisión inteligente bajo condiciones imperfectas.
+Una **fitness function** es una prueba o medición que verifica repetidamente una característica arquitectónica importante. Por ejemplo, puede comprobar que las reglas de negocio no dependan directamente de la base de datos o que una entrega no se marque como completada sin evidencia.
 
-Cuando se enfrenta la incertidumbre, la mejor práctica no es esperar a tener toda la información; es diseñar de forma que el sistema pueda cambiar, aprender y soportar errores de suposición. En otras palabras, la habilidad de decidir bajo incertidumbre es una competencia clave del arquitecto.
+La comprobación debe tener una pregunta clara, un resultado entendible y un límite justificado. No existe un número universal para decir que toda arquitectura está bien; cada métrica muestra solo una parte del sistema y necesita interpretación.
 
 ## Ideas principales
-- La incertidumbre es parte normal de la arquitectura.
-- No siempre se dispone de toda la información antes de diseñar.
-- Las decisiones deben evaluarse por riesgo y reversibilidad.
-- Diseñar para cambiar reduce el impacto de la incertidumbre.
-- La arquitectura debe permitir aprender del entorno y ajustar decisiones.
-- El juicio profesional es tan importante como el análisis técnico.
+- Se parte de un riesgo o característica que realmente importa.
+- La comprobación puede ser una prueba automática o una medición periódica.
+- Los límites deben relacionarse con las necesidades del producto.
+- Una alerta necesita una persona responsable de investigarla.
+- Aprobar una comprobación no demuestra que todo el sistema sea perfecto.
 
-## Conclusión
-No hace falta conocer todo para tomar una buena decisión arquitectónica. Lo esencial es saber evaluar riesgos, mantener opciones abiertas y decidir con criterio en medio de la incertidumbre.
-
-## Preguntas para reflexión
-- ¿Estoy tomando decisiones con datos suficientes o con suposiciones no verificadas?
-- ¿Qué tan reversible es esta decisión si cambian los requerimientos?
-- ¿Estoy diseñando para aprender y ajustar, o para imponer una solución rígida?
+## Preguntas para comprobar tu comprensión
+- ¿Qué característica de una arquitectura convendría comprobar automáticamente?
+- ¿Por qué un umbral de rendimiento no debería copiarse sin contexto?
+- ¿Qué diferencia hay entre una métrica y una garantía total de calidad?
+- ¿Qué debe ocurrir cuando una fitness function falla?

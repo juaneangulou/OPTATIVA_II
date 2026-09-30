@@ -1,25 +1,27 @@
-# Video 13: Observabilidad y operabilidad
+# Video 13: Métricas cuantitativas para evaluar arquitecturas limpias
 
 ## Título
-Observabilidad y operabilidad
+Cómo usar medidas sencillas para revisar la organización de un programa
 
 ## Resumen
-El video destaca que una arquitectura no termina cuando el sistema “funciona” en un entorno local. La verdadera prueba de madurez llega cuando el equipo puede entender qué está sucediendo en producción, detectar fallos y responder con rapidez. Por eso la observabilidad es una parte esencial del diseño: métricas, logs, trazas y alertas ayudan a transformar el sistema en algo operable y diagnósticable.
+La arquitectura es la forma en que se organizan las partes de un programa. En este video veremos cómo comprobar si esa organización ayuda a cambiar y probar el sistema, o si hace que tareas sencillas dependan de demasiadas cosas.
 
-Cuando una solución no es observable, el equipo se mueve a ciegas y las correcciones se vuelven reactivas. La operabilidad mejora cuando se diseña para monitoreo, diagnóstico y recuperación. El video deja claro que observar el sistema es una decisión arquitectónica, no un extra de operaciones.
+Una métrica es una medida que permite comparar. En este video llamamos **regla del negocio** a una condición que el sistema debe cumplir, como “no asignar una entrega a un repartidor que no está disponible”. Podemos contar cuántas conexiones directas hay entre la parte que toma esa decisión y la base de datos. Si separamos esas responsabilidades, volvemos a contar y revisamos si algo mejoró.
+
+Los números no dan una calificación definitiva al programa. Nos ayudan a encontrar dónde mirar y a comparar antes y después. Siempre debemos comprobar que el sistema siga haciendo correctamente su trabajo.
 
 ## Ideas principales
-- La observabilidad permite entender el comportamiento real del sistema.
-- Logs, métricas y trazas ayudan a detectar fallas y cuellos de botella.
-- Un sistema difícil de diagnosticar termina costando más en producción.
-- La operación debe estar integrada en el diseño desde el principio.
-- La arquitectura debe facilitar la recuperación y el aprendizaje a partir de incidentes.
-- El monitoreo no es solo una herramienta; es parte de la calidad del sistema.
+- Una métrica es una medida útil para comparar una situación antes y después.
+- Las condiciones importantes del negocio deberían poder comprobarse sin conocer los detalles de la base de datos o de una página web.
+- Muchas conexiones entre partes pueden hacer que los cambios sean más difíciles.
+- Un número alto es una señal para investigar, no una prueba automática de que algo está mal.
+- Después de ordenar el programa, también debemos comprobar que sus resultados siguen siendo correctos.
+- No existe un número mágico que garantice una buena arquitectura.
 
 ## Conclusión
-Un sistema bien diseñado no solo responde a requerimientos, sino que también puede ser comprendido y mantenido en producción. La observabilidad es uno de los pilares para convertir una solución técnica en una solución operable.
+Medir nos ayuda a hacer mejores preguntas sobre cómo está organizado un programa. Primero entendemos el problema, luego comparamos una medida y finalmente comprobamos que el cambio haya ayudado sin dañar el funcionamiento.
 
 ## Preguntas para reflexión
-- ¿Qué tanto sabemos realmente qué está pasando en producción?
-- ¿Mi sistema me alerta antes de que el usuario lo note?
-- ¿Estoy midiendo el impacto real del sistema, o solo el rendimiento superficial?
+- ¿Qué parte de un programa te gustaría que fuera más fácil de cambiar?
+- ¿Qué podrías contar para saber si un cambio ayudó?
+- ¿Por qué un número, por sí solo, no basta para decir que un programa está bien organizado?
