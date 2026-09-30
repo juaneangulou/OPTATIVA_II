@@ -4,6 +4,9 @@
 - [Técnicas pre-mortem y cinco why para prevenir fallos](https://platzi.com/cursos/software-avanzado/tecnicas-pre-mortem-y-cinco-why-para-pre/)
 - [Cómo el pre-mortem guía tus tests de arquitectura](https://platzi.com/cursos/software-avanzado/como-el-premortem-guia-tus-tests-de-arqu/)
 
+## Navegación
+[⬅️ Video anterior: Architecture.md y DDD](video-19.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: métricas y migración](video-21.md)
+
 ## Para estudiar por tu cuenta
 El primer video del curso ya te ayudó a imaginar fallos antes de construir. Ahora vas a dar el paso siguiente: convertir un riesgo importante en una prueba que puedas ejecutar repetidamente.
 

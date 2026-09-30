@@ -4,6 +4,9 @@
 - [Métricas cuantitativas para evaluar arquitecturas limpias](https://platzi.com/cursos/software-avanzado/metricas-cuantitativas-para-evaluar-arqu/)
 - [Strangler Fig para migrar arquitecturas limpias](https://platzi.com/cursos/software-avanzado/strangler-fig-para-migrar-arquitecturas/)
 
+## Navegación
+[⬅️ Video anterior: pre-mortem y pruebas de arquitectura](video-20.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: bases de datos y API Gateway](video-22.md)
+
 ## Para estudiar por tu cuenta
 Una plataforma puede necesitar renovar una parte antigua sin apagar toda la operación. Si migras sin observar el resultado, no sabrás si el sistema nuevo realmente mejoró. Este capítulo conecta dos herramientas de decisión: medir una característica antes y después, y mover el tráfico por etapas mediante Strangler Fig.
 

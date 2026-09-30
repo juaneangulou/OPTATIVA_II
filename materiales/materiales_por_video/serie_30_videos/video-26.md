@@ -4,6 +4,9 @@
 - [Qué es el patrón Process Manager](https://platzi.com/cursos/software-avanzado/que-es-el-patron-process-manager/)
 - [Durable State vs Event Sourcing en sistemas](https://platzi.com/cursos/software-avanzado/durable-state-vs-event-sourcing-en-siste/)
 
+## Navegación
+[⬅️ Video anterior: Dead Letter Queue y consumidores en tiempo real](video-25.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: máquinas de estado y seguridad](video-27.md)
+
 ## Para estudiar por tu cuenta
 Una entrega puede tardar minutos u horas y depender de varios pasos. El sistema debe recordar qué ocurrió si se reinicia y decidir qué hacer cuando una respuesta falla.
 

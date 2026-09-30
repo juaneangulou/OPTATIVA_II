@@ -4,6 +4,9 @@
 - [Migraciones de base de datos con Flyway](https://platzi.com/cursos/software-avanzado/migraciones-de-base-de-datos-con-flyway/)
 - [API Gateway como capa de abstracción](https://platzi.com/cursos/software-avanzado/api-gateway-como-capa-de-abstraccion-en/)
 
+## Navegación
+[⬅️ Video anterior: métricas y migración](video-21.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: Bounded Context e infraestructura como código](video-23.md)
+
 ## Para estudiar por tu cuenta
 Una nueva pantalla de seguimiento puede exigir cambiar la base de datos y la respuesta de la API al mismo tiempo. Si cambias solo una parte, clientes antiguos podrían fallar; si modificas datos sin planear los pedidos existentes, podrías perder información.
 

@@ -4,8 +4,11 @@
 - [Comunicación, liderazgo y negociación técnica](https://platzi.com/cursos/fundamentos-arquitectura-software/evolucion-del-software-personal-hacia-el/)
 - [Arquitectura con impacto social y valor real](https://platzi.com/cursos/fundamentos-arquitectura-software/preguntas-clave-que-todo-arquitecto-de-s/)
 
+## Navegación
+[⬅️ Video anterior: estrategia tecnológica y roadmap](video-12.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: transición a la arquitectura aplicada](video-14.md)
+
 ## Para estudiar por tu cuenta
-Una decisión de arquitectura afecta a personas distintas, aunque solo una parte del equipo escriba el código. En este capítulo combinarás dos ideas: comunicar y negociar decisiones técnicas, y revisar el impacto que esas decisiones tienen en quienes usan o mantienen el sistema.
+Una decisión de arquitectura afecta a personas distintas, aunque solo una parte del equipo escriba el código. En este capítulo no volverás a priorizar un roadmap: practicarás cómo convertir desacuerdos concretos en una decisión negociada, con límites de privacidad y una prueba que permita revisarla.
 
 El caso será el seguimiento de repartidores. La empresa quiere ofrecer al cliente una experiencia más clara; el repartidor también necesita privacidad y seguridad. Tu objetivo es comparar opciones y justificar una decisión equilibrada.
 

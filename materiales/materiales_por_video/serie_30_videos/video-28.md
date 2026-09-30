@@ -4,6 +4,9 @@
 - [Fitness Functions para medir tu arquitectura](https://platzi.com/cursos/software-avanzado/fitness-functions-para-medir-tu-arquitec/)
 - [Observabilidad con OpenTelemetry e ingeniería del caos](https://platzi.com/cursos/software-avanzado/observabilidad-en-sistemas-con-opentelem/)
 
+## Navegación
+[⬅️ Video anterior: máquinas de estado y seguridad](video-27.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: criterio y arquitectura responsable](video-29.md)
+
 ## Para estudiar por tu cuenta
 Una decisión arquitectónica no queda protegida solo porque esté escrita. Un cambio futuro podría romperla sin que el equipo lo note. Este capítulo conecta tres herramientas: una comprobación repetible, datos para observar el sistema y un experimento controlado para comprobar su comportamiento ante fallos.
 

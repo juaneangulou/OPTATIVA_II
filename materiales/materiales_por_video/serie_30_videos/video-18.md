@@ -4,6 +4,9 @@
 - [Quarto como sitio de documentación viva](https://platzi.com/cursos/software-avanzado/quarto-como-sitio-de-documentacion-viva/)
 - [Agentes de IA que revisan tu código en GitHub](https://platzi.com/cursos/software-avanzado/agentes-de-ia-que-revisan-tu-codigo-en-g/)
 
+## Navegación
+[⬅️ Video anterior: BDD y modelo C4](video-17.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: Architecture.md y DDD](video-19.md)
+
 ## Para estudiar por tu cuenta
 Una arquitectura puede estar bien implementada y seguir siendo difícil de entender para alguien que entra al proyecto. Esta clase combina dos ayudas: mantener documentación que se genera desde archivos fuente y usar un agente de IA para revisar cambios antes de integrarlos.
 

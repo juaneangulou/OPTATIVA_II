@@ -3,8 +3,11 @@
 ## Fuente de este video
 - [Sabiduría y criterio en arquitectura de software](https://platzi.com/cursos/software-avanzado/sabiduria-y-criterio-en-arquitectura-de/)
 
+## Navegación
+[⬅️ Video anterior: Fitness Functions, OpenTelemetry y caos](video-28.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: cierre y defensa](video-30.md)
+
 ## Para estudiar por tu cuenta
-No existe una solución que sea la mejor para todos los sistemas. El criterio arquitectónico consiste en entender el contexto, distinguir evidencia de suposiciones, comparar alternativas y hacerse responsable de las consecuencias.
+No existe una solución que sea la mejor para todos los sistemas. Este capítulo no repite la negociación del video 13: entrena cómo decidir cuando aparecen datos nuevos, fallas observadas o restricciones que obligan a revisar una elección anterior.
 
 En esta clase vas a practicar una decisión con necesidades en conflicto: permitir que soporte investigue retrasos sin exponer datos personales de repartidores más allá de lo necesario.
 

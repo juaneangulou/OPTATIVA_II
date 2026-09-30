@@ -5,6 +5,9 @@
 - [Actividad 5: pruebas, operación y defensa final](../../actividad_5_pruebas_operacion_y_defensa.md)
 - [Video 30.1: actividad de pruebas, operación y defensa](video-30-1.md)
 
+## Navegación
+[⬅️ Video anterior: criterio y arquitectura responsable](video-29.md) | [📚 Índice de la serie](README.md)
+
 ## Para estudiar por tu cuenta
 Este es el cierre del recorrido. No necesitas afirmar que el sistema es perfecto ni que todas sus partes están terminadas. Necesitas explicar qué resolviste, cómo funciona, qué evidencia tienes y qué limitaciones siguen pendientes.
 

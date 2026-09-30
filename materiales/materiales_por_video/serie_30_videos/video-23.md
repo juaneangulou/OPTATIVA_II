@@ -4,8 +4,11 @@
 - [Bounded context y context maps en microservicios](https://platzi.com/cursos/software-avanzado/bounded-context-y-context-maps-en-micros/)
 - [Infraestructura como código en monorepos](https://platzi.com/cursos/software-avanzado/infraestructura-como-codigo-en-monorepos/)
 
+## Navegación
+[⬅️ Video anterior: bases de datos y API Gateway](video-22.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: mensajes y productor-consumidor](video-24.md)
+
 ## Para estudiar por tu cuenta
-Un sistema puede tener límites de negocio claros y aun así desplegar sus servicios de forma manual e inconsistente. También puede tener archivos de infraestructura muy ordenados y repartir mal las responsabilidades del negocio.
+El video 19 convirtió el lenguaje del dominio en documentación. Aquí damos el paso operativo: comprobar qué equipo o componente es dueño de cada frontera y describir los recursos que necesita de forma repetible, sin volver a explicar DDD desde cero.
 
 Este capítulo conecta ambas preguntas: primero decides qué responsabilidad pertenece a cada contexto; después describes de manera repetible los recursos que necesita.
 

@@ -4,6 +4,9 @@
 - [Mensajes vs eventos en microservicios](https://platzi.com/cursos/software-avanzado/mensajes-vs-eventos-en-microservicios/)
 - [Patrón productor-consumidor y fan-in/fan-out](https://platzi.com/cursos/software-avanzado/patron-productor-consumidor-vs-fan-in-y/)
 
+## Navegación
+[⬅️ Video anterior: Bounded Context e infraestructura como código](video-23.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: Dead Letter Queue y consumidores en tiempo real](video-25.md)
+
 ## Para estudiar por tu cuenta
 Pedidos, Inventario, Entregas y Notificaciones necesitan coordinarse sin esperar siempre una llamada inmediata entre ellos. Para entender esa comunicación, primero distingue si una parte pide una acción o anuncia un hecho que ya ocurrió. Después sigue quién crea y quién procesa el trabajo.
 

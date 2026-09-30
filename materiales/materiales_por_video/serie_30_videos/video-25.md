@@ -4,6 +4,9 @@
 - [Dead Letter Queue en productor-consumidor](https://platzi.com/cursos/software-avanzado/dead-letter-queue-en-productor-consumido/)
 - [Comparing Consumers para procesamiento en tiempo real](https://platzi.com/cursos/software-avanzado/patron-comparing-consumers-para-procesam/)
 
+## Navegación
+[⬅️ Video anterior: mensajes y productor-consumidor](video-24.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: Process Manager y Durable State](video-26.md)
+
 ## Para estudiar por tu cuenta
 Un mensaje de entrega puede fallar al procesarse, mientras que un nuevo consumidor puede producir resultados distintos al actual. Este capítulo conecta dos necesidades diferentes: conservar fallos que requieren investigación y comparar una versión candidata antes de darle efecto real.
 

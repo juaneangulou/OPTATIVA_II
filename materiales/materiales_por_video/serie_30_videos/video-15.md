@@ -4,6 +4,9 @@
 - [Intuición vs método en arquitectura de software](https://platzi.com/cursos/software-avanzado/intuicion-vs-metodo-en-arquitectura-de-s/)
 - [Cómo analizar una licitación real con IA](https://platzi.com/cursos/software-avanzado/como-analizar-una-licitacion-real-con-ia/)
 
+## Navegación
+[⬅️ Video anterior: transición a la arquitectura aplicada](video-14.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: monorepos y calidad](video-16.md)
+
 ## Para estudiar por tu cuenta
 Este capítulo conecta dos habilidades: decidir con método y usar inteligencia artificial para analizar información extensa sin delegarle la responsabilidad de decidir.
 

@@ -4,6 +4,9 @@
 - [Monorepos con Pantsbuild en proyectos reales](https://platzi.com/cursos/software-avanzado/monorepos-con-pantsbuild-en-proyectos-re/)
 - [Trunk Based Development con rulesets en GitHub](https://platzi.com/cursos/software-avanzado/trunk-based-development-con-rulesets-en/)
 
+## Navegación
+[⬅️ Video anterior: método arquitectónico e IA](video-15.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: BDD y modelo C4](video-17.md)
+
 ## Para estudiar por tu cuenta
 En este capítulo vas a combinar dos decisiones de trabajo: cómo guardar varios proyectos relacionados en un repositorio y cómo integrar sus cambios con frecuencia sin dejar desprotegida la rama principal.
 

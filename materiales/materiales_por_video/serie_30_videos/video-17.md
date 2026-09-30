@@ -4,6 +4,9 @@
 - [Behavior Driven Development para alinear equipos técnicos y de negocio](https://platzi.com/cursos/software-avanzado/behavior-driven-development-para-alinear/)
 - [Modelo C4 para diagramar arquitecturas](https://platzi.com/cursos/software-avanzado/modelo-c4-para-diagramar-arquitecturas/)
 
+## Navegación
+[⬅️ Video anterior: monorepos y calidad](video-16.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: documentación viva y revisión con IA](video-18.md)
+
 ## Para estudiar por tu cuenta
 BDD y C4 responden preguntas diferentes, pero pueden usarse juntos. **Behavior Driven Development (BDD)** ayuda a aclarar qué comportamiento necesita una persona. El **modelo C4** ayuda a explicar qué partes del sistema participan para ofrecerlo.
 

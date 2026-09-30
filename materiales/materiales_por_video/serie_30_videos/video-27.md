@@ -4,6 +4,9 @@
 - [Máquinas de estado finito en el front-end](https://platzi.com/cursos/software-avanzado/maquinas-de-estado-finito-en-el-front-en/)
 - [SAST, DAST y pentesting para seguridad en software](https://platzi.com/cursos/software-avanzado/tecnicas-sast-dast-y-pen-testing-para-se/)
 
+## Navegación
+[⬅️ Video anterior: Process Manager y Durable State](video-26.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: Fitness Functions, OpenTelemetry y caos](video-28.md)
+
 ## Para estudiar por tu cuenta
 La pantalla de seguimiento puede pasar por varios estados: esperando, cargando, resultado disponible o error. Si no defines cuándo puede pasar de uno a otro, la interfaz puede mostrar información contradictoria.
 

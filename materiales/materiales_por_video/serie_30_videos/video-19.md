@@ -4,8 +4,11 @@
 - [Estructura del archivo Architecture.md para proyectos de software](https://platzi.com/cursos/software-avanzado/estructura-del-archivo-architecture-md-p/)
 - [Domain Driven Design para arquitectura limpia](https://platzi.com/cursos/software-avanzado/domain-driven-design-para-arquitectura-l/)
 
+## Navegación
+[⬅️ Video anterior: documentación viva y revisión con IA](video-18.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: pre-mortem y pruebas de arquitectura](video-20.md)
+
 ## Para estudiar por tu cuenta
-Domain Driven Design (DDD) ayuda a entender las palabras, reglas y procesos del negocio. `Architecture.md` deja por escrito cómo esas decisiones se reflejan en el sistema y cómo otra persona puede orientarse en el proyecto.
+Domain Driven Design (DDD) ayuda a convertir el lenguaje del negocio en reglas y modelos implementables. `Architecture.md` deja por escrito cómo esas decisiones se reflejan en el código y cómo otra persona puede orientarse en el proyecto. A diferencia del video 6, que delimitó contextos a nivel conceptual, aquí producirás un documento y una verificación que puedan acompañar un repositorio real.
 
 En esta clase combinarás ambos enfoques para documentar el proceso de pedidos y entregas de la plataforma logística. El objetivo es que una persona nueva pueda entender el dominio antes de modificar el código.
 

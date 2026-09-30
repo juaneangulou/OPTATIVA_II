@@ -3,8 +3,11 @@
 ## Fuentes de este cierre
 Este video termina el bloque de fundamentos y prepara el paso a la arquitectura aplicada. El cierre retoma la idea de carrera y práctica profesional de la fuente oficial [Consejos para desarrollar carrera como arquitecto](https://platzi.com/cursos/fundamentos-arquitectura-software/consejos-para-desarrollar-carrera-como-a/).
 
+## Navegación
+[⬅️ Video anterior: negociación e impacto social](video-13.md) | [📚 Índice de la serie](README.md) | [➡️ Video siguiente: método arquitectónico e IA](video-15.md)
+
 ## Para qué sirve esta transición
-Hasta aquí aprendiste a mirar un sistema desde su contexto, sus actores, sus necesidades, sus límites, sus riesgos y sus decisiones. En el bloque siguiente usarás ese modo de pensar para estudiar herramientas y patrones concretos.
+Este video no agrega otro patrón ni repite una clase de liderazgo. Funciona como un puente breve: convierte las preguntas de fundamentos en criterios para leer los videos aplicados que siguen.
 
 La transición no significa dejar atrás los fundamentos. Significa usarlos para preguntar si una tecnología o patrón resuelve un problema del caso logístico y qué costo añade.
 
